@@ -39,6 +39,11 @@ html,body{
     flex-direction: column;
     justify-content: center;
     padding: 5%;
+    font-family: "Inter";
+}
+
+.fcadastro{
+    font-family: "Inter";
 }
 
 
