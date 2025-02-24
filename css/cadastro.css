@@ -3,7 +3,6 @@ html,body{
     height: 100%;
 }
 .container-geral{
-    background-color: aqua;
     height: 100%;
     width: 100%;
     display: flex;
@@ -13,7 +12,8 @@ html,body{
 }
 
 .container-menu{
-    background-color: blue;
+    background-color: #000957;
+    color: white;
     width: 35%;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ html,body{
 
 .container-central{
     width: 75%;
-    background-color: yellow;
+    background-color: #344cb7;
     display: flex;
     align-items: center;
     justify-content: center;
