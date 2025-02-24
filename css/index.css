@@ -44,7 +44,15 @@ body{
     border-radius: 20px;
     height: 50%;
     text-align: center;
+    align-items: center;
     display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    padding: 0px 10px 0px 10px;
+}
+
+a {
+    text-decoration: none;
 }
 
 .header-line{
