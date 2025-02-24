@@ -40,19 +40,8 @@ html,body{
     justify-content: center;
     padding: 5%;
 }
-.ipt-radio{
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    font-size: 20px;
-}
-.div-radio h2{
-    font-size: 30px;
-    margin-bottom: 0.5em;
-}
-.div-radio{
-    text-align: center;
-}
+
+
 
 .ipt_dados{
     width: 30em;
