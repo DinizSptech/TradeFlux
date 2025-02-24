@@ -23,6 +23,12 @@ body{
     background-color: #E0D00A;
 }
 
+.logo img {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+}
+
 .header{
     width: 300px;
     display: flex;
@@ -30,17 +36,27 @@ body{
     justify-content: space-between;
     color: white;
     text-align: center;
+    align-items: center;
+}
+
+.contato{
+    background-color: #E0D00A;
+    border-radius: 20px;
+    height: 50%;
+    text-align: center;
+    display: flex;
 }
 
 .header-line{
     position: absolute;
     justify-self: flex-start;
     width: 70%;
-    justify-content: center;
+    justify-content: space-between;
     height: 70px;
     border-bottom: 2px solid white;
     display: flex;
     z-index: 10; 
+
 }
 
 .banner{
@@ -86,17 +102,4 @@ body{
     justify-content: center;
     display: flex;
     align-items: center;
-}
-
-:root{
-    --tamanho-header: 80px;
-    --tamanho-footer: 65px;
-}
-
-.footer {
-    background-color: #000957;
-    height: var(--tamanho-footer);
-    color: #fff;
-    display: flex;
-    font-size: 15px;
 }
