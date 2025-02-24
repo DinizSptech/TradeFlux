@@ -142,18 +142,18 @@ a {
     }
 
     
-.container p{
-    font-size: 20px;
-    text-align: center;
-    width: 100%;
-    color: white;
-    font-family: 'Inter';
-    margin: 5px;
-    text-align: start;
-}
-.container .texto{
-    font-size: 40px;
-}
+    .container p{
+        font-size: 20px;
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-family: 'Inter';
+        margin: 5px;
+        text-align: start;
+    }
+    .container .texto{
+        font-size: 40px;
+    }
 
    
 }
