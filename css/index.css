@@ -11,7 +11,6 @@ body{
     justify-content: center;
     display: flex;
     flex-direction: column;
-    ;
 }
 
 .header-left {
@@ -122,4 +121,39 @@ a {
     justify-content: center;
     display: flex;
     align-items: center;
+}
+
+@media screen and (max-width:768px){
+   
+    .header-left {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 30px;
+        z-index: 10;
+        background-color: #E0D00A;
+    }
+    
+    .logo img {
+        height: 30px;
+        width: 30px;
+        position: absolute;
+    }
+
+    
+.container p{
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-family: 'Inter';
+    margin: 5px;
+    text-align: start;
+}
+.container .texto{
+    font-size: 40px;
+}
+
+   
 }
