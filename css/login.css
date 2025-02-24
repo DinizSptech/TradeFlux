@@ -42,11 +42,18 @@ body{
     margin-bottom: 0;
 }
 
-.lista-nav contato{
+.contato{
+    background-color: #E0D00A;
+    border-radius: 20px;
+    height: 50%;
+    text-align: center;
+    align-items: center;
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
+    align-self: center;
+    padding: 0px 10px 0px 10px;
+    color: white;
 }
-
 .container-menu{
     display: flex;
     height: 40em;
