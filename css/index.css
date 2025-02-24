@@ -3,6 +3,7 @@
 
 :root{
     --tamanho-header: 80px;
+    --tamanho-footer: 65px;
 }
 
 body{
@@ -83,5 +84,14 @@ body{
     color: white;
     
 }
+
+.footer {
+    background-color: #000957;
+    height: var(--tamanho-footer);
+    color: #fff;
+    display: flex;
+    font-size: 15px;
+}
+
 
 
