@@ -9,31 +9,40 @@
 <body>
     <div class="container-geral">
         <div class="container-menu">
-            <h2>CADASTRO</h2>
+            <h1>CADASTRO</h1>
             <div>
-                <h3>Usuário</h3>
-                <input type="text">
+                <div class="divs-inputs">
+                    <h2>Usuário</h2>
+                    <input type="text" class="ipt_dados">
+                </div>
+                <div class="divs-inputs">
+                    <h2>Email</h2>
+                    <input type="text"  class="ipt_dados">
+                </div>
+                
+                <div class="divs-inputs">
+                    <h2>Senha</h2>
+                    <input type="text"  class="ipt_dados">
+                </div>
+                <div class="divs-inputs">
+                    <h2>Confirmar senha</h2>
+                    <input type="text"  class="ipt_dados">
+                </div>
+                <div class="divs-inputs div-radio">
+                    <h2>Tipo de usuário</h2>
+                    <div class="ipt-radio">
+                    <div>
+                        <input type="radio" name="tipo" id="analista" checked>
+                    <label for="Analista">Analista</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="tipo" id="cientista">
+                    <label for="Analista">Cientista</label>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3>Email</h3>
-                <input type="text">
             </div>
-            <div>
-                <h3>Tipo de usuário</h3>
-                <input type="radio" name="tipo" id="analista" checked>
-                <label for="Analista">Analista</label>
-                <input type="radio" name="tipo" id="cientista">
-                <label for="Analista">Cientista</label>
-            </div>
-            <div>
-                <h3>Senha</h3>
-                <input type="text">
-            </div>
-            <div>
-                <h3>Confirmar senha</h3>
-                <input type="text">
-            </div>
-            <button>CADASTRAR-SE</button>
+            <button class="cadastro-button">CADASTRAR-SE</button>
         </div>
         <div class="container-central">
             <img src="../assetes/26857366_7163697-removebg-preview.png" alt="">
