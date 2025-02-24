@@ -1,0 +1,34 @@
+html,body{
+    margin: 0;
+    height: 100%;
+}
+.container-geral{
+    background-color: aqua;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.container-geral h2{
+    margin: 0;
+}
+
+.container-menu{
+    background-color: blue;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-central{
+    width: 75%;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-central img{
+    width: 60%;
+}
