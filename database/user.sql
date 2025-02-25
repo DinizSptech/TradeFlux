@@ -1,0 +1,5 @@
+CREATE USER 'machine'@'%' IDENTIFIED BY 'machineMYDB@01';
+
+GRANT ALL PRIVILEGES ON *.* TO 'machine'@'%';
+
+FLUSH PRIVILEGES;
