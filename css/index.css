@@ -38,6 +38,7 @@ body{
     align-items: center;
 }
 
+
 .contato{
     background-color: #E0D00A;
     border-radius: 20px;
@@ -49,6 +50,9 @@ body{
     align-self: center;
     padding: 0px 10px 0px 10px;
     color: white;
+}
+.contato h4:hover{
+    color: orangered;
 }
 
 a {
