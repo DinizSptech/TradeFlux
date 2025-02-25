@@ -32,7 +32,6 @@ body{
 .header{
     width: 300px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: white;
     text-align: center;
@@ -153,6 +152,16 @@ a {
     }
     .container .texto{
         font-size: 40px;
+    }
+
+    .header{
+        width: 10px;
+        display: flex;
+        justify-content: space-between;
+        column-gap: 1em;
+        color: white;
+        text-align: center;
+        align-items: center;
     }
 
    
