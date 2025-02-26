@@ -1,2 +1,3 @@
-import extract;
-import database;
+import extract
+import database
+

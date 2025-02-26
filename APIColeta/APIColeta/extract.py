@@ -2,7 +2,8 @@ import platform
 import psutil
 import subprocess
 import math
-import time;
+import time
+from tqdm import tqdm
 
 def coletar_informacoes():
     informacoes = {}
@@ -37,12 +38,14 @@ def coletar_informacoes():
         if sistema == "Windows":
             # Windows: pegando o espaço total do disco principal (C:)
             armazenamento = psutil.disk_usage("C:/").total / (1024 ** 3) 
-            armazenamento = math.ceil(armazenamento)
+            armazenamento = math.ceil(armazenamento).__ceil__()
+            armazenamento = int(armazenamento)
         elif sistema == "Linux":
             # Linux: usando o comando df para obter o espaço total do disco
             armazenamento = subprocess.check_output("df --total -h | grep total", shell=True).decode().split()[1]
             armazenamento = float(armazenamento[:-1])  # Removendo o "G" e convertendo para float
-            armazenamento = math.ceil(armazenamento)
+            armazenamento = math.ceil(armazenamento).__ceil__()
+            armazenamento = int(armazenamento)
         else:
             armazenamento = "Desconhecido"
         informacoes["Armazenamento Máximo"] = f"{armazenamento} GB"
@@ -67,19 +70,38 @@ def coletar_informacoes():
 
     return informacoes
 
-informacoes = coletar_informacoes()
-for chave, valor in informacoes.items():
-    print(f"{chave}: {valor}")
+def printarInformacoes():
+    informacoes = coletar_informacoes()
+    resultados = []
+
+    with tqdm(total=len(informacoes), desc="Processando informações", dynamic_ncols=True) as pbar:
+        for chave, valor in informacoes.items():
+            resultados.append(f"{chave}: {valor}")
+            time.sleep(0.5)
+            pbar.update(1)
+
+    print("\n".join(resultados))
 
 def coletarCPU():
     cpu = psutil.cpu_percent()
     return cpu
 
 def coletarRam():
-    ramLivre = psutil.virtual_memory().used
-    return ramLivre
+    ramUsada = round((psutil.virtual_memory().used) / (1024 ** 3), 2)
+    ramTotal = round((psutil.virtual_memory().total) / (1024 ** 3), 2).__ceil__()
+    return ramUsada, ramTotal
 
 def coletarDisk():
-    freeDisk = psutil.disk_usage("C:").free
-    usedDisk = psutil.disk_usage("C:").used
-    return freeDisk, usedDisk
+    usedDisk = math.ceil((psutil.disk_usage("C:").used) / (1024 ** 3))
+    totalDisk = math.ceil((psutil.disk_usage("C:").total) / (1024 ** 3))
+    return usedDisk, totalDisk
+
+def coletaLocal():
+    while True:
+        ram = coletarRam()
+        disk = coletarDisk()
+        cpu = coletarCPU()
+        time.sleep(2)
+        print(f"Uso da CPU: {cpu} \n"
+              f"Memoria RAM: {ram[0]}/{ram[1]}Gb\n"
+              f"Disco: {disk[0]}/{disk[1]}Gb")
