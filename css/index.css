@@ -127,6 +127,31 @@ a {
 }
 
 @media screen and (max-width:768px){
+
+    .header{
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        text-align: center;
+        align-items: center;
+        font-size: small;
+    }
+
+    .contato{
+        background-color: #E0D00A;
+        border-radius: 20px;
+        height: 50%;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        align-self: center;
+        padding: 0px 10px 0px 10px;
+        color: white;
+        font-size: small;
+    }
+    
    
     .header-left {
         position: fixed;
