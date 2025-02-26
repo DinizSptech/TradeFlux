@@ -25,12 +25,17 @@ CREATE TABLE User(
     PRIMARY KEY (idUser, idCompany)
 );
 
+INSERT INTO Company (CorporateReason, cnpj) VALUES('empresaTeste', '22222222222222');
+INSERT INTO User (userName, password, idCompany, email) VALUES('teste', 'teste2024', 1, 'teste@teste.com');
+
 CREATE TABLE Machine(
     idMachine INT AUTO_INCREMENT PRIMARY KEY,
+    machineName VARCHAR(100) NOT NULL,
     motherboardUUID VARCHAR(45) NOT NULL,
     processor VARCHAR(100) NOT NULL,
-    disk INT NOT NULL,
-    ram INT NOT NULL,
+    disk FLOAT NOT NULL,
+    ram FLOAT NOT NULL,
+    os VARCHAR(100),
     idCompany INT,
     FOREIGN KEY (idCompany) REFERENCES Company(idCompany)
 );
@@ -56,5 +61,7 @@ CREATE TABLE Alert(
     FOREIGN KEY (idMachine) REFERENCES Machine(idMachine),
     PRIMARY KEY (idAlert, idMachine)
 );
+
+SELECT * from machine;
 
 
