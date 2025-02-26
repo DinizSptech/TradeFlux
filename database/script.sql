@@ -20,7 +20,7 @@ CREATE TABLE User(
     userType ENUM('admin', 'analist', 'cientist'),
     admin INT,
     idCompany INT,
-    FOREIGN KEY (admin) REFERENCES user(idUser),
+    FOREIGN KEY (admin) REFERENCES User(idUser),
     FOREIGN KEY (idCompany) REFERENCES Company(idCompany),
     PRIMARY KEY (idUser, idCompany)
 );
@@ -57,11 +57,11 @@ CREATE TABLE Alert(
     ramUsage FLOAT,
     diskUsage FLOAT,
     dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
-    idMachine INT,
-    FOREIGN KEY (idMachine) REFERENCES Machine(idMachine),
-    PRIMARY KEY (idAlert, idMachine)
+    fkMachine INT,
+    FOREIGN KEY (fkMachine) REFERENCES Machine(idMachine),
+    PRIMARY KEY (idAlert, fkMachine)
 );
 
-SELECT * from machine;
+SELECT * from Machine;
 
 
