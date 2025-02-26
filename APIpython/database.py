@@ -5,7 +5,8 @@ mydb = connection.MySQLConnection(
             host='10.18.32.68',          
             user='machine',        
             password='machineMYDB@01',      
-            database='TradeFlux' 
+            database='TradeFlux',
+            ssl_disabled= True
         )
 
 cursor = mydb.cursor()

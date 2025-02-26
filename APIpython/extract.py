@@ -4,7 +4,7 @@ import time
 import math
 
 
-idMaquina = 1
+idMaquina = 2
 
 def coletarCPU():
     cpu = psutil.cpu_percent()
@@ -15,7 +15,7 @@ def coletarRam():
     return ramUsada
 
 def coletarDisk():
-    usedDisk = math.ceil((psutil.disk_usage("C:").used) / (1024 ** 3))
+    usedDisk = math.ceil((psutil.disk_usage("/").used) / (1024 ** 3))
     return usedDisk
 
 def coletaLocal():
