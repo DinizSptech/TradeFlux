@@ -4,8 +4,8 @@ from mysql.connector import (connection)
 def gerarMyDb():
     return connection.MySQLConnection(
             host='localhost',          
-            user='',        
-            password='',      
+            user='machine',        
+            password='machineMYDB@01',      
             database='TradeFlux',
             auth_plugin='mysql_native_password',
             ssl_disabled= True
