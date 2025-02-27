@@ -92,7 +92,7 @@ a {
 }
 
 .container p{
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     width: 100%;
     color: white;
@@ -100,6 +100,15 @@ a {
     margin: 5px;
     text-align: start;
 }
+
+p.left-text{
+    font-size: 40px;
+}
+
+p.right-text{
+    font-size: 40px;
+}
+
 
 .container .texto{
     font-size: 60px;
@@ -142,10 +151,7 @@ a {
         background-color: #E0D00A;
         border-radius: 20px;
         height: 50%;
-        text-align: center;
-        align-items: center;
-        display: flex;
-        justify-content: flex-end;
+        
         align-self: center;
         padding: 0px 10px 0px 10px;
         color: white;
@@ -179,6 +185,15 @@ a {
         margin: 5px;
         text-align: start;
     }
+
+    p.left-text{
+        font-size: 20px;
+    }
+    
+    p.right-text{
+        font-size: 20px;
+    }
+
     .container .texto{
         font-size: 40px;
     }
@@ -191,6 +206,20 @@ a {
         color: white;
         text-align: center;
         align-items: center;
+    }
+
+    .container p{
+        font-size: 15px;
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-family: 'Inter';
+        margin: 5px;
+        text-align: start;
+    }
+
+    .container .texto{
+        font-size: 30px;
     }
 
    

@@ -4,7 +4,7 @@ import time
 import math
 
 
-idMaquina = 2
+idMaquina = 4
 
 def coletarCPU():
     cpu = psutil.cpu_percent()

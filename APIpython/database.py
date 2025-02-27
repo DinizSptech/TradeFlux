@@ -1,14 +1,17 @@
-import mysql.connector
+
 from mysql.connector import (connection)
 
-mydb = connection.MySQLConnection(
-            host='10.18.32.68',          
-            user='machine',        
-            password='machineMYDB@01',      
-            database='TradeFlux',
+def gerarMyDb():
+    return connection.MySQLConnection(
+            host='localhost',          
+            user='root',        
+            password='',      
+            database='',
+            auth_plugin='mysql_native_password',
             ssl_disabled= True
         )
 
+mydb = gerarMyDb()
 cursor = mydb.cursor()
 
 def inserirBanco(idMaquina, cpu, ram, disk):
