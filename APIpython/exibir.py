@@ -41,31 +41,31 @@ def converterGbToByte(valor):
 
 def solicitarTipoMaquina():
     opc = 0
-    while (opc not in range (1,3)):
-        opc = int(input("Deseja monitar uma máquina unitária (1) ou a média geral (2)?\n-->"))
+    while (opc not in range (1,4)):
+        opc = int(input("\nDeseja monitar uma máquina unitária (1), média geral (2) ou sair (3)?\n-->"))
     return opc
 
 def solicitarComponente():
     opc = 0
     while (opc not in range (1,4)):
-        opc = int(input("Deseja monitar Disco(1), Ram(2) ou CPU(3)?\n-->"))
+        opc = int(input("\nDeseja monitar Disco(1), Ram(2) ou CPU(3)?\n-->"))
     return opc
 
 def solicitarMaquina():
     maquinas = coletarMaquinasDisponiveis()
     vetor = list(valor[0] for valor in maquinas)
     opc = 0
-    print(f"Máquinas disponíveis para monitoramento")
+    print(f"\nMáquinas disponíveis para monitoramento:\n")
     for  i in range(len(vetor)):
         print(vetor[i])
     while opc not in vetor:
-        opc = int(input("Qual máquina deseja monitorar\n-->"))
+        opc = int(input("\nQual máquina deseja monitorar\n-->"))
     return opc
 
 def perguntarConversao():
     opc = 0
     while (opc not in range (1,3)):
-        opc = int(input("Deseja converter de GB para Byte? Sim(1), Não(2)?\n-->"))
+        opc = int(input("\nDeseja converter de GB para Byte? Sim(1), Não(2)?\n-->"))
     if opc == 1:
         return True
     else:
@@ -73,28 +73,33 @@ def perguntarConversao():
 
 def exibir():
     while True:
-        opc = solicitarTipoMaquina()
-        if opc == 1:
-            opc = solicitarComponente()
+        opcTipo = solicitarTipoMaquina()
+        if opcTipo == 1:
+            componente = solicitarComponente()
             idMaquina = solicitarMaquina()
-            if opc == 1:
+            if componente == 1:
                 valor = mediaValoresMaquina(idMaquina, 'diskPercent')
                 if(perguntarConversao()):
-                    print(converterGbToByte(valor))
+                    print(converterGbToByte(valor), " Bytes\n")
                 else:
-                    print(valor)
-            if opc == 2:
-                print(mediaValoresMaquina(idMaquina, 'ramPercent'))
-            if opc == 3:
-                print(mediaValoresMaquina(idMaquina, 'cpuPercent'))
-
-        if opc == 2:
-            opc = solicitarComponente()
-            if opc == 1:
-                print(mediaValoresGeral('diskPercent'))
-            if opc == 2:
-                print(mediaValoresGeral('ramPercent'))
-            if opc == 3:
-                print(mediaValoresGeral('cpuPercent'))
-
+                    print(valor, " GB\n")
+            if componente == 2:
+                print("Ram: ",mediaValoresMaquina(idMaquina, 'ramPercent'),"%\n")
+            if componente == 3:
+                print("CPU: ",mediaValoresMaquina(idMaquina, 'cpuPercent'),"%\n")
+        if opcTipo == 2:
+            componente = solicitarComponente()
+            if componente == 1:
+                valor = mediaValoresMaquina(idMaquina, 'diskPercent')
+                if(perguntarConversao()):
+                    print("Disco: ",converterGbToByte(valor), " Bytes\n")
+                else:
+                    print("Disco: ",valor, " GB")
+            if componente == 2:
+                print("Ram: ",mediaValoresGeral('ramPercent'),"%")
+            if componente == 3:
+                print("CPU: ",mediaValoresGeral('cpuPercent'),"%")
+        if opcTipo == 3:
+            print("Encerrando programa")
+            break
 exibir()
