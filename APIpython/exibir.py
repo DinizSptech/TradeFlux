@@ -4,12 +4,12 @@ mydb = database.gerarMyDb()
 cursor = mydb.cursor()
 
 def coletarRecursoPorMaquina(idMaquina, recurso):
-    query = f"SELECT {recurso} FROM Dados WHERE idMachine={idMaquina} LIMIT 10;"
+    query = f"SELECT {recurso} FROM Data WHERE idMachine={idMaquina} LIMIT 10;"
     cursor.execute(query)
     return cursor.fetchall()
 
 def coletarRecursosGeral(recurso):
-    query = f"SELECT {recurso} FROM Dados LIMIT 10;"
+    query = f"SELECT {recurso} FROM Data LIMIT 10;"
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -78,27 +78,27 @@ def exibir():
             componente = solicitarComponente()
             idMaquina = solicitarMaquina()
             if componente == 1:
-                valor = mediaValoresMaquina(idMaquina, 'diskPercent')
+                valor = mediaValoresMaquina(idMaquina, 'diskUsage')
                 if(perguntarConversao()):
                     print(converterGbToByte(valor), " Bytes\n")
                 else:
                     print(valor, " GB\n")
             if componente == 2:
-                print("Ram: ",mediaValoresMaquina(idMaquina, 'ramPercent'),"%\n")
+                print("Ram: ",mediaValoresMaquina(idMaquina, 'ramUsage'),"%\n")
             if componente == 3:
-                print("CPU: ",mediaValoresMaquina(idMaquina, 'cpuPercent'),"%\n")
+                print("CPU: ",mediaValoresMaquina(idMaquina, 'cpuUsage'),"%\n")
         if opcTipo == 2:
             componente = solicitarComponente()
             if componente == 1:
-                valor = mediaValoresMaquina(idMaquina, 'diskPercent')
+                valor = mediaValoresMaquina(idMaquina, 'diskUsage')
                 if(perguntarConversao()):
                     print("Disco: ",converterGbToByte(valor), " Bytes\n")
                 else:
                     print("Disco: ",valor, " GB")
             if componente == 2:
-                print("Ram: ",mediaValoresGeral('ramPercent'),"%")
+                print("Ram: ",mediaValoresGeral('ramUsage'),"%")
             if componente == 3:
-                print("CPU: ",mediaValoresGeral('cpuPercent'),"%")
+                print("CPU: ",mediaValoresGeral('cpuUsage'),"%")
         if opcTipo == 3:
             print("Encerrando programa")
             exit()
