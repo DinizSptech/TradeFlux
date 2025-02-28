@@ -11,6 +11,7 @@ body{
     justify-content: center;
     display: flex;
     flex-direction: column;
+    scroll-behavior: smooth;
 }
 
 .header-left {
@@ -51,9 +52,7 @@ body{
     padding: 0px 10px 0px 10px;
     color: white;
 }
-.contato h4:hover{
-    color: orangered;
-}
+
 
 a {
     text-decoration: none;
@@ -65,13 +64,23 @@ a {
     justify-self: flex-start;
     width: 70%;
     justify-content: space-between;
-    height: 70px;
+    height: 40px;
     border-bottom: 2px solid white;
     display: flex;
     z-index: 10; 
-
+    font-size: smaller;
 }
 
+.header h3 {
+    font-size: 14px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.header h3:hover {
+    color: #E0D00A;
+}
 .banner{
     height: 100vh;
     width: 100%;
@@ -86,19 +95,34 @@ a {
     display: flex;
     justify-content:flex-start;
     align-items: flex-end;
-    width: 93%;
-    height: 90%;
+    width: 90%;
+    height: 80%;
     text-align: start;
 }
 
 .container p{
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     width: 100%;
     color: white;
     font-family: 'Inter';
     margin: 5px;
     text-align: start;
+}
+
+.container button{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #E0D00A;
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+    font-size: 20px;
+    cursor: pointer;
 }
 
 p.left-text{
@@ -111,7 +135,7 @@ p.right-text{
 
 
 .container .texto{
-    font-size: 60px;
+    font-size: 70px;
 }
 
 .social{
