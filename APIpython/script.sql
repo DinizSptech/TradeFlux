@@ -17,7 +17,7 @@ CREATE TABLE Machine(
     machineName VARCHAR(100) NOT NULL,
     idCompany INT,
     FOREIGN KEY (idCompany) REFERENCES Company(idCompany)
-)
+);
 
 CREATE TABLE Data(
     idData INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,5 +26,5 @@ CREATE TABLE Data(
     diskUsage FLOAT,
     dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
     idMachine INT,
-    FOREIGN KEY (idMachine) REFERENCES Machine(idMachine),
-)
+    FOREIGN KEY (idMachine) REFERENCES Machine(idMachine)
+);
