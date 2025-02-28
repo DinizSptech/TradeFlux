@@ -63,5 +63,3 @@ CREATE TABLE Alert(
 );
 
 SELECT * from Machine;
-
-

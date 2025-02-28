@@ -14,7 +14,7 @@ def coletarRecursosGeral(recurso):
     return cursor.fetchall()
 
 def coletarMaquinasDisponiveis():
-    query = f"SELECT DISTINCT idMachine FROM Dados;"
+    query = f"SELECT COUNT(idMachine) FROM Machine;"
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -101,5 +101,4 @@ def exibir():
                 print("CPU: ",mediaValoresGeral('cpuPercent'),"%")
         if opcTipo == 3:
             print("Encerrando programa")
-            break
-exibir()
+            exit()
