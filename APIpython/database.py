@@ -1,20 +1,24 @@
 
 from mysql.connector import (connection)
 
-def gerarMyDb():
+def gerarMyDbInsert():
     return connection.MySQLConnection(
             host='localhost',          
-            user='machine',        
+            user='user_insert',        
             password='machineMYDB@01',      
             database='TradeFlux',
             auth_plugin='mysql_native_password',
             ssl_disabled= True
         )
 
-mydb = gerarMyDb()
-cursor = mydb.cursor()
+def gerarMyDbSelect():
+    return connection.MySQLConnection(
+            host='localhost',          
+            user='user_select',        
+            password='machineMYDB@01',      
+            database='TradeFlux',
+            auth_plugin='mysql_native_password',
+            ssl_disabled= True
+        )
 
-def inserirBanco(idMaquina, cpu, ram, disk):
-    query = f"INSERT INTO Data (idMachine, cpuUsage, ramUsage, diskUsage) VALUES('{idMaquina}', '{cpu}', '{ram}', '{disk}');"
-    cursor.execute(query)
-    mydb.commit()
+

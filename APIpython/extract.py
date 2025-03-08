@@ -1,10 +1,10 @@
-import database
+import insert
 import psutil
 import time
 import math
 
 
-idMaquina = 4
+idMaquina = 3
 
 def coletarCPU():
     cpu = psutil.cpu_percent()
@@ -23,8 +23,11 @@ def coletaLocal():
         ram = coletarRam()
         disk = coletarDisk()
         cpu = coletarCPU()
-        database.inserirBanco(idMaquina, cpu, ram, disk)
+        if cpu or disk or ram > 70:
+            insert.inserirAlert(idMaquina, cpu, ram, disk)
+        insert.inserirData(idMaquina, cpu, ram, disk)
         time.sleep(2)
+
 
 print("Iniciando Coleta")
 coletaLocal()

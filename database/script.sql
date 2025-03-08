@@ -40,7 +40,7 @@ CREATE TABLE Machine(
     FOREIGN KEY (idCompany) REFERENCES Company(idCompany)
 );
 
-CREATE TABLE data(
+CREATE TABLE Data(
     idData INT AUTO_INCREMENT,
     cpuUsage FLOAT,
     ramUsage FLOAT,

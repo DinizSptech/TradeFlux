@@ -1,38 +1,24 @@
 import database
-
+import select
 mydb = database.gerarMyDb()
 cursor = mydb.cursor()
 
-def coletarRecursoPorMaquina(idMaquina, recurso):
-    query = f"SELECT {recurso} FROM Data WHERE idMachine={idMaquina} LIMIT 10;"
-    cursor.execute(query)
-    return cursor.fetchall()
-
-def coletarRecursosGeral(recurso):
-    query = f"SELECT {recurso} FROM Data LIMIT 10;"
-    cursor.execute(query)
-    return cursor.fetchall()
-
-def coletarMaquinasDisponiveis():
-    query = f"SELECT COUNT(idMachine) FROM Machine;"
-    cursor.execute(query)
-    return cursor.fetchall()
 
 def mediaValoresMaquina(idMaquina, recurso):
-    vetor = coletarRecursoPorMaquina(idMaquina, recurso)
+    vetor = select.coletarRecursoPorMaquina(idMaquina, recurso)
     soma = sum(valor[0] for valor in vetor)
     return soma/len(vetor)
 
 
 def mediaValoresMaquina(idMaquina, recurso):
-    vetor = coletarRecursoPorMaquina(idMaquina, recurso)
+    vetor = select.coletarRecursoPorMaquina(idMaquina, recurso)
     soma = 0
     for i in range(len(vetor)):
         soma += vetor[i][0]
     return soma/len(vetor)
 
 def mediaValoresGeral(recurso):
-    vetor = coletarRecursosGeral(recurso)
+    vetor = select.coletarRecursosGeral(recurso)
     soma = sum(valor[0] for valor in vetor)
     return soma/len(vetor)
 
@@ -52,7 +38,7 @@ def solicitarComponente():
     return opc
 
 def solicitarMaquina():
-    maquinas = coletarMaquinasDisponiveis()
+    maquinas = select.coletarMaquinasDisponiveis()
     vetor = list(valor[0] for valor in maquinas)
     opc = 0
     print(f"\nMáquinas disponíveis para monitoramento:\n")

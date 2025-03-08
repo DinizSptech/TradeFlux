@@ -1,5 +1,7 @@
-CREATE USER 'machine'@'%' IDENTIFIED BY 'machineMYDB@01';
+CREATE USER 'user_insert'@'%' IDENTIFIED BY 'machineMYDB@01';
+GRANT INSERT ON *.* TO 'machine'@'%';
+FLUSH PRIVILEGES;
 
-GRANT ALL PRIVILEGES ON *.* TO 'machine'@'%';
-
+CREATE USER 'user_select'@'%' IDENTIFIED BY 'machineMYDB@01';
+GRANT SELECT ON *.* TO 'machine'@'%';
 FLUSH PRIVILEGES;
