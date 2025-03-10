@@ -5,12 +5,17 @@
     --tamanho-footer: 65px;
 }
 
+html{
+    height: 100vh;
+}
+
 body{
     background-color: #344cb7;
     color: white;
     font-family: "Ubuntu", serif;
     margin: 0px;
     padding: 0px;
+    height: 100%;
 }
 
 .header{
@@ -19,7 +24,7 @@ body{
     justify-content: space-between;
     color: white;
     margin-left: 5%; 
-    height: 60px;
+    height: 10%;
     
 }
 .nav-bar{
@@ -56,7 +61,7 @@ body{
 }
 .container-menu{
     display: flex;
-    height: 32em;
+    height: 80%;
     justify-content: center;
     align-items: center;
 }
@@ -77,6 +82,10 @@ body{
     margin: 0;
 }
 
+.menu a{
+    text-decoration: none;
+    color: inherit;
+}
 
 .menu  h4{
     margin: 0;
@@ -90,14 +99,14 @@ body{
 .menu input{
     border: none;
     border-radius: 15px;
-    width: 20em;
-    height: 80%;
+    width: 100%;
+    height: 200%;
 }
 
 .menu button{
-    height: 3em;
+    height: 11%;
     color: white;
-    width: 12em;
+    width: 50%;
     border-radius: 30px;
     border: none;
     font-size: 20px;
@@ -106,16 +115,24 @@ body{
 }
 
 .menu button:hover{
-    color: orangered;
+    background-color: #e0a30a;
+    cursor: pointer;
 }
 
 .logo{
     width: 5%;
 }
+.inputs{
+    width: 70%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .footer {
     background-color: #000957;
-    height: var(--tamanho-footer);
+    height: 10%;
     color: #fff;
     display: flex;
     font-size: 15px;
@@ -123,3 +140,38 @@ body{
     align-items: center;
 }
 
+@media screen and (max-width: 600px){
+    .menu{
+        width: 50%;
+    }
+    .menu h4{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .menu{
+        width: 50%;
+    }
+    .menu h4{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .menu{
+        width: 50%;
+    }
+    .menu h4{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .menu{
+        width: 40%;
+    }
+    .menu h4{
+        text-align: center;
+    }
+}
