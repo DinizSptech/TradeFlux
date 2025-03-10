@@ -139,38 +139,42 @@ a {
     cursor: pointer;
 }
 
-p.left-text{
-    font-size: 40px;
+h1 {
+    font-size: 3rem;
+    margin-top: 50px;
+    text-align: center;
 }
 
-p.right-text{
-    font-size: 40px;
-}
-
-
-.container .texto{
-    font-size: 70px;
-}
-
-.social{
-    background-color: #000957 ;
+.container {
     display: flex;
-    width: 100%;
-    height: 700px;
-}
-.left {
-    justify-content: flex-start; 
-}
-
-.right {
-    justify-content: flex-end; 
-}
-
-.mensagem {
-    width: 50%;
     justify-content: center;
-    display: flex;
-    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
 }
 
 @media screen and (max-width:768px){
