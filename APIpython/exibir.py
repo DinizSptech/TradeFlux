@@ -1,26 +1,22 @@
-import database
-import select
-mydb = database.gerarMyDb()
-cursor = mydb.cursor()
+import selectbd
 
 
-def mediaValoresMaquina(idMaquina, recurso):
-    vetor = select.coletarRecursoPorMaquina(idMaquina, recurso)
+def mediaValoresMaquina(idMaquina, recurso, idCompany):
+    vetor = selectbd.coletarRecursoPorMaquina(idMaquina, recurso, idCompany)
     soma = sum(valor[0] for valor in vetor)
-    return soma/len(vetor)
+    if len(vetor) == 0:
+        return "Não há dados registradas"
+    else:
+        return soma/len(vetor)
 
-
-def mediaValoresMaquina(idMaquina, recurso):
-    vetor = select.coletarRecursoPorMaquina(idMaquina, recurso)
-    soma = 0
-    for i in range(len(vetor)):
-        soma += vetor[i][0]
-    return soma/len(vetor)
-
-def mediaValoresGeral(recurso):
-    vetor = select.coletarRecursosGeral(recurso)
+def mediaValoresGeral(recurso, idCompany):
+    vetor = selectbd.coletarRecursosGeral(recurso, idCompany)
     soma = sum(valor[0] for valor in vetor)
-    return soma/len(vetor)
+    if len(vetor) == 0:
+        return "Não há máquinas registradas"
+    else:
+        return soma/len(vetor)
+
 
 def converterGbToByte(valor):
     return valor * 1024**3
@@ -37,8 +33,8 @@ def solicitarComponente():
         opc = int(input("\nDeseja monitar Disco(1), Ram(2) ou CPU(3)?\n-->"))
     return opc
 
-def solicitarMaquina():
-    maquinas = select.coletarMaquinasDisponiveis()
+def solicitarMaquina(idCompany):
+    maquinas = selectbd.coletarMaquinasDisponiveis(idCompany)
     vetor = list(valor[0] for valor in maquinas)
     opc = 0
     print(f"\nMáquinas disponíveis para monitoramento:\n")
@@ -57,34 +53,34 @@ def perguntarConversao():
     else:
         return False
 
-def exibir():
+def exibir(idCompany):
     while True:
         opcTipo = solicitarTipoMaquina()
         if opcTipo == 1:
             componente = solicitarComponente()
-            idMaquina = solicitarMaquina()
+            idMaquina = solicitarMaquina(idCompany)
             if componente == 1:
-                valor = mediaValoresMaquina(idMaquina, 'diskUsage')
+                valor = mediaValoresMaquina(idMaquina, 'diskUsage', idCompany)
                 if(perguntarConversao()):
                     print(converterGbToByte(valor), " Bytes\n")
                 else:
                     print(valor, " GB\n")
             if componente == 2:
-                print("Ram: ",mediaValoresMaquina(idMaquina, 'ramUsage'),"%\n")
+                print("Ram: ",mediaValoresMaquina(idMaquina, 'ramUsage', idCompany),"%\n")
             if componente == 3:
-                print("CPU: ",mediaValoresMaquina(idMaquina, 'cpuUsage'),"%\n")
+                print("CPU: ",mediaValoresMaquina(idMaquina, 'cpuUsage', idCompany),"%\n")
         if opcTipo == 2:
             componente = solicitarComponente()
             if componente == 1:
-                valor = mediaValoresMaquina(idMaquina, 'diskUsage')
+                valor = mediaValoresMaquina(idMaquina, 'diskUsage', idCompany)
                 if(perguntarConversao()):
                     print("Disco: ",converterGbToByte(valor), " Bytes\n")
                 else:
                     print("Disco: ",valor, " GB")
             if componente == 2:
-                print("Ram: ",mediaValoresGeral('ramUsage'),"%")
+                print("Ram: ",mediaValoresGeral('ramUsage', idCompany),"%")
             if componente == 3:
-                print("CPU: ",mediaValoresGeral('cpuUsage'),"%")
+                print("CPU: ",mediaValoresGeral('cpuUsage', idCompany),"%")
         if opcTipo == 3:
             print("Encerrando programa")
             exit()
