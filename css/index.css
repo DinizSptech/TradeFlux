@@ -95,6 +95,7 @@ a {
 .header h3:hover {
     color: #E0D00A;
 }
+
 .banner{
     height: 100vh;
     width: 100%;
@@ -115,13 +116,17 @@ a {
 }
 
 .container p{
-    font-size: 20px;
+    font-size: 40px;
     text-align: center;
     width: 100%;
     color: white;
     font-family: 'Inter';
     margin: 5px;
     text-align: start;
+}
+
+.container .texto{
+    font-size: 60px;
 }
 
 .container button{
@@ -145,7 +150,7 @@ h1 {
     text-align: center;
 }
 
-.container {
+.servicos {
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -153,7 +158,7 @@ h1 {
     flex-wrap: wrap;
 }
 
-.card {
+.servicos .card {
     background-color: white;
     width: 300px;
     padding: 20px;
@@ -161,21 +166,84 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.card img {
+.servicos .card img {
     width: 100%;
     border-radius: 8px;
 }
 
-.card h2 {
+.servicos .card h2 {
     font-size: 1.5rem;
     margin-top: 15px;
 }
 
-.card p {
+.servicos .card p {
     font-size: 1rem;
     color: #333;
     line-height: 1.5;
 }
+
+/* SAIBA MAIS */
+
+
+.saibamais {
+    display: flex;
+    align-items: center;
+    height: 800px;
+    width: 900px;
+    background-color: white;
+    align-self: center;
+}
+
+.saibamais .image-container {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
+
+.saibamais .image-container img {
+    width: 100%;
+    height: 70%;
+    display: block;
+    border-radius: 20px;
+}
+
+.saibamais .text-container {
+    flex: 1;
+    padding: 40px;
+    text-align: left;
+    display: flex;
+    align-items:flex-start;
+    flex-direction: column;
+}
+
+.saibamais .text-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.saibamais .text-container p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.saibamais .button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 30px;
+}
+
+.saibamais .button:hover {
+    background-color: #333;
+}
+
 
 @media screen and (max-width:768px){
 
@@ -228,16 +296,8 @@ h1 {
         text-align: start;
     }
 
-    p.left-text{
-        font-size: 20px;
-    }
-    
-    p.right-text{
-        font-size: 20px;
-    }
-
     .container .texto{
-        font-size: 40px;
+        font-size: 80px;
     }
 
     .header{
