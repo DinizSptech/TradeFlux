@@ -4,7 +4,7 @@
 html,body{
     margin: 0;
     height: 100%;
-    font-family: "Ubuntu", serif;
+    font-family: "Inter", serif;
 }
 .container-geral{
     height: 100%;
@@ -45,11 +45,11 @@ html,body{
     flex-direction: column;
     justify-content: center;
     padding: 5%;
-    font-family:"Ubuntu", serif;
+    font-family:"Inter", serif;
 }
 
 .fcadastro{
-    font-family:"Ubuntu", serif;
+    font-family:"Inter", serif;
 }
 
 
