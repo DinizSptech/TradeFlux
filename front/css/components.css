@@ -1,0 +1,51 @@
+@import url(root.css);
+
+/* Componentes gerais */
+
+.sideBar{
+ border: blue 1px solid;
+ height: calc(100vh);
+ width: 250px;
+ /* position: fixed; */
+ bottom: 0;
+ /* background-color:; */
+ padding-top: 60px;
+}
+
+.main{
+    height: calc(100vh - 85px);
+    width: calc(100vw - 200px);
+    bottom: 0;
+    overflow: auto; /* Permite rolagem se o conteúdo exceder */
+    background-size: cover; /* Ajusta o fundo sem distorcer */
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column; /* Organiza os itens verticalmente */
+    justify-content: flex-start; 
+    align-items: center; 
+    box-sizing: border-box;
+    padding-bottom: 20px;
+}
+
+.container{
+    display: flex;
+}
+
+.sideButtons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    /* border: red 1px solid; */
+}
+
+.sideButton{
+    height: 45px;
+    width: 200px;
+    font-size: 15px;
+}
+
+.sideButton a {
+    text-decoration: none;
+}

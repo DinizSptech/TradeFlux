@@ -1,0 +1,18 @@
+/* Itens Universais */
+
+:root{
+    --backgroundAzul: #344cb7;
+    --amarelo: #E0D00A;
+    --azulEscuro: #000957;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
