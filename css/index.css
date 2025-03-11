@@ -485,9 +485,143 @@ h1 {
     
 
     }
-    
+   
+}
 
-    
 
+@media screen and (max-width:992px){
+
+
+    .contato{
+        background-color: #E0D00A;
+        border-radius: 20px;
+        height: 50%;
+        
+        align-self: center;
+        padding: 0px 10px 0px 10px;
+        color: white;
+        font-size: small;
+    }
+    
+    .header-left {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 50px;
+        z-index: 10;
+        background-color: #E0D00A;
+    }
+    
+    .header-line{
+        height: 10%;
+    }
+
+    .nav-underline{
+        top: 80%;
+    }
+    .logo img {
+        height: 50px;
+        width: 50px;
+        position: absolute;
+    }
+
+
+    .header{
+        width: 10px;
+        display: flex;
+        justify-content: space-between;
+        column-gap: 1em;
+        color: white;
+        text-align: center;
+        align-items: center;
+    }
+
+    .container p{
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-family: 'Inter';
+        margin: 5px;
+        text-align: start;
+    }
+
+    .container .texto{
+        font-size: 70px;
+    }
+
+    /*serviço*/
+
+    .servicos{
+        margin-left: 5%;
+    }
+
+    .servicos .card {
+        background-color: white;
+        width: 200px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    .servicos .card:hover {
+        width: 190px;
+    }
+    
+    .servicos .card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+    
+    .servicos .card h2 {
+        font-size: 30px;
+        margin-top: 15px;
+    }
+    
+    .servicos .card p {
+        font-size: 20px;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    /*saiba mais*/
+
+    .saibamais .image-container img {
+        width: 420px;
+        height: 600px;
+        display: block;
+        border-radius: 20px;
+    }
+    
+    .saibamais .text-container {
+        flex: 1;
+        padding: 40px;
+        text-align: left;
+        display: flex;
+        align-items:flex-start;
+        flex-direction: column;
+        margin-left: 40px;
+    }
+    
+    .saibamais .text-container h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    
+    .saibamais .text-container p {
+        font-size:18px;
+        color: #333;
+        line-height: 1.5;
+    }
+
+
+    .saibamais{
+        height: 700px;
+        width: 850px;
+        margin-left: 50PX;
+    }
    
 }
