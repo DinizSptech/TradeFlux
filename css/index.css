@@ -282,6 +282,10 @@ h1 {
     margin-bottom: 10px;
 }
 
+.contatenos h3{
+    margin: 5px;
+}
+
 .contatenos p {
     font-size: 1.2rem;
     margin-bottom: 30px;
