@@ -447,6 +447,46 @@ h1 {
         color: #333;
         line-height: 1.5;
     }
+
+    /*saiba mais*/
+
+    .saibamais .image-container img {
+        width: 320px;
+        height: 500px;
+        display: block;
+        border-radius: 20px;
+    }
+    
+    .saibamais .text-container {
+        flex: 1;
+        padding: 40px;
+        text-align: left;
+        display: flex;
+        align-items:flex-start;
+        flex-direction: column;
+    }
+    
+    .saibamais .text-container h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    .saibamais .text-container p {
+        font-size:15px;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    .saibamais .box{
+        height: 500px;
+        width: 600px;
+        margin-left: 65px;
+    
+
+    }
+    
+
     
 
    
