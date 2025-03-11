@@ -1,10 +1,32 @@
+html{
+    height: 100vh;
+    scroll-behavior: smooth;
+}
+
 .banner{
     height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center;
     justify-content: center;
+    background-color:#000957;
     display: flex;
+}
+
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50px;
+    z-index: 10;
+    background-color: #E0D00A;
+}
+
+.logo img {
+    height: 50px;
+    width: 50px;
+    position: absolute;
 }
 
 .header{
@@ -53,4 +75,47 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
+}
+
+body{
+    font-family: "Inter", serif;
+    margin: 0px;
+    padding: 0px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+.content {
+    max-width: 600px;
+    padding: 20px;
+}
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.stat-box {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.image-container img {
+    width: 100%;
+    border-radius: 10px;
 }

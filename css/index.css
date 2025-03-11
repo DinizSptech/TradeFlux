@@ -13,7 +13,7 @@ body{
     justify-content: center;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: #000957;
 }
 
 .header-left {
@@ -150,6 +150,7 @@ h1 {
     font-size: 3rem;
     margin-top: 50px;
     text-align: center;
+    color: white;
 }
 
 .servicos {
@@ -191,26 +192,36 @@ h1 {
 
 /* SAIBA MAIS */
 
+.box{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.box h1{
+    color:black
+}
 
 .saibamais {
     display: flex;
     align-items: center;
-    height: 800px;
-    width: 900px;
-    background-color: white;
+    height: 700px;
+    width: 700px;
+    background-color: #000957;
     align-self: center;
 }
 
 .saibamais .image-container {
     height: 100%;
-    width: 40%;
+    width: 50%;
     display: flex;
     align-items: center;
 }
 
 .saibamais .image-container img {
-    width: 100%;
-    height: 70%;
+    width: 350px;
+    height: 600px;
     display: block;
     border-radius: 20px;
 }
