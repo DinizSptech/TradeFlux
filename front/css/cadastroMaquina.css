@@ -79,6 +79,52 @@ html,body{
     color: orangered;
 }
 
-@media screen and (max-width: 768px){
-    
+@media screen and (max-width: 1300px) {
+    .container-menu {
+        width: 50%;
+    }
+    .container-central {
+        width: 50%;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .container-menu {
+        width: 65%;
+    }
+    .container-central {
+        width: 35%;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo{
+        display: flex;
+    }
+    .logo img{
+        width: 100px;
+    }
+    .container-menu {
+        width: 100%;
+    }
+    .container-central {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo{
+        display: flex;
+    }
+    .logo img{
+        width: 100px;
+    }
+    .container-menu {
+        width: 100% !important;
+    }
+    .container-central {
+        display: none !important;
+    }
 }
