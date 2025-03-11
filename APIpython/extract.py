@@ -1,4 +1,4 @@
-import insert
+# import insert
 import psutil
 import time
 import math
@@ -30,9 +30,14 @@ def coletaLocal():
         ram = coletarRam()
         disk = coletarDisk()
         cpu = coletarCPU()
-        if cpu > 70 or disk > 70 or ram > 70:
-            insert.inserirAlert(idMaquina, cpu, ram, disk)
-        insert.inserirData(idMaquina, cpu, ram, disk)
+        # if cpu > 70 or disk > 70 or ram > 70:
+        #     insert.inserirAlert(idMaquina, cpu, ram, disk)
+        # insert.inserirData(idMaquina, cpu, ram, disk)
+        # insert.inserirAlert(idMaquina, cpu, ram, disk)
+        print(f"Uso da CPU: {cpu}%")
+        print(f"Uso da RAM: {ram}%")
+        print(f"Uso do disco: {disk}%")
+        print("-----------------------------------")
         time.sleep(2)
 
 
