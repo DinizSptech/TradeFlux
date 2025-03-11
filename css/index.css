@@ -417,5 +417,37 @@ h1 {
         font-size: 30px;
     }
 
+    /*serviço*/
+
+    .servicos .card {
+        background-color: white;
+        width: 150px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    .servicos .card:hover {
+        width: 190px;
+    }
+    
+    .servicos .card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+    
+    .servicos .card h2 {
+        font-size: 20px;
+        margin-top: 15px;
+    }
+    
+    .servicos .card p {
+        font-size: 15px;
+        color: #333;
+        line-height: 1.5;
+    }
+    
+
    
 }
