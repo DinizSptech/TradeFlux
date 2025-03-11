@@ -20,7 +20,7 @@
         <div class="banner">
             <div class="header-line">
                 <div class="header"> 
-                   <h3>HOME</h3>
+                   <h3 id="#home">HOME</h3>
                    <a href="./sobrenos.html"><h3>SOBRE NÓS</h3></a>
                    <h3>MISSÃO</h3>
                 </div>
@@ -37,8 +37,7 @@
                 </div>
             </div>
         </div>
-
-               
+        <br><br>
         <h1>Nossos serviços</h1>
         <div class="servicos">
         <div class="card">
@@ -61,7 +60,7 @@
 
         </div>
     </div>
-
+    <br><br>
     <div class="saibamais">
         <div class="box">
         <div class="image-container">
@@ -74,23 +73,30 @@
         </div>
         </div>
     </div>
-    
+    <br><br>
     <div class="faleconosco">
         <div class="contatenos" id="contato">
             <h1>Fale conosco</h1>
             <p>Quer trabalhar em conjunto? Preencha o formulário, e entraremos em contato em breve! Será um prazer falar com você.</p>
-            <form>
-                <label for="nome">Nome <small>(obrigatório)</small></label>
-                <input type="text" id="nome" placeholder="Nome">
-            
-                <label for="email">E-mail <small>(obrigatório)</small></label>
-                <input type="email" id="email" placeholder="Digite seu e-mail">
-
-                <label for="mensagem">Mensagem <small>(obrigatório)</small></label>
-                <textarea id="mensagem" placeholder="Escreva sua mensagem"></textarea>
-
-                <button type="submit" class="button">Enviar</button>
+            <form id="contatoForm" action="https://formsubmit.co/vinidiasfcm@gmail.com" method="POST">
+            <h3>Nome:</h3>
+            <input type="text" name="name" required placeholder="Escreva seu nome.">
+            <h3>Email:</h3>
+            <input type="email" name="email" required placeholder="Escreva seu email.">
+            <h3>Mensagem:</h3>
+            <input type="hidden" name="_captcha" value="false">
+            <textarea name="mensagem" placeholder="Escreva sua mensagem!"></textarea>
+            <button type="submit" class="button">Send</button>
+            <input type="hidden" name="_next" value="http://127.0.0.1:5500/html/">
             </form>
+        </div>
     </div>
 </body>
 </html>
+
+<script>
+    document.getElementById("contatoForm").addEventListener("submit", function() {
+        alert("Obrigado pela mensagem!");
+        window.scrollTo(0, 0);
+    });
+</script>
