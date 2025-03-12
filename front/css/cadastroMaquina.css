@@ -2,131 +2,140 @@
 
 
 html,body{
-    margin: 0;
-    height: 100%;
-    font-family: "Ubuntu", serif;
+margin: 0;
+height: 100%;
+font-family: "Ubuntu", serif;
 }
 .container-geral{
-    height: 100%;
-    width: 100%;
-    display: flex;
+height: 100%;
+width: 100%;
+display: flex;
 }
 .container-geral h2{
-    margin: 0;
+margin: 0;
 }
 
 .container-menu h3{
-    margin: 0;
+margin: 0;
 }
 .container-menu{
-    background-color: #000957;
-    color: white;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-content: space-around;
+background-color: #000957;
+color: white;
+width: 30%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+}
+.container-menu h1{
+text-align: center;
 }
 
 .container-central{
-    width: 70%;
-    background-color: #344cb7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+width: 70%;
+background-color: #344cb7;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
-
+.container-inputs{
+width: 80%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
 
 .divs-inputs{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5%;
-    font-family:"Ubuntu", serif;
+padding-bottom: 5%;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+font-family:"Ubuntu", serif;
 }
+.divs-inputs input{
+width: 100%;
+}
+
 .logo{
-    display: none;
+display: none;
 }
 .fcadastro{
-    font-family:"Ubuntu", serif;
+font-family:"Ubuntu", serif;
 }
-
-
 
 .ipt_dados{
-    width: 25em;
-    height: 35px;
-    border-radius: 15px;
-    border: none;
+width: 25em;
+height: 35px;
+border-radius: 15px;
+border: none;
 }
 .container-central img{
-    width: 60%;
+width: 60%;
 }
 
 .cadastro-button{
-    width: 12em;
-    height: 3em;
-    border-radius: 30px;
-    border: none;
-    background-color: #e0d00a;
-    color: white;
-    font-size: 20px;
-    font-weight: 1000;
+width: 12em;
+height: 3em;
+border-radius: 30px;
+border: none;
+background-color: #e0d00a;
+color: white;
+font-size: 20px;
+font-weight: 1000;
 }
 
 .cadastro-button:hover{
-    color: orangered;
+color: orangered;
 }
 
 @media screen and (max-width: 1200px) {
-    .container-menu {
-        width: 50%;
-    }
-    .container-central {
-        width: 50%;
-        display: flex;
-    }
+.container-menu {
+width: 50%;
+}
+.container-central {
+width: 50%;
+display: flex;
+}
 }
 
 @media screen and (max-width: 992px) {
-    .container-menu {
-        width: 65%;
-    }
-    .container-central {
-        width: 35%;
-        display: flex;
-    }
+.container-menu {
+width: 65%;
+}
+.container-central {
+width: 35%;
+display: flex;
+}
 }
 
 @media screen and (max-width: 768px) {
-    .logo{
-        display: flex;
-    }
-    .logo img{
-        width: 100px;
-    }
-    .container-menu {
-        width: 100%;
-    }
-    .container-central {
-        display: none;
-    }
+.logo{
+display: flex;
+}
+.logo img{
+width: 100px;
+}
+.container-menu {
+width: 100%;
+}
+.container-central {
+display: none;
+}
 }
 
 @media screen and (max-width: 600px) {
-    .logo{
-        display: flex;
-    }
-    .logo img{
-        width: 100px;
-    }
-    .container-menu {
-        width: 100% !important;
-    }
-    .container-central {
-        display: none !important;
-    }
+.logo{
+display: flex;
+}
+.logo img{
+width: 100px;
+}
+.container-menu {
+width: 100% !important;
+}
+.container-central {
+display: none !important;
+}
 }
