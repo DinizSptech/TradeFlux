@@ -47,7 +47,9 @@ html,body{
     padding: 5%;
     font-family:"Ubuntu", serif;
 }
-
+.logo{
+    display: none;
+}
 .fcadastro{
     font-family:"Ubuntu", serif;
 }
@@ -79,7 +81,7 @@ html,body{
     color: orangered;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
     .container-menu {
         width: 50%;
     }
