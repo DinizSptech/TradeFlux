@@ -97,7 +97,7 @@ a {
 .banner{
     height: 100vh;
     width: 100%;
-    background-image: url("../assetes/index.photo.jpg");
+    background-image: url("../assets/index.photo.jpg");
     background-size: cover;
     background-position: center;
     justify-content: center;
