@@ -47,7 +47,9 @@ html,body{
     padding: 5%;
     font-family:"Ubuntu", serif;
 }
-
+.logo{
+    display: none;
+}
 .fcadastro{
     font-family:"Ubuntu", serif;
 }
