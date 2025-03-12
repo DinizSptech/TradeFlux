@@ -141,7 +141,17 @@ body{
     align-items: center;
 }
 
-@media screen and (min-width: 600px){
+
+@media screen and (max-width: 1200px) {
+    .menu{
+        width: 60%;
+    }
+    .menu h4{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 992px) {
     .menu{
         width: 65%;
     }
@@ -150,7 +160,7 @@ body{
     }
 }
 
-@media screen and (min-width: 768px){
+@media screen and (max-width: 768px) {
     .menu{
         width: 65%;
     }
@@ -159,18 +169,9 @@ body{
     }
 }
 
-@media screen and (min-width: 992px){
+@media screen and (max-width: 600px) {
     .menu{
-        width: 65%;
-    }
-    .menu h4{
-        text-align: center;
-    }
-}
-
-@media screen and (min-width: 1200px){
-    .menu{
-        width: 40%;
+        width: 80%;
     }
     .menu h4{
         text-align: center;

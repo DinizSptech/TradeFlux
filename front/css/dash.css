@@ -1,2 +1,66 @@
 @import url(components.css);
 
+.main{
+    gap: 40px;
+}
+
+.kpis{
+    width: 100%;
+    /* border: red 1px solid; */
+    min-height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.kpi{
+    background-color: var(--backgroundAzul);
+    width: 20%;
+    height: 90%;
+    border-radius: 10px;
+}
+
+.tituloKPI{
+    color: white;
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.conteudoKPI{
+    height: calc(100% - 30px);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+    display: flex;
+    /* border: red 1px solid; */
+}
+
+.graficosSuperiores{
+    min-height: 45%;
+    width: 100%;
+    display: flex;
+    /* border: black 1px solid; */
+    justify-content: center;
+    gap: 40px;
+}
+
+.graficoSuperior{
+    background-color: var(--backgroundAzul);
+    min-width: 45%;
+    /* min-height: 40%; */
+    /* border: red 1px solid; */
+    border-radius: 10px;
+}
+
+.grafico3{
+    background-color: var(--backgroundAzul);
+    min-width: 55%;
+    min-height: 45%;
+    /* border: red 1px solid; */
+    border-radius: 10px;
+}

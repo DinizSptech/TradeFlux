@@ -3,17 +3,40 @@
 /* Componentes gerais */
 
 .sideBar{
- border: blue 1px solid;
- height: calc(100vh);
- width: 250px;
- /* position: fixed; */
- bottom: 0;
- /* background-color:; */
- padding-top: 60px;
+    /* border: blue 1px solid; */
+    height: calc(100vh);
+    width: 250px;
+    /* position: fixed; */
+    bottom: 0;
+    background-color: var(--azulEscuro);
+    padding-top: 50px;
+
+}
+
+.tituloLogo{
+    color: white;
+    font-size: 40px;
+    /* border: red 1px solid; */
+    width: 100%;
+    text-align: center;
+}
+
+.divLogo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    /* border: red 1px solid; */
+}
+
+.divLogo .logo{
+    width: 150px;
+    height: 150px;
 }
 
 .main{
-    height: calc(100vh - 85px);
+    height: calc(100vh);
     width: calc(100vw - 200px);
     bottom: 0;
     overflow: auto; /* Permite rolagem se o conteúdo exceder */
@@ -37,15 +60,26 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
-    /* border: red 1px solid; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: red 1px solid;
 }
 
 .sideButton{
     height: 45px;
     width: 200px;
     font-size: 15px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    border-radius: 15px;
+    border: 0;
 }
 
 .sideButton a {
     text-decoration: none;
+}
+
+.sideButton:hover{
+    background-color: var(--amarelo);
 }
