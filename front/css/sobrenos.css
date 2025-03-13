@@ -20,6 +20,8 @@ body {
     background-position: center;
     justify-content: center;
     display: flex;
+
+   
 }
 
 .header-left {
@@ -223,21 +225,123 @@ ul li {
     border-radius: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .header-line {
-        width: 90%;
+        display: flex;
+        justify-self: center;
+        width: 78%;
+        margin-left: 6vw;
+    }
+
+    .pontos{
+        margin-left: 5vw;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .header-line {
+        display: flex;
+        justify-self: center;
+        width: 84%;
+        margin-left: 6vw;
+    }
+
+    .pontos{
+        margin-left: 5vw;
+    }
+}
+@media screen and (max-width: 768px) {
+    .pontos{
+        margin-left: 5vw;
+    }
+
+    .header-line {
+        display: flex;
+        justify-self: center;
+        width: 85%;
+        margin-left: 6vw;
+    }
+
+    .imgGrupo{
+        display: none;
+
+    }
+}
+@media screen and (max-width: 600px) {
+    .header-line {
+        display: flex;
+        justify-self: center;
+        width: 80%;
+        margin-left: 6vw;
+    }
+
+    .pontos{
+        margin-left: 5vw;
     }
 
     .container {
         width: 90%;
-        padding: 20px;
+       
     }
 
     .header {
-        gap: 10px;
+        display: flex;
+        gap: 20px;
+        
     }
 
     .header h3 {
         font-size: 12px;
     }
+
+    /* sobrenos */
+    .sobrenos{
+        width: 70%;
+        height: 400px;
+
+    }
+
+    .sobrenos .content{
+        width: 100%;
+        padding-right: 0px;
+        font-size: 20px;
+        
+    }
+
+    .imgGrupo{
+        display: none;
+    }
+
+    /* missao */
+    .missao{
+        width: 70%;
+        height: 400px;
+    }
+
+    .missao .content{
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+        font-size: 20px;   
+    }
+
+    /* valores */
+
+    .container{
+        width: 70%;
+        height: 400px;
+
+    }
+
+    .container .content{
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+        font-size: 18px;   
+
+    }
+
+    
+    
 }
+
