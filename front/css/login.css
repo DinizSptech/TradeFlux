@@ -92,6 +92,12 @@ body{
     color: #e0d00a;
 }
 
+.msgErro{
+    display: flex;
+    justify-content: center;
+    color: rgb(165, 108, 108);
+}
+
 .menu h4:hover{
     color: aquamarine;
 }

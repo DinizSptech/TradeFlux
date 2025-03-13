@@ -25,14 +25,15 @@
             <div class="inputs">
                 <div>
                     <h3>Usuário:</h3>
-                    <input type="text">
+                    <input id ="IPTusuario" type="text">
                 </div>
                 <div>
                     <h3>Senha:</h3>
-                    <input type="password">
+                    <input id ="IPTsenha" type="password">
                 </div>
+                <div  class ="msgErro"id = "divERRORsenha"></div>
             </div>
-            <button class="button">Entrar</button>
+            <button  onclick= "entrar()"class="button">Entrar</button>
             <h4 class="button" href="cadastro.html">Não possui cadastro? Cadastre-se agora</h4>
         </div>
     </div>
@@ -44,3 +45,35 @@
 </body>
 
 </html>
+<script>
+     
+
+    function entrar(){
+        var usuario = IPTusuario.value;
+        var senha = IPTsenha.value;
+
+        if(usuario == "ADM" && senha =="123456"){
+            
+            window.location.href = "";
+        }else{
+            
+            divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
+        }
+        
+        if (usuario == "analista" && senha == "123456"){
+            window.location.href = "./dashboardNOQ.html"
+        }else{
+           divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
+        }
+
+        if (usuario == "cientista" && senha == "123456"){
+            window.location.href = ""
+        }else{
+           divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
+        }
+
+
+    }
+
+
+</script>
