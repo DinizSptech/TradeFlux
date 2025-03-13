@@ -340,51 +340,44 @@ h1 {
 
 @media screen and (max-width:768px){
 
-    .header{
-        width: 300px;
-        display: flex;
-        justify-content: space-between;
-        color: white;
-        text-align: center;
-        align-items: center;
-        font-size: small;
-    }
-
+    
     .contato{
         background-color: #E0D00A;
         border-radius: 20px;
         height: 50%;
+        
         align-self: center;
         padding: 0px 10px 0px 10px;
         color: white;
         font-size: small;
     }
     
-   
     .header-left {
         position: fixed;
         top: 0;
         left: 0;
         height: 100%;
-        width: 30px;
+        width: 40px;
         z-index: 10;
         background-color: #E0D00A;
     }
     
+    .header-line{
+        height: 10%;
+    }
+
+    .nav-underline{
+        top: 80%;
+    }
     .logo img {
-        height: 15px;
-        width: 15px;
+        height: 40px;
+        width: 40px;
         position: absolute;
     }
 
 
-    .container .texto{
-        font-size: 60px;
-    }
-
-  
     .container p{
-        font-size: 15px;
+        font-size: 20px;
         text-align: center;
         width: 100%;
         color: white;
@@ -393,29 +386,24 @@ h1 {
         text-align: start;
     }
 
+    .container .texto{
+        font-size: 50px;
+    }
 
     /*serviço*/
 
+
     .servicos .card {
         background-color: white;
-        width: 150px;
-        padding: 20px;
+        width: 170px;
+        padding: 10px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     
-    .servicos .card:hover {
-        width: 190px;
-    }
-    
-    .servicos .card img {
-        width: 100%;
-        border-radius: 8px;
-    }
-    
     .servicos .card h2 {
-        font-size: 20px;
+        font-size: 25px;
         margin-top: 15px;
     }
     
@@ -428,7 +416,7 @@ h1 {
     /*saiba mais*/
 
     .saibamais .image-container img {
-        width: 320px;
+        width: 280px;
         height: 500px;
         display: block;
         border-radius: 20px;
@@ -436,16 +424,17 @@ h1 {
     
     .saibamais .text-container {
         flex: 1;
-        padding: 40px;
+        padding: 30px;
         text-align: left;
         display: flex;
         align-items:flex-start;
         flex-direction: column;
+        justify-content: space-between;
     }
     
     .saibamais .text-container h1 {
-        font-size: 20px;
-        margin-bottom: 20px;
+        font-size: 25px;
+        margin-bottom: 10px;
         text-align: left;
     }
     
@@ -455,19 +444,21 @@ h1 {
         line-height: 1.5;
     }
 
-    .saibamais .box{
-        height: 500px;
-        width: 600px;
-        margin-left: 65px;
-    
 
+    .saibamais{
+        height: 700px;
+        width: 75%;
     }
+
+    .box{
+        height: 500px;
+    }
+   
    
 }
 
 
 @media screen and (max-width:992px){
-
 
     .contato{
         background-color: #E0D00A;
