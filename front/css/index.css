@@ -354,7 +354,6 @@ h1 {
         background-color: #E0D00A;
         border-radius: 20px;
         height: 50%;
-        
         align-self: center;
         padding: 0px 10px 0px 10px;
         color: white;
@@ -373,36 +372,17 @@ h1 {
     }
     
     .logo img {
-        height: 30px;
-        width: 30px;
+        height: 15px;
+        width: 15px;
         position: absolute;
     }
 
-    
-    .container p{
-        font-size: 20px;
-        text-align: center;
-        width: 100%;
-        color: white;
-        font-family: 'Inter';
-        margin: 5px;
-        text-align: start;
-    }
 
     .container .texto{
-        font-size: 80px;
+        font-size: 60px;
     }
 
-    .header{
-        width: 10px;
-        display: flex;
-        justify-content: space-between;
-        column-gap: 1em;
-        color: white;
-        text-align: center;
-        align-items: center;
-    }
-
+  
     .container p{
         font-size: 15px;
         text-align: center;
@@ -413,9 +393,6 @@ h1 {
         text-align: start;
     }
 
-    .container .texto{
-        font-size: 30px;
-    }
 
     /*serviço*/
 
