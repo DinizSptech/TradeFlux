@@ -553,9 +553,6 @@ h1 {
 
     /*serviço*/
 
-    .servicos{
-        margin-left: 5%;
-    }
 
     .servicos .card {
         background-color: white;
@@ -589,7 +586,7 @@ h1 {
     /*saiba mais*/
 
     .saibamais .image-container img {
-        width: 420px;
+        width: 380px;
         height: 600px;
         display: block;
         border-radius: 20px;
@@ -602,7 +599,7 @@ h1 {
         display: flex;
         align-items:flex-start;
         flex-direction: column;
-        margin-left: 40px;
+        justify-content: space-between;
     }
     
     .saibamais .text-container h1 {
@@ -620,8 +617,7 @@ h1 {
 
     .saibamais{
         height: 700px;
-        width: 850px;
-        margin-left: 50PX;
+        width: 75%;
     }
    
 }
