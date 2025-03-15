@@ -44,13 +44,14 @@ body {
     justify-self: flex-start;
     width: 70%;
     justify-content: space-between;
-    height: 40px;
+    height: 7%;
     display: flex;
     z-index: 10; 
     font-size: smaller;
     color: white;
     background-color: transparent;
     align-items: center;
+    border-bottom: 2px solid white;
 }
 
 .header {
@@ -166,6 +167,8 @@ a {
 
 .missao img{
     height: 200px;
+    border-radius: 20px;
+
 }
 
 .content {

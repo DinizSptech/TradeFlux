@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Ordenadores {
 
-
-
     public static void ordenarNome(List<Servidor>  server){
         for(int i = 0; i < server.size()-1; i++){
             for(int j= i+1; j < server.size(); j++)

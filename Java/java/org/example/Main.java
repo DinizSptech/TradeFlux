@@ -5,9 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
         List<Servidor> servers = new ArrayList<>();
-
 
         servers.add(new Servidor("AMD EPYC 7452", 24, 1000, "Debian 10", "Servidor 3"));
         servers.add(new Servidor("Xeon Gold 6248R", 20, 1200, "Red Hat Enterprise Linux 8", "Servidor 6"));
@@ -32,9 +30,6 @@ public class Main {
         Ordenadores.ordenarRam(servers);
         System.out.println("Ordenação por memória Ram:");
         System.out.println(servers.toString());
-
-
-
 
     }
 }
