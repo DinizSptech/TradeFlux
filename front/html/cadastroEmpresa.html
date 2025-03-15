@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastroEmpresa.css">
+    <link rel="icon" href="../assets/TRADEFLUX__2_-removebg-preview 1.png">
+    <script src="../js/cadastroEmpresa.js  "></script>
+    <title>TradeFlux - Cadastro Empresa</title>
+    
+</head>
+<body>
+    <div class="container-geral">
+        <div class="container-menu">
+            <div class="logo">
+            <img src="../assets/logoTradeFlux.png" alt="" class="">
+            </div>
+            <div class="hcadastro">
+                <h1 class="fCadastro">CADASTRO DE EMPRESA</h1>
+            </div>
+            <div class ="container-inputs">
+                <div class="divs-inputs">
+                    <h2>Razão Social</h2>
+                    <input type="text" id="ipt_rzsocial">
+                    <span id="div_erro_rzsocial"></span>
+                </div>
+                <div class="divs-inputs">
+                    <h2>CNPJ</h2>
+                    <input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18">
+                    <span id="div_erro_cnpj"></span>    
+                </div>
+                <div class="divs-inputs">
+                    <h2>Número celular</h2>
+                    <input type="number" id="ipt_numero" placeholder="(XX) XXXXX-XXXX">
+                    <span id="div_erro_num"></span>
+                </div>
+                <div class="divs-inputs">
+                    <h2>CEP</h2>
+                    <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+                </div>
+                <div class="divs-inputs">
+                    <h2>Rua</h2>
+                    <input type="text" id="ipt_senha">
+                </div>
+                <div class="divs-inputs">
+                    <h2>Bairro</h2>
+                    <input type="password" id="ipt_bairro">
+                </div>
+                <div class="divs-inputs">
+                    <h2>Número</h2>
+                    <div class="ipt_numero_ou_n">
+                        <input type="number" id="ipt_conf_senha">
+                        <input type="checkbox" id="ipt_n_possui_num"><span>Não possui número</span>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button class="cadastro-button" onclick="coletarInputs()">CADASTRAR-SE</button>
+            </div>
+        </div>
+        <div class="container-central">
+            <img src="../assets/26857366_7163697-removebg-preview.png" alt="">
+        </div>
+    </div>
+</body>
+</html>

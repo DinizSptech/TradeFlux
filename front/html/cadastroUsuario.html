@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastroUsuario.css">
+    <link rel="icon" href="../assets/TRADEFLUX__2_-removebg-preview 1.png">
+    <script src="../js/cadastroUsuario.js  "></script>
+    <title>TradeFlux - Cadastro</title>
+    
+</head>
+<body>
+    <div class="container-geral">
+        <div class="container-menu">
+            <div class="logo">
+            <img src="../assets/logoTradeFlux.png" alt="" class="">
+            </div>
+            <div class="hcadastro">
+                <h1 class="fCadastro">CADASTRO</h1>
+            </div>
+            <div class ="container-inputs">
+                <div class="divs-inputs">
+                    <h2>Usuário</h2>
+                    <input type="text" id="ipt_usuario">
+            <span id="div_erro_usuario"></span>
+
+                </div>
+                <div class="divs-inputs">
+                    <h2>Email</h2>
+                    <input type="text" id="ipt_email">
+                    <span id="div_erro_email"></span>
+
+                </div>
+                <div class="divs-inputs">
+                    <h2>Tipo de usuário</h2>
+                    <input type="text" id="ipt_email">
+                </div>
+                <div class="div-radio">
+                    <h2>Tipo de funcionário</h2>
+                    <div class="div-ipt-radio">
+                        <div>
+                            <input type="radio" id="analista" value="analista"><span>Analista</span>
+                        </div>
+                        <div>
+                        <input type="radio" id="cientista" value="cientista"><span>Cientista</span>
+                        </div>
+                        <div>
+                        <input type="radio" id="adm" value="adm"><span>Administrador</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="divs-inputs">
+                    <h2>Senha</h2>
+                    <input type="text" id="ipt_senha">
+                    <span id="div_erro_senha"></span>
+                </div>
+                <div class="divs-inputs">
+                    <h2>Confirmar senha</h2>
+                    <input type="password" id="ipt_conf_senha">
+                    <span id="div_erro_senha"></span>
+                </div>
+                <span id="div_senha_n_coincide"></span>
+
+            </div>
+            <div>
+                <button class="cadastro-button" onclick="coletarInputs()">CADASTRAR-SE</button>
+            </div>
+        </div>
+        <div class="container-central">
+            <img src="../assets/26857366_7163697-removebg-preview.png" alt="">
+        </div>
+    </div>
+</body>
+</html>

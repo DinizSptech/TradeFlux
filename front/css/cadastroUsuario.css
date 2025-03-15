@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.div-radio{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.div-ipt-radio{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+html,body{
+    margin: 0;
+    height: 100%;
+    font-family: "Inter", serif;
+}
+.container-geral{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.container-geral h2{
+    margin: 0;
+}
+.div_erro_senha{
+    display: none;
+    border: 1px black;
+}
+
+.container-menu h3{
+    margin: 0;
+}
+.container-menu{
+    background-color: #000957;
+    color: white;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+.container-central{
+    width: 70%;
+    background-color: #344cb7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.fcadastro{
+    font-family:"Inter", serif;
+}
+
+
+
+.container-central img{
+    width: 60%;
+}
+
+.container-inputs{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+
+.divs-inputs{
+    width: 80%;
+    height: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family:"Inter", serif;
+}
+.logo{
+    display: none;
+}
+
+.divs-inputs input{
+    border: none;
+    border-radius: 15px;
+    width: 100%;
+    height: 30%;
+}
+
+.hcadastro{
+    height: 10%;
+}
+.cadastro-button{
+    width: 12em;
+    height: 3em;
+    border-radius: 30px;
+    border: none;
+    background-color: #e0d00a;
+    color: white;
+    font-size: 20px;
+    font-weight: 1000;
+}
+
+.cadastro-button:hover{
+    background-color: #eb9834;
+}
+
+@media screen and (max-width: 1200px) {
+    .container-menu {
+        width: 50%;
+    }
+    .container-central {
+        width: 50%;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .container-menu {
+        width: 65%;
+    }
+    .container-central {
+        width: 35%;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo{
+        display: flex;
+    }
+    .logo img{
+        width: 100px;
+    }
+    .container-menu {
+        width: 100%;
+    }
+    .container-central {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo{
+        display: flex;
+    }
+    .logo img{
+        width: 100px;
+    }
+    .container-menu {
+        width: 100% !important;
+    }
+    .container-central {
+        display: none !important;
+    }
+}
