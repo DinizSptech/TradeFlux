@@ -17,9 +17,7 @@ public class Main {
         servers.add(new Servidor("Intel Core i9-10900K", 10, 300, "Windows Server 2019", "Servidor 4"));
         servers.add(new Servidor("AMD Ryzen 9 5950X", 16, 750, "Fedora 34", "Servidor 5"));
 
-
         Ordenadores.ordenarNome(servers);
-
         System.out.println("Ordenação por Nome:");
         System.out.println(servers.toString());
 
