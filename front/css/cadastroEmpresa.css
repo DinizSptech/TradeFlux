@@ -33,9 +33,6 @@ html,body{
 .container-menu h3{
     margin: 0;
 }
-#ipt_n_possui_num{
-    transform: scale(1.5);
-}
 
 .container-menu{
     background-color: #000957;
@@ -106,8 +103,12 @@ html,body{
 .ipt_numero_ou_n{
     display: flex;
 }
-.ipt_numero_ou_n input{
-    width:  10%;
+#ipt_num{
+    height: 73%;
+}
+#ipt_n_possui_num{
+    height:20px;
+    width: 20px;
 }
 .hcadastro{
     height: 10%;
