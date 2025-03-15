@@ -6,14 +6,14 @@
     <title>TradeFlux - Login</title>
     <link rel="stylesheet" href="../css/login.css">
     <link rel="icon" href="../assets/TRADEFLUX__2_-removebg-preview 1.png">
+    <script src="../js/login.js"></script>
 </head>
 <body>
     <div class="header">
         <div class="nav-bar">
         <ul class="lista-nav">
-            <li>HOME</li>
-            <li>SOBRE NÓS</li>
-            <li>MISSÃO</li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="sobrenos.html">SOBRE NÓS</a></li>
         </ul>
         </div>
     </div>
@@ -45,35 +45,3 @@
 </body>
 
 </html>
-<script>
-     
-
-    function entrar(){
-        var usuario = IPTusuario.value;
-        var senha = IPTsenha.value;
-
-        if(usuario == "ADM" && senha =="123456"){
-            
-            window.location.href = "";
-        }else{
-            
-            divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
-        }
-        
-        if (usuario == "analista" && senha == "123456"){
-            window.location.href = "./dashboardNOQ.html"
-        }else{
-           divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
-        }
-
-        if (usuario == "cientista" && senha == "123456"){
-            window.location.href = ""
-        }else{
-           divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
-        }
-
-
-    }
-
-
-</script>

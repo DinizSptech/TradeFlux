@@ -17,6 +17,10 @@ body{
     padding: 0px;
     height: 100%;
 }
+a{
+    text-decoration: none;
+    color: white;
+}
 
 .header{
     display: flex;
@@ -47,6 +51,11 @@ body{
     margin-bottom: 0;
 }
 
+.lista-nav a:hover{
+    color: #e0a30a;
+    cursor: pointer;
+
+}
 .contato{
     background-color: #E0D00A;
     border-radius: 20px;

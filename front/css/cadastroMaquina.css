@@ -17,7 +17,7 @@ margin: 0;
 
 .container-menu h3{
 margin: 0;
-}
+} 
 .container-menu{
 background-color: #000957;
 color: white;
@@ -31,6 +31,19 @@ justify-content: space-around;
 text-align: center;
 }
 
+.container-maquina{
+    border-radius: 30px;
+    width: 80%;
+    height: 75%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #000957;
+
+}
+
 .container-central{
 width: 70%;
 background-color: #344cb7;
@@ -39,15 +52,20 @@ align-items: center;
 justify-content: center;
 }
 
+.container-maquina h1{
+    text-align: center;
+}
+
 .container-inputs{
 width: 80%;
+row-gap: 2.5em;
 display: flex;
 flex-direction: column;
 justify-content: center;
 }
 
 .divs-inputs{
-padding-bottom: 5%;
+
 width: 100%;
 display: flex;
 flex-direction: column;
@@ -58,23 +76,12 @@ font-family:"Ubuntu", serif;
 width: 100%;
 }
 
-.logo{
-display: none;
-}
-.fcadastro{
-font-family:"Ubuntu", serif;
-}
-
 .ipt_dados{
 width: 25em;
 height: 35px;
 border-radius: 15px;
 border: none;
 }
-.container-central img{
-width: 60%;
-}
-
 .cadastro-button{
 width: 12em;
 height: 3em;
@@ -87,55 +94,48 @@ font-weight: 1000;
 }
 
 .cadastro-button:hover{
-color: orangered;
+    background-color: #eb9834;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
 .container-menu {
-width: 50%;
+width: 30%;
 }
 .container-central {
-width: 50%;
+width: 70%;
 display: flex;
 }
 }
 
 @media screen and (max-width: 992px) {
 .container-menu {
-width: 65%;
+width: 30%;
 }
 .container-central {
-width: 35%;
+width: 70%;
 display: flex;
 }
 }
 
 @media screen and (max-width: 768px) {
-.logo{
-display: flex;
-}
-.logo img{
-width: 100px;
-}
 .container-menu {
-width: 100%;
+width: 35%;
 }
 .container-central {
-display: none;
+width: 65%;
 }
 }
 
 @media screen and (max-width: 600px) {
-.logo{
-display: flex;
-}
-.logo img{
-width: 100px;
-}
 .container-menu {
-width: 100% !important;
+width: 35% !important;
+
 }
 .container-central {
-display: none !important;
+display: 65% !important;
+}
+.container-maquina{
+height: 85%;
 }
 }

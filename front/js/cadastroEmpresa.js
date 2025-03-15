@@ -1,7 +1,7 @@
 function coletarInputs(){
-    var usuario = ipt_usuario.value;
-    var email = ipt_email.value;
-    var senha = ipt_senha.value;
+    var cnpk = ipt_usuario.value;
+    var razaosocial = ipt_email.value;
+    var telefone = ipt_senha.value;
     var confSenha = ipt_conf_senha.value;
 
     senhaPadraoMicrosoft(senha)
@@ -17,4 +17,8 @@ function coletarInputs(){
         usuarioValido(usuario)){
             
         }
+}
+
+function validarTelefone(){
+    
 }

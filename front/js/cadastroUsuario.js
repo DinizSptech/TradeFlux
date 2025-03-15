@@ -28,6 +28,7 @@ function usuarioValido(usuario){
         div_erro_usuario.innerHTML = `<span style="color:red">O usuario deve possuir pelo menos 5 caracteres</span>`;
     }
 }
+
 function emailValido(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
@@ -62,6 +63,8 @@ function senhaPadraoMicrosoft(senha) {
         hasLowerCase &&
         hasNumber &&
         hasSpecialChar) {
+        
+    } else {
         
     }
     return ;
