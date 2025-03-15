@@ -4,8 +4,12 @@ function coletarInputs(){
     var senha = ipt_senha.value;
     var confSenha = ipt_conf_senha.value;
 
-    senhaPadraoMicrosoft(senha)
-    senhaPadraoMicrosoft(confSenha)
+    if(!senhaPadraoMicrosoft(senha)){
+        div_erro_senha.innerHTML = `<span style="color:red">A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais (como !, @, #, etc.)</span>`;
+    } else {
+        div_erro_senha.innerHTML = ``
+    }
+
     verificarSenhasIguais(senha,confSenha)
     emailValido(email)
     usuarioValido(usuario)
@@ -18,6 +22,7 @@ function coletarInputs(){
             
         }
 }
+
 
 
 function usuarioValido(usuario){
@@ -63,10 +68,7 @@ function senhaPadraoMicrosoft(senha) {
         hasLowerCase &&
         hasNumber &&
         hasSpecialChar) {
-        
-    } else {
-        
-    }
-    return ;
+            return true;
+    } 
 }
 

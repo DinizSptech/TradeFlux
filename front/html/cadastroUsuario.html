@@ -29,11 +29,6 @@
                         <h2>Email</h2>
                         <input type="text" id="ipt_email">
                         <span id="div_erro_email"></span>
-
-                    </div>
-                    <div class="divs-inputs">
-                        <h2>Tipo de usuário</h2>
-                        <input type="text" id="ipt_email">
                     </div>
                     <div class="div-radio">
                         <h2>Tipo de funcionário</h2>
@@ -51,18 +46,17 @@
                     </div>
                     <div class="divs-inputs">
                         <h2>Senha</h2>
-                        <input type="text" id="ipt_senha">
+                        <input type="password" id="ipt_senha">
                         <span id="div_erro_senha"></span>
                     </div>
                     <div class="divs-inputs">
                         <h2>Confirmar senha</h2>
                         <input type="password" id="ipt_conf_senha">
-                        <span id="div_erro_senha"></span>
                     </div>
                     <span id="div_senha_n_coincide"></span>
 
                 </div>
-                <button class="cadastro-button">CADASTRAR-SE</button>
+                <button class="cadastro-button" onclick="coletarInputs()" >CADASTRAR-SE</button>
             </div>
         </div>
 
