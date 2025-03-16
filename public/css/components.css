@@ -5,11 +5,14 @@
 .sideBar{
     /* border: blue 1px solid; */
     height: calc(100vh);
-    width: 250px;
+    width: 350px;
     /* position: fixed; */
     bottom: 0;
     background-color: var(--azulEscuro);
     padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
 }
 
@@ -37,7 +40,7 @@
 
 .main{
     height: calc(100vh);
-    width: calc(100vw - 200px);
+    width: calc(100vw - 350px);
     bottom: 0;
     overflow: auto; /* Permite rolagem se o conteúdo exceder */
     background-size: cover; /* Ajusta o fundo sem distorcer */
@@ -62,13 +65,28 @@
     gap: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    border: red 1px solid;
+    /* border: red 1px solid; */
+}
+
+.exitButton{
+    background-color: var(--amarelo);
+    color: black;
+    font-size: 20px;
+    border-radius: 15px;
+    height: 45px;
+    width: 200px;
+    border: 0;
+    align-self: center;
+}
+
+.exitButton:hover{
+    transition: 1.5s;
+    background-color: var(--amareloEscuro);
 }
 
 .sideButton{
     height: 45px;
     width: 200px;
-    font-size: 15px;
     background-color: white;
     color: black;
     font-size: 20px;
@@ -81,5 +99,6 @@
 }
 
 .sideButton:hover{
+    transition: .5s;
     background-color: var(--amarelo);
 }
