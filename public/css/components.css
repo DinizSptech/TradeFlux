@@ -100,5 +100,6 @@
 
 .sideButton:hover{
     transition: .5s;
-    background-color: var(--amarelo);
+    background-color: var(--backgroundAzul);
+    color: white;
 }
