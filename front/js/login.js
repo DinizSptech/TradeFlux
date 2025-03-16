@@ -3,9 +3,9 @@ function entrar(){
     var usuario = IPTusuario.value;
     var senha = IPTsenha.value;
 
-    if(usuario == "ADM" && senha =="123456"){
+    if(usuario == "ADM" && senha =="GIT "){
         
-        window.location.href = "";
+        window.location.href = "./inicioAdm.html";
     }else{
         
         divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
