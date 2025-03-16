@@ -3,10 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/dash.css">
 </head>
 <body>
-    
+    <div class="container">
+        <div class="sideBar">
+            <div class="divLogo">
+                <h2 class="tituloLogo">TradeFlux</h2>
+                <img src="../assets/logoTradeFlux.png" alt="" class="logo">
+            </div>
+            <div class="sideButtons">
+                <button class="sideButton">Inicio</button>
+                <button class="sideButton">Dashboard</button>
+                <button class="sideButton">Alertas</button>
+            </div>
+            <button class="exitButton">Sair</button>
+        </div>
+        <div class="main">
+            <div class="kpis">
+                <div class="kpi">
+                    <h2 class="tituloKPI">Maquina</h2>
+                    <div class="conteudoKPI">
+                        <select name="" id="">
+                            <option value="" selected>Servidor 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="kpi">
+                    <h2 class="tituloKPI">Inicio</h2>
+                    <div class="conteudoKPI"><input type="date"></div>
+                </div>
+                <div class="kpi">
+                    <h2 class="tituloKPI">Fim</h2>
+                    <div class="conteudoKPI"><input type="date"></div>
+                </div>
+            </div>
+            <div class="graficos">
+                <div class="grafico">
+                    <h1 class="tituloGrafico">Uso da CPU:</h1>
+                </div>
+                <div class="grafico">
+                    <h1 class="tituloGrafico">Temperatura da CPU:</h1>
+                </div>
+            </div>
+
+            <div class="graficos">
+                <div class="grafico">
+                    <h1 class="tituloGrafico">Uso do DISK:</h1>
+                </div>
+                <div class="grafico">
+                    <h1 class="tituloGrafico">Uso da RAM:</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
