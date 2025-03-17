@@ -51,16 +51,47 @@
     gap: 40px;
 }
 
-.grafico{
+.graficoContainer{
     background-color: var(--backgroundAzul);
     min-width: 45%;
     /* min-height: 40%; */
     /* border: red 1px solid; */
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: var(--azulEscuro) 4px solid;
+    gap: 10px;
 }
 
 .tituloGrafico{
     text-align: center;
     color: white;
+    /* border: 2px white solid; */
+    width: 100%;
+}
+
+input{
+    width: 85%;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    border: var(--azulEscuro) 3px solid;
+}
+
+select{
+    width: 85%;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    border: var(--azulEscuro) 3px solid;
+}
+
+.grafico{
+    /* border: 2px white solid; */
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

@@ -8,7 +8,7 @@
 
 .listaServers{
     /* background-color: var(--backgroundAzul); */
-    width: 55%;
+    width: 75%;
     /* border: red 1px solid; */
     height: 95%;
     /* border-radius: 4%; */
@@ -25,6 +25,16 @@
     border-collapse: collapse;
     /* display: flex; */
     /* justify-content: center; */
+}
+
+.tituloServidores{
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 tr{
@@ -80,6 +90,14 @@ td{
 
 .garbageCan{
     font-size: 30px;
+}
+
+tr:nth-child(even) { /* Linhas pares */
+    background-color: #4665f1;
+    color: white;
+}
+tr:nth-child(odd) { /* Linhas ímpares */
+    background-color: #ffffff;
 }
 
 @media screen and (max-width: 1200px) {

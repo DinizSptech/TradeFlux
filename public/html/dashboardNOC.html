@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/dash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -28,7 +29,7 @@
                 </div>
                 <div class="kpi">
                     <h2 class="tituloKPI">Maquina</h2>
-                    <div class="conteudoKPI">Servidor 5</div>
+                    <div class="conteudoKPI"><select name="" id=""><option value="">Servidor 5</option></select></div>
                 </div>
                 <div class="kpi">
                     <h2 class="tituloKPI">Tempo Ativo</h2>
@@ -36,23 +37,149 @@
                 </div>
             </div>
             <div class="graficos">
-                <div class="grafico">
+                <div class="graficoContainer">
                     <h1 class="tituloGrafico">Uso da CPU:</h1>
+                    <div class="grafico">
+                        <canvas id="graficoCPU"></canvas>
+                    </div>
                 </div>
-                <div class="grafico">
+                <div class="graficoContainer">
                     <h1 class="tituloGrafico">Temperatura da CPU:</h1>
+                    <canvas id="graficoTEMP"></canvas>
                 </div>
             </div>
 
             <div class="graficos">
-                <div class="grafico">
+                <div class="graficoContainer">
                     <h1 class="tituloGrafico">Uso do DISK:</h1>
+                    <div class="grafico">
+                        <canvas id="graficoDISK"></canvas>
+                    </div>
                 </div>
-                <div class="grafico">
+                <div class="graficoContainer">
                     <h1 class="tituloGrafico">Uso da RAM:</h1>
+                    <div class="grafico">
+                        <canvas id="graficoRAM"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+<script>
+const ctx = document.getElementById('graficoRAM').getContext('2d');
+
+new Chart(ctx, {
+        type: 'doughnut', 
+        data: {
+            labels: ['Usado', 'Disponível'],
+            datasets: [{
+                data: [70, 30], 
+                backgroundColor: ['#ff6384', '#36a2eb']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: 'white' // Define a cor do texto das labels para branco
+                    }
+                }
+            }
+        }
+    });
+
+const ctx2 = document.getElementById('graficoTEMP').getContext('2d');
+
+new Chart(ctx2, {
+            type: 'line', // Gráfico de linhas
+            data: {
+                labels: ['00h', '02h', '04h', '06h', '08h', '10h', '12h', '14h', '16h', '18h', '20h', '22h'],
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: [22, 21, 20, 18, 19, 23, 27, 30, 28, 26, 24, 22], // Exemplo de dados
+                    borderColor: '#ff6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.3, // Deixa a linha mais suave
+                    pointBackgroundColor: 'white', // Cor dos pontos
+                    pointBorderColor: '#ff6384',
+                    pointRadius: 5 // Tamanho dos pontos
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Define a cor do texto da legenda
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // Cor dos rótulos do eixo X
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white' // Cor dos rótulos do eixo Y
+                        }
+                    }
+                }
+            }
+        });
+
+const ctx3 = document.getElementById('graficoDISK').getContext('2d');
+
+new Chart(ctx3, {
+        type: 'doughnut', 
+        data: {
+            labels: ['Usado', 'Disponível'],
+            datasets: [{
+                data: [20, 80], 
+                backgroundColor: ['#ff6384', '#36a2eb']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: 'white' // Define a cor do texto das labels para branco
+                    }
+                }
+            }
+        }
+    });
+
+const ctx4 = document.getElementById('graficoCPU').getContext('2d');
+
+new Chart(ctx4, {
+        type: 'doughnut', 
+        data: {
+            labels: ['Usado', 'Disponível'],
+            datasets: [{
+                data: [40, 60], 
+                backgroundColor: ['#ff6384', '#36a2eb']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: 'white' // Define a cor do texto das labels para branco
+                    }
+                }
+            }
+        }
+    });
+
+</script>
