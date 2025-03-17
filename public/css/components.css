@@ -78,6 +78,10 @@
     border: 0;
     align-self: center;
 }
+.exitButton a{
+    text-decoration: none;
+    color: black;
+}
 
 .exitButton:hover{
     transition: 1.5s;
@@ -96,6 +100,7 @@
 
 .sideButton a {
     text-decoration: none;
+    color: black;
 }
 
 .sideButton:hover{
