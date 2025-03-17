@@ -45,7 +45,7 @@ tr{
 }
 
 th{
-    font-size: 45px;
+    font-size: 25px;
     /* width: 100%; */
     border-bottom: black 3px solid;
     /* border: red 1px solid; */
@@ -54,7 +54,7 @@ th{
 
 td{
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     /* border: red 1px solid; */
     /* display: flex; */
     flex-direction: row;
@@ -71,10 +71,9 @@ td{
 } */
 
 .excluir{
-    font-size: 25px;
+    font-size: 15px;
     width: 100%;
     background-color: white;
-    border-radius: 20px;
     border: black 2px solid;
     display: flex;
     justify-content: center;
@@ -84,7 +83,6 @@ td{
 .excluir:hover{
     background-color: var(--backgroundAzul);
     color: white;
-    border-radius: 20px;
     border: black 2px solid;
 }
 
