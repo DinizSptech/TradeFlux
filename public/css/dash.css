@@ -95,3 +95,69 @@ select{
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 1200px) {
+    .kpis {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .kpi {
+        width: 30%;
+        margin: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+    .sideBar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .sideButtons {
+        flex-direction: row;
+    }
+    .sideButton, .exitButton {
+        width: auto;
+    }
+    .graficos {
+        flex-direction: column;
+        align-items: center;
+    }
+    .graficoContainer {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .graficoContainer {
+        width: 100%;
+    }
+    .kpis {
+        flex-direction: column;
+        align-items: center;
+    }
+    .kpi {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .sideBar {
+        flex-direction: column;
+        align-items: center;
+    }
+    .sideButtons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .kpis {
+        flex-direction: column;
+        align-items: center;
+    }
+    .graficoContainer {
+        width: 100%;
+    }
+}
