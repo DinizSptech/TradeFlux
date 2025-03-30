@@ -1,134 +1,113 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @import url(components.css);
 
-.formUsuario{
-    width: 50%;
-    border: var(--azulEscuro) 4px solid;
-    height: 80%;
-    background-color: var(--backgroundAzul);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-direction: column;
-    border-radius: 20px;
+.formUsuario {
+  width: 50%;
+  border: var(--azulEscuro) 4px solid;
+  height: 80%;
+  background-color: var(--backgroundAzul);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  border-radius: 20px;
 }
 
-.main{
-    justify-content: center;
-    color: white;
+.main {
+  justify-content: center;
+  color: white;
 }
 
-.tituloForm{
-    font-size: 45px;
+.tituloForm {
+  font-size: 45px;
 }
 
-.input{
-    width: 57%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 10%;
+.input {
+  width: 57%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10%;
 }
 
-.divErro{
-
+.input input {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  height: 40%;
+  font-size: 20px;
+  padding: 10px;
+  border: var(--azulEscuro) 3px solid;
 }
 
-.input input{
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    height: 40%;
-    font-size: 20px;
-    padding: 10px;
-    border: var(--azulEscuro) 3px solid;
+.input span {
+  width: 100%;
+  font-size: 25px;
+  text-align: center;
+  text-justify: center;
 }
 
-.input span{
-    width: 100%;
-    font-size: 25px;
-    text-align: center;
-    text-justify: center;
+.buttonCadastrar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8%;
 }
 
-.radioInputs{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
+.buttonCadastrar button {
+  height: 100%;
+  width: 30%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
 }
 
-.radioInputs input{
-    width: 70%;
-    height: 70%;
-}
-
-.nomeInput{
-    font-size: 20px;
-}
-
-.buttonCadastrar{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 8%;
-}
-
-.buttonCadastrar button{
-    height: 100%;
-    width: 30%;
-    font-size: 20px;
-    border-radius: 10px;
-    border: none;
-    background-color: white;
-}
-
-.buttonCadastrar button:hover{
-    background-color: var(--amarelo);
-    transition: .5;
+.buttonCadastrar button:hover {
+  background-color: var(--amarelo);
+  transition: 0.5;
 }
 
 @media screen and (max-width: 1200px) {
-    .container-menu {
+  .container-menu {
     width: 30%;
-    }
-    .container-central {
+  }
+  .container-central {
     width: 70%;
     display: flex;
-    }
-    }
-    
-    @media screen and (max-width: 992px) {
-    .container-menu {
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container-menu {
     width: 30%;
-    }
-    .container-central {
+  }
+  .container-central {
     width: 70%;
     display: flex;
-    }
-    }
-    
-    @media screen and (max-width: 768px) {
-    .container-menu {
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-menu {
     width: 35%;
-    }
-    .container-central {
+  }
+  .container-central {
     width: 65%;
-    }
-    }
-    
-    @media screen and (max-width: 600px) {
-    .container-menu {
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container-menu {
     width: 35% !important;
-    
-    }
-    .container-central {
+  }
+  .container-central {
     display: 65% !important;
-    }
-    .container-maquina{
+  }
+  .container-maquina {
     height: 85%;
-    }
-    }
+  }
+}
