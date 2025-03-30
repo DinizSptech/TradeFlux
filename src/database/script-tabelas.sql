@@ -1,78 +1,139 @@
-CREATE DATABASE allset;
-USE allset;
+-- NOVO SCRIPT SQL 
 
-CREATE TABLE Empresa (
-    idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
-    razaoSocial VARCHAR(255) NOT NULL,
-    cnpj CHAR(14) NOT NULL UNIQUE,
-    dtCadastro DATE NOT NULL
-);
+CREATE DATABASE tradeflux;
+use tradeflux;
 
-CREATE TABLE Unidade (
-    idUnidade INT AUTO_INCREMENT PRIMARY KEY,
-    fkEmpresa INT NOT NULL,
-    nome VARCHAR(45) NOT NULL,
-    logradouro VARCHAR(45),
-    numero VARCHAR(10),
+CREATE TABLE Endereco (
+    idEndereco INT AUTO_INCREMENT PRIMARY KEY,
+    cep CHAR(8),
+    logradouro VARCHAR(100),
+    numero INT,
     bairro VARCHAR(45),
     cidade VARCHAR(45),
-    estado CHAR(2),
-    contato CHAR(11),
-    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
-    -- Quando é apagado o pai, é apagado junt0 por conta do delete cascade 
+    uf CHAR(2)
 );
 
-CREATE TABLE Usuario (
+CREATE TABLE Empresa_Cliente (
+    idCliente INT AUTO_INCREMENT PRIMARY KEY,
+    razao_social VARCHAR(100),
+    cnpj CHAR(14),
+    telefone VARCHAR(12),
+    fk_endereco INT,
+    CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
+);
+
+CREATE TABLE Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
-    fkUnidade INT NOT NULL,
-    nome VARCHAR(255) NOT NULL,
-    cpf CHAR(11) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL,
-    nvl_administrativo TINYINT NOT NULL,
-    ativo TINYINT(1) NOT NULL DEFAULT 1,
-    FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade) ON DELETE CASCADE
+    nome VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(100),
+    cargo VARCHAR(45),
+    ativo TINYINT(1),
+    fk_cliente INT,
+    CONSTRAINT fk_usuario_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente)
 );
 
-CREATE TABLE Carro (
-    idCarro INT AUTO_INCREMENT PRIMARY KEY,
-    fkUnidade INT NOT NULL,
-    modelo VARCHAR(45) NOT NULL,
-    marca VARCHAR(45) NOT NULL,
-    ano YEAR NOT NULL,
-    enderecoMac CHAR(12) NOT NULL UNIQUE,
-    sistemaOperacional VARCHAR(10),
-    ipv4 VARCHAR
-    FOREIGN KEY (fkUnidade) REFERENCES Unidade(idUnidade) ON DELETE CASCADE
+CREATE TABLE Data_Center (
+    idData_Center INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45),
+    fk_cliente INT,
+    fk_endereco INT,
+    CONSTRAINT fk_datacenter_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
+    CONSTRAINT fk_datacenter_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
 
-CREATE TABLE Componente (
-    idComponente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(45) NOT NULL,
-    medida CHAR(2) NOT NULL
+CREATE TABLE Servidor_Cliente (
+    idServidor INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45),
+    fk_data_center INT,
+    CONSTRAINT fk_servidor_datacenter FOREIGN KEY (fk_data_center) REFERENCES Data_Center(idData_Center)
 );
 
-CREATE TABLE Configuracao (
-    idConfiguracao INT AUTO_INCREMENT PRIMARY KEY,
-    fkCarro INT NOT NULL,
-    fkComponente INT NOT NULL,
-    valorLimiteAlerta DOUBLE NOT NULL,
-    FOREIGN KEY (fkCarro) REFERENCES Carro(idCarro) ON DELETE CASCADE,
-    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE
+CREATE TABLE Parametros_Servidor (
+    idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
+    componente VARCHAR(45),
+    unidade_medida CHAR(2),
+    limiar_alerta DOUBLE,
+    fk_Servidor_Cliente INT,
+    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(idServidor)
 );
 
-CREATE TABLE Leitura (
-    idLeitura INT AUTO_INCREMENT PRIMARY KEY,
-    fkConfiguracao INT NOT NULL,
-    dataHora DATETIME NOT NULL,
-    valor DOUBLE NOT NULL,
-    FOREIGN KEY (fkConfiguracao) REFERENCES Configuracao(idConfiguracao) ON DELETE CASCADE
+CREATE TABLE Captura_Servidor_1 (
+    idCaptura_Servidor_1 INT AUTO_INCREMENT PRIMARY KEY,
+    `CPU_%` INT,
+    CPU_Freq DOUBLE,
+    `RAM_%` INT,
+    RAM_Byte DOUBLE,
+    `Disco_%` INT,
+    Disco_Byte DOUBLE,
+    Rede_Upload_Mbps DOUBLE,
+    Rede_Download_Mbps DOUBLE
 );
 
-INSERT INTO Empresa (idEmpresa, razaoSocial, cnpj, dtCadastro)
-VALUES (DEFAULT, 'Empresa Exemplo Ltda', '12.345.678/0001-99', '2023-04-07');
+CREATE TABLE Captura_Servidor_2 (
+    idCaptura_Servidor_2 INT AUTO_INCREMENT PRIMARY KEY,
+    `CPU_%` INT,
+    CPU_Freq DOUBLE,
+    `RAM_%` INT,
+    RAM_Byte DOUBLE,
+    `Disco_%` INT,
+    Disco_Byte DOUBLE,
+    Rede_Upload_Mbps DOUBLE,
+    Rede_Download_Mbps DOUBLE
+);
 
-select * from unidade;
-select * from usuario;
-select * from empresa;
+CREATE TABLE Captura_Servidor_3 (
+    idCaptura_Servidor_3 INT AUTO_INCREMENT PRIMARY KEY,
+    `CPU_%` INT,
+    CPU_Freq DOUBLE,
+    `RAM_%` INT,
+    RAM_Byte DOUBLE,
+    `Disco_%` INT,
+    Disco_Byte DOUBLE,
+    Rede_Upload_Mbps DOUBLE,
+    Rede_Download_Mbps DOUBLE
+);
 
+CREATE TABLE Captura_Servidor_4 (
+    idCaptura_Servidor_4 INT AUTO_INCREMENT PRIMARY KEY,
+    `CPU_%` INT,
+    CPU_Freq DOUBLE,
+    `RAM_%` INT,
+    RAM_Byte DOUBLE,
+    `Disco_%` INT,
+    Disco_Byte DOUBLE,
+    Rede_Upload_Mbps DOUBLE,
+    Rede_Download_Mbps DOUBLE
+);
+
+CREATE TABLE Alerta_Servidor_1 (
+    idAlerta_Servidor_1 INT AUTO_INCREMENT PRIMARY KEY,
+    componente VARCHAR(45),
+    dado DECIMAL(10,2),
+    responsavel VARCHAR(45),
+    visualizado TINYINT(1)
+);
+
+CREATE TABLE Alerta_Servidor_2 (
+    idAlerta_Servidor_2 INT AUTO_INCREMENT PRIMARY KEY,
+    componente VARCHAR(45),
+    dado DECIMAL(10,2),
+    responsavel VARCHAR(45),
+    visualizado TINYINT(1)
+);
+
+CREATE TABLE Alerta_Servidor_3 (
+    idAlerta_Servidor_3 INT AUTO_INCREMENT PRIMARY KEY,
+    componente VARCHAR(45),
+    dado DECIMAL(10,2),
+    responsavel VARCHAR(45),
+    visualizado TINYINT(1)
+);
+
+CREATE TABLE Alerta_Servidor_4 (
+    idAlerta_Servidor_4 INT AUTO_INCREMENT PRIMARY KEY,
+    componente VARCHAR(45),
+    dado DECIMAL(10,2),
+    responsavel VARCHAR(45),
+    visualizado TINYINT(1)
+);
