@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cadastroUsuario.css">
-    <link rel="icon" href="../assets/TRADEFLUX__2_-removebg-preview 1.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/cadastroUsuario.css" />
+    <link rel="icon" href="../assets/TRADEFLUX__2_-removebg-preview 1.png" />
     <script src="../js/cadastroUsuario.js  "></script>
     <title>TradeFlux - Cadastro</title>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="container">
-        <div class="sideBar">
-            <div class="divLogo">
-                <h2 class="tituloLogo">TradeFlux</h2>
-                <img src="../assets/logoTradeFlux.png" alt="" class="logo">
-            </div>
-            <div class="sideButtons">
-                <!-- <button class="sideButton">Maquinas</button> -->
-                <button class="sideButton"><a href="./inicioAdm.html">Inicio</a></button>
-                <button class="sideButton"><a href="./dashboard2.html">Dashboard Cientista</a></button>
-                <button class="sideButton"><a href="./dashboardNOC.html">Dashboard NOC</a></button>
-                <button class="sideButton"><a href="./cadastroUsuario.html">Adicionar usuarios</a></button>
-                <!-- <button class="sideButton">Alertas</button> -->
-            </div>
-            <button class="exitButton"><a href="./index.html">Sair</a></button>
+      <div class="sideBar">
+        <div class="divLogo">
+          <h2 class="tituloLogo">TradeFlux</h2>
+          <img src="../assets/logoTradeFlux.png" alt="" class="logo" />
         </div>
-        <div class="main">
-            <div class="formUsuario">
-                <div class="tituloForm">Cadastrar Usuario</div>
-                <div class="input">
-                    <span>Usuario:</span>
-                    <input type="text">
-                </div>
-                <div class="input">
-                    <span>Email:</span>
-                    <input type="text">
-                </div>
-                <div class="input" style="text-align: center;">
-                    <span>Tipo de usuario:</span>
-                    <div class="radioInputs">
-                        <span class="nomeInput">Analista:</span><input type="radio" style="margin-right: 2%;">
-                        <span class="nomeInput">Cientista:</span><input type="radio" style="margin-right: 2%;">
-                        <span class="nomeInput">Administrador:</span><input type="radio" style="margin-right: 2%;">
-                    </div>
-                </div>
-                <div class="input">
-                    <span>senha:</span>
-                    <input type="password">
-                </div>
-                <div class="input">
-                    <span>Confirmar senha:</span>
-                    <input type="password">
-                </div>
-                <div class="buttonCadastrar">
-                    <button>Cadastrar</button>
-                </div>
-            </div>
+        <div class="sideButtons">
+          <!-- <button class="sideButton">Maquinas</button> -->
+          <button class="sideButton">
+            <a href="./inicioAdm.html">Inicio</a>
+          </button>
+          <button class="sideButton">
+            <a href="./dashboard2.html">Dashboard Cientista</a>
+          </button>
+          <button class="sideButton">
+            <a href="./dashboardNOC.html">Dashboard NOC</a>
+          </button>
+          <button class="sideButton">
+            <a href="./cadastroUsuario.html">Adicionar usuarios</a>
+          </button>
+          <!-- <button class="sideButton">Alertas</button> -->
         </div>
+        <button class="exitButton"><a href="./index.html">Sair</a></button>
+      </div>
+      <div class="main">
+        <div class="formUsuario">
+          <div class="tituloForm">Cadastrar Usuario</div>
+          <div class="input">
+            <span>Usuario:</span>
+            <input id="ipt_usuario" type="text" />
+          </div>
+          <div class="input">
+            <span>Email:</span>
+            <input id="ipt_email" type="text" />
+          </div>
+          <div class="input" style="text-align: center">
+            <span>Tipo de usuario:</span>
+            <div class="radioInputs">
+              <span class="nomeInput">Analista:</span
+              ><input type="radio" style="margin-right: 2%" />
+              <span class="nomeInput">Cientista:</span
+              ><input type="radio" style="margin-right: 2%" />
+              <span class="nomeInput">Administrador:</span
+              ><input type="radio" style="margin-right: 2%" />
+            </div>
+          </div>
+          <div class="input">
+            <span>Senha:</span>
+            <input id="ipt_senha" type="password" />
+          </div>
+          <div class="input">
+            <span>Confirmar senha:</span>
+            <input id="ipt_confirmSenha" type="password" />
+          </div>
+          <div class="buttonCadastrar">
+            <button onclick="cadastrar()">Cadastrar</button>
+          </div>
+        </div>
+      </div>
     </div>
-        
-</body>
-
+  </body>
+</html>
