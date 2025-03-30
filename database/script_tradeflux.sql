@@ -1,3 +1,5 @@
+-- NOVO SCRIPT SQL 
+
 CREATE DATABASE tradeflux;
 use tradeflux;
 
