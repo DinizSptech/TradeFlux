@@ -20,11 +20,11 @@ var usuarioRouter = require("./src/routes/usuarios");
 var empresasRouter = require("./src/routes/empresas");
 var unidadesRouter = require("./src/routes/unidades");
 
-app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
