@@ -12,12 +12,11 @@ function listarUsuario(req, res) {
 }
 
 function cadastrar(req, res) {
-  let nome = req.body.nome;
-  let senha = req.body.senha;
-  let email = req.body.email;
-  let cargo = req.body.cargo;
-  let ativo = req.body.ativo;
-  let fk_cliente = req.body.fk_cliente;
+  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+  let nome = req.body.nomeServer;
+  let senha = req.body.senhaServer;
+  let email = req.body.emailServer;
+  let cargo = req.body.cargoServer;
 
   if (nome == undefined) {
     res.status(400).send("Seu nome está undefined!");
@@ -27,13 +26,9 @@ function cadastrar(req, res) {
     res.status(400).send("Seu email está undefined!");
   } else if (cargo == undefined) {
     res.status(400).send("Seu cargo está undefined!");
-  } else if (ativo == undefined) {
-    res.status(400).send("Seu ativo está undefined!");
-  } else if (fk_cliente == undefined) {
-    res.status(400).send("Sua fk_cliente está undefined!");
   } else {
     usuarioModel
-      .cadastrar(nome, senha, email, cargo, ativo, fk_cliente)
+      .cadastrar(nome, senha, email, cargo)
       .then((resultado) => {
         res.status(200).json(resultado);
         res.status(200).send("Usuario cadastrado com sucesso");
