@@ -76,6 +76,7 @@
 // }
 
 // CONFIGURAÇÃO BACKEND:
+
 function cadastrar() {
   let nome = ipt_nome.value;
   let email = ipt_email.value;
