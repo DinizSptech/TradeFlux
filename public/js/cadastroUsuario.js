@@ -108,7 +108,7 @@ function cadastrar() {
     }),
   }).then(function (resposta) {
     if (resposta.ok) {
-      console.log(reposta);
+      console.log(resposta);
       console.log("Resposta OK!");
 
       resposta.json().then((json) => {
@@ -120,85 +120,3 @@ function cadastrar() {
     }
   });
 }
-
-//     function cadastrar() {
-//       // Agora vá para o método fetch logo abaixo
-
-//         finalizarAguardar();
-//         return false;
-//       } else {
-//         setInterval(sumirMensagem, 5000);
-//       }
-
-//       // Enviando o valor da nova input
-//       fetch("/usuarios/cadastrar", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           // crie um atributo que recebe o valor recuperado aqui
-//           // Agora vá para o arquivo routes/usuario.js
-//           nomeServer: nomeVar,
-//           emailServer: emailVar,
-//           senhaServer: senhaVar,
-//           generoServer: generoVar,
-//           idadeServer: idadeVar,
-//           alturaServer: alturaVar,
-//         }),
-//       })
-//         .then(function (resposta) {
-//           console.log("resposta: ", resposta);
-
-//           if (resposta.ok) {
-//             mensagem_realizado.style.display = "block";
-//             lista_nome.push(nomeVar);
-//             lista_email.push(emailVar);
-//             lista_senha.push(senhaVar);
-//             lista_genero.push(generoVar);
-//             lista_idade.push(idadeVar);
-//             lista_altura.push(alturaVar);
-
-//             resposta.json().then((json) => {
-//               // armazenar os dados de idade e altura para usar na dashboard
-//               console.log(json);
-//               console.log(JSON.stringify(json));
-//               // sessionStorage.LISTA_IDADE = json.lista_idade;
-//               // sessionStorage.LISTA_ALTURA = json.lista_altura;
-
-//               mensagem_realizado.innerHTML = `Cadastro Realizado! Redirecionando para o Login...`;
-
-//               setTimeout(() => {
-//                 window.location = "login.html";
-//               }, "2000");
-//             });
-
-//             limparFormulario();
-//             finalizarAguardar();
-//           } else {
-//             throw "Houve um erro ao tentar realizar o cadastro!";
-//           }
-//         })
-//         .catch(function (resposta) {
-//           console.log(`#ERRO: ${resposta}`);
-//           finalizarAguardar();
-//         });
-
-//       return false;
-//     }
-
-//     function sumirMensagem() {
-//       cardErro.style.display = "none";
-//     }
-
-//       var lista_idades = JSON.parse(sessionStorage.getItem("LISTA_IDADES")) || [];
-//       var lista_alturas =
-//         JSON.parse(sessionStorage.getItem("LISTA_ALTURAS")) || [];
-
-//       lista_idades.push(Number(idadeVar));
-//       lista_alturas.push(Number(alturaVar));
-
-//       sessionStorage.setItem("LISTA_IDADES", JSON.stringify(lista_idades));
-//       sessionStorage.setItem("LISTA_ALTURAS", JSON.stringify(lista_alturas));
-
-//   </script> -->
