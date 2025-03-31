@@ -76,23 +76,12 @@
 // }
 
 // CONFIGURAÇÃO BACKEND:
-
 function cadastrar() {
   let nome = ipt_nome.value;
   let email = ipt_email.value;
   let cargo = select_cargo.value;
   let senha = ipt_senha.value;
   let confirmSenha = ipt_confirmSenha.value;
-
-  // let lista_usuarios =
-  //   JSON.parse(sessionStorage.getItem("LISTA_USUARIOS")) || [];
-  // let lista_emails = JSON.parse(sessionStorage.getItem("LISTA_EMAILS")) || [];
-
-  // lista_usuarios.push(usuario);
-  // lista_emails.push(email);
-
-  // sessionStorage.setItem("LISTA_USUARIOS", JSON.stringify(lista_usuarios));
-  // sessionStorage.setItem("LISTA_EMAILS", JSON.stringify(lista_emails));
 
   fetch("/usuarios/cadastrar", {
     method: "POST",
@@ -104,12 +93,12 @@ function cadastrar() {
       emailServer: email,
       cargoServer: cargo,
       senhaServer: senha,
-      confirmSenhaServer: confirmSenha,
     }),
   }).then(function (resposta) {
     if (resposta.ok) {
       console.log(resposta);
       console.log("Resposta OK!");
+      console.log("Cadastrado no BD");
 
       resposta.json().then((json) => {
         console.log(json);
