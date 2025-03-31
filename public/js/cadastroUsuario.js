@@ -4,6 +4,8 @@
 //   var senha = ipt_senha.value;
 //   var confSenha = ipt_conf_senha.value;
 
+// const { json } = require("express");
+
 //   if (!senhaPadraoMicrosoft(senha)) {
 //     div_erro_senha.innerHTML = `<span style="color:red">A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais (como !, @, #, etc.)</span>`;
 //   } else {
@@ -76,32 +78,41 @@
 // CONFIGURAÇÃO BACKEND:
 
 function cadastrar() {
-  let usuario = document.getElementById("ipt_usuario");
-  let email = document.getElementById("ipt_email");
-  let cargo = document.getElementById("select_cargo");
-  let senha = document.getElementById("ipt_senha");
-  let confirmSenha = document.getElementById("ipt_confirmSenha");
+  let nome = ipt_nome.value;
+  let email = ipt_email.value;
+  let cargo = select_cargo.value;
+  let senha = ipt_senha.value;
+  let confirmSenha = ipt_confirmSenha.value;
+
+  // let lista_usuarios =
+  //   JSON.parse(sessionStorage.getItem("LISTA_USUARIOS")) || [];
+  // let lista_emails = JSON.parse(sessionStorage.getItem("LISTA_EMAILS")) || [];
+
+  // lista_usuarios.push(usuario);
+  // lista_emails.push(email);
+
+  // sessionStorage.setItem("LISTA_USUARIOS", JSON.stringify(lista_usuarios));
+  // sessionStorage.setItem("LISTA_EMAILS", JSON.stringify(lista_emails));
 
   fetch("/usuarios/cadastrar", {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      usuarioServer: usuario,
+      nomeServer: nome,
       emailServer: email,
       cargoServer: cargo,
       senhaServer: senha,
       confirmSenhaServer: confirmSenha,
     }),
   }).then(function (resposta) {
-    console.log(resposta);
-
     if (resposta.ok) {
+      console.log(reposta);
       console.log("Resposta OK!");
 
       resposta.json().then((json) => {
-        console.log("JSON:", json);
+        console.log(json);
         console.log(JSON.stringify(json));
       });
     } else {
