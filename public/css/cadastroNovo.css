@@ -54,7 +54,10 @@ a {
   color: #e0a30a;
   cursor: pointer;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a8eca717d9f916baab7e83332b0aa22ae953a79d
 .contato {
   background-color: #e0d00a;
   border-radius: 20px;
@@ -69,7 +72,11 @@ a {
 }
 .container-menu {
   display: flex;
+<<<<<<< HEAD
   height: 95%;
+=======
+  height: 90%;
+>>>>>>> a8eca717d9f916baab7e83332b0aa22ae953a79d
   justify-content: center;
   align-items: center;
 }
@@ -100,6 +107,15 @@ a {
   color: #e0d00a;
 }
 
+<<<<<<< HEAD
+=======
+.msgErro {
+  display: flex;
+  justify-content: center;
+  color: rgb(165, 108, 108);
+}
+
+>>>>>>> a8eca717d9f916baab7e83332b0aa22ae953a79d
 .menu h4:hover {
   color: aquamarine;
 }
