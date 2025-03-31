@@ -1,4 +1,4 @@
-let database = require("../database/config");
+let database = require("../database/conig");
 
 function cadastrar(nome, senha, email, cargo) {
   console.log(
