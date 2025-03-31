@@ -54,6 +54,7 @@ a {
   color: #e0a30a;
   cursor: pointer;
 }
+
 .contato {
   background-color: #e0d00a;
   border-radius: 20px;
@@ -68,7 +69,7 @@ a {
 }
 .container-menu {
   display: flex;
-  height: 80%;
+  height: 95%;
   justify-content: center;
   align-items: center;
 }
@@ -81,8 +82,8 @@ a {
   align-items: center;
   border-radius: 20px;
   background-color: #000957;
-  width: 30%;
-  height: 80%;
+  width: 35%;
+  height: 75%;
 }
 
 .menu h3 {
@@ -99,12 +100,6 @@ a {
   color: #e0d00a;
 }
 
-.msgErro {
-  display: flex;
-  justify-content: center;
-  color: rgb(165, 108, 108);
-}
-
 .menu h4:hover {
   color: aquamarine;
 }
@@ -113,13 +108,13 @@ a {
   border: none;
   border-radius: 15px;
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 .menu button {
-  height: 11%;
+  height: 10%;
+  width: 35%;
   color: white;
-  width: 50%;
   border-radius: 30px;
   border: none;
   font-size: 20px;
@@ -137,11 +132,10 @@ a {
 }
 .inputs {
   width: 70%;
-  height: 10%;
+  gap: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 50%;
 }
 
 .footer {
