@@ -1,4 +1,4 @@
-const usuarioModel = require("../models/usuarioModel");
+let usuarioModel = require("../models/usuarioModel");
 
 function listarUsuario(req, res) {
   usuarioModel
@@ -11,7 +11,7 @@ function listarUsuario(req, res) {
     });
 }
 
-function cadastrarUsuario(req, res) {
+function cadastrar(req, res) {
   let nome = req.body.nome;
   let senha = req.body.senha;
   let email = req.body.email;
@@ -46,5 +46,5 @@ function cadastrarUsuario(req, res) {
 
 module.exports = {
   listarUsuario,
-  cadastrarUsuario,
+  cadastrar,
 };

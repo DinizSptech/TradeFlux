@@ -1,6 +1,6 @@
-const database = require("../database/config");
+let database = require("../database/config");
 
-function cadastrarUsuario(nome, senha, email, cargo, ativo, fk_cliente) {
+function cadastrar(nome, senha, email, cargo, ativo, fk_cliente) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
@@ -21,5 +21,5 @@ function cadastrarUsuario(nome, senha, email, cargo, ativo, fk_cliente) {
 }
 
 module.exports = {
-  cadastrarUsuario,
+  cadastrar,
 };
