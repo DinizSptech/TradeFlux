@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+/* Aumentar o texto do footer na página normal e o texto em amarelo nas páginas responsivas */
 
 :root {
   --tamanho-header: 80px;
@@ -10,13 +11,17 @@ html {
 }
 
 body {
-  background-color: #344cb7;
+  /* background-color: #344cb7; */
+  background-image: url("../assets/index.photo.jpg");
+  background-size: cover;
+  background-position: center;
   color: white;
   font-family: "Ubuntu", serif;
   margin: 0px;
   padding: 0px;
   height: 100%;
 }
+
 a {
   text-decoration: none;
   color: white;
@@ -30,6 +35,7 @@ a {
   margin-left: 5%;
   height: 10%;
 }
+
 .nav-bar {
   width: 95%;
   display: flex;
@@ -54,6 +60,7 @@ a {
   color: #e0a30a;
   cursor: pointer;
 }
+
 .contato {
   background-color: #e0d00a;
   border-radius: 20px;
@@ -66,6 +73,7 @@ a {
   padding: 0px 10px 0px 10px;
   color: white;
 }
+
 .container-menu {
   display: flex;
   height: 80%;
@@ -96,6 +104,7 @@ a {
 
 .menu h4 {
   margin: 0;
+  font-size: 25px;
   color: #e0d00a;
 }
 
@@ -135,6 +144,7 @@ a {
 .logo {
   width: 5%;
 }
+
 .inputs {
   width: 70%;
   height: 10%;
@@ -149,7 +159,7 @@ a {
   height: 10%;
   color: #fff;
   display: flex;
-  font-size: 15px;
+  font-size: 30px;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -158,8 +168,18 @@ a {
   .menu {
     width: 60%;
   }
+
   .menu h4 {
     text-align: center;
+    font-size: 25px;
+  }
+
+  .footer h4 {
+    font-size: 30px;
+  }
+
+  .logo {
+    width: 15%;
   }
 }
 
@@ -167,8 +187,18 @@ a {
   .menu {
     width: 65%;
   }
+
   .menu h4 {
     text-align: center;
+    font-size: 25px;
+  }
+
+  .footer h4 {
+    font-size: 30px;
+  }
+
+  .logo {
+    width: 20%;
   }
 }
 
@@ -176,8 +206,18 @@ a {
   .menu {
     width: 65%;
   }
+
   .menu h4 {
     text-align: center;
+    font-size: 25px;
+  }
+
+  .footer h4 {
+    font-size: 30px;
+  }
+
+  .logo {
+    width: 20%;
   }
 }
 
@@ -185,7 +225,17 @@ a {
   .menu {
     width: 80%;
   }
+ 
   .menu h4 {
     text-align: center;
+    font-size: 25px;
+  }
+
+  .footer h4 {
+    font-size: 30px;
+  }
+
+  .logo {
+    width: 20%;
   }
 }
