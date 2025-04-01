@@ -27,6 +27,8 @@ CREATE TABLE Empresa_Cliente (
 INSERT INTO Empresa_Cliente (razao_social, cnpj, telefone, fk_endereco) VALUES 
 (' B3 S.A. Brasil, Bolsa, Balcão', '09346601000125', '11999999999', 1);
 SELECT * FROM Usuario_Cliente;
+
+
 CREATE TABLE Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
