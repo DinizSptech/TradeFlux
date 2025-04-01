@@ -1,27 +1,69 @@
 
-function entrar(){
-    var usuario = IPTusuario.value;
-    var senha = IPTsenha.value;
+function entrar(){ 
+      var emailVar = IPTemail.value;
+      var senhaVar = IPTsenha.value;
+  
+      if (!emailVar || !senhaVar) {
+        divERROR.innerHTML = "Preencha todos os campos!";
+        divERROR.style.display = "block";
+        return false;
+      }
+  
+      console.log("FORM LOGIN: ", emailVar);
+      console.log("FORM SENHA: ", senhaVar);
+  
+      fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.ok) {
+            resposta.json().then((json) => {
+              sessionStorage.EMAIL_USUARIO = json.email;
+              sessionStorage.NOME_USUARIO = json.nome;
+              sessionStorage.ID_USUARIO = json.id;
+              nivelConta = json.cargo;
+  
+              if(nivelConta == "administrador") {
+                alert(
+                    "Login realizado com sucesso! Redirecionando para a conta administradora..."
+                  );
+                  window.location.href = "./inicioAdm.html";
+              } else if(nivelConta == "analista") {
+                  alert(
+                    "Login realizado com sucesso! Redirecionando para a conta analista!..."
+                  );
+                  window.location.href = "./dashboardNOC.html";
+              } else if(nivelConta == "Cientista"){
+                    alert(
+                        "Login realizado com sucesso! Redirecionando para a conta Cientista de Dados!..."
+                    );
+                    window.location.href = "./dashboard2.html";
+              }
+            });
+          } else {
+            resposta.text().then((texto) => {
+              console.log(texto);
 
-    if(usuario == "ADM" && senha =="GIT "){
-        
-        window.location.href = "./inicioAdm.html";
-    }else{
-        
-        divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
+              divERROR.innerHTML = "Usuário e/ou senha inválidos!";
+              divERROR.style.display = "block";
+            });
+          }
+        })
+        .catch(function (erro) {
+          console.log(erro);
+        });
+  
+      return false;
     }
-    
-    if (usuario == "analista" && senha == "123456"){
-        window.location.href = "./dashboardNOQ.html"
-    }else{
-       divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
+  
+    function sumirMensagem() {
+      cardErro.style.display = "none";
     }
 
-    if (usuario == "cientista" && senha == "123456"){
-        window.location.href = ""
-    }else{
-       divERRORsenha.innerHTML = "<span>Senha ou Usuário incorretos</span>"
-    }
-
-
-}
