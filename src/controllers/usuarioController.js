@@ -1,3 +1,4 @@
+const e = require("express");
 let usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
@@ -46,6 +47,7 @@ function cadastrar(req, res) {
   let senha = req.body.senhaServer;
   let email = req.body.emailServer;
   let cargo = req.body.cargoServer;
+  let empresa_cliente = req.body.empresaServer;
 
   if (nome == undefined) {
     res.status(400).send("Seu nome está undefined!");
@@ -55,9 +57,12 @@ function cadastrar(req, res) {
     res.status(400).send("Seu email está undefined!");
   } else if (cargo == undefined) {
     res.status(400).send("Seu cargo está undefined!");
-  } else {
+  } else if (empresa_cliente == undefined) {
+    res.status(400).send("Sua empresa está undefined!");
+  }
+  else {
     usuarioModel
-      .cadastrar(nome, senha, email, cargo)
+      .cadastrar(nome, senha, email, cargo, empresa_cliente)
       .then((resultado) => {
         res.status(200).json(resultado);
         res.status(200).send("Usuario cadastrado com sucesso");

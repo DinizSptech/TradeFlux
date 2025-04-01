@@ -40,7 +40,7 @@ function entrar(){
                     "Login realizado com sucesso! Redirecionando para a conta analista!..."
                   );
                   window.location.href = "./dashboardNOC.html";
-              } else if(nivelConta == "Cientista"){
+              } else if(nivelConta == "cientista"){
                     alert(
                         "Login realizado com sucesso! Redirecionando para a conta Cientista de Dados!..."
                     );

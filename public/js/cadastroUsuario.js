@@ -6,6 +6,7 @@ function cadastrar() {
   let cargo = select_cargo.value;
   let senha = ipt_senha.value;
   let confirmSenha = ipt_confirmSenha.value;
+  let empresa_cliente = 1;
 
   function validarNome(nome) {
     erros_cadastro_usuario.innerHTML = ``;
@@ -102,6 +103,7 @@ function cadastrar() {
         console.log("Email: " + email);
         console.log("Cargo: " + cargo);
         console.log("Senha: " + senha);
+        console.log("Empresa: " + empresa_cliente);
     
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -113,6 +115,7 @@ function cadastrar() {
               emailServer: email,
               cargoServer: cargo,
               senhaServer: senha,
+              empresaServer: empresa_cliente,
             }),
           }).then(function (resposta) {
             if (resposta.ok) {
