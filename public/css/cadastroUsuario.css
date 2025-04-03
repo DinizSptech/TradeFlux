@@ -49,6 +49,12 @@
   text-justify: center;
 }
 
+select {
+  padding: 5%;
+  border-radius: 4px;
+  background: white;
+}
+
 .buttonCadastrar {
   width: 100%;
   display: flex;
