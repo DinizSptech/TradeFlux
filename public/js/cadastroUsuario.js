@@ -7,6 +7,7 @@ function cadastrar() {
   let senha = ipt_senha.value;
   let confirmSenha = ipt_confirmSenha.value;
   let empresa_cliente = 1;
+  let ativo = 1
 
   function validarNome(nome) {
     erros_cadastro_usuario.innerHTML = ``;
@@ -116,6 +117,7 @@ function cadastrar() {
               cargoServer: cargo,
               senhaServer: senha,
               empresaServer: empresa_cliente,
+              ativoServer: ativo,
             }),
           }).then(function (resposta) {
             if (resposta.ok) {
