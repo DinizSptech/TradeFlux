@@ -51,11 +51,11 @@ CREATE TABLE Data_Center (
     CONSTRAINT fk_datacenter_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
     CONSTRAINT fk_datacenter_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
-INSERT INTO Data_Center (nome, fk_cliente, fk_endereco)
-VALUES ('datacenter', 1, LAST_INSERT_ID());
 
 truncate table data_center;
 SELECT * FROM Data_Center;
+select * from endereco;
+
 CREATE TABLE Servidor_Cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
