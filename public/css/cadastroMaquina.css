@@ -7,8 +7,8 @@ height: 100%;
 font-family: "Ubuntu", serif;
 }
 .container-geral{
-height: 100%;
-width: 100%;
+height: auto;
+width: auto;
 display: flex;
 }
 .container-geral h2{
@@ -65,14 +65,14 @@ justify-content: center;
 
 .divs-inputs{
 
-width: 100%;
+width: auto;
 display: flex;
 flex-direction: column;
 justify-content: center;
 font-family:"Ubuntu", serif;
 }
 .divs-inputs input{
-width: 100%;
+width: auto;
 }
 
 .ipt_dados{
