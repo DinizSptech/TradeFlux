@@ -96,3 +96,4 @@ select * from servidor_cliente;
 SELECT * FROM empresa_cliente;
 
 SELECT * FROM data_center;
+SELECT * FROM endereco
