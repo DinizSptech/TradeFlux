@@ -1,10 +1,10 @@
--- Active: 1732573765546@@127.0.0.1@3306@tradeflux
--- NOVO SCRIPT SQL 
 
-CREATE DATABASE tradeflux;
+
+CREATE DATABASE IF NOT EXISTS tradeflux;
 use tradeflux;
 
-CREATE TABLE Endereco (
+
+CREATE TABLE IF NOT EXISTS Endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
     cep CHAR(8),
     logradouro VARCHAR(100),
@@ -13,13 +13,8 @@ CREATE TABLE Endereco (
     cidade VARCHAR(45),
     uf CHAR(2)
 );
-truncate table endereco;
-SELECT * FROM Endereco;
-INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
-('01010901', 'Rua Quinze de Novembro', 275, 'Centro Histórico de São Paulo', 'São Paulo', 'SP'),
-('06543004', 'Rua Ricardo Prudente de Aquino', 85, 'Residencial Tambore III', 'Santana de Parnaíba', 'SP');
 
-CREATE TABLE Empresa_Cliente (
+CREATE TABLE IF NOT EXISTS Empresa_Cliente (
     idCliente INT AUTO_INCREMENT PRIMARY KEY,
     razao_social VARCHAR(100),
     cnpj CHAR(14),
@@ -27,10 +22,8 @@ CREATE TABLE Empresa_Cliente (
     fk_endereco INT,
     CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
-INSERT INTO Empresa_Cliente (razao_social, cnpj, telefone, fk_endereco) VALUES 
-(' B3 S.A. Brasil, Bolsa, Balcão', '09346601000125', '11999999999', 1);
 
-CREATE TABLE Usuario_Cliente (
+CREATE TABLE IF NOT EXISTS Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     email VARCHAR(45),
@@ -41,9 +34,7 @@ CREATE TABLE Usuario_Cliente (
     CONSTRAINT fk_usuario_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente)
 );
 
-SELECT * FROM Usuario_Cliente;
-
-CREATE TABLE Data_Center (
+CREATE TABLE IF NOT EXISTS Data_Center (
     idData_Center INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     fk_cliente INT,
@@ -52,103 +43,56 @@ CREATE TABLE Data_Center (
     CONSTRAINT fk_datacenter_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
 
-truncate table data_center;
-SELECT * FROM Data_Center;
-select * from endereco;
-
-CREATE TABLE Servidor_Cliente (
-    idServidor INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(45),
-    fk_data_center INT,
+CREATE TABLE IF NOT EXISTS Servidor_Cliente (
+    UUIDServidor VARCHAR(70) PRIMARY KEY,
+    ramTotal DOUBLE,
+    discoTotal DOUBLE,
+    cpuInfo varchar(30),
+	fk_data_center INT,
     CONSTRAINT fk_servidor_datacenter FOREIGN KEY (fk_data_center) REFERENCES Data_Center(idData_Center)
 );
 
-CREATE TABLE Parametros_Servidor (
+CREATE TABLE IF NOT EXISTS Parametros_Servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     componente VARCHAR(45),
     unidade_medida CHAR(2),
     limiar_alerta DOUBLE,
-    fk_Servidor_Cliente INT,
-    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(idServidor)
-);
+    fk_Servidor_Cliente VARCHAR(70),
+    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(UUIDServidor)
+);  
 
-CREATE TABLE Captura_Servidor_1 (
-    idCaptura_Servidor_1 INT AUTO_INCREMENT PRIMARY KEY,
-    `CPU_%` INT,
-    CPU_Freq DOUBLE,
-    `RAM_%` INT,
-    RAM_Byte DOUBLE,
-    `Disco_%` INT,
-    Disco_Byte DOUBLE,
-    Rede_Upload_Mbps DOUBLE,
-    Rede_Download_Mbps DOUBLE
-);
-
-CREATE TABLE Captura_Servidor_2 (
-    idCaptura_Servidor_2 INT AUTO_INCREMENT PRIMARY KEY,
-    `CPU_%` INT,
-    CPU_Freq DOUBLE,
-    `RAM_%` INT,
-    RAM_Byte DOUBLE,
-    `Disco_%` INT,
-    Disco_Byte DOUBLE,
-    Rede_Upload_Mbps DOUBLE,
-    Rede_Download_Mbps DOUBLE
-);
-
-CREATE TABLE Captura_Servidor_3 (
-    idCaptura_Servidor_3 INT AUTO_INCREMENT PRIMARY KEY,
-    `CPU_%` INT,
-    CPU_Freq DOUBLE,
-    `RAM_%` INT,
-    RAM_Byte DOUBLE,
-    `Disco_%` INT,
-    Disco_Byte DOUBLE,
-    Rede_Upload_Mbps DOUBLE,
-    Rede_Download_Mbps DOUBLE
-);
-
-CREATE TABLE Captura_Servidor_4 (
-    idCaptura_Servidor_4 INT AUTO_INCREMENT PRIMARY KEY,
-    `CPU_%` INT,
-    CPU_Freq DOUBLE,
-    `RAM_%` INT,
-    RAM_Byte DOUBLE,
-    `Disco_%` INT,
-    Disco_Byte DOUBLE,
-    Rede_Upload_Mbps DOUBLE,
-    Rede_Download_Mbps DOUBLE
-);
-
-CREATE TABLE Alerta_Servidor_1 (
-    idAlerta_Servidor_1 INT AUTO_INCREMENT PRIMARY KEY,
-    componente VARCHAR(45),
+CREATE TABLE IF NOT EXISTS Captura (
+    idCaptura INT AUTO_INCREMENT,
+    fkParametro INT,
     dado DECIMAL(10,2),
-    responsavel VARCHAR(45),
-    visualizado TINYINT(1)
+    PRIMARY KEY (idCaptura, fkParametro),
+    CONSTRAINT ParametroServidor FOREIGN KEY (fkParametro) REFERENCES Parametros_Servidor(idParametros_Servidor)
 );
 
-CREATE TABLE Alerta_Servidor_2 (
-    idAlerta_Servidor_2 INT AUTO_INCREMENT PRIMARY KEY,
-    componente VARCHAR(45),
-    dado DECIMAL(10,2),
-    responsavel VARCHAR(45),
-    visualizado TINYINT(1)
-);
+INSERT INTO Endereco VALUES
+(default, "03191110", "Rua Dr Álvaro Alvim", 267, "Vila Mariana", "São Paulo", "SP");
 
-CREATE TABLE Alerta_Servidor_3 (
-    idAlerta_Servidor_3 INT AUTO_INCREMENT PRIMARY KEY,
-    componente VARCHAR(45),
-    dado DECIMAL(10,2),
-    responsavel VARCHAR(45),
-    visualizado TINYINT(1)
-);
+INSERT INTO Empresa_Cliente VALUES
+(default, "B3 S.A Brasil Bolsa Balcão", "09346601000125","11982482787",1);
 
-CREATE TABLE Alerta_Servidor_4 (
-    idAlerta_Servidor_4 INT AUTO_INCREMENT PRIMARY KEY,
-    componente VARCHAR(45),
-    dado DECIMAL(10,2),
-    responsavel VARCHAR(45),
-    visualizado TINYINT(1)
-);
+-- INSERT INTO Data_Center VALUES
+-- (default,"Datacenter SP - Norte", 1,1);
 
+-- INSERT INTO  usuario_cliente VALUES
+-- (default, "Mateus Diniz Leite", "mateusdiniz@gmail.com","Tradeflux123@", "administrador", "1", 1);
+
+-- INSERT INTO servidor_cliente VALUES
+-- ("58BF840C-561B-DA4B-8E16-706979ACA50B", 16.0, 489.7, "Intel i7-12312",1);
+
+select * from servidor_cliente;
+
+-- SELECT * FROM usuario_cliente WHERE fk_Cliente = 1##SUBSTITUIR PELO ID DA EMPRESA;##
+-- ;
+
+-- SELECT * FROM empresa_cliente as ec
+-- JOIN data_center as dc ON ec.idCliente = dc.fk_cliente
+-- JOIN servidor_cliente as sc ON dc.idData_Center = sc.fk_data_center;
+
+SELECT * FROM empresa_cliente;
+
+SELECT * FROM data_center;
