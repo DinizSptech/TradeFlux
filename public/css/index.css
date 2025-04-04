@@ -1,6 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html{
     scroll-behavior: smooth;
@@ -23,7 +23,7 @@ body{
     height: 100%;
     width: 50px;
     z-index: 10;
-    background-color: #E0D00A;
+    background-color: #e0a30a;
 }
 
 .logo img {
@@ -34,7 +34,7 @@ body{
 
 
 .contato{
-    background-color: #E0D00A;
+    background-color: #e0a30a;
     border-radius: 15px;
     text-align: center;
     align-items: center;
@@ -48,7 +48,7 @@ body{
 }
 
 .contato:hover{
-    background-color: #e0a30a;
+    background-color: #b0810b;
     cursor: pointer;
 }
 
@@ -86,7 +86,7 @@ a {
 }
 
 .header h3:hover {
-    color: #E0D00A;
+    color: #e0a30a;
 }
 
 .nav-underline {
@@ -103,11 +103,12 @@ a {
 .banner{
     height: 100vh;
     width: 100%;
-    background-image: url("../assets/index.photo.jpg");
+    background-image: url("../assets/index.photo.png");
     background-size: cover;
     background-position: center;
     justify-content: center;
     display: flex;
+    
 }
 
 .banner .container{
@@ -117,27 +118,38 @@ a {
     width: 90%;
     height: 90%;
     text-align: start;
+
 }
 
 .container p{
-    font-size: 40px;
+    font-size: 8vh;
     text-align: center;
     width: 100%;
     color: white;
-    font-family: 'Inter';
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
     margin: 5px;
     text-align: start;
+    margin-bottom: 0;
 }
 
+
+
 .container .texto{
-    font-size: 60px;
+    font-size: 10vh;
+  
+}
+
+.container .texto .texto-maior {
+    font-weight: bolder;
+    color: #e0a30a;
 }
 
 .container button{
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #E0D00A;
+    background-color: #e0a30a;
     border: none;
     font-weight: 600;
     display: flex;
@@ -269,13 +281,18 @@ h1 {
     background-color: #333;
 }
 
+.espacamento{
+    height: 3vh;
+    background-color: #e0a30a;
+}
+
 /*  CADASTRO  */
 
 .faleconosco{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #E0D00A;
+    background-color: #000957;
 }
 
 .contatenos {
@@ -288,18 +305,19 @@ h1 {
 .contatenos h1 {
     font-size: 3rem;
     margin-bottom: 10px;
-    color: black;
+    color: white;
 
 }
 
 .contatenos h3{
     margin: 5px;
+    color: white;
 }
 
 .contatenos p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-    color: black;
+    color: white;
     
 }
 
@@ -323,7 +341,7 @@ h1 {
     padding: 12px;
     margin-top: 5px;
     border: 2px solid black;
-    border-radius: 30px;
+    border-radius: 10px;
     font-size: 1rem;
 }
 
@@ -362,7 +380,7 @@ h1 {
         height: 100%;
         width: 60px;
         z-index: 10;
-        background-color: #E0D00A;
+       
     }
     
     .header-line{

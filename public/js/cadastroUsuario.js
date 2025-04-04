@@ -6,18 +6,20 @@ function cadastrar() {
   let cargo = select_cargo.value;
   let senha = ipt_senha.value;
   let confirmSenha = ipt_confirmSenha.value;
+  let empresa_cliente = 1;
+  let ativo = 1
 
   function validarNome(nome) {
-    erros_cadastro.innerHTML = ``;
+    erros_cadastro_usuario.innerHTML = ``;
     nomeValidado = true;
 
     if (nome == "") {
-      erros_cadastro.innerHTML += `<span style="color:red">Preencha o campo Usuario</span><br>`;
+        erros_cadastro_usuario.innerHTML += `<span style="color:red">Preencha o campo Usuario</span><br>`;
       nomeValidado = false;
     }
 
-    if (nome.lenght < 3) {
-        erros_cadastro.innerHTML += `<span style="color:red">O nome deve ter pelo menos 3 caracteres</span><br>`;
+    if (nome.length < 3) {
+        erros_cadastro_usuario.innerHTML += `<span style="color:red">O Usuario deve ter pelo menos 3 caracteres</span><br>`;
       nomeValidado = false;
     }
 
@@ -25,16 +27,16 @@ function cadastrar() {
   }
 
   function validarEmail(email) {
-    erros_cadastro.innerHTML = ``;
+    erros_cadastro_email.innerHTML = ``;
     emailValidado = true;
     if (email == "") {
-      erros_cadastro.innerHTML += `<span style="color:red">Preencha o campo Email</span><br>`;
+        erros_cadastro_email.innerHTML += `<span style="color:red">Preencha o campo Email</span><br>`;
       emailValidado = false;
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      erros_cadastro.innerHTML += `<span style="color:red">Email inválido</span><br>`;
+        erros_cadastro_email.innerHTML += `<span style="color:red">Email inválido</span><br>`;
       emailValidado = false;
     }
 
@@ -42,54 +44,54 @@ function cadastrar() {
   }
 
   function validarCargo(cargo){
-    erros_cadastro.innerHTML = ``;  
+    erros_cadastro_cargo.innerHTML = ``;  
     cargoValidado = true;
     if (cargo == "#") {
-      erros_cadastro.innerHTML += `<span style="color:red">Selecione um cargo</span<br>`;
+        erros_cadastro_cargo.innerHTML += `<span style="color:red">Selecione um cargo</span<br>`;
       cargoValidado = false;
     }
     return cargoValidado;
   }
 
     function validarSenha(senha) {
-    erros_cadastro.innerHTML = ``;
+        erros_cadastro_senha.innerHTML = ``;
     senhaValidada = true;
     if (senha == "") {
-      erros_cadastro.innerHTML += `<span style="color:red">Preencha o campo Senha</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">Preencha o campo Senha</span><br>`;
       senhaValidada = false;
     }
     if (senha.length < 8) {
-      erros_cadastro.innerHTML += `<span style="color:red">A senha deve ter pelo menos 8 caracteres</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">A senha deve ter pelo menos 8 caracteres</span><br>`;
       senhaValidada = false;
     }
     if (!/\d/.test(senha)) {
-      erros_cadastro.innerHTML += `<span style="color:red">A senha deve conter pelo menos um número</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">A senha deve conter pelo menos um número</span><br>`;
       senhaValidada = false;
     }
     if (!/[!@#$%^&*]/.test(senha)) {
-      erros_cadastro.innerHTML += `<span style="color:red">A senha deve conter pelo menos um caractere especial</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">A senha deve conter pelo menos um caractere especial</span><br>`;
       senhaValidada = false;
     }
     if (!/[A-Z]/.test(senha)) {
-      erros_cadastro.innerHTML += `<span style="color:red">A senha deve conter pelo menos uma letra maiúscula</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">A senha deve conter pelo menos uma letra maiúscula</span><br>`;
       senhaValidada = false;
     }
     if (!/[a-z]/.test(senha)) {
-      erros_cadastro.innerHTML += `<span style="color:red">A senha deve conter pelo menos uma letra minúscula</span><br>`;
+        erros_cadastro_senha.innerHTML += `<span style="color:red">A senha deve conter pelo menos uma letra minúscula</span><br>`;
       senhaValidada = false;
     }
     return senhaValidada;
 }
     function validarConfirmSenha(confirmSenha, senha) {
-        erros_cadastro.innerHTML = ``;
+        erros_cadastro_confirmsenha.innerHTML = ``;
         confirmSenhaValidada = true;
 
         if (confirmSenha == "") {
-            erros_cadastro.innerHTML += `<span style="color:red">Preencha o campo Confirmar Senha</span><br>`;
+            erros_cadastro_confirmsenha.innerHTML += `<span style="color:red">Preencha o campo Confirmar Senha</span><br>`;
             confirmSenhaValidada = false;
         }
         if (confirmSenha != senha) {
-            erros_cadastro.innerHTML += `<span style="color:red">As senhas não coincidem</span><br>`;
+            erros_cadastro_confirmsenha.innerHTML += `<span style="color:red">As senhas não coincidem</span><br>`;
             confirmSenhaValidada = false;
         }
         return confirmSenhaValidada;
@@ -102,6 +104,7 @@ function cadastrar() {
         console.log("Email: " + email);
         console.log("Cargo: " + cargo);
         console.log("Senha: " + senha);
+        console.log("Empresa: " + empresa_cliente);
     
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -113,6 +116,8 @@ function cadastrar() {
               emailServer: email,
               cargoServer: cargo,
               senhaServer: senha,
+              empresaServer: empresa_cliente,
+              ativoServer: ativo,
             }),
           }).then(function (resposta) {
             if (resposta.ok) {

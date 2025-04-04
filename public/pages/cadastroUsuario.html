@@ -46,23 +46,15 @@
             <input id="ipt_email" type="text" />
           </div>
           <div class="input" style="text-align: center">
-            <span>Tipo de usuario:</span>
-            <div class="div_selectCargo">
-              <select id="select_cargo" name="" id="">
+            <div class="select-container">
+              <span>Selecione o Cargo:</span>
+              <select id="select_cargo" name="">
                 <option selected disabled value="#">Selecione uma opção</option>
                 <option value="analista">Analista</option>
                 <option value="cientista">Cientista</option>
                 <option value="administrador">Administrador</option>
               </select>
             </div>
-            <!-- <div class="radioInputs">
-              <span class="nomeInput">Analista:</span>
-              <input type="radio" name="option" />
-              <span class="nomeInput">Cientista:</span>
-              <input type="radio" name="option" />
-              <span class="nomeInput">Administrador:</span>
-              <input type="radio" name="option" />
-            </div> -->
           </div>
           <div class="input">
             <span>Senha:</span>
@@ -75,7 +67,11 @@
           <div class="buttonCadastrar">
             <button onclick="cadastrar()">Cadastrar</button>
           </div>
-          <div id="erros_cadastro"></div>
+          <div id="erros_cadastro_usuario"></div>
+          <div id="erros_cadastro_email"></div>
+          <div id="erros_cadastro_cargo"></div>
+          <div id="erros_cadastro_senha"></div>
+          <div id="erros_cadastro_confirmsenha"></div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+-- Active: 1732573765546@@127.0.0.1@3306@tradeflux
 -- NOVO SCRIPT SQL 
 
 CREATE DATABASE tradeflux;
@@ -12,6 +13,10 @@ CREATE TABLE Endereco (
     cidade VARCHAR(45),
     uf CHAR(2)
 );
+INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
+('01010901', 'Rua Quinze de Novembro', 275, 'Centro Histórico de São Paulo', 'São Paulo', 'SP'),
+('06543004', 'Rua Ricardo Prudente de Aquino', 85, 'Residencial Tambore III', 'Santana de Parnaíba', 'SP');
+
 
 CREATE TABLE Empresa_Cliente (
     idCliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,6 +26,8 @@ CREATE TABLE Empresa_Cliente (
     fk_endereco INT,
     CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
+INSERT INTO Empresa_Cliente (razao_social, cnpj, telefone, fk_endereco) VALUES 
+(' B3 S.A. Brasil, Bolsa, Balcão', '09346601000125', '11999999999', 1);
 
 CREATE TABLE Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,6 +40,9 @@ CREATE TABLE Usuario_Cliente (
     CONSTRAINT fk_usuario_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente)
 );
 
+SELECT * FROM Usuario_Cliente;
+
+
 CREATE TABLE Data_Center (
     idData_Center INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
@@ -41,6 +51,9 @@ CREATE TABLE Data_Center (
     CONSTRAINT fk_datacenter_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
     CONSTRAINT fk_datacenter_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
+
+INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES 
+('Data Center B3', 1, 2);
 
 CREATE TABLE Servidor_Cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
@@ -137,3 +150,4 @@ CREATE TABLE Alerta_Servidor_4 (
     responsavel VARCHAR(45),
     visualizado TINYINT(1)
 );
+
