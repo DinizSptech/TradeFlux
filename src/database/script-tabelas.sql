@@ -13,10 +13,11 @@ CREATE TABLE Endereco (
     cidade VARCHAR(45),
     uf CHAR(2)
 );
+truncate table endereco;
+SELECT * FROM Endereco;
 INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
 ('01010901', 'Rua Quinze de Novembro', 275, 'Centro Histórico de São Paulo', 'São Paulo', 'SP'),
 ('06543004', 'Rua Ricardo Prudente de Aquino', 85, 'Residencial Tambore III', 'Santana de Parnaíba', 'SP');
-
 
 CREATE TABLE Empresa_Cliente (
     idCliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +43,6 @@ CREATE TABLE Usuario_Cliente (
 
 SELECT * FROM Usuario_Cliente;
 
-
 CREATE TABLE Data_Center (
     idData_Center INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
@@ -51,10 +51,11 @@ CREATE TABLE Data_Center (
     CONSTRAINT fk_datacenter_cliente FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
     CONSTRAINT fk_datacenter_endereco FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
+INSERT INTO Data_Center (nome, fk_cliente, fk_endereco)
+VALUES ('datacenter', 1, LAST_INSERT_ID());
 
-INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES 
-('Data Center B3', 1, 2);
-
+truncate table data_center;
+SELECT * FROM Data_Center;
 CREATE TABLE Servidor_Cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),

@@ -21,10 +21,10 @@ function cadastrar(nome, cep, estado, cidade, bairro, logradouro, numero, comple
   var instrucaoSql = `
         INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
         ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${cidade}', '${estado}');
-        INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES 
-        ('${nome}', ${fkCliente}, LAST_INSERT_ID());
-    `;
 
+        INSERT INTO Data_Center (nome, fk_endereco, fk_cliente) VALUES
+        ('${nome}', LAST_INSERT_ID(), ${fkCliente});
+    `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

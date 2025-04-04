@@ -9,32 +9,32 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) { 
-    var nome = req.body.nome;
-    var cep = req.body.cep;
-    var estado = req.body.estado;
-    var cidade = req.body.cidade;
-    var bairro = req.body.bairro;
-    var logradouro = req.body.logradouro;
-    var numero = req.body.numero;
-    var complemento = req.body.complemento;
+    var nome = req.body.nomeServer;
+    var cep = req.body.cepServer;
+    var estado = req.body.estadoServer;
+    var cidade = req.body.cidadeServer;
+    var bairro = req.body.bairroServer;
+    var logradouro = req.body.logradouroServer;
+    var numero = req.body.numeroServer;
+    var complemento = req.body.complementoServer;
     var fkCliente = 1;
 
     if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
+        res.status(401).send("Seu nome está undefined!");
     } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
+        res.status(401).send("Seu cep está undefined!");
     }   else if (estado == undefined) {
-        res.status(400).send("Seu estado está undefined!");
+        res.status(401).send("Seu estado está undefined!");
     } else if (cidade == undefined) {
-        res.status(400).send("Sua cidade está undefined!");
+        res.status(401).send("Sua cidade está undefined!");
     } else if (bairro == undefined) {
-        res.status(400).send("Seu bairro está undefined!");
+        res.status(401).send("Seu bairro está undefined!");
     } else if (logradouro == undefined) {
-        res.status(400).send("Seu logradouro está undefined!");
+        res.status(401).send("Seu logradouro está undefined!");
     } else if (numero == undefined) {
-        res.status(400).send("Seu numero está undefined!");
+        res.status(401).send("Seu numero está undefined!");
     } else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
+        res.status(401).send("Seu complemento está undefined!");
     }else{
         unidadeModel.cadastrar(nome, cep, estado, cidade, bairro, logradouro, numero, complemento, fkCliente).then(function(resultado){
             res.status(200).json(resultado);

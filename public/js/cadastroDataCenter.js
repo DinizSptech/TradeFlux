@@ -109,7 +109,7 @@ function validarCep(cep) {
                 logradouroServer: logradouro,
                 numeroServer: numero,
                 complementoServer: complemento,
-            }),
+            })
           }).then(function (resposta) {
             if (resposta.ok) {
               console.log(resposta);
@@ -122,6 +122,7 @@ function validarCep(cep) {
               });
             } else {
               console.log("NÃO deu certo a resposta");
+              console.log(resposta);
             }
           });
         }
