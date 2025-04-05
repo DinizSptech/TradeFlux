@@ -117,7 +117,7 @@ a {
 }
 
 .container p {
-  font-size: 8vh;
+  font-size: 3rem;
   text-align: center;
   width: 100%;
   color: white;
@@ -129,7 +129,7 @@ a {
 }
 
 .container .texto {
-  font-size: 10vh;
+  font-size: 5rem;
 }
 
 .texto-laranja {
@@ -673,6 +673,7 @@ textarea {
 
 @media screen and (max-width: 600px) {
   .header-left {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -695,18 +696,28 @@ textarea {
     position: absolute;
   }
 
+  .banner {
+    height: 60vh;
+    width: 100%;
+    background-image: url("../assets/index.photo.png");
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    display: flex;
+  }
+
   .container p {
-    font-size: 15px;
+    font-size: 1rem;
     text-align: center;
     width: 100%;
     color: white;
     font-family: "Inter";
-    margin: 5px;
+    margin: 0.2rem;
     text-align: start;
   }
 
   .container .texto {
-    font-size: 40px;
+    font-size: 2.5rem;
   }
 
   /*serviço*/
