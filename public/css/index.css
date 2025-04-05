@@ -699,7 +699,7 @@ textarea {
   }
 
   .container p {
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
     width: 100%;
     color: white;
@@ -716,16 +716,15 @@ textarea {
 
   .servicos .card {
     background-color: white;
-    width: 80%;
-    height: 50%;
-    padding: 10px;
+    width: 75%;
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
   }
 
   .servicos .card h2 {
     font-size: 25px;
-    margin-top: 15px;
   }
 
   .servicos .card p {
@@ -738,11 +737,11 @@ textarea {
 
   .saibamais {
     height: 30rem;
-    width: 75%;
+    width: 70%;
   }
 
   .saibamais .box {
-    height: 90%;
+    height: 80%;
   }
 
   .saibamais .image-container {
@@ -750,13 +749,11 @@ textarea {
   }
 
   .saibamais .text-container {
-    position: relative;
-    bottom: 1.2rem;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100%;
   }
 
   .saibamais .text-container h1 {
