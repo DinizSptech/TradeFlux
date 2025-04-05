@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS Data_Center (
 );
 
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
-    UUIDServidor VARCHAR(70) PRIMARY KEY,
+    idServidor INT AUTO_INCREMENT PRIMARY KEY,
+    UUIDServidor VARCHAR(70),
     ramTotal DOUBLE,
     discoTotal DOUBLE,
     cpuInfo varchar(30),
@@ -52,13 +53,16 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     CONSTRAINT fk_servidor_datacenter FOREIGN KEY (fk_data_center) REFERENCES Data_Center(idData_Center)
 );
 
+
+-- alter table servidor_cliente auto_increment = 1;
+ select * from servidor_cliente;
 CREATE TABLE IF NOT EXISTS Parametros_Servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     componente VARCHAR(45),
     unidade_medida CHAR(2),
     limiar_alerta DOUBLE,
-    fk_Servidor_Cliente VARCHAR(70),
-    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(UUIDServidor)
+    fk_Servidor_Cliente INT,
+    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(idServidor)
 );  
 
 CREATE TABLE IF NOT EXISTS Captura (

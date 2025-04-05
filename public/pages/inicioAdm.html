@@ -9,7 +9,7 @@
     <title>TradeFlux - Administrador</title>
     
 </head>
-<body>
+<body onload="exibirDataCentersNoSelect()">
     <div class="container">
         <div class="sideBar">
             <div class="divLogo">
@@ -58,5 +58,24 @@
             </div>
         </div>
     </div>
+    <div>
+        <button onclick="mostrar()">Adicionar Servidor</button>
+    </div>
+    <div style="display: none;" id="div_adicionar_servidor">
+        <div>
+            Em qual Data Center você quer adicionar?
+        </div>
+        <div> 
+            Data centers disponíveis:
+            <select id="select_escolher_data_center">
+                <option value="#">Selecione um data center</option>
+                
+            </select>
+                <button onclick="adicionarServidor()">adicionar servidor</button>
+        </div>
+    </div>
+    
+    <div id="div_datacenters"></div>
+    <div id="div_servidores"></div>
 </body>
 </html>
