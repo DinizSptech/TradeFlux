@@ -450,7 +450,6 @@ textarea {
 
 @media screen and (max-width: 992px) {
   .contato {
-    background-color: #e0d00a;
     border-radius: 20px;
     height: 50%;
 
@@ -467,7 +466,7 @@ textarea {
     height: 100%;
     width: 50px;
     z-index: 10;
-    background-color: #e0d00a;
+    background-color: #e0a30a;
   }
 
   .header-line {
@@ -578,7 +577,7 @@ textarea {
     height: 100%;
     width: 40px;
     z-index: 10;
-    background-color: #e0d00a;
+    background-color: #e0a30a;
   }
 
   .header-line {
@@ -674,13 +673,6 @@ textarea {
 @media screen and (max-width: 600px) {
   .header-left {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 30px;
-    z-index: 10;
-    background-color: #e0d00a;
   }
 
   .header-line {
@@ -724,7 +716,7 @@ textarea {
 
   .servicos .card {
     background-color: white;
-    width: 400px;
+    width: 80%;
     height: 50%;
     padding: 10px;
     border-radius: 8px;
@@ -744,41 +736,37 @@ textarea {
 
   /*saiba mais*/
 
-  .saibamais .image-container img {
-    width: 250px;
-    height: 400px;
-    display: block;
-    border-radius: 20px;
+  .saibamais {
+    height: 30rem;
+    width: 75%;
+  }
+
+  .saibamais .box {
+    height: 90%;
+  }
+
+  .saibamais .image-container {
+    display: none;
   }
 
   .saibamais .text-container {
-    flex: 1;
-    padding: 20px;
-    text-align: left;
+    position: relative;
+    bottom: 1.2rem;
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
   }
 
   .saibamais .text-container h1 {
-    font-size: 20px;
-    margin-bottom: 3px;
-    text-align: left;
+    font-size: 1.5rem;
+    text-align: center;
   }
 
   .saibamais .text-container p {
-    font-size: 12px;
+    font-size: 1rem;
     color: #333;
     line-height: 1.5;
-  }
-
-  .saibamais {
-    height: 400px;
-    width: 80%;
-  }
-
-  .box {
-    height: 400px;
   }
 }
