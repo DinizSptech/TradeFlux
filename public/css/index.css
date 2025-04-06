@@ -580,6 +580,10 @@ textarea {
     background-color: #e0a30a;
   }
 
+  .banner {
+    height: 65vh;
+  }
+
   .header-line {
     height: 10%;
   }
@@ -595,17 +599,16 @@ textarea {
   }
 
   .container p {
-    font-size: 20px;
+    font-size: 1.25rem;
     text-align: center;
     width: 100%;
     color: white;
     font-family: "Inter";
-    margin: 5px;
     text-align: start;
   }
 
   .container .texto {
-    font-size: 50px;
+    font-size: 3rem;
   }
 
   /*serviço*/
@@ -690,12 +693,6 @@ textarea {
 
   .banner {
     height: 60vh;
-    width: 100%;
-    background-image: url("../assets/index.photo.png");
-    background-size: cover;
-    background-position: center;
-    justify-content: center;
-    display: flex;
   }
 
   .container p {
@@ -735,13 +732,11 @@ textarea {
 
   /*saiba mais*/
 
-  .saibamais {
-    height: 30rem;
-    width: 70%;
-  }
-
   .saibamais .box {
-    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75%;
   }
 
   .saibamais .image-container {
@@ -749,7 +744,7 @@ textarea {
   }
 
   .saibamais .text-container {
-    height: 80%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
