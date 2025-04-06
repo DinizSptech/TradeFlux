@@ -20,14 +20,24 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  width: 50px;
+  width: 65px;
   z-index: 10;
   background-color: #e0a30a;
 }
 
+.banner {
+  height: 85vh;
+  width: 100%;
+  background-image: url("../assets/index.photo.png");
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  display: flex;
+}
+
 .logo img {
-  height: 50px;
-  width: 50px;
+  height: 65px;
+  width: 65px;
   position: absolute;
 }
 
@@ -97,27 +107,19 @@ a {
   z-index: 100;
 }
 
-.banner {
-  height: 100vh;
-  width: 100%;
-  background-image: url("../assets/index.photo.png");
-  background-size: cover;
-  background-position: center;
-  justify-content: center;
-  display: flex;
-}
-
-.banner .container {
+.container {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
   width: 90%;
   height: 90%;
   text-align: start;
+  position: relative;
+  left: 2.5rem;
 }
 
 .container p {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
   width: 100%;
   color: white;
@@ -125,11 +127,10 @@ a {
   font-weight: bold;
   margin: 5px;
   text-align: start;
-  margin-bottom: 0;
 }
 
 .container .texto {
-  font-size: 5rem;
+  font-size: 4.5rem;
 }
 
 .texto-laranja {
@@ -157,6 +158,8 @@ h1 {
   text-align: center;
   color: white;
 }
+
+/* SERVIÇOS */
 
 .servicos {
   display: flex;
@@ -199,7 +202,17 @@ h1 {
 
 /* SAIBA MAIS */
 
-.box {
+.saibamais {
+  display: flex;
+  align-items: center;
+  height: 85vh;
+  width: 65%;
+  background-color: #000957;
+  align-self: center;
+}
+
+.saibamais .box {
+  width: 100%;
   display: flex;
   flex-direction: row;
   background-color: white;
@@ -210,46 +223,35 @@ h1 {
   color: black;
 }
 
-.saibamais {
-  display: flex;
-  align-items: center;
-  height: 700px;
-  width: 70%;
-  background-color: #000957;
-  align-self: center;
-}
-
 .saibamais .image-container {
-  height: 100%;
-  width: 50%;
+  width: 40%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .saibamais .image-container img {
-  width: 500px;
-  height: 600px;
+  max-width: 100%;
+  height: auto;
   display: block;
-  border-radius: 20px;
+  margin: 0;
 }
 
 .saibamais .text-container {
-  flex: 1;
-  padding: 40px;
-  text-align: left;
   display: flex;
   align-items: flex-start;
+  flex: 1;
+  padding: 2.5rem;
+  text-align: left;
   flex-direction: column;
 }
 
 .saibamais .text-container h1 {
   font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-align: left;
 }
 
 .saibamais .text-container p {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #333;
   line-height: 1.5;
 }
@@ -368,6 +370,10 @@ textarea {
     z-index: 10;
   }
 
+  .banner {
+    height: 80vh;
+  }
+
   .header-line {
     height: 10%;
   }
@@ -375,31 +381,36 @@ textarea {
   .nav-underline {
     top: 90%;
   }
+
   .logo img {
     height: 60px;
     width: 60px;
     position: absolute;
   }
 
+  .container {
+    position: relative;
+    left: 2.5rem;
+  }
+
   .container p {
-    font-size: 30px;
+    font-size: 1.8rem;
     text-align: center;
     width: 100%;
     color: white;
     font-family: "Inter";
-    margin: 5px;
     text-align: start;
   }
 
   .container .texto {
-    font-size: 80px;
+    font-size: 4rem;
   }
 
   /*serviço*/
 
   .servicos .card {
     background-color: white;
-    width: 270px;
+    width: 75%;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -412,7 +423,6 @@ textarea {
 
   .servicos .card h2 {
     font-size: 40px;
-    margin-top: 15px;
   }
 
   .servicos .card p {
@@ -423,21 +433,39 @@ textarea {
 
   /*saiba mais*/
 
+  .saibamais .box {
+    min-height: 80%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .saibamais .image-container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .saibamais .image-container img {
-    width: 450px;
-    height: 700px;
-    display: block;
-    border-radius: 20px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .saibamais .text-container {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .saibamais .text-container h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-    text-align: left;
+    font-size: 2.5rem;
   }
 
   .saibamais .text-container p {
-    font-size: 25px;
+    font-size: 1.5rem;
     color: #333;
     line-height: 1.5;
   }
@@ -466,7 +494,10 @@ textarea {
     height: 100%;
     width: 50px;
     z-index: 10;
-    background-color: #e0a30a;
+  }
+
+  .banner {
+    height: 75vh;
   }
 
   .header-line {
@@ -482,35 +513,39 @@ textarea {
     position: absolute;
   }
 
-  .header {
+  /* .header {
     width: 10px;
     display: flex;
     justify-content: space-between;
     column-gap: 1em;
-    color: white;
+    color: peu;
     text-align: center;
     align-items: center;
+  } */
+
+  .container {
+    position: relative;
+    left: 2rem;
   }
 
   .container p {
-    font-size: 30px;
+    font-size: 1.5rem;
     text-align: center;
-    width: 70%;
+    width: 100%;
     color: white;
     font-family: "Inter";
-    margin: 5px;
     text-align: start;
   }
 
   .container .texto {
-    font-size: 70px;
+    font-size: 3.5rem;
   }
 
   /*serviço*/
 
   .servicos .card {
     background-color: white;
-    width: 215px;
+    width: 75%;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -523,7 +558,6 @@ textarea {
 
   .servicos .card h2 {
     font-size: 30px;
-    margin-top: 15px;
   }
 
   .servicos .card p {
@@ -534,38 +568,40 @@ textarea {
 
   /*saiba mais*/
 
+  .saibamais .box {
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .saibamais .image-container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .saibamais .image-container img {
-    width: 380px;
-    height: 600px;
-    display: block;
-    border-radius: 20px;
+    max-width: 100%;
+    height: auto;
   }
 
   .saibamais .text-container {
-    flex: 1;
-    padding: 40px;
-    text-align: left;
     display: flex;
     align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .saibamais .text-container h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    text-align: left;
+    font-size: 2rem;
   }
 
   .saibamais .text-container p {
-    font-size: 18px;
+    font-size: 1.2rem;
     color: #333;
     line-height: 1.5;
-  }
-
-  .saibamais {
-    height: 700px;
-    width: 75%;
   }
 }
 
@@ -598,6 +634,11 @@ textarea {
     position: absolute;
   }
 
+  .container {
+    position: relative;
+    left: 1.2rem;
+  }
+
   .container p {
     font-size: 1.25rem;
     text-align: center;
@@ -615,15 +656,15 @@ textarea {
 
   .servicos .card {
     background-color: white;
-    width: 170px;
-    padding: 10px;
+    width: 75%;
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
   }
 
   .servicos .card h2 {
     font-size: 25px;
-    margin-top: 15px;
   }
 
   .servicos .card p {
@@ -634,42 +675,41 @@ textarea {
 
   /*saiba mais*/
 
+  .saibamais .box {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+  }
+
+  .saibamais .image-container {
+    width: 40%;
+  }
+
   .saibamais .image-container img {
-    width: 330px;
-    height: 500px;
-    display: block;
-    border-radius: 20px;
+    max-width: 100%;
+    height: auto;
   }
 
   .saibamais .text-container {
-    flex: 1;
-    padding: 30px;
-    text-align: left;
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 0;
+    margin-top: 0;
+    position: relative;
+    bottom: 2rem;
   }
 
   .saibamais .text-container h1 {
-    font-size: 25px;
-    margin-bottom: 10px;
-    text-align: left;
+    font-size: 1.6rem;
   }
 
   .saibamais .text-container p {
-    font-size: 15px;
+    font-size: 0.9rem;
     color: #333;
     line-height: 1.5;
-  }
-
-  .saibamais {
-    height: 700px;
-    width: 80%;
-  }
-
-  .box {
-    height: 500px;
   }
 }
 
@@ -692,21 +732,20 @@ textarea {
   }
 
   .banner {
-    height: 60vh;
+    height: 50vh;
   }
 
   .container p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
     width: 100%;
     color: white;
     font-family: "Inter";
-    margin: 0.2rem;
     text-align: start;
   }
 
   .container .texto {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
   }
 
   /*serviço*/
@@ -736,7 +775,6 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 75%;
   }
 
   .saibamais .image-container {
@@ -744,7 +782,7 @@ textarea {
   }
 
   .saibamais .text-container {
-    height: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
