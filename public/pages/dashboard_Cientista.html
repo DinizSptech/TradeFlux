@@ -1,0 +1,72 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeFlux Dashboard</title>
+  <link rel="stylesheet" href ="../css/cientista.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+</head>
+<body onload="plotarGraficos()">
+  <div class="sidebar">
+    <h2>TRADEFLUX</h2>
+    <ul>
+      <li>🔍 Insights</li>
+      <li>⚠️ Alertas</li>
+      <li>🛠️ Suporte</li>
+      <li>⚙️ Configurações</li>
+      <li onclick="sairParaLogin()">🚪 Sair</li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="card">Servidor Crítico: <br><strong>Servidor 1</strong></div>
+    <div class="card">Média de uso de:<br>RAM (%) <br><strong>50%</strong></div>
+    <div class="card">Pico de uso de:<br>RAM (%) <br><strong>50%</strong></div>
+
+    <div class="dashboard-grid">
+      <div>
+        <h3>Comparativo entre servidores</h3>
+        <canvas id="grafico_comparacao"></canvas>
+      </div>
+      <div>
+        <h3>Ranking de uso médio de: 
+          <select id="slt_ranking" onchange="mudarAtributoRanking()">
+            <option  disabled value="#">Selecione um</option>
+            <option selected value="cpu">CPU (%)</option>
+            <option value="ram">RAM (%)</option>
+            <option value="disco">DISCO (%)</option>
+        </select>
+        </h3>
+        <p id="ranking">
+            Selecione um atributo para ver o ranking de uso médio dos servidores.
+        </p>
+      </div>
+      <div>
+        <h3>Proporção de uso de: 
+          <select>
+            <option>CPU (%)</option>
+            <option>RAM (%)</option>
+            <option>DISCO (%)</option>
+          </select>
+          do Data-Center
+        </h3>
+        <canvas id="grafico_proporcao"></canvas>
+      </div>
+      <div>
+        <h3>Média de desempenho de 
+          <select>
+            <option>RAM (%)</option>
+            <option>CPU (%)</option>
+            <option>DISCO (%)</option>
+          </select> 
+          do Data-Center:
+        </h3>
+        <canvas id="grafico_desempenho"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/cientista.js"></script>
+</body>
+</html>
