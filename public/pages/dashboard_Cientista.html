@@ -1,17 +1,21 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TradeFlux Dashboard</title>
-  <link rel="stylesheet" href ="../css/cientista.css">
+  <link rel="stylesheet" href="../css/cientista.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
 </head>
+
 <body onload="plotarGraficos()">
   <div class="sidebar">
     <h2>TRADEFLUX</h2>
+    <h3>Bem vindo(a)</h3>
+    <h3 id="nome_usuario">Guilhermo Robert Silva</h3>
+    <h4 id="cargo">Cientista de Dados</h4>
+    <h4 id="data-center">Data Center 1</h4>
     <ul>
-      <li>🔍 Insights</li>
       <li>⚠️ Alertas</li>
       <li>🛠️ Suporte</li>
       <li>⚙️ Configurações</li>
@@ -20,49 +24,57 @@
   </div>
 
   <div class="main-content">
-    <div class="card">Servidor Crítico: <br><strong>Servidor 1</strong></div>
-    <div class="card">Média de uso de:<br>RAM (%) <br><strong>50%</strong></div>
-    <div class="card">Pico de uso de:<br>RAM (%) <br><strong>50%</strong></div>
+    <div class="card">Alertas Críticos (mensal): <br><strong style="color: red;">2</strong></div>
+    <div class="card">Alertas Moderados (mensal): <br><strong style="color: yellow;">6</strong></div>
 
-    <div class="dashboard-grid">
-      <div>
-        <h3>Comparativo entre servidores</h3>
-        <canvas id="grafico_comparacao"></canvas>
-      </div>
-      <div>
-        <h3>Ranking de uso médio de: 
-          <select id="slt_ranking" onchange="mudarAtributoRanking()">
-            <option  disabled value="#">Selecione um</option>
-            <option selected value="cpu">CPU (%)</option>
-            <option value="ram">RAM (%)</option>
-            <option value="disco">DISCO (%)</option>
-        </select>
-        </h3>
-        <p id="ranking">
+    <div class="dashboard-sections">
+      <div class="grafico-linha">
+        <div class="grafico-box">
+          <h3>Comparativo entre servidores</h3>
+          <canvas id="grafico_comparacao"></canvas>
+        </div>
+
+        <div class="grafico-box">
+          <h3>Ranking de uso médio de:
+            <select id="slt_ranking" onchange="mudarAtributoRanking()">
+              <option disabled value="#">Selecione um</option>
+              <option selected value="cpu">CPU (%)</option>
+              <option value="ram">RAM (%)</option>
+              <option value="disco">DISCO (%)</option>
+            </select>
+          </h3>
+          <p id="ranking">
             Selecione um atributo para ver o ranking de uso médio dos servidores.
-        </p>
+          </p>
+        </div>
       </div>
-      <div>
-        <h3>Proporção de uso de: 
-          <select>
-            <option>CPU (%)</option>
-            <option>RAM (%)</option>
-            <option>DISCO (%)</option>
-          </select>
-          do Data-Center
-        </h3>
-        <canvas id="grafico_proporcao"></canvas>
-      </div>
-      <div>
-        <h3>Média de desempenho de 
-          <select>
-            <option>RAM (%)</option>
-            <option>CPU (%)</option>
-            <option>DISCO (%)</option>
-          </select> 
-          do Data-Center:
-        </h3>
-        <canvas id="grafico_desempenho"></canvas>
+
+      <div class="grafico-linha">
+        <div class="grafico-box">
+          <h3>Proporção de uso de:
+            <select id="slt_proporcao" onchange="mudarAtributoProporcao()">
+              <option disabled value="#">Selecione um</option>
+              <option selected value="cpu">CPU (%)</option>
+              <option value="ram">RAM (%)</option>
+              <option value="disco">DISCO (%)</option>
+            </select>
+            do Data-Center
+          </h3>
+          <canvas id="grafico_proporcao"></canvas>
+        </div>
+
+        <div class="grafico-box">
+          <h3>Média de desempenho de:
+            <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">
+              <option disabled value="#">Selecione um</option>
+              <option selected value="cpu">CPU (%)</option>
+              <option value="ram">RAM (%)</option>
+              <option value="disco">DISCO (%)</option>
+            </select>
+            do Data-Center
+          </h3>
+          <canvas id="grafico_desempenho"></canvas>
+        </div>
       </div>
     </div>
   </div>

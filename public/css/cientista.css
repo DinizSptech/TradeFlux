@@ -1,56 +1,98 @@
 
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0f1b33;
-    color: white;
-  }
-  .sidebar {
-    width: 200px;
-    background-color: #0d1a2d;
-    height: 100vh;
-    float: left;
-    padding: 20px 10px;
-  }
-  .sidebar h2 {
-    font-size: 20px;
-    color: #00d1ff;
-    text-align: center;
-  }
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  .sidebar ul li {
-    margin: 20px 0;
-    font-size: 16px;
-  }
-  .main-content {
-    margin-left: 220px;
-    padding: 20px;
-  }
-  .card {
-    background-color: #122647;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-  }
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  canvas {
-    background-color: white;
-    border-radius: 10px;
-  }
-  select {
-    background-color: #1e3a5f;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 5px;
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0f1b33;
+  color: white;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #0d1a2d;
+  height: 100vh;
+  float: left;
+  padding: 20px 10px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  color: #fefca4;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+.card {
+  background-color: #122647;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+  color: #fefca4;
+}
+
+.dashboard-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.grafico-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.grafico-box {
+  flex: 1;
+  min-width: 380px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+select {
+  background-color: #1e3a5f;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+p#ranking {
+  font-size: 40px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  background-color: #122647; /* cor escura que combina com o .card */
+  border-radius: 15px;
+  padding: 10px;
+}

@@ -1,7 +1,5 @@
 
-
-function plotarGraficos(){
-new Chart(document.getElementById('grafico_comparacao'), {
+var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao'), {
     type: 'bar',
     data: {
       labels: ['CPU (%)', 'RAM (%)', 'Disco (%)'],
@@ -9,29 +7,29 @@ new Chart(document.getElementById('grafico_comparacao'), {
         {
           label: 'Servidor 1',
           data: [23, 87, 60],
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
+          backgroundColor: 'rgb(0, 123, 255)',
           borderColor: 'rgba(0, 123, 255, 1)',
           borderWidth: 1
         },
         {
           label: 'Servidor 2',
           data: [67, 44, 56],
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: 'rgb(255, 99, 133)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1
         },
         {
           label: 'Servidor 3',
           data: [85, 36, 44],
-          backgroundColor: 'rgba(99, 255, 99, 0.2)',
-          borderColor: 'rgb(99, 255, 138)',
+          backgroundColor: 'rgb(99, 255, 99)',
+          borderColor: 'rgb(112, 255, 99)',
           borderWidth: 1
         }
       ]
     }
   });
-  
-  new Chart(document.getElementById('grafico_proporcao'), {
+
+  var grafico_proporcao = new Chart(document.getElementById('grafico_proporcao'), {
     type: 'pie',
     data: {
       labels: ['Servidor 1', 'Servidor 2', 'Servidor 3'],
@@ -43,12 +41,12 @@ new Chart(document.getElementById('grafico_comparacao'), {
     }
   });
   
-  new Chart(document.getElementById('grafico_desempenho'), {
+  var grafico_desempenho = new Chart(document.getElementById('grafico_desempenho'), {
     type: 'line',
     data: {
       labels: ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
       datasets: [{
-        label: 'RAM (%)',
+        label: 'Uso médio de  (%)',
         data: [20, 85, 72, 67, 45, 53, 66, 70, 20],
         borderColor: '#17a2b8',           
         backgroundColor: 'rgba(23,162,184,0.2)', 
@@ -58,12 +56,13 @@ new Chart(document.getElementById('grafico_comparacao'), {
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          
         }
       }
     }
   });
-}  
+
+
 
     var sevidor1 = {
         cpu: 23,
@@ -111,4 +110,40 @@ function mudarAtributoRanking(){
     `;  
 
   }
+}
+
+function mudarAtributoProporcao() {
+  var atributoAtual = document.getElementById("slt_proporcao").value;
+  
+
+  if (atributoAtual == 'cpu') {
+    grafico_proporcao.data.datasets[0].label = 'Uso médio de CPU (%)';
+    grafico_proporcao.data.datasets[0].data = [60, 45, 80];
+  } else if (atributoAtual == 'ram') {
+    grafico_proporcao.data.datasets[0].label = 'Uso médio de RAM (%)';
+    grafico_proporcao.data.datasets[0].data = [70, 55, 65];
+  } else if (atributoAtual == 'disco') {
+    grafico_proporcao.data.datasets[0].label = 'Uso médio de Disco (%)';
+    grafico_proporcao.data.datasets[0].data = [40, 80, 50];
+  }
+
+  grafico_proporcao.update(); // Atualiza o gráfico com os novos dados
+}
+
+function mudarAtributoDesempenho() {
+  var atributoAtual = document.getElementById("slt_desempenho").value;
+  
+
+  if (atributoAtual == 'cpu') {
+    grafico_desempenho.data.datasets[0].label = 'Uso médio de CPU (%)';
+    grafico_desempenho.data.datasets[0].data = [8, 45, 31, 31, 11, 19, 20, 22, 8];
+  } else if (atributoAtual == 'ram') {
+    grafico_desempenho.data.datasets[0].label = 'Uso médio de RAM (%)';
+    grafico_desempenho.data.datasets[0].data = [20, 85, 72, 67, 45, 53, 66, 70, 20];
+  } else if (atributoAtual == 'disco') {
+    grafico_desempenho.data.datasets[0].label = 'Uso médio de Disco (%)';
+    grafico_desempenho.data.datasets[0].data = [20, 21, 21, 21, 21, 21, 21, 22, 22];
+  }
+
+  grafico_desempenho.update(); // Atualiza o gráfico com os novos dados
 }
