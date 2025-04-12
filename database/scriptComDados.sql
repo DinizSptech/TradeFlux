@@ -1,9 +1,9 @@
 -- NOVO SCRIPT SQL 
 
+show tables;
 
 CREATE DATABASE IF NOT EXISTS tradeflux;
 use tradeflux;
-
 
 CREATE TABLE IF NOT EXISTS Endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     idServidor int primary key auto_increment,
     UUIDServidor VARCHAR(70) UNIQUE,
-    ramTotal DOUBLE,
+    ramTotal INT,
     discoTotal DOUBLE,
     cpuInfo varchar(30),
 	fk_data_center INT,
@@ -62,22 +62,55 @@ componente varchar(45),
 medida char(2)
 );
 
-CREATE TABLE IF NOT EXISTS Parametro_Servidor (
-    idParametro INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Configuracao_Servidor (
+    idConfiguracao_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     limiar_alerta DOUBLE,
-    fk_Servidor_Cliente INT,
-    fk_Componente int not null,
-    CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(idServidor),
-    CONSTRAINT fk_paramentro_componente FOREIGN KEY (fk_Componente) REFERENCES Componentes(idComponente)
-);  
+    fk_Servidor INT,
+    fk_Componente INT not null,
+    CONSTRAINT fk_config_servidor FOREIGN KEY (fk_Servidor) REFERENCES Servidor_Cliente(idServidor),
+    CONSTRAINT fk_config_componente FOREIGN KEY (fk_Componente) REFERENCES Componente(idComponente)
+);
 
 CREATE TABLE IF NOT EXISTS Captura (
     idCaptura INT AUTO_INCREMENT,
-    fkParametro INT,
-    dado DECIMAL(10,2),
-    PRIMARY KEY (idCaptura, fkParametro),
-    CONSTRAINT ParametroServidor FOREIGN KEY (fkParametro) REFERENCES Parametros_Servidor(idParametros_Servidor)
+    valor DOUBLE,
+    datahora DATETIME,
+    fkConfiguracao INT,
+    PRIMARY KEY (idCaptura, fkConfiguracao),
+    CONSTRAINT fk_captura_config FOREIGN KEY (fkConfiguracao) REFERENCES Configuracao_Servidor(idConfiguracao_Servidor)
 );
+
+CREATE TABLE IF NOT EXISTS Alerta (
+    idAlerta INT AUTO_INCREMENT,
+    valor DOUBLE,
+    datahora DATETIME,
+    fkConfiguracao INT,
+    PRIMARY KEY (idAlerta, fkConfiguracao),
+    CONSTRAINT fk_alerta_config FOREIGN KEY (fkConfiguracao) REFERENCES Configuracao_Servidor(idConfiguracao_Servidor)
+);
+
+CREATE TABLE IF NOT EXISTS Processos_Captura (
+	idProcesso INT auto_increment,
+    nomeProcesso VARCHAR(45),
+    usoRAM DOUBLE,
+    usoCPU DOUBLE,
+    usoDisco DOUBLE,
+    fkCaptura INT,
+    PRIMARY KEY (idProcesso, fkCaptura),
+    CONSTRAINT fk_processos_captura FOREIGN KEY (fkCaptura) REFERENCES Captura(idCaptura)
+);
+
+CREATE TABLE IF NOT EXISTS Processos_Alerta (
+	idProcesso INT auto_increment,
+    nomeProcesso VARCHAR(45),
+    usoRAM DOUBLE,
+    usoCPU DOUBLE,
+    usoDisco DOUBLE,
+    fkAlerta INT,
+    PRIMARY KEY (idProcesso, fkAlerta),
+    CONSTRAINT fk_processos_alerta FOREIGN KEY (fkAlerta) REFERENCES Alerta(idAlerta)
+);
+
 
 INSERT INTO Endereco VALUES
 (default, "04538000", "Av. Brigadeiro Faria Lima", 1500, "Itaim Bibi", "São Paulo", "SP"),
