@@ -7,30 +7,72 @@
   <title>TradeFlux</title>
   <link rel="stylesheet" href="../css/menuLateral.css" />
   <link rel="stylesheet" href="../css/dash_gerente_funcionarios.css" />
-  <script src="../script/sessao.js"></script>
+  <!-- <script src="../script/sessao.js"></script> -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="./img/LOGISTECH_SOLUTIONS_Logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/cadastroUsuario.css">
+    <script src="../js/cadastroUsuario.js" defer></script>
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral()">
+<body onload="carregarMenuLateral(); carregarUsuarios()">
   <main class="container-main">
+    <div class="bgForm" id="bg_formulario">
+        <div class="formUsuario">
+            <div class="tituloForm">Cadastrar Usuario</div>
+            <div class="input">
+              <span>Usuario:</span>
+              <input id="ipt_nome" type="text" />
+            </div>
+            <div class="input">
+              <span>Email:</span>
+              <input id="ipt_email" type="text" />
+            </div>
+            <div class="input" style="text-align: center">
+              <div class="select-container">
+                <span>Selecione o Cargo:</span>
+                <select id="select_cargo" name="">
+                  <option selected disabled value="#">Selecione uma opção</option>
+                  <option value="analista">Analista</option>
+                  <option value="cientista">Cientista</option>
+                  <option value="administrador">Administrador</option>
+                </select>
+              </div>
+            </div>
+            <div class="input">
+              <span>Senha:</span>
+              <input id="ipt_senha" type="password" />
+            </div>
+            <div class="input">
+              <span>Confirmar senha:</span>
+              <input id="ipt_confirmSenha" type="password" />
+            </div>
+            <div class="buttonCadastrar">
+              <button onclick="fecharCadastro()">Cadastrar</button>
+            </div>
+            <div id="erros_cadastro_usuario"></div>
+            <div id="erros_cadastro_email"></div>
+            <div id="erros_cadastro_cargo"></div>
+            <div id="erros_cadastro_senha"></div>
+            <div id="erros_cadastro_confirmsenha"></div>
+          </div>
+    </div>
     <div id="barralateral" class="barra-lateral">
 
     </div>
 
     <div class="mainContent">
       <div class="container-title">
-        <p>Funcionários</p>
+        <p>Usuários</p>
       </div>
       <div class="containerFiltro">
         <div class="container-btnCadastro">
-          <button id="btnCadastro" class="btn-cadastro">
+          <button id="btnCadastro" class="btn-cadastro" onclick="abrirCadastro()">
             <i class="fa-solid fa-circle-plus"></i> Adicionar Usuário
           </button>
         </div>
@@ -42,7 +84,9 @@
             <tr>
               <th>Nome</th>
               <th>Email</th>
-              <th>Data de cadastro</th>
+              <th>Perfil</th>
+              <th>Status</th>
+              <th>Último Acesso</th>
               <th class='tableIcons'>Editar</th>
               <th class='tableIcons'>Excluir</th>
             </tr>
@@ -62,10 +106,54 @@
 
     var resultado = [
         {
-            nome: "Tobias",
+            nome: "Tobias Boss",
             nomeFantasia: "B3"
 
         }
+    ]
+    var usuarios = [
+        {
+            idUsuario: 1,
+            nome: "Tobias",
+            email: "tobias@b3.com",
+            senha: "Teste123",
+            cargo: "Administrador",
+            status: "ativo",
+            ultimoAcesso: "2025-04-12 13:24:11"
+        
+        },
+        {
+            
+            idUsuario: 2,
+            nome: "Leonardo Scarparo",
+            email: "leonardo.scarparo@b3.com",
+            senha: "Teste123",
+            cargo: "Monitoramento",
+            status: "inativo",
+            ultimoAcesso: "2025-04-12 13:24:11"
+
+        },
+        {
+            idUsuario: 3,
+            nome: "Emilly Lima",
+            email: "emilly.lima@b3.com",
+            senha: "Teste123",
+            cargo: "Monitoramento",
+            status: "ativo",
+            ultimoAcesso: "2025-04-12 13:24:11"
+
+        },
+        {
+            idUsuario: 4,
+            nome: "Adriel Colombo",
+            email: "adriel.colombo@b3.com",
+            senha: "Teste123",
+            cargo: "Cientista de Dados",
+            status: "ativo",
+            ultimoAcesso: "2025-04-12 13:24:11"
+
+        },
+        
     ]
     function carregarMenuLateral(){
         barralateral.innerHTML = `
@@ -122,6 +210,23 @@
               <i class="fa-solid fa-door-open"></i>
               <span><a onclick="deslogar()">Sair</a></span>
             </div>`;
+    }
+
+    function carregarUsuarios(){
+        for (var i = 0; i < usuarios.length; i++) {
+            bodyTabela.innerHTML += `
+            <tr>
+            <td>${usuarios[i].nome}</td>
+            <td>${usuarios[i].email}</td>
+            <td>${(usuarios[i].cargo)}</td>
+            <td>${(usuarios[i].status)}</td>
+            <td>${(usuarios[i].ultimoAcesso)}</td>
+            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}')" ></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='deletar(${usuarios[i].idUsuario})'></i></td>
+            </tr>
+            `
+        }
+        
     }
 </script>
 

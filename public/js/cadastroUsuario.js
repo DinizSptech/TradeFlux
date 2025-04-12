@@ -1,5 +1,12 @@
 // CONFIGURAÇÃO BACKEND:
 
+function abrirCadastro(){
+  bg_formulario.style.display = "flex";
+}
+function fecharCadastro(){
+  bg_formulario.style.display = "none";
+}
+
 function cadastrar() {
   let nome = ipt_nome.value;
   let email = ipt_email.value;
