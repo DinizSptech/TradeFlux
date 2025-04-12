@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradeFlux</title>
+  <link rel="stylesheet" href="../css/menuLateral.css" />
+  <link rel="stylesheet" href="../css/dash_gerente_funcionarios.css" />
+  <script src="../script/sessao.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="./img/LOGISTECH_SOLUTIONS_Logo.png" type="image/x-icon">
+  <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
+</head>
+
+<body onload="carregarMenuLateral()">
+  <main class="container-main">
+    <div id="barralateral" class="barra-lateral">
+
+    </div>
+
+    <div class="mainContent">
+      <div class="container-title">
+        <p>Funcionários</p>
+      </div>
+      <div class="containerFiltro">
+        <div class="container-btnCadastro">
+          <button id="btnCadastro" class="btn-cadastro">
+            <i class="fa-solid fa-circle-plus"></i> Adicionar Usuário
+          </button>
+        </div>
+      </div>
+      <div id="div_containerEsteiras" class="containerEsteiras">
+
+        <table id="tabelaFuncionarios">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Data de cadastro</th>
+              <th class='tableIcons'>Editar</th>
+              <th class='tableIcons'>Excluir</th>
+            </tr>
+          </thead>
+          <tbody id="bodyTabela">
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
+<script>
+
+    var resultado = [
+        {
+            nome: "Tobias",
+            nomeFantasia: "B3"
+
+        }
+    ]
+    function carregarMenuLateral(){
+        barralateral.innerHTML = `
+            <div class="div-logo">
+            <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
+            <span class="txtLogo">TRADEFLUX</span>
+            </div>
+
+            <span class="barraHorizontal"></span>
+
+            <div class="option selected">
+              <i class="fa-solid fa-chart-line"></i>
+              <span><a href="./dashboard.html">Dashboard</a></span>
+            </div>
+
+            <div class="option">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span><a href="./cadastroEsteira.html">Insights</a></span>
+            </div>
+
+            <div class="option">
+              <i class="fa-solid fa-bell"></i>
+              <span><a href="./alertas.html">Alertas</a></span>
+            </div>
+            
+            <div class="option">
+              <i class="fa-solid fa-server"></i>
+              <span><a href="./alertas.html">Servidores</a></span>
+            </div>
+      
+            <div class="option">
+              <i class="fa-solid fa-gauge"></i>
+              <span><a href="./metricas.html">Componentes</a></span>
+            </div>
+
+            <div class="option">
+              <i class="fa-solid fa-user"></i>
+              <span><a href="./cadastroFuncionario.html">Usuários</a></span>
+            </div>
+
+            <div class="option">
+              <i class="fa-solid fa-headset"></i>
+              <span><a href="./atendimento.html">Suporte</a></span>
+            </div>
+
+            <span class="barraHorizontal"></span>
+
+            <div class="option">
+              <i class="fa-solid fa-gear"></i>
+              <span><a href="./atendimento.html">Configurações</a></span>
+            </div>
+
+            <div class="option">
+              <i class="fa-solid fa-door-open"></i>
+              <span><a onclick="deslogar()">Sair</a></span>
+            </div>`;
+    }
+</script>
+
+<!-- <div class="area_bg_modal" id="area_modal">
+    <div id="modal_1">
+      <div class="container-esteira">
+        <div class="headerModal">
+          <h1>Adicionar funcionário</h1>
+          <button id="closeButton" class="close-modal" onclick="fecharCadastro()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="mainModal">
+          <label for="inpNome">Nome</label>
+          <input type="text" id="inpNome" />
+
+          <label for="inpDep">E-mail</label>
+          <input type="text" id="inpEmail" />
+
+          <label for="inpTamanho">Senha</label>
+          <input type="password" id="inpSenha" />
+          <div id="container-aviso"></div>
+          <button id="cadastroBtn" onclick="cadastrar()">Cadastrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="area_bg_modal2" id="area_modal2">
+    <div id="modal_2">
+      <div class="container-esteira">
+        <div class="headerModal">
+          <h1>Editar funcionário</h1>
+          <button id="closeButton" class="close-modal" onclick="fecharEdicao()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="mainModal">
+          <label for="inpNome">Nome</label>
+          <input type="text" id="inpNomeAtt" />
+
+          <label for="inpDep">E-mail</label>
+          <input type="text" id="inpEmailAtt" />
+
+          <label for="inpTamanho">Senha</label>
+          <input type="password" id="inpSenhaAtt" />
+          <div id="container-aviso2"></div>
+          <button id="salvarFunc">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div> -->

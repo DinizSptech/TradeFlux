@@ -1,0 +1,298 @@
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #0A0E27;
+    color: #FFF9AB;
+}
+
+.container-main{
+    display: flex;
+}
+
+.mainContent {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    width: 79vw;
+
+    margin: 0 0 0 21vw;
+}
+
+.container-title p{
+    font-size: 3vw;
+    font-weight: 500;
+    margin: 0 0 20px 0;
+}
+
+.container-title{
+    margin-top: 5vh;
+    width: auto;
+    text-align: center;
+}
+
+.container-text{
+    color: #2e2e2eab;
+}
+
+.btn-cadastro{
+    background-color: #0E2144;
+    color: #FFF9AB;
+    padding: 2vh 3vw;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.5vw;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}
+
+.btn-cadastro:hover{
+    cursor: pointer;
+    background-color: #0f26b9;
+}
+
+.btn-limparPesquisa{
+    background-color: #1E2868;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    margin-top: 5%;
+}
+
+.containerBtnLimpar{
+    height: 1%;
+    display: flex;
+    justify-content: end;
+}
+
+.btn-limparPesquisa:hover{
+    cursor: pointer;
+    background-color: #0f26b9;
+}
+
+#modal-1{
+    display: fixed;
+    align-self: center;
+
+}
+
+.headerModal{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.headerModal h1{
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.headerModal button{
+    background-color: #0f26b9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 0 50px 0;
+}
+
+.headerModal button:hover{
+    background-color: #0f26b9;
+    cursor: pointer;
+}
+
+.mainModal{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.mainModal input{
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: #D9D9D9;
+    width: 100%;
+}
+
+.mainModal input:focus{
+    outline: none;
+}
+
+.mainModal label{
+    align-self: flex-start;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+
+
+.mainModal button{
+    padding: 10px 20px;
+    background-color: #0f26b9;
+    color: #fff;
+    border-radius: 20px;
+    margin-top: 2%;
+    border: none;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.mainModal button:hover{
+    cursor: pointer;
+    background-color: #1E2868;
+    transition: 0.2s;
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(1rem);
+    }
+}
+
+.containerEsteiras{
+    width: 75vw;
+    height: 65vh;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    border-radius: 10px;
+    overflow-y: auto;
+    background-color: #0E2144;
+    scrollbar-color: #1E2868 transparent;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+
+}
+
+.containerEsteiras h6{
+    font-size: 30px;
+}
+
+.containerFiltro{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+}
+
+.containerFiltro input{
+    border-radius: 5px;
+}
+
+.containerFiltro i:hover{
+    cursor: pointer;
+}
+
+ul{
+    list-style: none;
+}
+
+.filtrosEsteira{
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.filtrosEsteira i:hover{
+    color: #0f26b9;
+}
+
+.filtrosEsteira input{
+    padding: 2px;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #2c2c2cc0;
+    width: 95%;
+}
+
+.hidden{
+    transition: 0.2s;
+}
+
+.container-aviso{
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    text-align: start;
+}
+
+
+.area_bg_modal{
+    position: absolute;
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000c0;
+}
+#modal_1{
+    display: flex;
+    position: absolute;
+    top: 10vh;
+    z-index: 10;
+    left: 45vw;
+    background-color: #D9D9D9;
+    border-radius: 3vh;
+    padding: 4vh;
+    animation: fadeIn 0.5s both; 
+}
+
+.area_bg_modal2{
+    position: absolute;
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000c0;
+}
+#modal_2{
+    display: flex;
+    position: absolute;
+    top: 10vh;
+    z-index: 10;
+    left: 45vw;
+    background-color: #D9D9D9;
+    border-radius: 3vh;
+    padding: 4vh;
+    animation: fadeIn 0.5s both; 
+}
+
+#tabelaFuncionarios {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .tableIcons{
+    text-align: center;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  th {
+    background-color: #0E2144;
+  }
+
+  .tableIcons i:hover{
+    transition: 0.2s;
+    color: #0f26b9;
+  }
