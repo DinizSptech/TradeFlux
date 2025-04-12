@@ -39,12 +39,12 @@ function entrar(){
                   alert(
                     "Login realizado com sucesso! Redirecionando para a conta analista!..."
                   );
-                  window.location.href = "./dashboardNOC.html";
+                  window.location.href = "./dashboard_analista.html";
               } else if(nivelConta == "cientista"){
                     alert(
                         "Login realizado com sucesso! Redirecionando para a conta Cientista de Dados!..."
                     );
-                    window.location.href = "./dashboard2.html";
+                    window.location.href = "./dashboard_Cientista.html";
               }
             });
           } else {
