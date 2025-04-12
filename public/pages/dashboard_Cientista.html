@@ -15,17 +15,17 @@
     <h3 id="nome_usuario">Guilhermo Robert Silva</h3>
     <h4 id="cargo">Cientista de Dados</h4>
     <h4 id="data-center">Data Center 1</h4>
+    <br>
     <ul>
       <li>⚠️ Alertas</li>
-      <li>🛠️ Suporte</li>
-      <li>⚙️ Configurações</li>
+      <li onclick="sairParaJira()">🛠️ Suporte</li>
       <li onclick="sairParaLogin()">🚪 Sair</li>
     </ul>
   </div>
 
   <div class="main-content">
-    <div class="card">Alertas Críticos (mensal): <br><strong style="color: red;">2</strong></div>
-    <div class="card">Alertas Moderados (mensal): <br><strong style="color: yellow;">6</strong></div>
+    <div class="card">Alertas Críticos: <br><strong style="color: red;">2</strong></div>
+    <div class="card">Alertas Moderados: <br><strong style="color: yellow;">6</strong></div>
 
     <div class="dashboard-sections">
       <div class="grafico-linha">
@@ -51,16 +51,8 @@
 
       <div class="grafico-linha">
         <div class="grafico-box">
-          <h3>Proporção de uso de:
-            <select id="slt_proporcao" onchange="mudarAtributoProporcao()">
-              <option disabled value="#">Selecione um</option>
-              <option selected value="cpu">CPU (%)</option>
-              <option value="ram">RAM (%)</option>
-              <option value="disco">DISCO (%)</option>
-            </select>
-            do Data-Center
-          </h3>
-          <canvas id="grafico_proporcao"></canvas>
+          <h3>Ultimos Alertas</h3>
+          <p onload="mostrarUltimosAlertas()"></p>
         </div>
 
         <div class="grafico-box">

@@ -28,18 +28,6 @@ var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao')
       ]
     }
   });
-
-  var grafico_proporcao = new Chart(document.getElementById('grafico_proporcao'), {
-    type: 'pie',
-    data: {
-      labels: ['Servidor 1', 'Servidor 2', 'Servidor 3'],
-      datasets: [{
-        label: 'Uso de CPU',
-        data: [30, 40, 30],
-        backgroundColor: ['#007bff', '#ffc107', '#28a745']
-      }]
-    }
-  });
   
   var grafico_desempenho = new Chart(document.getElementById('grafico_desempenho'), {
     type: 'line',
@@ -87,6 +75,11 @@ function sairParaLogin(){
     window.location.href = "./login.html";
 }
 
+function sairParaJira(){
+  url = "https://www.atlassian.com/software/jira"
+  window.open(url, '_blank');
+}
+
 function mudarAtributoRanking(){
   var atributoAtual = document.getElementById("slt_ranking").value;
 
@@ -112,24 +105,6 @@ function mudarAtributoRanking(){
   }
 }
 
-function mudarAtributoProporcao() {
-  var atributoAtual = document.getElementById("slt_proporcao").value;
-  
-
-  if (atributoAtual == 'cpu') {
-    grafico_proporcao.data.datasets[0].label = 'Uso médio de CPU (%)';
-    grafico_proporcao.data.datasets[0].data = [60, 45, 80];
-  } else if (atributoAtual == 'ram') {
-    grafico_proporcao.data.datasets[0].label = 'Uso médio de RAM (%)';
-    grafico_proporcao.data.datasets[0].data = [70, 55, 65];
-  } else if (atributoAtual == 'disco') {
-    grafico_proporcao.data.datasets[0].label = 'Uso médio de Disco (%)';
-    grafico_proporcao.data.datasets[0].data = [40, 80, 50];
-  }
-
-  grafico_proporcao.update(); // Atualiza o gráfico com os novos dados
-}
-
 function mudarAtributoDesempenho() {
   var atributoAtual = document.getElementById("slt_desempenho").value;
   
@@ -145,5 +120,9 @@ function mudarAtributoDesempenho() {
     grafico_desempenho.data.datasets[0].data = [20, 21, 21, 21, 21, 21, 21, 22, 22];
   }
 
-  grafico_desempenho.update(); // Atualiza o gráfico com os novos dados
+  grafico_desempenho.update();
+}
+
+function mostrarUltimosAlertas() {
+    
 }
