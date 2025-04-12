@@ -1,0 +1,75 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    font-family: 'Inter', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: 0.2s;
+}
+
+body{
+    margin: 0;
+}
+
+.barra-lateral {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e2868;
+    color: #fff;
+    padding: 20px;
+    width: 15vw;
+    text-align: center;
+    height: 100vh;
+}
+
+.selecionado {
+    color: #b4b4b4;
+}
+
+.selecionado span a {
+    color: #b4b4b4;
+}
+
+.barra-lateral a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.barra-lateral a:hover{
+    color: #b4b4b4;
+}
+
+.option i:hover {
+    color: #b4b4b4;
+}
+
+.barra-lateral h4 {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option:last-child {
+    justify-self: end;
+}
+
+.option:hover {
+    cursor: pointer;
+}
+
+.perfil-foto {
+    border-radius:100%;
+    width: 100px;
+    align-items: center;
+}
+
+.barra-lateral span {
+    display: block;
+    margin: 15px 0;
+    padding: 1px;
+    text-align: left; 
+    font-weight: 1000;
+}
