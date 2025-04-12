@@ -6,7 +6,7 @@ function cadastrar() {
   let cargo = select_cargo.value;
   let senha = ipt_senha.value;
   let confirmSenha = ipt_confirmSenha.value;
-  let empresa_cliente = 1;
+  let data_center = 1;
   let ativo = 1
 
   function validarNome(nome) {
@@ -104,7 +104,7 @@ function cadastrar() {
         console.log("Email: " + email);
         console.log("Cargo: " + cargo);
         console.log("Senha: " + senha);
-        console.log("Empresa: " + empresa_cliente);
+        console.log("DataCenter: " + data_center);
     
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -116,7 +116,7 @@ function cadastrar() {
               emailServer: email,
               cargoServer: cargo,
               senhaServer: senha,
-              empresaServer: empresa_cliente,
+              dataCenterServer: data_center,
               ativoServer: ativo,
             }),
           }).then(function (resposta) {

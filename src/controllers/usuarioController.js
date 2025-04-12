@@ -22,7 +22,8 @@ function autenticar(req, res) {
             nome: resultadoAutenticar[0].nome,
             email: resultadoAutenticar[0].email,
             senha: resultadoAutenticar[0].senha,
-            cargo: resultadoAutenticar[0].cargo
+            cargo: resultadoAutenticar[0].cargo,
+            data_center: resultadoAutenticar[0].data_center
           });
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
@@ -47,7 +48,7 @@ function cadastrar(req, res) {
   let senha = req.body.senhaServer;
   let email = req.body.emailServer;
   let cargo = req.body.cargoServer;
-  let empresa_cliente = req.body.empresaServer;
+  let data_center = req.body.dataCenterServer;
   let ativo = req.body.ativoServer;
 
   if (nome == undefined) {
@@ -60,12 +61,12 @@ function cadastrar(req, res) {
     res.status(400).send("Seu cargo está undefined!");
   }  else if (ativo == undefined) {
     res.status(400).send("Seu ativo está undefined!");
-  }  else if (empresa_cliente == undefined) {
+  }  else if (data_center == undefined) {
     res.status(400).send("Sua empresa está undefined!");
   }
   else {
     usuarioModel
-      .cadastrar(nome, senha, email, cargo, ativo, empresa_cliente)
+      .cadastrar(nome, senha, email, cargo, ativo, data_center)
       .then((resultado) => {
         res.status(200).json(resultado);
         res.status(200).send("Usuario cadastrado com sucesso");
