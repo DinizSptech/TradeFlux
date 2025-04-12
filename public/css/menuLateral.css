@@ -10,14 +10,40 @@ body{
 }
 
 .barra-lateral {
+    position: fixed;
     display: flex;
     flex-direction: column;
-    background-color: #1e2868;
-    color: #fff;
+    background-color: #0E2144;
+    color: #FFF9AB;
     padding: 20px;
-    width: 15vw;
+    width: 20vw;
     text-align: center;
     height: 100vh;
+}
+.barra-lateral .div-logo{
+    margin-top: 6vh;
+    align-self: center;
+    display: flex;
+    gap: 1vw;
+
+}
+.barra-lateral .imgLogo{
+    height: 64px;
+    width: 72px;
+    /* background-color: aqua; */
+}
+.barra-lateral .txtLogo{
+    font-size: 1.4vw;
+}
+.barraHorizontal{
+    align-self: center;
+    width: 4vw;
+    border: solid #FFF9AB;
+    border-top-width: 0.7vh;
+    border-left-width: 0vh;
+    border-right-width: 0vh;
+    border-bottom-width: 0vh;
+
 }
 
 .selecionado {
@@ -30,7 +56,14 @@ body{
 
 .barra-lateral a{
     text-decoration: none;
-    color: #fff;
+    color: #FFF9AB;
+    font-size: 1.2vw;
+}
+
+.barra-lateral .fa-solid{
+    text-decoration: none;
+    color: #FFF9AB;
+    font-size: 1.5vw;
 }
 
 .barra-lateral a:hover{
@@ -48,8 +81,14 @@ body{
 
 .option{
     display: flex;
+    margin-left: 4vw;
+    width: 10vw;
     align-items: center;
     gap: 1rem;
+}
+.option .svg_icons{
+    width: 3vw;
+    height: 6vh;
 }
 
 .option:last-child {
