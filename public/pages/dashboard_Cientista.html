@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas()">
+<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao();">
   <div class="sidebar">
     <h2>TRADEFLUX</h2>
     <h3>Bem vindo(a)</h3>
@@ -17,20 +17,24 @@
     <h4 id="data-center">Data Center 1</h4>
     <br>
     <ul>
-      <li>⚠️ Alertas</li>
+      <li onclick="abrirModalAlertas()">⚠️ Alertas</li>
       <li onclick="sairParaJira()">🛠️ Suporte</li>
       <li onclick="sairParaLogin()">🚪 Sair</li>
     </ul>
   </div>
 
   <div class="main-content">
-    <div class="card">Alertas Críticos: <br><strong style="color: red;">2</strong></div>
-    <div class="card">Alertas Moderados: <br><strong style="color: yellow;">6</strong></div>
+    <div class="card"  >Alertas Críticos:
+      <div id="alertas_criticos"></div>
+    </div>
+    <div class="card" >Alertas Moderados: 
+      <div id="alertas_atencao"></div>
+    </div>
 
     <div class="dashboard-sections">
       <div class="grafico-linha">
         <div class="grafico-box">
-          <h3>Comparativo entre servidores</h3>
+          <h3>Comparativo média de cada comoponente entre servidores</h3>
           <canvas id="grafico_comparacao"></canvas>
         </div>
 
@@ -68,6 +72,14 @@
           <canvas id="grafico_desempenho"></canvas>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="modalAlertas" class="modal">
+    <div class="modal-content">
+      <span class="fechar" onclick="fecharModalAlertas()">&times;</span>
+      <h2>Histórico de Alertas</h2>
+      <div id="alertasModalContent"></div>
     </div>
   </div>
 

@@ -1,5 +1,3 @@
-
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -71,7 +69,7 @@ body {
 canvas {
   width: 100% !important;
   height: auto !important;
-  background-color: #ffffff;
+  background-color: #122647;
   border-radius: 15px;
   padding: 10px;
 }
@@ -93,10 +91,40 @@ p#ultimos_alertas {
   font-size: 20px;
 }
 
-canvas {
-  width: 100% !important;
-  height: auto !important;
-  background-color: #122647; /* cor escura que combina com o .card */
-  border-radius: 15px;
-  padding: 10px;
+/* Estilo do modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #1e3a5f;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  border-radius: 10px;
+  color: white;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.fechar {
+  color: #fefca4;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.fechar:hover {
+  color: red;
 }
