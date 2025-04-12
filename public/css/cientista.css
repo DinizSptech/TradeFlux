@@ -89,6 +89,10 @@ p#ranking {
   font-size: 40px;
 }
 
+p#ultimos_alertas {
+  font-size: 20px;
+}
+
 canvas {
   width: 100% !important;
   height: auto !important;

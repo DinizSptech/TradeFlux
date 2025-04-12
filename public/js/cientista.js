@@ -123,6 +123,33 @@ function mudarAtributoDesempenho() {
   grafico_desempenho.update();
 }
 
+var alertas = [
+    {
+        servidor: 'Servidor 1',
+        tipo: 'RAM',
+        valor: 87,
+        data: '07-04-2025 10:00'
+    },
+    {
+        servidor: 'Servidor 3',
+        tipo: 'CPU',
+        valor: 85,
+        data: '11-04-2025 17:00'
+    },
+    {
+        servidor: 'Servidor 1',
+        tipo: 'DISCO',
+        valor: 85,
+        data: '12-02-2025 18:00'
+    }
+]
+
 function mostrarUltimosAlertas() {
-    
+  
+  ultimos_alertas.innerHTML = '';
+  for (var i = 0; i < alertas.length; i++) {
+    ultimos_alertas.innerHTML += `
+        Alerta de ${alertas[i].tipo} no ${alertas[i].servidor}: ${alertas[i].valor}% em ${alertas[i].data}<br>
+    `;
+  }
 }
