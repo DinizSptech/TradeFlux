@@ -22,6 +22,14 @@
 
 <body onload="carregarMenuLateral(); carregarUsuarios()">
   <main class="container-main">
+    <div class="container_perfil">
+      <i class="fa-solid fa-bell"></i>
+      <span class="barraVertical"></span>
+      <div class="button_perfil">
+        <i class="fa-solid fa-circle-user"></i>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
     <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
@@ -81,7 +89,7 @@
                 <option selected disabled value="#">Selecione uma opção</option>
                 <option value="analista">Analista</option>
                 <option value="cientista">Cientista</option>
-                <option value="administrador">Administrador</option>
+                <option value="administrador">Gerente</option>
               </select>
             </div>
           </div>
@@ -216,12 +224,12 @@
             </div>
 
             <div class="option">
-              <i class="fa-solid fa-circle-plus"></i>
+              <i class="fa-solid fa-lightbulb"></i>
               <span><a href="./cadastroEsteira.html">Insights</a></span>
             </div>
 
             <div class="option">
-              <i class="fa-solid fa-bell"></i>
+              <i class="fa-solid fa-triangle-exclamation"></i>
               <span><a href="./alertas.html">Alertas</a></span>
             </div>
             

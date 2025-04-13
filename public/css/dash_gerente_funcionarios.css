@@ -1,7 +1,7 @@
 body {
     min-width: 100vw;
     min-height: 100vh;
-    background-color: #0A0E27;
+    background-color: rgb(10, 14, 39);
     color: #FFF9AB;
 }
 
@@ -9,6 +9,43 @@ body {
     display: flex;
 }
 
+.container_perfil{
+    width: 12vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 4vh;
+    right: 4vw;
+    gap: 0.7vw;
+    /* background-color: #ffc228; */
+
+}
+
+.barraVertical{
+    height: 3vh;
+    width: 0.1vh;
+    border: solid #FFF9AB;
+    border-left-width: 0.5vh;
+}
+.button_perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: auto;
+    gap: 0.6vw;
+    cursor: pointer;
+}
+.button_perfil:hover .fa-solid{
+    color: #ffc228;
+}
+.container_perfil .fa-bell:hover{
+    color: #ffc228;
+    cursor: pointer;
+    z-index: 1;
+}
 .mainContent {
     display: flex;
     height: 100vh;
@@ -19,9 +56,9 @@ body {
 }
 
 .container-title p{
-    font-size: 3vw;
-    font-weight: 500;
-    margin: 0 0 20px 0;
+    font-size: 2.4vw;
+    font-weight: 800;
+    /* margin: 0 0 20px 0; */
 }
 
 .container-title{
@@ -37,10 +74,10 @@ body {
 .btn-cadastro{
     background-color: #0E2144;
     color: #FFF9AB;
-    padding: 2vh 3vw;
+    padding: 2vh 2vw;
     border-radius: 10px;
     border: none;
-    font-size: 1.5vw;
+    font-size: 1.4vw;
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
 }
 
@@ -63,13 +100,13 @@ body {
 .containerEsteiras{
     width: 75vw;
     height: 65vh;
-    margin-bottom: 10px;
     margin-left: 1vw;
+    margin-top: 3vh;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    border: 2px solid black;
-    border-radius: 10px;
+    border: 0.2vh solid #FFF9AB;
+    border-radius: 1vw;
     overflow-y: auto;
     background-color: #0E2144;
     scrollbar-color: #1E2868 transparent;
@@ -156,13 +193,26 @@ hr {
 
   th,
   td {
-      border: 1px solid #FFF9AB;
+      border: solid #FFF9AB;
+      border-top-width: 0.2vh;
+      border-bottom-width: 0.2vh;
+      border-left-width: 0;
+      border-right-width: 0;
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
-      padding: 8px;
+      padding: 2vh 1vw;
       text-align: left;
   }
-
+  .container_perfil .fa-solid{
+    text-decoration: none;
+    color: #FFF9AB;
+    font-size: 3vw;
+  }
+  .container_perfil .fa-chevron-down{
+    text-decoration: none;
+    color: #FFF9AB;
+    font-size: 1.5vw;
+  }
   .tableIcons{
     text-align: center;
     transition: 0.2s;
@@ -177,3 +227,4 @@ hr {
     transition: 0.2s;
     color: #ffc228;
   }
+  
