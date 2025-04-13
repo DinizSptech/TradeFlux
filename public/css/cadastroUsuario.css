@@ -53,13 +53,13 @@
   display: flex;
   width: 30vw;
   height: 70vh;
-  background-color: #0E2144;
+  background-color: #262B3C;
   justify-content: center;
   align-items: center;
   gap: 2%;
   flex-direction: column;
   border-radius: 20px;
-  border: solid 1px #FFF9AB;
+  border: solid 3px #3A3F58;
 }
 
 .fechar{
@@ -95,8 +95,8 @@
   height: 40%;
   font-size: 20px;
   padding: 10px;
-  border: var(--azulEscuro) 3px solid;
-  background-color: #2c5298;
+  border: #3A3F58 3px solid;
+  background-color: #494f78;
   color: #FFF
 }
 
@@ -117,15 +117,16 @@
 .select-container span {
   width: auto;
   height: auto;
+  
 }
 
 select {
-  border: var(--azulEscuro) 3px solid;
+  border: #3A3F58 3px solid;
   width: 100%;
   font-size: 20px;
   text-align: center;
   border-radius: 4px;
-  background: #2c5298;
+  background: #494f78;
   color: #fff
 }
 
@@ -145,8 +146,8 @@ select {
   font-size: 20px;
   border-radius: 10px;
   border: none;
-  background-color: #2c5298;
-  color: #FFF9AB;
+  background-color: #008573;
+  color: #ffffff;
   font-weight: 800;
 }
 

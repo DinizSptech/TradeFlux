@@ -13,8 +13,8 @@ body{
     position: fixed;
     display: flex;
     flex-direction: column;
-    background-color: #0e2144;
-    color: #FFF9AB;
+    background-color: #23283A;
+    color: #F0F0F0;
     padding: 20px;
     width: 20vw;
     text-align: center;
@@ -38,7 +38,7 @@ body{
 .barraHorizontal{
     align-self: center;
     width: 4vw;
-    border: solid #FFF9AB;
+    border: solid #F0F0F0;
     border-top-width: 0.7vh;
     border-left-width: 0vh;
     border-right-width: 0vh;
@@ -56,13 +56,13 @@ body{
 
 .barra-lateral a{
     text-decoration: none;
-    color: #FFF9AB;
+    color: #F0F0F0;
     font-size: 1.2vw;
 }
 
 .barra-lateral .fa-solid{
     text-decoration: none;
-    color: #FFF9AB;
+    color: #F0F0F0;
     font-size: 1.5vw;
 }
 
