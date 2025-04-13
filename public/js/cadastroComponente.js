@@ -54,8 +54,96 @@ function exibirCaracteristicas() {
         
     }
 }
+function cadastrar() {
+    var nome = ipt_nomeComponente.value;
+    var medida = select_medida.value;
+    var limiar = ipt_limiar.value;
+    var servidor = select_servidor.value
+    var componente = 1;
 
-;
+    console.log(nome)
+  
+    function validarNome(nome) {
+      erros_cadastro_nome.innerHTML = ``;
+      nomeValidado = true;
+  
+      if (nome == "") {
+          erros_cadastro_nome.innerHTML += `<span style="color:red">Preencha o nome do componente</span><br>`;
+        nomeValidado = false;
+      }
+  
+  
+      return nomeValidado;
+    }
+  
+    function validarMedida(medida, nome) {
+      erros_cadastro_medida.innerHTML = ``;
+      medidaValidado = true;
+      if (medida == "") {   
+          erros_cadastro_medida.innerHTML += `<span style="color:red">Preencha o campo medida</span><br>`;
+        medidaValidado = false;
+      } else if((medida == "gb" || medida == "bt") && nome.toLowerCase().includes("cpu")){
+        erros_cadastro_medida.innerHTML += `<span style="color:red">Insira uma medida válida para este componente</span><br>`;
+        medidaValidado = false;
+      } else if(medida == "gz" && (nome.toLowerCase().includes("ram") || nome.toLowerCase().includes("disco"))){
+        erros_cadastro_medida.innerHTML += `<span style="color:red">Insira uma medida válida para este componente</span><br>`;
+        medidaValidado = false;
+      }
+
+      return medidaValidado;
+    }
+  
+    function validarLimiar(limiar){
+      erros_cadastro_limiar.innerHTML = ``;  
+      limiarValidado = true;
+      if (limiar == "") {
+          erros_cadastro_limiar.innerHTML += `<span style="color:red">Defina um limiar de alerta para o componente</span><br>`;
+        limiarValidado = false;
+      }
+
+      return limiarValidado;
+    }
+  
+    
+      if (validarNome(nome) && validarMedida(medida, nome) && validarLimiar(limiar)) {
+          alert("Cadastro realizado com sucesso!");
+          console.log("Cadastro realizado com sucesso!");
+          console.log("Nome: " + nome);
+          console.log("Medida: " + medida);
+          console.log("Limiar: " + limiar);
+          console.log("Servidor: " + servidor);
+          console.log("Componente: " + componente);
+      
+          fetch("/componentes/cadastrar", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                nomeServer: nome,
+                medidaServer: medida,
+                limiarServer: limiar,
+                servidorServer: servidor,
+                componenteServer: componente
+              }),
+            }).then(function (resposta) {
+              if (resposta.ok) {
+                console.log(resposta);
+                console.log("Resposta OK!");
+                console.log("Cadastrado no BD");
+          
+                resposta.json().then((json) => {
+                  console.log(json);
+                  console.log(JSON.stringify(json));
+                });
+              } else {
+                console.log("NÃO deu certo a resposta");
+              }
+            });
+          }
+  
+  
+      }
 
 
 function abrirModal(tipo) {
