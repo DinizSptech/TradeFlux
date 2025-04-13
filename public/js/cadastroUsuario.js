@@ -1,10 +1,18 @@
 // CONFIGURAÇÃO BACKEND:
 
-function abrirCadastro(){
-  bg_formulario.style.display = "flex";
+function abrirModal(tipo){
+  if(tipo == "cadastro"){
+    bg_formulario.style.display = "flex";
+  } else {
+    bg_formulario_edicao.style.display = "flex";
+  }
 }
-function fecharCadastro(){
-  bg_formulario.style.display = "none";
+function fecharModal(tipo){
+  if (tipo == "cadastro") {
+    bg_formulario.style.display = "none";
+  } else {
+    bg_formulario_edicao.style.display = "none";
+  }
 }
 
 function cadastrar() {
@@ -143,6 +151,9 @@ function cadastrar() {
             window.location.href = "/pages/login.html";
         }
 
+
+    }
+    function editarUsuario(idUsuario, nome, email, senha, cargo, status){
 
     }
 

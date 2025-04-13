@@ -33,7 +33,7 @@
               <span>Email:</span>
               <input id="ipt_email" type="text" />
             </div>
-            <div class="input" style="text-align: center">
+            <div class="input">
               <div class="select-container">
                 <span>Selecione o Cargo:</span>
                 <select id="select_cargo" name="">
@@ -53,7 +53,7 @@
               <input id="ipt_confirmSenha" type="password" />
             </div>
             <div class="buttonCadastrar">
-              <button onclick="fecharCadastro()">Cadastrar</button>
+              <button onclick="fecharModal('cadastro')">Cadastrar</button>
             </div>
             <div id="erros_cadastro_usuario"></div>
             <div id="erros_cadastro_email"></div>
@@ -62,6 +62,51 @@
             <div id="erros_cadastro_confirmsenha"></div>
           </div>
     </div>
+    <div class="bgForm" id="bg_formulario_edicao">
+      <div class="formUsuario">
+          <div class="tituloForm">Editar Usuario</div>
+          <div class="input">
+            <span>Usuario:</span>
+            <input id="ipt_nome" type="text" />
+          </div>
+          <div class="input">
+            <span>Email:</span>
+            <input id="ipt_email" type="text" />
+          </div>
+          <div class="input" >
+            <div class="select-container">
+              <span>Cargo:</span>
+              <select id="select_cargo" name="">
+                <option selected disabled value="#">Selecione uma opção</option>
+                <option value="analista">Analista</option>
+                <option value="cientista">Cientista</option>
+                <option value="administrador">Administrador</option>
+              </select>
+            </div>
+          </div>
+          <div class="input">
+            <div class="select-container">
+              <span>Status:</span>
+              <select id="select_cargo" name="">
+                <option value="opt_ativo">Ativo</option>
+                <option value="opt_inativo">Inativo</option>
+              </select>
+            </div>
+          </div>
+          <div class="input">
+            <span>Senha:</span>
+            <input id="ipt_senha" type="password" />
+          </div>
+          <div class="buttonCadastrar">
+            <button onclick="fecharModal('edicao')">Salvar</button>
+          </div>
+          <div id="erros_cadastro_usuario"></div>
+          <div id="erros_cadastro_email"></div>
+          <div id="erros_cadastro_cargo"></div>
+          <div id="erros_cadastro_senha"></div>
+          <div id="erros_cadastro_confirmsenha"></div>
+        </div>
+  </div>
     <div id="barralateral" class="barra-lateral">
 
     </div>
@@ -72,7 +117,7 @@
       </div>
       <div class="containerFiltro">
         <div class="container-btnCadastro">
-          <button id="btnCadastro" class="btn-cadastro" onclick="abrirCadastro()">
+          <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
             <i class="fa-solid fa-circle-plus"></i> Adicionar Usuário
           </button>
         </div>
@@ -221,8 +266,8 @@
             <td>${(usuarios[i].cargo)}</td>
             <td>${(usuarios[i].status)}</td>
             <td>${(usuarios[i].ultimoAcesso)}</td>
-            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}')" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='deletar(${usuarios[i].idUsuario})'></i></td>
+            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}', '${usuarios[i].cargo}', '${usuarios[i].status}')" ></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${usuarios[i].idUsuario})'></i></td>
             </tr>
             `
         }
