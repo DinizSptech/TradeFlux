@@ -59,10 +59,24 @@
   gap: 2%;
   flex-direction: column;
   border-radius: 20px;
+  border: solid 1px #FFF9AB;
+}
+
+.fechar{
+  color: #fff;
+  align-self: flex-end;
+  margin-right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.fechar:hover{
+  color: red;
 }
 
 .tituloForm {
   font-size: 45px;
+  font-weight: bold;
 }
 
 .input {

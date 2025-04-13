@@ -51,7 +51,7 @@
 }
 .formUsuario {
   display: flex;
-  width: 50vw;
+  width: 40vw;
   height: 80vh;
   background-color: #0E2144;
   justify-content: center;
@@ -59,12 +59,12 @@
   gap: 3%;
   flex-direction: column;
   border-radius: 20px;
+  border: solid 1px #FFF9AB;
 }
 
 .fechar{
     color: #fff;
     align-self: flex-end;
-    margin-bottom: 25px;
     margin-right: 18px;
     font-size: 25px;
     cursor: pointer;
@@ -77,7 +77,7 @@
 .tituloForm {
   font-size: 40px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .input {
@@ -141,8 +141,8 @@ select {
 
 .buttonCadastrar {
   position: relative;
-  top: 5%;
-  width: 50%;
+  top: 1%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
