@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url(components.css);
+
+.bgForm {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 80vw;
+  margin-left: 20vw;
+  background-color: #07142c98;
+  backdrop-filter: blur(5px);
+  animation: aparecer 1s;
+}
+.bgFormEditar {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 80vw;
+  margin-left: 20vw;
+  background-color: #07142c98;
+  backdrop-filter: blur(5px);
+  animation: aparecer 1s;
+}
+@keyframes aparecer{
+  from{
+    transform: translateY(-20px);
+    opacity: 0;
+  } to{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes desaparecer{
+  from{
+    transform: translateY(0px);
+    opacity: 1;
+  } to{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+.formUsuario {
+  display: flex;
+  width: 50vw;
+  height: 80vh;
+  background-color: #0E2144;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.fechar{
+    color: #fff;
+    align-self: flex-end;
+    margin-bottom: 25px;
+    margin-right: 18px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.fechar:hover{
+    color: red;
+}
+
+.tituloForm {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 39%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10%;
+}
+
+.input input {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  height: 40%;
+  font-size: 20px;
+  padding: 10px;
+  border: var(--azulEscuro) 3px solid;
+  background-color: #2c5298;
+  color: #FFF
+}
+
+.input span {
+  width: 100%;
+  font-size: 25px;
+  /* text-justify: center; */
+}
+
+.select-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+
+}
+
+.select-container2 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    /* align-items: center; */
+  
+  }
+
+  .caracteristicas_servidor{
+    color: #fff;
+  }
+
+select {
+  border: var(--azulEscuro) 3px solid;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 4px;
+  background: #2c5298;
+  color: #fff
+}
+
+.buttonCadastrar {
+  position: relative;
+  top: 5%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8%;
+}
+
+.buttonCadastrar button {
+  height: 100%;
+  width: 30%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2c5298;
+  color: #FFF9AB;
+  font-weight: 800;
+}
+
+.buttonCadastrar button:hover {
+  background-color: #052f7d;
+  transition: 0.5;
+}

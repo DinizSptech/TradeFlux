@@ -2,134 +2,148 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TradeFlux - Componentes</title>
-  <link rel="stylesheet" href="../css/menuLateral.css" />
-  <link rel="stylesheet" href="../css/dash_gerente_componentes.css" />
-  <!-- <script src="../script/sessao.js"></script> -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TradeFlux - Componentes</title>
+    <link rel="stylesheet" href="../css/menuLateral.css" />
+    <link rel="stylesheet" href="../css/dash_gerente_componentes.css" />
+    <!-- <script src="../script/sessao.js"></script> -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cadastroUsuario.css">
-    <script src="../js/cadastroUsuario.js" defer></script>
-  <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
+    <link rel="stylesheet" href="../css/cadastroComponente.css">
+    <script src="../js/cadastroComponente.js" defer></script>
+    <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral(); carregarComponentes()">
-  <main class="container-main">
-    <div class="bgForm" id="bg_formulario">
-        <div class="formUsuario">
-            <div class="tituloForm">Cadastrar Componente</div>
-            <div class="input">
-              <span>Nome:</span>
-              <input id="ipt_nomeComponente" type="text" />
-            </div>
-            <div class="input">
-              <div class="select-container">
-                <span>Medida</span>
-                <select id="select_medida" name="">
-                  <option selected disabled value="#">Selecione uma opção</option>
-                  <option value="gb">GB</option>
-                  <option value="pt">%</option>
-                  <option value="bt">Bytes</option>
-                  <option value="bt">GHz</option>
-                </select>
-              </div>
-            </div>
-            <div class="input">
-              <span>Limiar de alerta:</span>
-              <input id="ipt_limiar" type="password" />
-            </div>
-            <div class="buttonCadastrar">
-              <button onclick="fecharModal('cadastro')">Cadastrar</button>
+<body onload="carregarMenuLateral(); carregarComponentes(); exibirServidorNoSelect(); ">
+    <main class="container-main">
+        <div class="bgForm" id="bg_formulario">
+            <div class="formUsuario">
+               <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
+                <div class="tituloForm">Cadastrar Componente</div>
+
+                <div class="select-container2">
+                    <span>Selecione o servidor do Componente:</span>
+                    <select id="select_servidor" name="" onchange="exibirCaracteristicas()">
+                        <option selected disabled value="#">Selecione uma opção</option>
+                    </select>
+                </div>
+                <div class="caracteristicas_servidor">
+                    <span id="ram_total"></span>
+                    <span id="disco_total"></span>
+                    <span id="cpu"></span>
+                </div>
+
+                <div class="input">
+                    <span>Nome:</span>
+                    <input id="ipt_nomeComponente" type="text" />
+                </div>
+                <div class="input">
+                    <div class="select-container">
+                        <span>Medida</span>
+                        <select id="select_medida" name="">
+                            <option selected disabled value="#">Selecione uma opção</option>
+                            <option value="gb">GB</option>
+                            <option value="pt">%</option>
+                            <option value="bt">Bytes</option>
+                            <option value="gz">GHz</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input">
+                    <span>Limiar de alerta:</span>
+                    <input id="ipt_limiar" type="number" />
+                </div>
+                <div class="buttonCadastrar">
+                    <button onclick="fecharModal('cadastro')">Cadastrar</button>
+                </div>
+
             </div>
             <div id="erros_cadastro_usuario"></div>
             <div id="erros_cadastro_email"></div>
             <div id="erros_cadastro_cargo"></div>
             <div id="erros_cadastro_senha"></div>
             <div id="erros_cadastro_confirmsenha"></div>
-          </div>
-    </div>
-    <div class="bgForm" id="bg_formulario_edicao">
-      <div class="formUsuario">
-          <div class="tituloForm">Editar Componente</div>
-          <div class="input">
-            <span>Nome:</span>
-            <input id="ipt_nomeComponente" type="text" />
-          </div>
-          <div class="input">
-            <div class="select-container">
-              <span>Medida</span>
-              <select id="select_medida" name="">
-                <option selected disabled value="#">Selecione uma opção</option>
-                <option value="gb">GB</option>
-                <option value="pt">%</option>
-                <option value="bt">Bytes</option>
-              </select>
+        </div>
+        </div>
+        <div class="bgForm" id="bg_formulario_edicao">
+            <div class="formUsuario">
+                <div class="tituloForm">Editar Componente</div>
+                <div class="input">
+                    <span>Nome:</span>
+                    <input id="ipt_nomeComponente" type="text" />
+                </div>
+                <div class="input">
+                    <div class="select-container">
+                        <span>Medida</span>
+                        <select id="select_medida" name="">
+                            <option selected disabled value="#">Selecione uma opção</option>
+                            <option value="gb">GB</option>
+                            <option value="pt">%</option>
+                            <option value="bt">Bytes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input">
+                    <span>Limiar de alerta:</span>
+                    <input id="ipt_limiar" />
+                </div>
+                <div class="buttonCadastrar">
+                    <button onclick="fecharModal('edicao')">Salvar</button>
+                </div>
+                <div id="erros_cadastro_nome"></div>
+                <div id="erros_cadastro_medida"></div>
+                <div id="erros_cadastro_limiar"></div>
             </div>
-          </div>
-          <div class="input">
-            <span>Limiar de alerta:</span>
-            <input id="ipt_limiar" type="password" />
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="fecharModal('edicao')">Salvar</button>
-          </div>
-          <div id="erros_cadastro_usuario"></div>
-          <div id="erros_cadastro_email"></div>
-          <div id="erros_cadastro_cargo"></div>
-          <div id="erros_cadastro_senha"></div>
-          <div id="erros_cadastro_confirmsenha"></div>
         </div>
-  </div>
-    <div id="barralateral" class="barra-lateral">
+        <div id="barralateral" class="barra-lateral">
 
-    </div>
-
-    <div class="mainContent">
-      <div class="container-title">
-        <p>Componentes</p>
-      </div>
-      <div class="containerFiltro">
-        <div class="container-btnCadastro">
-          <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
-            <i class="fa-solid fa-circle-plus"></i> Adicionar Componente
-          </button>
         </div>
-      </div>
-      <div id="div_containerEsteiras" class="containerEsteiras">
 
-        <table id="tabelaFuncionarios">
-          <thead>
-            <tr>
-              <th>Componente</th>
-              <th>Unidade de medida</th>
-              <th>Limiar de Alerta</th>
-              <th>Status</th>
-              <th>Alertas</th>
-              <th class='tableIcons'>Editar</th>
-              <th class='tableIcons'>Excluir</th>
-            </tr>
-          </thead>
-          <tbody id="bodyTabela">
+        <div class="mainContent">
+            <div class="container-title">
+                <p>Componentes</p>
+            </div>
+            <div class="containerFiltro">
+                <div class="container-btnCadastro">
+                    <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
+                        <i class="fa-solid fa-circle-plus"></i> Adicionar Componente
+                    </button>
+                </div>
+            </div>
+            <div id="div_containerEsteiras" class="containerEsteiras">
 
-          </tbody>
-        </table>
+                <table id="tabelaFuncionarios">
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Unidade de medida</th>
+                            <th>Limiar de Alerta</th>
+                            <th>Status</th>
+                            <th>Alertas</th>
+                            <th class='tableIcons'>Editar</th>
+                            <th class='tableIcons'>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTabela">
 
-      </div>
-    </div>
-  </main>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
 <script>
 
-   
+
     var componentes = [
         {
             idComponente: 1,
@@ -138,10 +152,10 @@
             limiar: 1000,
             status: "Estável",
             alertas: 10
-        
+
         },
         {
-            
+
             idComponente: 2,
             nome: "CPU 2",
             medida: "%",
@@ -198,9 +212,9 @@
             alertas: 61
 
         },
-        
+
     ]
-    function carregarMenuLateral(){
+    function carregarMenuLateral() {
         barralateral.innerHTML = `
             <div class="div-logo">
             <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -257,7 +271,7 @@
             </div>`;
     }
 
-    function carregarComponentes(){
+    function carregarComponentes() {
         for (var i = 0; i < componentes.length; i++) {
 
             let status = componentes[i].status;
@@ -269,7 +283,7 @@
                 classeStatus = 'status-alerta';
             } else if (status === 'Crítico') {
                 classeStatus = 'status-critico';
-}
+            }
 
 
             bodyTabela.innerHTML += `
@@ -285,8 +299,8 @@
             </tr>
             `
 
-           
+
         }
-        
+
     }
 </script>
