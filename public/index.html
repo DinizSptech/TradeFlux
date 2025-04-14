@@ -6,6 +6,8 @@
     <title>TradeFlux</title>
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./assets/TRADEFLUX__2_-removebg-preview 1.png" />
+    <script src="./js/emails.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"> </script>  
   </head>
   <body>
     <div class="header-left">
@@ -103,12 +105,11 @@
         </p>
         <form
           id="contatoForm"
-          action="https://formsubmit.co/vinidiasfcm@gmail.com"
-          method="POST"
         >
           <h3>Nome:</h3>
           <input
             type="text"
+            id = "ipt_nome"
             name="name"
             required
             placeholder="Escreva seu nome:"
@@ -116,6 +117,7 @@
           <h3>Email:</h3>
           <input
             type="email"
+            id = "ipt_email"
             name="email"
             required
             placeholder="Escreva seu email:"
@@ -125,24 +127,26 @@
           <textarea
             name="mensagem"
             placeholder="Escreva sua mensagem!"
+            id="ipt_mensagem"
+            required
           ></textarea>
-          <button type="submit" class="button"><b>Enviar</b></button>
-          <input
-            type="hidden"
-            name="_next"
-            value="http://127.0.0.1:5500/html/"
-          />
+          <button type="submit" class="button" onclick="enviarMensagemSuporte()"><b>Enviar</b></button>
+          <!-- <input -->
+            <!-- type="hidden" -->
+            <!-- name="_next" -->
+            <!-- value="http://127.0.0.1:5500/html/" -->
+          <!-- /> -->
         </form>
       </div>
     </div>
   </body>
 </html>
 
-<script>
+<!-- <script>
   document
     .getElementById("contatoForm")
     .addEventListener("submit", function () {
       alert("Obrigado pela mensagem!");
       window.scrollTo(0, 0);
     });
-</script>
+</script> -->

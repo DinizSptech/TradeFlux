@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradeFlux</title>
+  <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
+  <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+  <!-- <script src="../script/sessao.js"></script> -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/cadastroUsuario.css">
+    <script src="../js/cadastroUsuario.js" defer></script>
+    <script src="../js/criacaoMenuLateralADM.js"></script>
+  <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
+</head>
+
+<body onload="carregarMenuLateral(); carregarUsuarios()">
+  <main class="container-main">
+    <div class="container_perfil">
+      <i class="fa-solid fa-bell"></i>
+      <span class="barraVertical"></span>
+      <div class="button_perfil">
+        <i class="fa-solid fa-circle-user"></i>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+    <div class="bgForm" id="bg_formulario">
+        <div class="formUsuario">
+          <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
+            <div class="tituloForm">Cadastrar Servidores</div>
+            <div class="input">
+              <span>Servidor:</span>
+              <input id="ipt_nome" type="text" />
+            </div>
+            <div class="input">
+              <span>Quantidade de componentes:</span>
+              <input id="ipt_qtdComponentesAdicao" type="text" />
+            </div>
+            <div class="buttonCadastrar">
+              <button onclick="adicionarServidor(); fecharModal('cadastro')" >Cadastrar</button>
+            </div>
+            <div id="erros_cadastro_usuario"></div>
+            <div id="erros_cadastro_confirmsenha"></div>
+          </div>
+    </div>
+    <div class="bgForm" id="bg_formulario_edicao">
+      <div class="formUsuario">
+          <div class="tituloForm">Editar Servidor</div>
+          <div class="input">
+            <span>Servidor:</span>
+            <input id="ipt_nome" type="text" />
+          </div>
+          <div class="input">
+            <span>Quantidade de componentes:</span>
+            <input id="ipt_qtdComponentesEdicao" type="text" />
+          </div>
+          <div class="buttonCadastrar">
+            <button onclick="fecharModal('edicao')">Salvar</button>
+          </div>
+          <!-- <div id="erros_cadastro_usuario"></div> -->
+          <!-- <div id="erros_cadastro_confirmsenha"></div> -->
+        </div>
+  </div>
+    <div id="barralateral" class="barra-lateral">
+    </div>
+    <div class="mainContent">
+      <div class="container-title">
+        <p>Servidores</p>
+      </div>
+      <div class="containerFiltro">
+        <div class="container-btnCadastro">
+          <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
+            <i class="fa-solid fa-circle-plus"></i> Adicionar Servidor
+          </button>
+        </div>
+      </div>
+      <div id="div_containerEsteiras" class="containerEsteiras">
+        <table id="tabelaFuncionarios">
+          <thead>
+            <tr>
+              <th>Servidor</th>
+              <th>Componentes cadastrados</th>
+              <th>Status</th>
+              <th>Monitoramento</th>
+              <!-- <th class='tableIcons'>Editar</th> -->
+              <!-- <th class='tableIcons'>Excluir</th> -->
+            </tr>
+          </thead>
+          <tbody id="bodyTabela">
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
+<script>
+
+    var resultado = [
+        {
+            nome: "Tobias Boss",
+            nomeFantasia: "B3"
+
+        }
+    ]
+    
+    var usuarios = [
+        {
+            idServidor: 1,
+            nome: "Server_1",
+            componentes: "6",
+            status: "Estável",
+            monitoramento: "Ativo",        
+        },
+
+        {
+            idServidor: 2,
+            nome: "Server_2",
+            componentes: "4",
+            status: "Estável",
+            monitoramento: "Inativo",        
+        },
+
+        {
+            idServidor: 3,
+            nome: "Server_3",
+            componentes: "7",
+            status: "Estável",
+            monitoramento: "Inativo",        
+        },
+        
+        {
+            idServidor: 4,
+            nome: "Server_4",
+            componentes: "5",
+            status: "Estável",
+            monitoramento: "Ativo",        
+        },
+        
+    ]
+
+    function carregarUsuarios(){
+        for (var i = 0; i < usuarios.length; i++) {
+            bodyTabela.innerHTML += `
+            <tr>
+            <td>${usuarios[i].nome}</td>
+            <td>${usuarios[i].componentes}</td>
+            <td>${(usuarios[i].status)}</td>
+            <td>${(usuarios[i].monitoramento)}</td>
+            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}', '${usuarios[i].cargo}', '${usuarios[i].status}')" ></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${usuarios[i].idUsuario})'></i></td>
+            </tr>
+            `
+        }
+        
+    }
+
+</script>
