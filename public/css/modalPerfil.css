@@ -88,6 +88,16 @@
     gap: 0.6vw;
     cursor: pointer;
 }
+.container_perfil .fa-solid{
+    text-decoration: none;
+    color: #00C2A8;
+    font-size: 3vw;
+  }
+  .container_perfil .fa-chevron-down{
+    text-decoration: none;
+    color: #00C2A8;
+    font-size: 1.5vw;
+  }
 .button_perfil:hover .fa-solid{
     color: #a1fff2;
 }

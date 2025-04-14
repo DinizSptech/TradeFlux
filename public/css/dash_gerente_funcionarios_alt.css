@@ -141,16 +141,7 @@ hr {
       padding: 2vh 1vw;
       text-align: left;
   }
-  .container_perfil .fa-solid{
-    text-decoration: none;
-    color: #00C2A8;
-    font-size: 3vw;
-  }
-  .container_perfil .fa-chevron-down{
-    text-decoration: none;
-    color: #00C2A8;
-    font-size: 1.5vw;
-  }
+  
   .tableIcons{
     text-align: center;
     transition: 0.2s;
