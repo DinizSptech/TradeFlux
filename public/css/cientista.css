@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #0f1b33;
+  background-color: #1B1F2B;
   color: white;
 }
 
@@ -39,14 +39,21 @@ body {
 
   margin: 0 0 0 21vw;
 }
+ 
+.cards {
+  display: flex;
+  align-items: start;
+  gap: 10vw;
+  font-size: 2vw
+}
 
 .card {
-  background-color: #122647;
+  background-color: #2D3348;
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
   display: inline-block;
-  width: 200px;
+  width: 20vw;
   text-align: center;
   font-weight: bold;
   color: #fefca4;
@@ -73,13 +80,13 @@ body {
 canvas {
   width: 100% !important;
   height: auto !important;
-  background-color: #122647;
+  background-color: #2D3348;
   border-radius: 15px;
   padding: 10px;
 }
 
 select {
-  background-color: #1e3a5f;
+  background-color: #2D3348;
   color: white;
   border: none;
   padding: 5px;

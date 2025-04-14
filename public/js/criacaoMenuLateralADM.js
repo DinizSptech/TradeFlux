@@ -1,5 +1,6 @@
-function carregarMenuLateral(){
-    barralateral.innerHTML = `
+function carregarMenuLateral(perfil){
+    if (perfil == "administrador") {
+        barralateral.innerHTML = `
         <div class="div-logo">
         <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
         <span class="txtLogo">TRADEFLUX</span>
@@ -43,7 +44,39 @@ function carregarMenuLateral(){
           <i class="fa-solid fa-door-open"></i>
           <span><a onclick="deslogar()">Sair</a></span>
         </div>`;
+} else if(perfil == "cientista"){
+    barralateral.innerHTML = `
+    <div class="div-logo">
+    <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
+    <span class="txtLogo">TRADEFLUX</span>
+    </div>
+
+    <span class="barraHorizontal"></span>
+
+    <div class="option selected">
+      <i class="fa-solid fa-char-cientistat-line"></i>
+      <span><a href="./dashboard_Cientista.html">Dashboard</a></span>
+    </div>
+
+    <div class="option">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span><a href="./alertas.html">Alertas</a></span>
+    </div>
+
+    <div class="option">
+      <i class="fa-solid fa-headset"></i>
+      <span><a href="./atendimento.html">Suporte</a></span>
+    </div>
+
+    <span class="barraHorizontal"></span>
+
+    <div class="option">
+      <i class="fa-solid fa-door-open"></i>
+      <span><a onclick="deslogar()">Sair</a></span>
+    </div>`;
 }
+}
+   
 
 /*    
 

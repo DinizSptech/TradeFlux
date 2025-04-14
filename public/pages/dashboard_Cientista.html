@@ -15,10 +15,10 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral()">
+<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral('cientista')">
   
   <div class="container_perfil">
-    <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
+    <i class="fa-solid fa-bell" onclick="abrirModalAlertas()"></i>
     <span class="barraVertical"></span>
     <div class="button_perfil" onclick="abrirModal('perfil')">
       <i class="fa-solid fa-circle-user"></i>
@@ -52,8 +52,8 @@
       <div class="perfil_conteudo">
         <i class="fa-solid fa-circle-user" id="circulo_usuario"></i>
         <div class="div_informacoes" id="seta_usuario">
-          <span class="spn_perfil spn_perfil_nome">Tobias Maria Roberto</span>
-          <span class="spn_perfil">Administrador</span>
+          <span class="spn_perfil spn_perfil_nome">Guilhermo Roberto Coaquira</span>
+          <span class="spn_perfil">Cientista de Dados</span>
           <span class="spn_perfil">B3</span>
         </div>
       </div>
@@ -63,13 +63,15 @@
   <div id="barralateral" class="barra-lateral">
   </div>
   <div class="main-content">
-    <div class="card"  >Alertas Críticos:
+    <div class="cards">
+      <div class="card"  >Alertas Críticos:
       <div id="alertas_criticos"></div>
-    </div>
-    <div class="card" >Alertas Moderados: 
+      </div>
+      
+      <div class="card" >Alertas Moderados: 
       <div id="alertas_atencao"></div>
+      </div>
     </div>
-
     <div class="dashboard-sections">
       <div class="grafico-linha">
         <div class="grafico-box">
