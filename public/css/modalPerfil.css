@@ -13,6 +13,41 @@
 
 }
 
+.container_tabela_notificacoes {
+    display: none;
+    max-height: 50vh;
+    width: auto;
+    padding: 0;
+    position: absolute;
+    top: 12vh;
+    right: 11vw;
+    background-color: #3B3E58;
+    border-radius: 8px;
+    border: 2px solid #3B3E58;
+    overflow: hidden;
+}
+
+.wrapper {
+    max-height: 100%;
+    width: auto;
+    overflow-y: auto;
+    scrollbar-color: #4b517b transparent;
+}
+
+.wrapper span {
+    display: block;
+    width: 28vw;
+    padding: 1vW;
+    background-color: #333c5c;
+}
+.wrapper span:hover{
+    background-color: #464a56;
+}
+
+/* .container_tabela_notificacoes span:hover{
+    background-color: #0aa3a9;
+    cursor: pointer;
+} */
 .container_perfil_opcoes{
     display: none;
     width: auto;
@@ -37,6 +72,7 @@
     background-color: #0aa3a9;
     cursor: pointer;
 }
+
 .barraVertical{
     height: 3vh;
     width: 0.1vh;
@@ -87,7 +123,7 @@
     padding: 4vh 2vw;
     flex-direction: column;
     border-radius: 20px;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     border: solid 3px #3A3F58;
 }
 .perfil_conteudo{
@@ -104,6 +140,9 @@
 .perfil_conteudo i{
     font-size: 8vw;
 }
+.spn_perfil_nome{
+    font-size: 1.5vw;
+}
 .spn_perfil{
     /* background-color: #5ec200; */
     text-align: start;
@@ -113,9 +152,10 @@
     text-align: center;
     background-color: #00C2A8;
     border-radius: 1vw;
+    font-size: 1.5vw;
     color: #F0F0F0;
     width: 10vw;
-    margin: 4vh 0vw 0vh 0vw;
+    margin: 3vh 0vw 0vh 0vw;
     padding: 2vh 0vw;
     cursor: pointer;
     font-weight: 700;
