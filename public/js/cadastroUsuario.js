@@ -1,20 +1,5 @@
 // CONFIGURAÇÃO BACKEND:
 
-function abrirModal(tipo){
-  if(tipo == "cadastro"){
-    bg_formulario.style.display = "flex";
-  } else {
-    bg_formulario_edicao.style.display = "flex";
-  }
-}
-function fecharModal(tipo){
-  if (tipo == "cadastro") {
-    bg_formulario.style.display = "none";
-  } else {
-    bg_formulario_edicao.style.display = "none";
-  }
-}
-
 function cadastrar() {
   let nome = ipt_nome.value;
   let email = ipt_email.value;

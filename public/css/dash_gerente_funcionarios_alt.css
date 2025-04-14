@@ -9,43 +9,6 @@ body {
     display: flex;
 }
 
-.container_perfil{
-    width: 12vw;
-    height: 8vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 4vh;
-    right: 4vw;
-    gap: 0.7vw;
-    /* background-color: #ffc228; */
-
-}
-
-.barraVertical{
-    height: 3vh;
-    width: 0.1vh;
-    border: solid #00C2A8;
-    border-left-width: 0.5vh;
-}
-.button_perfil{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    width: auto;
-    gap: 0.6vw;
-    cursor: pointer;
-}
-.button_perfil:hover .fa-solid{
-    color: #a1fff2;
-}
-.container_perfil .fa-bell:hover{
-    color: #a1fff2;
-    cursor: pointer;
-    z-index: 1;
-}
 .mainContent {
     display: flex;
     height: 100vh;
