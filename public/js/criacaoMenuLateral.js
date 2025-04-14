@@ -53,11 +53,6 @@ function carregarMenuLateral(perfil){
 
     <span class="barraHorizontal"></span>
 
-    <div class="option selected">
-      <i class="fa-solid fa-char-cientistat-line"></i>
-      <span><a href="./dashboard_Cientista.html">Dashboard</a></span>
-    </div>
-
     <div class="option">
       <i class="fa-solid fa-triangle-exclamation"></i>
       <span><a href="./alertas.html">Alertas</a></span>
@@ -65,14 +60,14 @@ function carregarMenuLateral(perfil){
 
     <div class="option">
       <i class="fa-solid fa-headset"></i>
-      <span><a href="./atendimento.html">Suporte</a></span>
+      <span><a onclick="sairParaJira()">Suporte</a></span>
     </div>
 
     <span class="barraHorizontal"></span>
 
     <div class="option">
       <i class="fa-solid fa-door-open"></i>
-      <span><a onclick="deslogar()">Sair</a></span>
+      <span><a onclick="sairParaLogin()">Sair</a></span>
     </div>`;
 }
 }
