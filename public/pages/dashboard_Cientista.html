@@ -15,7 +15,7 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral('cientista')">
+<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral('cientista'); mudarAtributoPico(); mudarAtributoProporcao()">
   
   <div class="container_perfil">
     <i class="fa-solid fa-bell" onclick="abrirModalAlertas()"></i>
@@ -27,20 +27,6 @@
   </div>
   <div class="container_tabela_notificacoes" id="tabela_notificacoes">
     <div class="wrapper">
-
-      <span>Alerta 1</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
-      <span>Alerta 2</span>
     </div>
   </div>
   <div class="container_perfil_opcoes" id="perfil_opcoes">
@@ -64,34 +50,44 @@
   </div>
   <div class="main-content">
     <div class="cards">
-      <div class="card"  >Alertas Críticos:
+      <div class="card"  >Alertas <br> Críticos:
+        <br>
       <div id="alertas_criticos"></div>
       </div>
       
-      <div class="card" >Alertas Moderados: 
+      <div class="card" >Alertas <br> Moderados:
+        <br> 
       <div id="alertas_atencao"></div>
       </div>
+
+      <div class="card" >Pico Máximo de 
+        <select id="slt_pico" onchange="mudarAtributoPico()">
+          <option disabled value="#">Selecione um</option>
+          <option selected value="cpu">CPU (%)</option>
+          <option value="ram">RAM (%)</option>
+          <option value="disco">DISCO (%)</option>
+        </select>
+        <div id="valor_pico"></div>
+        </div>
     </div>
     <div class="dashboard-sections">
       <div class="grafico-linha">
         <div class="grafico-box">
-          <h3>Comparativo média de cada comoponente entre servidores</h3>
+          <h3>Comparativo média de cada componente entre servidores</h3>
           <canvas id="grafico_comparacao"></canvas>
         </div>
 
         <div class="grafico-box">
-          <h3>Ranking de uso médio de:
-            <select id="slt_ranking" onchange="mudarAtributoRanking()">
+          <h3>Proporção média de uso de 
+            <select id="slt_proporcao" onchange="mudarAtributoProporcao()">
               <option disabled value="#">Selecione um</option>
               <option selected value="cpu">CPU (%)</option>
               <option value="ram">RAM (%)</option>
               <option value="disco">DISCO (%)</option>
             </select>
+            entre servidores
           </h3>
-          <p id="ranking">
-            Selecione um atributo para ver o ranking de uso médio dos servidores.
-          </p>
-        </div>
+          <canvas id="grafico_proporcao"></canvas>
       </div>
 
       <div class="grafico-linha">
@@ -101,7 +97,7 @@
         </div>
 
         <div class="grafico-box">
-          <h3>Média de desempenho de:
+          <h3>Média de desempenho de
             <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">
               <option disabled value="#">Selecione um</option>
               <option selected value="cpu">CPU (%)</option>

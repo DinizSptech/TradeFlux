@@ -43,7 +43,7 @@ body {
 .cards {
   display: flex;
   align-items: start;
-  gap: 10vw;
+  gap: 1vw;
   font-size: 2vw
 }
 
@@ -56,7 +56,7 @@ body {
   width: 20vw;
   text-align: center;
   font-weight: bold;
-  color: #fefca4;
+  color: white;
 }
 
 .dashboard-sections {
@@ -79,14 +79,16 @@ body {
 
 canvas {
   width: 100% !important;
-  height: auto !important;
+  height: auto;
   background-color: #2D3348;
   border-radius: 15px;
   padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #fefca4;
 }
 
 select {
-  background-color: #2D3348;
+  background-color: #1B1F2B;
   color: white;
   border: none;
   padding: 5px;
@@ -102,7 +104,7 @@ p#ultimos_alertas {
   font-size: 20px;
 }
 
-/* Estilo do modal */
+
 .modal {
   display: none;
   position: fixed;
@@ -138,4 +140,31 @@ p#ultimos_alertas {
 
 .fechar:hover {
   color: red;
+}
+
+#alertas_atencao, #alertas_criticos {
+  font-size: 10vh;
+}
+
+.grafico-box {
+  flex: 1;
+  min-width: 380px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2D3348;
+}
+
+h3 {
+  font-size: 2vw;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a {
+  color: white ;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 2vw;
 }

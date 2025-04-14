@@ -1,6 +1,6 @@
-var sevidor1 = { cpu: 23, ram: 87, disco: 60 };
-var sevidor2 = { cpu: 67, ram: 44, disco: 56 };
-var sevidor3 = { cpu: 85, ram: 36, disco: 44 };
+var servidor1 = { cpu: 23, ram: 87, disco: 60 };
+var servidor2 = { cpu: 67, ram: 44, disco: 56 };
+var servidor3 = { cpu: 85, ram: 36, disco: 44 };
 
 var alertas = [
   { servidor: 'Servidor 1', tipo: 'RAM', valor: 85, data: '11-04-2025 10:12', nivel: 'atenção' },
@@ -16,7 +16,7 @@ var alertas = [
   { servidor: 'Servidor 2', tipo: 'CPU', valor: 85, data: '04-04-2025 16:40', nivel: 'atenção' },
   { servidor: 'Servidor 3', tipo: 'RAM', valor: 83, data: '03-04-2025 19:02', nivel: 'atenção' },
   { servidor: 'Servidor 3', tipo: 'CPU', valor: 94, data: '02-04-2025 17:21', nivel: 'crítico' },
-  { servidor: 'Servidor 2', tipo: 'DISCO', valor: 92, data: '01-04-2025 13:36', nivel: 'crítico' },
+  { servidor: 'Servidor 2', tipo: 'DISCO', valor: 92, data: '01-04  -2025 13:36', nivel: 'crítico' },
   { servidor: 'Servidor 1', tipo: 'DISCO', valor: 89, data: '31-03-2025 15:10', nivel: 'atenção' }
 ];
 
@@ -33,11 +33,23 @@ function mudarAtributoRanking() {
   var html = '';
 
   if (atributoAtual == "cpu") {
-    html = `Servidor 3 - <b>${sevidor3.cpu}%</b><br>Servidor 2 - <b>${sevidor2.cpu}%</b><br>Servidor 1 - <b>${sevidor1.cpu}%</b><br>`;
+    html = `
+      Servidor 1 - <b style="color: ${servidor1.cpu >= 90 ? 'red' : servidor1.cpu >= 80 ? 'yellow' : 'white'};">${servidor1.cpu}%</b><br>
+      Servidor 2 - <b style="color: ${servidor2.cpu >= 90 ? 'red' : servidor2.cpu >= 80 ? 'yellow' : 'white'};">${servidor2.cpu}%</b><br>
+      Servidor 3 - <b style="color: ${servidor3.cpu >= 90 ? 'red' : servidor3.cpu >= 80 ? 'yellow' : 'white'};">${servidor3.cpu}%</b><br>
+    `;
   } else if (atributoAtual == "ram") {
-    html = `Servidor 1 - <b>${sevidor1.ram}%</b><br>Servidor 2 - <b>${sevidor2.ram}%</b><br>Servidor 3 - <b>${sevidor3.ram}%</b><br>`;
+    html = `
+      Servidor 1 - <b style="color: ${servidor1.ram >= 90 ? 'red' : servidor1.ram >= 80 ? 'yellow' : 'white'};">${servidor1.ram}%</b><br>
+      Servidor 2 - <b style="color: ${servidor2.ram >= 90 ? 'red' : servidor2.ram >= 80 ? 'yellow' : 'white'};">${servidor2.ram}%</b><br>
+      Servidor 3 - <b style="color: ${servidor3.ram >= 90 ? 'red' : servidor3.ram >= 80 ? 'yellow' : 'white'};">${servidor3.ram}%</b><br>
+    `;
   } else if (atributoAtual == "disco") {
-    html = `Servidor 1 - <b>${sevidor1.disco}%</b><br>Servidor 2 - <b>${sevidor2.disco}%</b><br>Servidor 3 - <b>${sevidor3.disco}%</b><br>`;
+    html = `
+      Servidor 1 - <b style="color: ${servidor1.disco >= 90 ? 'red' : servidor1.disco >= 80 ? 'yellow' : 'white'};">${servidor1.disco}%</b><br>
+      Servidor 2 - <b style="color: ${servidor2.disco >= 90 ? 'red' : servidor2.disco >= 80 ? 'yellow' : 'white'};">${servidor2.disco}%</b><br>
+      Servidor 3 - <b style="color: ${servidor3.disco >= 90 ? 'red' : servidor3.disco >= 80 ? 'yellow' : 'white'};">${servidor3.disco}%</b><br>
+    `;
   }
 
   document.getElementById("ranking").innerHTML = html;
@@ -67,7 +79,7 @@ function mostrarUltimosAlertas() {
     let cor = alertas[i].nivel === 'crítico' ? 'red' : 'yellow';
     ultimos.innerHTML += `
       <span style="color: ${cor}; font-weight: bold;">${alertas[i].nivel.toUpperCase()}</span>
-      - Alerta de ${alertas[i].tipo} no ${alertas[i].servidor}: <b>${alertas[i].valor}%</b> em ${alertas[i].data}<br>
+      - Alerta de <b>${alertas[i].tipo}</b> no ${alertas[i].servidor}: <b style="color: ${cor};">${alertas[i].valor}%</b> em ${alertas[i].data}<br>
     `;
   }
 }
@@ -118,6 +130,29 @@ function fecharModalAlertas() {
   document.getElementById("modalAlertas").style.display = "none";
 }
 
+function mudarAtributoPico() {
+  var slt_pico = document.getElementById("slt_pico").value;
+
+  var alertasTipo = alertas.filter(a => a.tipo.toLowerCase() === slt_pico.toLowerCase());
+
+  var maiorValor = 0;
+  for (let i = 0; i < alertasTipo.length; i++) {
+    if (alertasTipo[i].valor > maiorValor) {
+      maiorValor = alertasTipo[i].valor;
+    }
+  }
+
+  var alertaPico = alertasTipo.find(a => a.valor === maiorValor);
+  valor_pico.innerHTML = `<spam style="font-size: 50px;">
+    ${maiorValor}%</spam><br>
+    <p style="font-size: 15px;">Servidor: ${alertaPico.servidor}<br>
+    Data/Hora: ${alertaPico.data}</p>
+  `;
+  valor_pico.style.color = maiorValor >= 90 ? 'red' : maiorValor >= 80 ? 'yellow' : 'white';
+}
+
+
+
 var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao'), {
   type: 'bar',
   data: {
@@ -132,7 +167,7 @@ var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao')
     plugins: {
       legend: {
         labels: {
-          color: '#fefca4',
+          color: 'white',
           font: {
             family: 'Segoe UI',
             size: 14,
@@ -152,7 +187,7 @@ var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao')
           }
         },
         grid: {
-          color: '#1e3a5f'
+          color: 'white'
         }
       },
       y: {
@@ -165,12 +200,59 @@ var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao')
           }
         },
         grid: {
-          color: '#1e3a5f'
+          color: 'white'
         }
       }
     }
   }
 });
+
+function mudarAtributoProporcao() {
+  var slt_proporcao = document.getElementById("slt_proporcao").value;
+  var dados = [];
+
+  if (slt_proporcao == 'cpu') {
+    dados = [servidor1.cpu, servidor2.cpu, servidor3.cpu];
+  } else if (slt_proporcao == 'ram') {
+    dados = [servidor1.ram, servidor2.ram, servidor3.ram];
+  } else if (slt_proporcao == 'disco') {
+    dados = [servidor1.disco, servidor2.disco, servidor3.disco];
+  }
+
+  grafico_proporcao.data.datasets[0].data = dados;
+  grafico_proporcao.update();
+}
+
+var grafico_proporcao = new Chart(document.getElementById('grafico_proporcao'), {
+  type: 'pie',
+  data: {
+    labels: ['Servidor 1', 'Servidor 2', 'Servidor 3'],
+    datasets: [{
+      label: 'Uso de recursos',
+      data: [45, 87, 60],
+      backgroundColor: [
+        'rgb(0, 123, 255)',
+        'rgb(255, 99, 133)',
+        'rgb(99, 255, 99)'
+      ]
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white',
+          font: {
+            family: 'Segoe UI',
+            size: 14,
+            weight: '600'
+          }
+        }
+      }
+    },
+        },
+      },
+    );
 
 var grafico_desempenho = new Chart(document.getElementById('grafico_desempenho'), {
   type: 'line',
@@ -221,9 +303,10 @@ var grafico_desempenho = new Chart(document.getElementById('grafico_desempenho')
           }
         },
         grid: {
-          color: '#1e3a5f'
+          color: 'white'
         }
       }
     }
   }
 });
+
