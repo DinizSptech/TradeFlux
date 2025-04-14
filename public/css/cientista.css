@@ -32,8 +32,12 @@ body {
 }
 
 .main-content {
-  margin-left: 220px;
-  padding: 20px;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  width: 79vw;
+
+  margin: 0 0 0 21vw;
 }
 
 .card {
