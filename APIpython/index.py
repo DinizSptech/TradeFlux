@@ -1,20 +1,26 @@
-import exibir
-import json
-usuarios = '[{"usuario": "admin", "password": "admin", "idCompany": 1 }]'
-y = json.loads(usuarios)
+import extract
+import insert
+import selectbd 
 
-print(y)
+idCompany = 1
+idDataCenter = 1
+
 print("Bem vindo ao sistema Crawler da TradeFlux")
-def index():
-    while True:
-        usuEntrada = input("Digite seu Usuario: ")
-        senha = input("Digite sua senha: ")
-        autenticado = False
-        for user in y:
-            if(user["usuario"] == usuEntrada and user["password"] == senha):
-                autenticado = True
-                exibir.exibir(user["idCompany"])
-        if (not autenticado):
-            print("Usuario ou senha incorretos, por favor tente novamente!")
 
-index()
+info = extract.coletar_informacoes()
+uuidServidor = info['UUID da Placa Mãe']
+idServidor = selectbd.coletarMaquinasDisponiveis(info["UUID da Placa Mãe"])
+if idServidor == 0:
+    SO = info["Sistema Operacional"]
+    ramTotal = info["RAM Máxima"]
+    discoTotal = info["Armazenamento Máximo"]
+    cpuInfo = info["Modelo do Processador"]
+    print("Máquina ainda não cadastrada no sistema.")
+    try:
+        insert.inserirMaquina(uuidServidor, SO , ramTotal, discoTotal, cpuInfo)
+        print("Máquina inserida no banco de dados.")
+    except:
+        print("Erro em cadastrar máquina no sistema.")
+
+extract.coletaLocal(idServidor)
+  

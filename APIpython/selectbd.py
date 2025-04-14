@@ -3,19 +3,17 @@ import database
 mydb = database.gerarMyDbSelect()
 cursor = mydb.cursor()
 
-
-def coletarRecursoPorMaquina(idMaquina, recurso, idCompany):
-    query = f"WITH RankedData AS ( SELECT Data.{recurso}, Data.idMachine, Company.idCompany, ROW_NUMBER() OVER (PARTITION BY Data.idMachine ORDER BY Data.idData DESC) AS num_linhas FROM Data JOIN Machine ON Data.idMachine = Machine.idMachine JOIN Company ON Machine.idCompany = Company.idCompany) SELECT {recurso}, idMachine FROM RankedData WHERE idMachine = {idMaquina} AND idCompany = {idCompany} AND num_linhas <= 3;"
+def coletarMaquinasDisponiveis(uuidCliente):
+    query = f"SELECT idServidor FROM servidor_cliente WHERE uuidServidor = '{uuidCliente}';"
     cursor.execute(query)
-    return cursor.fetchall()
+    idMaquina = cursor.fetchall()
+    if len(idMaquina) == 0:
+        return 0
+    return int(idMaquina[0][0])
 
-def coletarRecursosGeral(recurso, idCompany):
-    query = f"WITH RankedData AS ( SELECT {recurso}, Data.idMachine, Company.idCompany, ROW_NUMBER() OVER (PARTITION BY Data.idMachine ORDER BY Data.idData DESC) AS num_linhas FROM Data JOIN Machine ON Data.idMachine = Machine.idMachine JOIN Company ON Machine.idCompany = Company.idCompany) SELECT {recurso}, idMachine FROM RankedData WHERE idCompany = {idCompany} AND num_linhas <= 3;"
-    cursor.execute(query)
-    return cursor.fetchall()
 
-def coletarMaquinasDisponiveis(idCompany):
-    query = f"SELECT COUNT(idMachine) FROM Machine JOIN Company ON Machine.idCompany = Company.idCompany WHERE Machine.idCompany = {idCompany};"
+def coletarLimiarPorMaquina(idMaquina):
+    query = f"SELECT componente, limiar_alerta FROM servidor_cliente JOIN parametro_servidor ON idServidor = fkServidor JOIN componente ON fkComponente = idComponente WHERE idServidor = {idMaquina};"
     cursor.execute(query)
     return cursor.fetchall()
 

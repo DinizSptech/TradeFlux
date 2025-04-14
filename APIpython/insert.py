@@ -14,3 +14,8 @@ def inserirAlert(idMaquina, cpu, ram, disk):
     cursor.execute(query)
     mydb.commit()
 
+def inserirMaquina(uuidServidor, SO , ramTotal, discoTotal, cpuInfo):
+    query = f"INSERT INTO Servidor_Cliente (default, '{uuidServidor}', '{SO}' , '{ramTotal}', '{discoTotal}', '{cpuInfo}')"
+    cursor.execute(query)
+    mydb.commit()
+
