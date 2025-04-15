@@ -5,6 +5,7 @@ import platform
 import math
 import selectbd
 import json
+import s3
 
 from datetime import datetime
 
@@ -49,17 +50,16 @@ def coletaLocal(idMaquina):
         segundos = momento.strftime("%S")
         print(segundos)
         jsonDados = {
-          "momento": 'a',
           "ram": ram,
           "disco": disk,
           "cpu": cpu
         }
         listaJson.append(jsonDados)
-        if contador == 12:
-            nomeArq =  momento.strftime("%y-%m-%d %H-%M") + f"_{idMaquina}" + ".json"
+        if contador == 3:
+            nomeArq =  momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
-            # s3.upload(nomeArq, nomeArq, bucket_name)
+            # s3.upload(nomeArq)
             listaJson = []
             contador = 0
         time.sleep(5)
