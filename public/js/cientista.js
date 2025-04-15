@@ -3,21 +3,21 @@ var servidor2 = { cpu: 67, ram: 44, disco: 56 };
 var servidor3 = { cpu: 85, ram: 36, disco: 44 };
 
 var alertas = [
-  { servidor: 'Servidor 1', tipo: 'RAM', valor: 85, data: '11-04-2025 10:12', nivel: 'atenção' },
-  { servidor: 'Servidor 3', tipo: 'CPU', valor: 91, data: '11-04-2025 09:47', nivel: 'crítico' },
-  { servidor: 'Servidor 1', tipo: 'DISCO', valor: 88, data: '10-04-2025 18:32', nivel: 'atenção' },
-  { servidor: 'Servidor 2', tipo: 'CPU', valor: 93, data: '10-04-2025 15:14', nivel: 'crítico' },
-  { servidor: 'Servidor 3', tipo: 'RAM', valor: 82, data: '09-04-2025 12:05', nivel: 'atenção' },
-  { servidor: 'Servidor 2', tipo: 'DISCO', valor: 95, data: '08-04-2025 14:23', nivel: 'crítico' },
-  { servidor: 'Servidor 1', tipo: 'CPU', valor: 88, data: '07-04-2025 11:45', nivel: 'atenção' },
-  { servidor: 'Servidor 3', tipo: 'DISCO', valor: 91, data: '06-04-2025 13:09', nivel: 'crítico' },
-  { servidor: 'Servidor 2', tipo: 'RAM', valor: 84, data: '06-04-2025 10:55', nivel: 'atenção' },
-  { servidor: 'Servidor 1', tipo: 'RAM', valor: 92, data: '05-04-2025 08:30', nivel: 'crítico' },
-  { servidor: 'Servidor 2', tipo: 'CPU', valor: 85, data: '04-04-2025 16:40', nivel: 'atenção' },
-  { servidor: 'Servidor 3', tipo: 'RAM', valor: 83, data: '03-04-2025 19:02', nivel: 'atenção' },
-  { servidor: 'Servidor 3', tipo: 'CPU', valor: 94, data: '02-04-2025 17:21', nivel: 'crítico' },
-  { servidor: 'Servidor 2', tipo: 'DISCO', valor: 92, data: '01-04  -2025 13:36', nivel: 'crítico' },
-  { servidor: 'Servidor 1', tipo: 'DISCO', valor: 89, data: '31-03-2025 15:10', nivel: 'atenção' }
+  { valor: 85, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 1', data: '11-04-2025 10:12' },
+  { valor: 91, unidade: '%', componente: 'CPU', nivel: 'crítico', servidor: 'Servidor 3', data: '11-04-2025 09:47' },
+  { valor: 88, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '10-04-2025 18:32' },
+  { valor: 93, unidade: '%', componente: 'CPU', nivel: 'crítico', servidor: 'Servidor 2', data: '10-04-2025 15:14' },
+  { valor: 82, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '09-04-2025 12:05' },
+  { valor: 95, unidade: '%', componente: 'DISCO', nivel: 'crítico', servidor: 'Servidor 2', data: '08-04-2025 14:23' },
+  { valor: 88, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 1', data: '07-04-2025 11:45' },
+  { valor: 91, unidade: '%', componente: 'DISCO', nivel: 'crítico', servidor: 'Servidor 3', data: '06-04-2025 13:09' },
+  { valor: 84, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 2', data: '06-04-2025 10:55' },
+  { valor: 92, unidade: '%', componente: 'RAM', nivel: 'crítico', servidor: 'Servidor 1', data: '05-04-2025 08:30' },
+  { valor: 85, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 2', data: '04-04-2025 16:40' },
+  { valor: 83, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '03-04-2025 19:02' },
+  { valor: 94, unidade: '%', componente: 'CPU', nivel: 'crítico', servidor: 'Servidor 3', data: '02-04-2025 17:21' },
+  { valor: 92, unidade: '%', componente: 'DISCO', nivel: 'crítico', servidor: 'Servidor 2', data: '01-04-2025 13:36' },
+  { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
 ];
 
 function sairParaLogin() {
@@ -79,7 +79,7 @@ function mostrarUltimosAlertas() {
     let cor = alertas[i].nivel === 'crítico' ? 'red' : 'yellow';
     ultimos.innerHTML += `
       <span style="color: ${cor}; font-weight: bold;">${alertas[i].nivel.toUpperCase()}</span>
-      - Alerta de <b>${alertas[i].tipo}</b> no ${alertas[i].servidor}: <b style="color: ${cor};">${alertas[i].valor}%</b> em ${alertas[i].data}<br>
+      - Alerta de <b>${alertas[i].componente}</b> no ${alertas[i].servidor}: <b style="color: ${cor};">${alertas[i].valor}%</b> em ${alertas[i].data}<br>
     `;
   }
 }
@@ -98,7 +98,7 @@ function contarAlertasCriticos(){
 function contarAlertasAtencao(){
   let contagem = 0;
   for (let i = 0; i < alertas.length; i++) {
-    if (alertas[i].nivel === 'atenção') {
+    if (alertas[i].nivel === 'Atenção') {
       contagem++;
     }
   }
@@ -116,7 +116,7 @@ function abrirModalAlertas() {
 
     container.innerHTML += `
       <p style="color: ${cor}; font-weight: bold;">
-        ⚠️ ${alertas[i].nivel.toUpperCase()} - Alerta de <b>${alertas[i].tipo}</b> no <b>${alertas[i].servidor}</b>: 
+        ⚠️ ${alertas[i].nivel.toUpperCase()} - Alerta de <b>${alertas[i].componente}</b> no <b>${alertas[i].servidor}</b>: 
         ${alertas[i].valor}% em ${alertas[i].data}
       </p>
       <hr style="border-color: #fefca4;">
@@ -133,16 +133,16 @@ function fecharModalAlertas() {
 function mudarAtributoPico() {
   var slt_pico = document.getElementById("slt_pico").value;
 
-  var alertasTipo = alertas.filter(a => a.tipo.toLowerCase() === slt_pico.toLowerCase());
+  var alertascomponente = alertas.filter(a => a.componente.toLowerCase() === slt_pico.toLowerCase());
 
   var maiorValor = 0;
-  for (let i = 0; i < alertasTipo.length; i++) {
-    if (alertasTipo[i].valor > maiorValor) {
-      maiorValor = alertasTipo[i].valor;
+  for (let i = 0; i < alertascomponente.length; i++) {
+    if (alertascomponente[i].valor > maiorValor) {
+      maiorValor = alertascomponente[i].valor;
     }
   }
 
-  var alertaPico = alertasTipo.find(a => a.valor === maiorValor);
+  var alertaPico = alertascomponente.find(a => a.valor === maiorValor);
   valor_pico.innerHTML = `<spam style="font-size: 50px;">
     ${maiorValor}%</spam><br>
     <p style="font-size: 15px;">Servidor: ${alertaPico.servidor}<br>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradeFlux</title>
+  <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
+  <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+  <link rel="stylesheet" href="../css/modalPerfil.css" />
+  <!-- <script src="../script/sessao.js"></script> -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/cadastroUsuario.css">
+    <script src="../js/cadastroUsuario.js" defer></script>
+    <script src="../js/modais.js"></script>
+    <script src="../js/criacaoMenuLateral.js"></script>
+    <script src="../js/cientista.js"></script>
+  <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
+</head>
+
+<body onload="carregarMenuLateral('alertas'); carregarAlertas();">
+    <div class="container_perfil">
+        <i class="fa-solid fa-bell" onclick="abrirModalAlertas()"></i>
+        <span class="barraVertical"></span>
+        <div class="button_perfil" onclick="abrirModal('perfil')">
+          <i class="fa-solid fa-circle-user"></i>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+      <div class="container_tabela_notificacoes" id="tabela_notificacoes">
+        <div class="wrapper">
+        </div>
+      </div>
+      <div class="container_perfil_opcoes" id="perfil_opcoes">
+        <span onclick="abrirModal('perfil_completo')">Perfil</span>
+        <span>Sair</span>
+      </div>
+      <div class="bg_modal_perfil_completo" id="bg_modal_perfil_completo">
+        <div class="container_perfil_completo" id="div_perfil_completo">
+          <div class="perfil_conteudo">
+            <i class="fa-solid fa-circle-user" id="circulo_usuario"></i>
+            <div class="div_informacoes" id="seta_usuario">
+              <span class="spn_perfil spn_perfil_nome">Guilhermo Roberto Coaquira</span>
+              <span class="spn_perfil">Cientista de Dados</span>
+              <span class="spn_perfil">B3</span>
+            </div>
+          </div>
+          <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
+        </div>
+      </div>
+    <div class="container_perfil">
+      <i class="fa-solid fa-bell" onclick="abrirModalAlertas()"></i>
+      <span class="barraVertical"></span>
+      <div class="button_perfil" onclick="abrirModal('perfil')">
+        <i class="fa-solid fa-circle-user"></i>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+    <div class="container_tabela_notificacoes" id="tabela_notificacoes">
+      <div class="wrapper">
+
+        <span>Alerta 1</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+        <span>Alerta 2</span>
+      </div>
+    </div>
+    <div id="barralateral" class="barra-lateral">
+
+    </div>
+
+    <div class="mainContent">
+      <div class="container-title">
+        <p>Histórico de Alertas</p>
+      </div>
+      <div id="div_containerEsteiras" class="containerEsteiras">
+
+        <table id="tabelaFuncionarios">
+          <thead>
+            <tr>
+              <th>Valor</th>
+              <th>Unidade de Medida</th>
+              <th>Componente</th>
+              <th>Nível</th>
+              <th>Servidor</th>
+              <th>Data e Hora</th>
+              <th>Visto</th>
+            </tr>
+          </thead>
+          <tbody id="bodyTabela">
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
+<script>
+
+    var resultado = [
+        {
+            nome: "Tobias Boss",
+            nomeFantasia: "B3"
+
+        }
+    ]
+    var alertas = [
+  { valor: 85, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 1', data: '11-04-2025 10:12' },
+  { valor: 91, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '11-04-2025 09:47' },
+  { valor: 88, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '10-04-2025 18:32' },
+  { valor: 93, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 2', data: '10-04-2025 15:14' },
+  { valor: 82, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '09-04-2025 12:05' },
+  { valor: 95, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '08-04-2025 14:23' },
+  { valor: 88, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 1', data: '07-04-2025 11:45' },
+  { valor: 91, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 3', data: '06-04-2025 13:09' },
+  { valor: 84, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 2', data: '06-04-2025 10:55' },
+  { valor: 92, unidade: '%', componente: 'RAM', nivel: 'Crítico', servidor: 'Servidor 1', data: '05-04-2025 08:30' },
+  { valor: 85, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 2', data: '04-04-2025 16:40' },
+  { valor: 83, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '03-04-2025 19:02' },
+  { valor: 94, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '02-04-2025 17:21' },
+  { valor: 92, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '01-04-2025 13:36' },
+  { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
+];
+
+
+    function carregarAlertas(){
+        for (var i = 0; i < alertas.length; i++) {
+            bodyTabela.innerHTML += `
+            <tr style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};">
+            <td>${alertas[i].valor}</td>
+            <td>${alertas[i].unidade}</td>
+            <td>${alertas[i].componente}</td>
+            <td>${(alertas[i].nivel)}</td>
+            <td>${(alertas[i].servidor)}</td>
+            <td>${(alertas[i].data)}</td>
+            <td><input type="checkbox" id="visto" onclick="confirmarVisto()" /></td>
+            </tr>
+            `
+        }
+        
+    }
+</script>

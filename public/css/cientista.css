@@ -1,3 +1,7 @@
+*{
+  font-family: 'Inter', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -41,6 +45,7 @@ body {
 }
  
 .cards {
+  margin-top: 15vh;
   display: flex;
   align-items: start;
   gap: 1vw;
@@ -166,5 +171,5 @@ a {
   color: white ;
   text-decoration: none;
   font-weight: bold;
-  font-size: 2vw;
+  font-size: 9vw;
 }

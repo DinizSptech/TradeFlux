@@ -69,6 +69,31 @@ function carregarMenuLateral(perfil){
       <i class="fa-solid fa-door-open"></i>
       <span><a onclick="sairParaLogin()">Sair</a></span>
     </div>`;
+} else if(perfil == 'alertas'){
+  barralateral.innerHTML = `
+  <div class="div-logo">
+  <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
+  <span class="txtLogo">TRADEFLUX</span>
+  </div>
+
+  <span class="barraHorizontal"></span>
+
+          <div class="option selected">
+          <i class="fa-solid fa-chart-line"></i>
+          <span><a href="./dashboard_Cientista.html">Dashboard Cientista</a></span>
+        </div>
+
+  <div class="option">
+    <i class="fa-solid fa-headset"></i>
+    <span><a onclick="sairParaJira()">Suporte</a></span>
+  </div>
+
+  <span class="barraHorizontal"></span>
+
+  <div class="option">
+    <i class="fa-solid fa-door-open"></i>
+    <span><a onclick="sairParaLogin()">Sair</a></span>
+  </div>`;
 }
 }
    
