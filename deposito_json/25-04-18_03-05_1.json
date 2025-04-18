@@ -1,0 +1,47 @@
+[
+  {
+    "percentualCPU": 5.6,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 88.1,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 61.4,
+    "discoUsadoGB": 142.6,
+    "data-hora": "2025-04-18 03:05:13"
+  },
+  {
+    "percentualCPU": 4.9,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 88.2,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 61.4,
+    "discoUsadoGB": 142.6,
+    "data-hora": "2025-04-18 03:05:18"
+  },
+  {
+    "percentualCPU": 3.1,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 88.3,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 61.4,
+    "discoUsadoGB": 142.6,
+    "data-hora": "2025-04-18 03:05:23"
+  },
+  {
+    "percentualCPU": 5.7,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 87.5,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 61.4,
+    "discoUsadoGB": 142.6,
+    "data-hora": "2025-04-18 03:05:28"
+  },
+  {
+    "percentualCPU": 2.0,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 86.9,
+    "memoriaUsadaGB": 6.4,
+    "percentualDisco": 61.4,
+    "discoUsadoGB": 142.6,
+    "data-hora": "2025-04-18 03:05:33"
+  }
+]
