@@ -61,12 +61,22 @@ CREATE TABLE IF NOT EXISTS Componente (
 );
 #teste cadastro de componente
 INSERT INTO Componente (nomeComponente, medida) VALUES 
-('CPU_Percentual', '%'), 
-('CPU_Frequencia',  'GHz'),
-('Ram_Percentual', '%'),
-('Ram_Usada', 'GB'),
-('Disco_Percentual', '%'),
-('Disco_Usado', 'GB');
+('Cpu_Percentual', '%');
+
+ INSERT INTO Componente (nomeComponente, medida) VALUES 
+('Cpu_Frequencia', 'GHz');
+
+ INSERT INTO Componente (nomeComponente, medida) VALUES 
+ ('Ram_Percentual', '%');
+
+ INSERT INTO Componente (nomeComponente, medida) VALUES 
+ ('Ram_Usada', 'GB');
+
+ INSERT INTO Componente (nomeComponente, medida) VALUES 
+ ('Disco_Percentual', '%');
+
+  INSERT INTO Componente (nomeComponente, medida) VALUES 
+  ('Disco_Usado', 'GB');
 
 
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
@@ -80,8 +90,8 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
 );
 #teste cadastro de servidor 
-INSERT INTO Servidor_Cliente (`idServidor`,uuid_servidor) VALUES (DEFAULT, "S206NBB60002FFMB");
-select * FROM servidor_cliente;
+ INSERT INTO Servidor_Cliente (`idServidor`,uuid_servidor) VALUES (DEFAULT, "S206NBB60002FFMB");
+ select * FROM servidor_cliente;
 
 CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,13 +102,24 @@ CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
 );
 #teste parametro servidor
+ INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+ (80.0, 1, 1); -- Cpu_Percentual
+
+ INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+ (2.30, 1, 2); -- Cpu_Frequencia
+
+ INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+ (80.0, 1, 3); -- Ram_Percentual
+
 INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
-(80.0, 1, 1), 
-(2.30, 1, 2),
-(80.0, 1, 3),
-(6.0, 1, 4),
-(80.0, 1, 5),
-(200.0, 1, 6);
+ (6.0, 1, 4); -- Ram_Usada
+
+ INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+ (80.0, 1, 5); -- Disco_Percentual
+
+ INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+ (200.0, 1, 6); -- Disco_Usado
+
 
 CREATE TABLE IF NOT EXISTS Captura (
     idCaptura INT AUTO_INCREMENT PRIMARY KEY,
@@ -109,7 +130,7 @@ CREATE TABLE IF NOT EXISTS Captura (
     fkParametro INT,
     FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
-select* from captura;
+
 CREATE TABLE IF NOT EXISTS Alerta (
     idAlerta INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
@@ -119,7 +140,7 @@ CREATE TABLE IF NOT EXISTS Alerta (
     fkParametro INT,
     FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
-select * from alerta;
+
 CREATE TABLE IF NOT EXISTS alerta_visualizado (
     Usuario_Cliente_idUsuario INT,
     Alerta_idAlerta INT,

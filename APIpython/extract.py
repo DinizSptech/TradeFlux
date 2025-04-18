@@ -42,107 +42,148 @@ def coletarDiscoUsadoGB():
 def coletaLocal(idMaquina):
     contador = 0
     listaJson = []
+    componentesSelecionados = selectbd.selecionarComponentes()
+
+    # Inicializa variáveis
+    cpu_percentual = False
+    cpu_frequencia = False
+    ram_percentual = False
+    ram_usada = False
+    disco_percentual = False
+    disco_usado = False
+
+
+    for componente in componentesSelecionados:
+        if componente == 'Cpu_Percentual':
+            cpu_percentual = True
+        elif componente == 'Cpu_Frequencia':
+            cpu_frequencia = True
+        elif componente == 'Ram_Percentual':
+            ram_percentual = True
+        elif componente == 'Ram_Usada':
+            ram_usada = True
+        elif componente == 'Disco_Percentual':
+            disco_percentual = True
+        elif componente == 'Disco_Usado':
+            disco_usado = True
+
+    
     while True:
+        momento = datetime.now()
         contador += 1
-        CPUPercentual = coletarCPUPercentual()
-        CPUFreq = coletarCPUFreqGhz()
-        RamPercentual = coletarRamPercentual()
-        MemoriaUsadaGB = coletarMemoriaUsadaGB()
-        DiscoPercentual = coletarDiscoPercentual()
-        DiscoUsadoGB = coletarDiscoUsadoGB()
+
         print(f"Repetição: {contador}")
         print(f"Servidor: {idMaquina}")
-        print(f"Uso da CPU: {CPUPercentual}%")
-        print(f"Frequência da CPU: {CPUFreq} GHz")
-        print(f"Uso da RAM: {RamPercentual}%")
-        print(f"Memória usada: {MemoriaUsadaGB} GB")
-        print(f"Uso do Disco: {DiscoPercentual}%")
-        print(f"Disco usado: {DiscoUsadoGB} GB")
+
+        if cpu_percentual:
+            CPUPercentual = coletarCPUPercentual()
+            print(f"Uso da CPU: {CPUPercentual}%")
+            idComponente = selectbd.coletarIdDoComponente("CPU_percentual")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+
+            if CPUPercentual >= limiarAlerta:
+                insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  CPUPercentual > (limiarAlerta - 10) and CPUPercentual < limiarAlerta:
+                insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+        
+        if cpu_frequencia:
+            CPUFreq = coletarCPUFreqGhz()
+            print(f"Frequência da CPU: {CPUFreq} GHz")
+            idComponente = selectbd.coletarIdDoComponente("CPU_frequencia")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if CPUFreq >= limiarAlerta:
+                insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  CPUFreq > (limiarAlerta - 0.10) and CPUFreq < limiarAlerta:
+                insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        if ram_percentual:
+            RamPercentual = coletarRamPercentual()
+            print(f"Uso da RAM: {RamPercentual}%")
+            idComponente = selectbd.coletarIdDoComponente("RAM_percentual")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if RamPercentual >= limiarAlerta:
+                insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  RamPercentual > (limiarAlerta - 10) and RamPercentual < limiarAlerta:
+                insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        if ram_usada:    
+            MemoriaUsadaGB = coletarMemoriaUsadaGB()
+            print(f"Memória usada: {MemoriaUsadaGB} GB")
+            idComponente = selectbd.coletarIdDoComponente("RAM_usada")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if MemoriaUsadaGB >= limiarAlerta:
+                insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  MemoriaUsadaGB > (limiarAlerta - 5) and MemoriaUsadaGB < limiarAlerta:
+                insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        if disco_percentual:
+            DiscoPercentual = coletarDiscoPercentual()
+            print(f"Uso do Disco: {DiscoPercentual}%")
+            idComponente = selectbd.coletarIdDoComponente("Disco_percentual")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if DiscoPercentual >= limiarAlerta:
+                insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  DiscoPercentual > (limiarAlerta - 10) and DiscoPercentual < limiarAlerta:
+                insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+
+        if disco_usado:
+            DiscoUsadoGB = coletarDiscoUsadoGB()
+            print(f"Disco usado: {DiscoUsadoGB} GB")
+            idComponente = selectbd.coletarIdDoComponente("Disco_usado")
+            idParametro = selectbd.coletarIdDoParametro(idComponente)
+            limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if DiscoUsadoGB >= limiarAlerta:
+                insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+            elif  DiscoUsadoGB > (limiarAlerta - 50) and DiscoUsadoGB < limiarAlerta:
+                insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+            else:
+                insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+  
         print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("-----------------------------------")
+
         momento = datetime.now()
         segundos = momento.strftime("%S")
         print(segundos)
-    
-
-        #inserção no banco de dados
-        #cpu
-        idComponente = selectbd.coletarIdDoComponente("CPU_percentual")
-        idParametro = selectbd.coletarIdDoParametro(idComponente)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
-        if CPUPercentual >= limiarAlerta:
-            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  CPUPercentual > (limiarAlerta - 10) and CPUPercentual < limiarAlerta:
-            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-
-        idComponente = selectbd.coletarIdDoComponente("CPU_frequencia")
-        idParametro = selectbd.coletarIdDoParametro(idComponente)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
-        if CPUFreq >= limiarAlerta:
-            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  CPUFreq > (limiarAlerta - 0.10) and CPUFreq < limiarAlerta:
-            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-
-        #ram
-        idComponente = selectbd.coletarIdDoComponente("RAM_percentual")
-        idParametro = selectbd.coletarIdDoParametro(idComponente)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
-        if RamPercentual >= limiarAlerta:
-            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  RamPercentual > (limiarAlerta - 10) and RamPercentual < limiarAlerta:
-            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-
-        idComponente = selectbd.coletarIdDoComponente("RAM_usada")
-        idParametro = selectbd.coletarIdDoParametro(idComponente)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
-        if MemoriaUsadaGB >= limiarAlerta:
-            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  MemoriaUsadaGB > (limiarAlerta - 5) and MemoriaUsadaGB < limiarAlerta:
-            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-
-        #disco
-        idComponente = selectbd.coletarIdDoComponente("Disco_percentual")
-        idParametro = selectbd.coletarIdDoParametro(idComponente)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
-        if DiscoPercentual >= limiarAlerta:
-            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  DiscoPercentual > (limiarAlerta - 10) and DiscoPercentual < limiarAlerta:
-            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-
-
-        idComponentedo = selectbd.coletarIdDoComponente("Disco_usado")
-        idParametro = selectbd.coletarIdDoParametro(idComponentedo)
-        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponentedo)
-        if DiscoUsadoGB >= limiarAlerta:
-            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
-        elif  DiscoUsadoGB > (limiarAlerta - 50) and DiscoUsadoGB < limiarAlerta:
-            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
-        else:
-            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+        
 
         jsonDados = {
-            "percentualCPU": CPUPercentual,
-            "frequenciaCPU": CPUFreq,
-            "percentualRAM": RamPercentual,
-            "memoriaUsadaGB": MemoriaUsadaGB,
-            "percentualDisco": DiscoPercentual,
-            "discoUsadoGB": DiscoUsadoGB,
-            "data-hora": momento.strftime("%Y-%m-%d %H:%M:%S")
+        "data-hora": momento.strftime("%Y-%m-%d %H:%M:%S")
         }
+
+        if cpu_percentual:
+            jsonDados["percentualCPU"] = CPUPercentual
+        if cpu_frequencia:
+            jsonDados["frequenciaCPU"] = CPUFreq
+        if ram_percentual:
+            jsonDados["percentualRAM"] = RamPercentual
+        if ram_usada:
+            jsonDados["memoriaUsadaGB"] = MemoriaUsadaGB
+        if disco_percentual:
+            jsonDados["percentualDisco"] = DiscoPercentual
+        if disco_usado:
+            jsonDados["discoUsadoGB"] = DiscoUsadoGB
+
 
         listaJson.append(jsonDados)
         if contador == 5:
-            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
+            nomeArq = momento.strftime("%y-%m-%d_%H-%M-%S") + f"_{idMaquina}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
                 s3.upload(nomeArq)

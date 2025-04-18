@@ -1,6 +1,6 @@
 import extract
 import insert
-import selectbd 
+import selectbd
 import time
 
 idCompany = 1
