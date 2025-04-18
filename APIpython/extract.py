@@ -3,60 +3,146 @@ import time
 import subprocess
 import platform
 import math
-import selectbd
 import json
+import insert
+import selectbd
 import s3
 
 from datetime import datetime
 
-def coletarCPU():
-    cpu = psutil.cpu_percent()
-    return cpu
+# CPU
+def coletarCPUPercentual():
+    cpuPercentual = psutil.cpu_percent()
+    return cpuPercentual
 
-def coletarRam():
-    ramUsada = round(psutil.virtual_memory().percent, 2)
-    return ramUsada
+def coletarCPUFreqGhz():
+    cpuFreq = (psutil.cpu_freq()) 
+    return cpuFreq.current / 1000  # Converte para GHz
 
-def coletarDisk():
-    usedDisk = round(psutil.disk_usage("/").percent, 2)
-    return usedDisk
+# RAM
+def coletarRamPercentual():
+    ramPercentual = round(psutil.virtual_memory().percent, 1)
+    return ramPercentual
+
+def coletarMemoriaUsadaGB():
+    memoria = psutil.virtual_memory()  
+    memoria_usada_gb = memoria.used / (1024 ** 3)  # Converte de bytes para GB
+    return round(memoria_usada_gb, 1)  # Retorna o valor arredondado para 1 casa decimal
+
+# Disco
+def coletarDiscoPercentual():
+    discoPercentual = psutil.disk_usage("/").percent
+    return discoPercentual
+
+def coletarDiscoUsadoGB():
+    disco = psutil.disk_usage("/")  
+    disco_usado_gb = disco.used / (1024 ** 3)  # Converte de bytes para GB
+    return round(disco_usado_gb, 1)  # Retorna o valor arredondado para 1 casa decimal
 
 def coletaLocal(idMaquina):
-    # bucket_name = "nome-do-seu-bucket"  
-    limites = selectbd.coletarLimiarPorMaquina(idMaquina)
-    cpuLim = 0
-    discoLim = 0
-    ramLim = 0
-    for componente, limite in limites:
-        if componente == "CPU":
-            cpuLim = limite
-        elif componente == "RAM":
-            ramLim = limite
-        else:
-            discoLim = limite
     contador = 0
     listaJson = []
     while True:
         contador += 1
-        ram = coletarRam()
-        disk = coletarDisk()
-        cpu = coletarCPU()
+        CPUPercentual = coletarCPUPercentual()
+        CPUFreq = coletarCPUFreqGhz()
+        RamPercentual = coletarRamPercentual()
+        MemoriaUsadaGB = coletarMemoriaUsadaGB()
+        DiscoPercentual = coletarDiscoPercentual()
+        DiscoUsadoGB = coletarDiscoUsadoGB()
         print(f"Repetição: {contador}")
-        print(f"Uso da CPU: {cpu}%")
-        print(f"Uso da RAM: {ram}%")
-        print(f"Uso do disco: {disk}%")
+        print(f"Servidor: {idMaquina}")
+        print(f"Uso da CPU: {CPUPercentual}%")
+        print(f"Frequência da CPU: {CPUFreq} GHz")
+        print(f"Uso da RAM: {RamPercentual}%")
+        print(f"Memória usada: {MemoriaUsadaGB} GB")
+        print(f"Uso do Disco: {DiscoPercentual}%")
+        print(f"Disco usado: {DiscoUsadoGB} GB")
+        print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("-----------------------------------")
         momento = datetime.now()
         segundos = momento.strftime("%S")
         print(segundos)
+    
+
+        #inserção no banco de dados
+        #cpu
+        idComponente = selectbd.coletarIdDoComponente("CPU_percentual")
+        idParametro = selectbd.coletarIdDoParametro(idComponente)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+        if CPUPercentual >= limiarAlerta:
+            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  CPUPercentual > (limiarAlerta - 10) and CPUPercentual < limiarAlerta:
+            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        idComponente = selectbd.coletarIdDoComponente("CPU_frequencia")
+        idParametro = selectbd.coletarIdDoParametro(idComponente)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+        if CPUFreq >= limiarAlerta:
+            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  CPUFreq > (limiarAlerta - 0.10) and CPUFreq < limiarAlerta:
+            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        #ram
+        idComponente = selectbd.coletarIdDoComponente("RAM_percentual")
+        idParametro = selectbd.coletarIdDoParametro(idComponente)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+        if RamPercentual >= limiarAlerta:
+            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  RamPercentual > (limiarAlerta - 10) and RamPercentual < limiarAlerta:
+            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        idComponente = selectbd.coletarIdDoComponente("RAM_usada")
+        idParametro = selectbd.coletarIdDoParametro(idComponente)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+        if MemoriaUsadaGB >= limiarAlerta:
+            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  MemoriaUsadaGB > (limiarAlerta - 5) and MemoriaUsadaGB < limiarAlerta:
+            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+        #disco
+        idComponente = selectbd.coletarIdDoComponente("Disco_percentual")
+        idParametro = selectbd.coletarIdDoParametro(idComponente)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+        if DiscoPercentual >= limiarAlerta:
+            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  DiscoPercentual > (limiarAlerta - 10) and DiscoPercentual < limiarAlerta:
+            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
+
+        idComponentedo = selectbd.coletarIdDoComponente("Disco_usado")
+        idParametro = selectbd.coletarIdDoParametro(idComponentedo)
+        limiarAlerta = selectbd.coletarLimiarPorComponente(idComponentedo)
+        if DiscoUsadoGB >= limiarAlerta:
+            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
+        elif  DiscoUsadoGB > (limiarAlerta - 50) and DiscoUsadoGB < limiarAlerta:
+            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
+        else:
+            insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
+
         jsonDados = {
-          "ram": ram,
-          "disco": disk,
-          "cpu": cpu
+            "percentualCPU": CPUPercentual,
+            "frequenciaCPU": CPUFreq,
+            "percentualRAM": RamPercentual,
+            "memoriaUsadaGB": MemoriaUsadaGB,
+            "percentualDisco": DiscoPercentual,
+            "discoUsadoGB": DiscoUsadoGB,
+            "data-hora": momento.strftime("%Y-%m-%d %H:%M:%S")
         }
+
         listaJson.append(jsonDados)
         if contador == 3:
-            nomeArq =  momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
+            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
             # s3.upload(nomeArq)
@@ -64,10 +150,7 @@ def coletaLocal(idMaquina):
             contador = 0
         time.sleep(5)
 
-
-# print("Iniciando Coleta")
-# coletaLocal()
-
+# Coleta de Informações do Sistema
 def coletar_informacoes():
     informacoes = {}
 
@@ -80,12 +163,18 @@ def coletar_informacoes():
     try:
         if sistema == "Windows":
             # Usando PowerShell para pegar o modelo do processador
-            processador = subprocess.check_output(["powershell", "-Command", "Get-WmiObject Win32_Processor | Select-Object -ExpandProperty Name"], shell=True).decode().strip()
+            processador = subprocess.check_output(
+                ["powershell", "-Command", "Get-WmiObject Win32_Processor | Select-Object -ExpandProperty Name"], 
+                shell=True
+            ).decode().strip()
             if not processador:
                 processador = "Modelo do Processador não encontrado"
         elif sistema == "Linux":
             # Linux: lendo de /proc/cpuinfo
-            processador = subprocess.check_output("cat /proc/cpuinfo | grep 'model name' | uniq", shell=True).decode().split(":")[1].strip()
+            processador = subprocess.check_output(
+                "cat /proc/cpuinfo | grep 'model name' | uniq", 
+                shell=True
+            ).decode().split(":")[1].strip()
         else:
             processador = "Desconhecido"
         informacoes["Modelo do Processador"] = processador
@@ -105,7 +194,10 @@ def coletar_informacoes():
             armazenamento = int(armazenamento)
         elif sistema == "Linux":
             # Linux: usando o comando df para obter o espaço total do disco
-            armazenamento = subprocess.check_output("df --total -h | grep total", shell=True).decode().split()[1]
+            armazenamento = subprocess.check_output(
+                "df --total -h | grep total", 
+                shell=True
+            ).decode().split()[1]
             armazenamento = float(armazenamento[:-1])  # Removendo o "G" e convertendo para float
             armazenamento = math.ceil(armazenamento).__ceil__()
             armazenamento = int(armazenamento)
@@ -118,26 +210,32 @@ def coletar_informacoes():
     # UUID da placa mãe
     try:
         if sistema == "Windows":
-            # Usando PowerShell para tentar pegar o UUID da placa-mãe
-            uuid_placa_mae = subprocess.check_output(["powershell", "-Command", "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"], shell=True).decode().strip()
+            # Usando PowerShell para pegar o UUID da placa-mãe
+            uuid_placa_mae = subprocess.check_output(
+                ["powershell", "-Command", "Get-WmiObject Win32_BaseBoard | Select-Object -ExpandProperty SerialNumber"], 
+                shell=True
+            ).decode().strip()
             if not uuid_placa_mae:
                 uuid_placa_mae = "UUID não encontrado"
+
         elif sistema == "Linux":
             # Linux: usando o comando dmidecode para pegar o UUID da placa mãe
-            uuid_placa_mae = subprocess.check_output("sudo dmidecode -s system-uuid", shell=True).decode().strip()
+            try:
+                uuid_placa_mae = subprocess.check_output(
+                    "sudo dmidecode -s system-uuid", 
+                    shell=True
+                ).decode().strip()
+            except subprocess.CalledProcessError as e:
+                uuid_placa_mae = "Erro ao executar dmidecode (necessário sudo)"
+            except Exception as e:
+                uuid_placa_mae = f"Erro ao coletar UUID no Linux: {e}"
+
         else:
             uuid_placa_mae = "Desconhecido"
+        
         informacoes["UUID da Placa Mãe"] = uuid_placa_mae
+
     except Exception as e:
-        informacoes["UUID da Placa Mãe"] = "Erro ao coletar"
+        informacoes["UUID da Placa Mãe"] = f"Erro ao coletar UUID: {e}"
 
     return informacoes
-
-
-
-# def coletarPorCpuLogico():
-#     listaCPUs = psutil.cpu_percent(interval=1, percpu=True)
-#     for i in range(len(listaCPUs)):
-#             usoCPUs += f"Uso do {i + 1}° núcleo: {listaCPUs[i]}%\n"
-#             if listaCPUs[i] > 70:
-#                 alertaCPUs += f"O {i}° está com o uso acima de 70%!!!!!\n"
