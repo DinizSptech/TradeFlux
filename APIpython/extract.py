@@ -141,11 +141,11 @@ def coletaLocal(idMaquina):
         }
 
         listaJson.append(jsonDados)
-        if contador == 3:
+        if contador == 5:
             nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
-            # s3.upload(nomeArq)
+                s3.upload(nomeArq)
             listaJson = []
             contador = 0
         time.sleep(5)
