@@ -23,8 +23,8 @@
     <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral('administrador'); carregarComponentes(); exibirServidorNoSelect(); renderizarModalUsuario()">
-    <main class="container-main" id="main_page">
+<body onload="carregarMenuLateral('administrador'); carregarComponentes(); renderizarModalUsuario()">
+    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
         <div class="bgForm" id="bg_formulario">
             <div class="formUsuario">
                <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
@@ -63,12 +63,12 @@
                     <input id="ipt_limiar" type="number" />
                 </div>
                 <div class="buttonCadastrar">
-                    <button onclick="cadastrar()">Cadastrar</button>
+                    <button onclick="cadastrar(); validarNome(); validarServidor(); validarLimiar(); validarMedida()">Cadastrar</button>
                 </div>
+            <div id="erros_cadastro_servidor"></div>
             <div id="erros_cadastro_nome"></div>
             <div id="erros_cadastro_medida"></div>
             <div id="erros_cadastro_limiar"></div>
-        </div>
         </div>
         </div>
         <div class="bgForm" id="bg_formulario_edicao">
@@ -96,6 +96,7 @@
                 <div class="buttonCadastrar">
                     <button onclick="fecharModal('edicao')">Salvar</button>
                 </div>
+                <div id="erros_cadastro_servidor"></div>
                 <div id="erros_cadastro_nome"></div>
                 <div id="erros_cadastro_medida"></div>
                 <div id="erros_cadastro_limiar"></div>
