@@ -62,13 +62,7 @@ CREATE TABLE IF NOT EXISTS Componente (
 
 
 #teste cadastro de componente
-INSERT INTO Componente (nomeComponente, medida) VALUES 
-('CPU_Percentual', '%'), 
-('CPU_Frequencia',  'GHz'),
-('Ram_Percentual', '%'),
-('Ram_Usada', 'GB'),
-('Disco_Percentual', '%'),
-('Disco_Usado', 'GB');
+
 
 
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
@@ -81,9 +75,6 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     fkDataCenter INT,
     FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
 );
-#teste cadastro de servidor 
-INSERT INTO Servidor_Cliente (`idServidor`,uuidServidor) VALUES (DEFAULT, "S206NBB60002FFMB");
-select * FROM servidor_cliente;
 
 CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
@@ -93,14 +84,6 @@ CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     FOREIGN KEY (fkServidor) REFERENCES Servidor_Cliente(idServidor),
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
 );
-#teste parametro servidor
-INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
-(80.0, 1, 1), 
-(2.30, 1, 2),
-(80.0, 1, 3),
-(6.0, 1, 4),
-(80.0, 1, 5),
-(200.0, 1, 6);
 
 CREATE TABLE IF NOT EXISTS Captura (
     idCaptura INT AUTO_INCREMENT PRIMARY KEY,
@@ -121,7 +104,7 @@ CREATE TABLE IF NOT EXISTS Alerta (
     fkParametro INT,
     FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
-select * from alerta;
+
 CREATE TABLE IF NOT EXISTS alerta_visualizado (
     Usuario_Cliente_idUsuario INT,
     Alerta_idAlerta INT,
@@ -133,17 +116,19 @@ CREATE TABLE IF NOT EXISTS alerta_visualizado (
 
 DROP TRIGGER IF EXISTS gatilho_insert_alerta;
 
-/**
+DELIMITER $$
+
 CREATE TRIGGER gatilho_insert_alerta
 AFTER INSERT ON Captura
 FOR EACH ROW
 BEGIN
     IF NEW.alerta = 1 OR NEW.alerta = 2 THEN
         INSERT INTO Alerta (valor, medida, data, criticidade ,fkParametro)
-        VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro)
-    END IF
-END
-**/
+        VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro);
+    END IF;
+END$$
+
+DELIMITER ;
 
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
 CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
@@ -154,10 +139,28 @@ DROP USER IF EXISTS 'user_select_tradeflux'@'%';
 CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
 GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
 
-    INSERT INTO Servidor_Cliente VALUES 
-    (default, "NBQAZ11001217002E7MO00", "Windows 10.0.22631", "16", "476", "Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz", 1);
-    
-    DELETE FROM servidor_cliente WHERE idServidor = 2;
-
 FLUSH PRIVILEGES;
+
+#deixar componentes chumbados
+ INSERT INTO Componente (nomeComponente, medida) VALUES 
+('Cpu_Percentual', '%'), 
+('Cpu_Frequencia',  'GHz'),
+('Ram_Percentual', '%'),
+('Ram_Usada', 'GB'),
+('Disco_Percentual', '%'),
+('Disco_Usado', 'GB');
+
+#precisa inserir isso apos a api cadastrar o servidor
+-- INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+-- (80.0, 1, 1), 
+-- (2.30, 1, 2),
+-- (80.0, 1, 3),
+-- (6.0, 1, 4),
+-- (80.0, 1, 5),
+-- (200.0, 1, 6);
+
+
+select * from servidor_cliente;
+select * from captura;
+select * from alerta;
 
