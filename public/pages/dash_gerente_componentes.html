@@ -5,8 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TradeFlux - Componentes</title>
-    <link rel="stylesheet" href="../css/menuLateral.css" />
+    <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -18,11 +19,12 @@
     <link rel="stylesheet" href="../css/cadastroComponente.css">
     <script src="../js/cadastroComponente.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
+    <script src="../js/modais.js"></script>
     <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral('administrador'); carregarComponentes(); exibirServidorNoSelect(); ">
-    <main class="container-main">
+<body onload="carregarMenuLateral('administrador'); carregarComponentes(); exibirServidorNoSelect(); renderizarModalUsuario()">
+    <main class="container-main" id="main_page">
         <div class="bgForm" id="bg_formulario">
             <div class="formUsuario">
                <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
