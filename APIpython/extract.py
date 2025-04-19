@@ -183,7 +183,7 @@ def coletaLocal(idMaquina):
 
         listaJson.append(jsonDados)
         if contador == 5:
-            nomeArq = momento.strftime("%y-%m-%d_%H-%M-%S") + f"_{idMaquina}" + ".json"
+            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
                 s3.upload(nomeArq)
@@ -224,7 +224,7 @@ def coletar_informacoes():
 
     # Quantidade Máxima de RAM
     ram_maxima = psutil.virtual_memory().total / (1024 ** 3)
-    informacoes["RAM Máxima"] = f"{math.ceil(ram_maxima)} GB"
+    informacoes["RAM Máxima"] = f"{math.ceil(ram_maxima)}"
 
     # Quantidade Máxima de Armazenamento
     try:
@@ -244,7 +244,7 @@ def coletar_informacoes():
             armazenamento = int(armazenamento)
         else:
             armazenamento = "Desconhecido"
-        informacoes["Armazenamento Máximo"] = f"{armazenamento} GB"
+        informacoes["Armazenamento Máximo"] = f"{armazenamento}"
     except Exception as e:
         informacoes["Armazenamento Máximo"] = "Erro ao coletar"
 
