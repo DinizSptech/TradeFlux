@@ -20,7 +20,6 @@ def inserirData(valor, medida, dataHora, alerta, idParametro):
 
 def inserirMaquina(uuidServidor, SO , ramTotal, discoTotal, cpuInfo, idDataCenter):
     try:
-     print(uuidServidor, SO , ramTotal, discoTotal, cpuInfo, idDataCenter)
      query = (
     "INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, ramTotal, discoTotal, processadorInfo, fkDataCenter) "
     "VALUES (%s, %s, %s, %s, %s, %s)")

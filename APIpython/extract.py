@@ -39,7 +39,7 @@ def coletarDiscoUsadoGB():
     disco_usado_gb = disco.used / (1024 ** 3)  # Converte de bytes para GB
     return round(disco_usado_gb, 1)  # Retorna o valor arredondado para 1 casa decimal
 
-def coletaLocal(idMaquina):
+def coletaLocal(idServidor):
     contador = 0
     listaJson = []
     componentesSelecionados = selectbd.selecionarComponentes()
@@ -73,7 +73,7 @@ def coletaLocal(idMaquina):
         contador += 1
 
         print(f"Repetição: {contador}")
-        print(f"Servidor: {idMaquina}")
+        print(f"Servidor: {idServidor}")
 
         if cpu_percentual:
             CPUPercentual = coletarCPUPercentual()
@@ -81,6 +81,9 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("CPU_percentual")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para CPU_percentual, por favor, verifique o banco de dados.")
+                exit()
 
             if CPUPercentual >= limiarAlerta:
                 insert.inserirData(CPUPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
@@ -95,6 +98,10 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("CPU_frequencia")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para CPU_frequencia, por favor, verifique o banco de dados.")
+                exit()
+
             if CPUFreq >= limiarAlerta:
                 insert.inserirData(CPUFreq, 'GHz', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
             elif  CPUFreq > (limiarAlerta - 0.10) and CPUFreq < limiarAlerta:
@@ -108,6 +115,10 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("RAM_percentual")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para RAM_percentual, por favor, verifique o banco de dados.")
+                exit()
+
             if RamPercentual >= limiarAlerta:
                 insert.inserirData(RamPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
             elif  RamPercentual > (limiarAlerta - 10) and RamPercentual < limiarAlerta:
@@ -121,6 +132,9 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("RAM_usada")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para RAM_usada, por favor, verifique o banco de dados.")
+                exit()
             if MemoriaUsadaGB >= limiarAlerta:
                 insert.inserirData(MemoriaUsadaGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
             elif  MemoriaUsadaGB > (limiarAlerta - 5) and MemoriaUsadaGB < limiarAlerta:
@@ -134,6 +148,9 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("Disco_percentual")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para Disco_percentual, por favor, verifique o banco de dados.")
+                exit()
             if DiscoPercentual >= limiarAlerta:
                 insert.inserirData(DiscoPercentual, '%', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
             elif  DiscoPercentual > (limiarAlerta - 10) and DiscoPercentual < limiarAlerta:
@@ -148,6 +165,9 @@ def coletaLocal(idMaquina):
             idComponente = selectbd.coletarIdDoComponente("Disco_usado")
             idParametro = selectbd.coletarIdDoParametro(idComponente)
             limiarAlerta = selectbd.coletarLimiarPorComponente(idComponente)
+            if limiarAlerta is None:
+                print("Limiar de alerta não encontrado para Disco_usado, por favor, verifique o banco de dados.")
+                exit()
             if DiscoUsadoGB >= limiarAlerta:
                 insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 2, idParametro)
             elif  DiscoUsadoGB > (limiarAlerta - 50) and DiscoUsadoGB < limiarAlerta:
@@ -156,12 +176,9 @@ def coletaLocal(idMaquina):
                 insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
   
         print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("-----------------------------------")
+        print("-----------------------------------\n\n")
 
         momento = datetime.now()
-        segundos = momento.strftime("%S")
-        print(segundos)
-        
 
         jsonDados = {
         "data-hora": momento.strftime("%Y-%m-%d %H:%M:%S")
@@ -182,10 +199,12 @@ def coletaLocal(idMaquina):
 
 
         listaJson.append(jsonDados)
-        if contador == 5:
-            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idMaquina}" + ".json"
+        if contador == 12:
+            print("Criando arquivo JSON...")
+            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idServidor}" + ".json"
             with open(nomeArq, "w", encoding="utf-8") as arquivo:
                 json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
+                print("Enviando para o bucket...")
                 s3.upload(nomeArq)
             listaJson = []
             contador = 0
