@@ -14,30 +14,26 @@ print("2 - Não, quero proseguir com a coleta de dados")
 opcao = int(input("Digite a opção desejada: ")) 
 
 if opcao == 1:
-    print("Cadastrando máquina...")
     info = extract.coletar_informacoes()
     uuidServidor = info['UUID da Placa Mãe']
     print("UUID da Placa Mãe: ", uuidServidor)
     idServidor = selectbd.coletarMaquinasDisponiveis(uuidServidor)
+    time.sleep(2)
 
-    SO = info["Sistema Operacional"]
-    ramTotal = info["RAM Máxima"]
-    discoTotal = info["Armazenamento Máximo"]
-    cpuInfo = info["Modelo do Processador"]
-
-    try:        
-        insert.inserirMaquina(SO, discoTotal, ramTotal, cpuInfo, idDataCenter, uuidServidor)
-        print("Máquina inserida no banco de dados.")
-    except Exception as e:
-        print("Erro ao cadastrar máquina:", e)
+    if idServidor == None:
+     print("Cadastrando máquina...")
+     SO = info["Sistema Operacional"]
+     ramTotal = info["RAM Máxima"]
+     discoTotal = info["Armazenamento Máximo"]
+     cpuInfo = info["Modelo do Processador"]
+     insert.inserirMaquina(uuidServidor , SO, discoTotal, ramTotal, cpuInfo, idDataCenter)
+    else:
+       print("Máquina já registrada no banco")
 
     print("Fazendo coleta de dados...")
-
     time.sleep(3)
     extract.coletaLocal(idServidor)
-
-        
-
+      
 
 elif opcao == 2:   
     print("Coletando informações da máquina...")

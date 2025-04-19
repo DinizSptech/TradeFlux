@@ -1,15 +1,20 @@
 import database
+from mysql.connector import Error 
 
 mydb = database.gerarMyDbSelect()
 cursor = mydb.cursor()
 
 def coletarMaquinasDisponiveis(uuidServidor):
-    query = f"select `idServidor` from servidor_cliente WHERE uuid_servidor = '{uuidServidor}';"
-    cursor.execute(query)
-    idMaquina = cursor.fetchone()
-    if idMaquina is None:
+    try:
+     query = f"select idServidor from servidor_cliente WHERE uuidServidor = '{uuidServidor}';"
+     cursor.execute(query)
+     idMaquina = cursor.fetchone()
+     if idMaquina is None:
         return None  
-    return int(idMaquina[0])  
+     return int(idMaquina[0])  
+    except Error as err:
+     print("Erro na coleta do servidor baseado no UUID")
+     print(err)
 
 def coletarIdDoComponente(nomeComponente):
     query = f"SELECT idComponente FROM componente WHERE nomeComponente = '{nomeComponente}';"
