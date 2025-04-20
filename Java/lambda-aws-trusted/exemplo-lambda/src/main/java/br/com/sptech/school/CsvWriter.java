@@ -1,0 +1,39 @@
+package br.com.sptech.school;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+public class CsvWriter {
+
+    public ByteArrayOutputStream writeCsv(List<Stock> stocks) throws IOException {
+        // Criar um CSV em memória utilizando ByteArrayOutputStream
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Data Hora", "CPU Percentual", "CPU Frequência",
+                "RAM Percentual", "Memória Usada (GB)", "Disco Percentual", "Disco Usado (GB)"));
+
+        // Processar e escrever cada objeto no CSV
+        for(Stock stock : stocks) {
+            csvPrinter.printRecord(
+            stock.getDataHora(),
+            stock.getPercentualCPU(),
+            stock.getFrequenciaCPU(),
+            stock.getPercentualRAM(),
+            stock.getMemoriaUsadaGB(),
+            stock.getPercentualDisco(),
+            stock.getDiscoUsadoGB()
+            );
+        }
+
+        // Fechar o CSV para garantir que todos os dados sejam escritos
+        csvPrinter.flush();
+        writer.close();
+
+        // Retornar o ByteArrayOutputStream que contém o CSV gerado em memória
+        return outputStream;
+    }
+}
