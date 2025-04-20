@@ -1,6 +1,6 @@
-function carregarMenuLateral(perfil){
-    if (perfil == "administrador") {
-        barralateral.innerHTML = `
+function carregarMenuLateral(perfil) {
+  if (perfil == "administrador") {
+    barralateral.innerHTML = `
         <div class="div-logo">
         <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
         <span class="txtLogo">TRADEFLUX</span>
@@ -17,10 +17,15 @@ function carregarMenuLateral(perfil){
           <i class="fa-solid fa-triangle-exclamation"></i>
           <span><a href="./alertas.html">Alertas</a></span>
         </div>
+
+        <div class="option">
+          <i class="fa-solid fa-network-wired"></i>
+          <span><a href="./dash_gerente_datacenters.html">Data Centers</a></span>
+        </div>
         
         <div class="option">
           <i class="fa-solid fa-server"></i>
-          <span><a href="./alertas.html">Servidores</a></span>
+          <span><a href="./dash_gerente_servidores.html">Servidores</a></span>
         </div>
   
         <div class="option">
@@ -44,7 +49,7 @@ function carregarMenuLateral(perfil){
           <i class="fa-solid fa-door-open"></i>
           <span><a onclick="deslogar()">Sair</a></span>
         </div>`;
-} else if(perfil == "cientista"){
+  } else if (perfil == "cientista") {
     barralateral.innerHTML = `
     <div class="div-logo">
     <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -69,8 +74,8 @@ function carregarMenuLateral(perfil){
       <i class="fa-solid fa-door-open"></i>
       <span><a onclick="sairParaLogin()">Sair</a></span>
     </div>`;
-} else if(perfil == 'alertas'){
-  barralateral.innerHTML = `
+  } else if (perfil == "alertas") {
+    barralateral.innerHTML = `
   <div class="div-logo">
   <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
   <span class="txtLogo">TRADEFLUX</span>
@@ -94,9 +99,8 @@ function carregarMenuLateral(perfil){
     <i class="fa-solid fa-door-open"></i>
     <span><a onclick="sairParaLogin()">Sair</a></span>
   </div>`;
+  }
 }
-}
-   
 
 /*    
 
