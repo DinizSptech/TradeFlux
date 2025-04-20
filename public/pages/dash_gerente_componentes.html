@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TradeFlux - Componentes</title>
@@ -10,228 +9,238 @@
     <link rel="stylesheet" href="../css/modalPerfil.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cadastroComponente.css">
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="shortcut icon"
+      href="../assets/TRADEFLUX__2_cortado.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../css/cadastroComponente.css" />
     <script src="../js/cadastroComponente.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/modais.js"></script>
     <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
-</head>
+  </head>
 
-<body onload="carregarMenuLateral('administrador'); carregarComponentes(); renderizarModalUsuario()">
-    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
-        <div class="bgForm" id="bg_formulario">
-            <div class="formUsuario">
-               <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
-                <div class="tituloForm">Cadastrar Componente</div>
+  <body
+    onload="carregarMenuLateral('administrador'); carregarComponentes(); renderizarModalUsuario()"
+  >
+    <main
+      class="container-main"
+      id="main_page"
+      onclick="exibirServidorNoSelect()"
+    >
+      <div class="bgForm" id="bg_formulario">
+        <div class="formUsuario">
+          <i
+            onclick="fecharModal('cadastro')"
+            class="fechar fa-solid fa-xmark"
+          ></i>
+          <div class="tituloForm">Cadastrar Componente</div>
 
-                <div class="select-container2">
-                    <span>Selecione o servidor do Componente:</span>
-                    <select id="select_servidor" name="" onchange="exibirCaracteristicas()">
-                        <option selected disabled value="#">Selecione uma opção</option>
-                    </select>
-                </div>
-                <div class="caracteristicas_servidor">
-                    <span id="ram_total"></span>
-                    <span id="disco_total"></span>
-                    <span id="cpu"></span>
-                </div>
+          <div class="select-container2">
+            <span>Selecione o servidor do Componente:</span>
+            <select
+              id="select_servidor"
+              name=""
+              onchange="exibirCaracteristicas()"
+            >
+              <option selected disabled value="#">Selecione uma opção</option>
+            </select>
+          </div>
+          <div class="caracteristicas_servidor">
+            <span id="ram_total"></span>
+            <span id="disco_total"></span>
+            <span id="cpu"></span>
+          </div>
 
-                <div class="input">
-                    <span>Nome:</span>
-                    <input id="ipt_nomeComponente" type="text" />
-                </div>
-                <div class="input">
-                    <div class="select-container">
-                        <span>Medida</span>
-                        <select id="select_medida" name="">
-                            <option selected disabled value="#">Selecione uma opção</option>
-                            <option value="gb">GB</option>
-                            <option value="pt">%</option>
-                            <option value="bt">Bytes</option>
-                            <option value="gz">GHz</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input">
-                    <span>Limiar de alerta:</span>
-                    <input id="ipt_limiar" type="number" />
-                </div>
-                <div class="buttonCadastrar">
-                    <button onclick="cadastrar(); validarNome(); validarServidor(); validarLimiar(); validarMedida()">Cadastrar</button>
-                </div>
-            <div id="erros_cadastro_servidor"></div>
-            <div id="erros_cadastro_nome"></div>
-            <div id="erros_cadastro_medida"></div>
-            <div id="erros_cadastro_limiar"></div>
-        </div>
-        </div>
-        <div class="bgForm" id="bg_formulario_edicao">
-            <div class="formUsuario">
-                <div class="tituloForm">Editar Componente</div>
-                <div class="input">
-                    <span>Nome:</span>
-                    <input id="ipt_nomeComponente2" type="text" />
-                </div>
-                <div class="input">
-                    <div class="select-container">
-                        <span>Medida</span>
-                        <select id="select_medida2" name="">
-                            <option selected disabled value="#">Selecione uma opção</option>
-                            <option value="gb">GB</option>
-                            <option value="pt">%</option>
-                            <option value="bt">Bytes</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input">
-                    <span>Limiar de alerta:</span>
-                    <input id="ipt_limiar2" />
-                </div>
-                <div class="buttonCadastrar">
-                    <button onclick="fecharModal('edicao')">Salvar</button>
-                </div>
-                <div id="erros_cadastro_servidor"></div>
-                <div id="erros_cadastro_nome"></div>
-                <div id="erros_cadastro_medida"></div>
-                <div id="erros_cadastro_limiar"></div>
+          <div class="input">
+            <span>Nome:</span>
+            <input id="ipt_nomeComponente" type="text" />
+          </div>
+          <div class="input">
+            <div class="select-container">
+              <span>Medida</span>
+              <select id="select_medida" name="">
+                <option selected disabled value="#">Selecione uma opção</option>
+                <option value="gb">GB</option>
+                <option value="pt">%</option>
+                <option value="bt">Bytes</option>
+                <option value="gz">GHz</option>
+              </select>
             </div>
+          </div>
+          <div class="input">
+            <span>Limiar de alerta:</span>
+            <input id="ipt_limiar" type="number" />
+          </div>
+          <div class="buttonCadastrar">
+            <button
+              onclick="cadastrar(); validarNome(); validarServidor(); validarLimiar(); validarMedida()"
+            >
+              Cadastrar
+            </button>
+          </div>
+          <div id="erros_cadastro_servidor"></div>
+          <div id="erros_cadastro_nome"></div>
+          <div id="erros_cadastro_medida"></div>
+          <div id="erros_cadastro_limiar"></div>
         </div>
-        <div id="barralateral" class="barra-lateral">
-
+      </div>
+      <div class="bgForm" id="bg_formulario_edicao">
+        <div class="formUsuario">
+          <div class="tituloForm">Editar Componente</div>
+          <div class="input">
+            <span>Nome:</span>
+            <input id="ipt_nomeComponente2" type="text" />
+          </div>
+          <div class="input">
+            <div class="select-container">
+              <span>Medida</span>
+              <select id="select_medida2" name="">
+                <option selected disabled value="#">Selecione uma opção</option>
+                <option value="gb">GB</option>
+                <option value="pt">%</option>
+                <option value="bt">Bytes</option>
+              </select>
+            </div>
+          </div>
+          <div class="input">
+            <span>Limiar de alerta:</span>
+            <input id="ipt_limiar2" />
+          </div>
+          <div class="buttonCadastrar">
+            <button onclick="fecharModal('edicao')">Salvar</button>
+          </div>
+          <div id="erros_cadastro_servidor"></div>
+          <div id="erros_cadastro_nome"></div>
+          <div id="erros_cadastro_medida"></div>
+          <div id="erros_cadastro_limiar"></div>
         </div>
+      </div>
+      <div id="barralateral" class="barra-lateral"></div>
 
-        <div class="mainContent">
-            <div class="container-title">
-                <p>Componentes</p>
-            </div>
-            <div class="containerFiltro">
-                <div class="container-btnCadastro">
-                    <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
-                        <i class="fa-solid fa-circle-plus"></i> Adicionar Componente
-                    </button>
-                </div>
-            </div>
-            <div id="div_containerEsteiras" class="containerEsteiras">
-
-                <table id="tabelaFuncionarios">
-                    <thead>
-                        <tr>
-                            <th>Componente</th>
-                            <th>Unidade de medida</th>
-                            <th>Limiar de Alerta</th>
-                            <th>Status</th>
-                            <th>Alertas</th>
-                            <th class='tableIcons'>Editar</th>
-                            <th class='tableIcons'>Excluir</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyTabela">
-
-                    </tbody>
-                </table>
-
-            </div>
+      <div class="mainContent">
+        <div class="container-title">
+          <p>Componentes</p>
         </div>
+        <div class="containerFiltro">
+          <div class="container-btnCadastro">
+            <button
+              id="btnCadastro"
+              class="btn-cadastro"
+              onclick="abrirModal('cadastro')"
+            >
+              <i class="fa-solid fa-circle-plus"></i> Adicionar Componente
+            </button>
+          </div>
+        </div>
+        <div id="div_containerEsteiras" class="containerEsteiras">
+          <table id="tabelaFuncionarios">
+            <thead>
+              <tr>
+                <th>Componente</th>
+                <th>Unidade de medida</th>
+                <th>Limiar de Alerta</th>
+                <th>Status</th>
+                <th>Alertas</th>
+                <th class="tableIcons">Editar</th>
+                <th class="tableIcons">Excluir</th>
+              </tr>
+            </thead>
+            <tbody id="bodyTabela"></tbody>
+          </table>
+        </div>
+      </div>
     </main>
-</body>
-
+  </body>
 </html>
 <script>
+  var componentes = [
+    {
+      idComponente: 1,
+      nome: "CPU 1",
+      medida: "GHz",
+      limiar: 1000,
+      status: "Estável",
+      alertas: 10,
+    },
+    {
+      idComponente: 2,
+      nome: "CPU 2",
+      medida: "%",
+      limiar: 70,
+      status: "Em risco",
+      alertas: 70,
+    },
+    {
+      idComponente: 3,
+      nome: "RAM 1",
+      medida: "%",
+      limiar: 60,
+      status: "Estável",
+      alertas: 60,
+    },
+    {
+      idComponente: 4,
+      nome: "RAM 2",
+      medida: "GigaBytes",
+      limiar: 10,
+      status: "Crítico",
+      alertas: 11,
+    },
 
+    {
+      idComponente: 5,
+      nome: "RAM 3",
+      medida: "GigaBytes",
+      limiar: 15,
+      status: "Em risco",
+      alertas: 1,
+    },
 
-    var componentes = [
-        {
-            idComponente: 1,
-            nome: "CPU 1",
-            medida: "GHz",
-            limiar: 1000,
-            status: "Estável",
-            alertas: 10
+    {
+      idComponente: 6,
+      nome: "DISCO 1",
+      medida: "GigaBytes",
+      limiar: 500,
+      status: "Estável",
+      alertas: 50,
+    },
 
-        },
-        {
+    {
+      idComponente: 7,
+      nome: "DISCO 2",
+      medida: "%",
+      limiar: 60,
+      status: "Crítico",
+      alertas: 61,
+    },
+  ];
 
-            idComponente: 2,
-            nome: "CPU 2",
-            medida: "%",
-            limiar: 70,
-            status: "Em risco",
-            alertas: 70
+  function carregarComponentes() {
+    for (var i = 0; i < componentes.length; i++) {
+      let status = componentes[i].status;
 
-        },
-        {
-            idComponente: 3,
-            nome: "RAM 1",
-            medida: "%",
-            limiar: 60,
-            status: "Estável",
-            alertas: 60
+      let classeStatus = "";
+      if (status === "Estável") {
+        classeStatus = "status-ok";
+      } else if (status === "Em risco") {
+        classeStatus = "status-alerta";
+      } else if (status === "Crítico") {
+        classeStatus = "status-critico";
+      }
 
-        },
-        {
-            idComponente: 4,
-            nome: "RAM 2",
-            medida: "GigaBytes",
-            limiar: 10,
-            status: "Crítico",
-            alertas: 11
-
-        },
-
-        {
-            idComponente: 5,
-            nome: "RAM 3",
-            medida: "GigaBytes",
-            limiar: 15,
-            status: "Em risco",
-            alertas: 1
-
-        },
-
-        {
-            idComponente: 6,
-            nome: "DISCO 1",
-            medida: "GigaBytes",
-            limiar: 500,
-            status: "Estável",
-            alertas: 50
-
-        },
-
-        {
-            idComponente: 7,
-            nome: "DISCO 2",
-            medida: "%",
-            limiar: 60,
-            status: "Crítico",
-            alertas: 61
-
-        },
-
-    ]
-
-    function carregarComponentes() {
-        for (var i = 0; i < componentes.length; i++) {
-
-            let status = componentes[i].status;
-
-            let classeStatus = '';
-            if (status === 'Estável') {
-                classeStatus = 'status-ok';
-            } else if (status === 'Em risco') {
-                classeStatus = 'status-alerta';
-            } else if (status === 'Crítico') {
-                classeStatus = 'status-critico';
-            }
-
-
-            bodyTabela.innerHTML += `
+      bodyTabela.innerHTML += `
             <tr>
             <td>${componentes[i].nome}</td>
             <td>${componentes[i].medida}</td>
@@ -242,10 +251,7 @@
             <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${componentes[i].idComponente}, '${componentes[i].nome}', '${componentes[i].medida}', '${componentes[i].limiar}', '${componentes[i].status}', '${componentes[i].alertas}')" ></i></td>
             <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${componentes[i].idComponente})'></i></td>
             </tr>
-            `
-
-
-        }
-
+            `;
     }
+  }
 </script>
