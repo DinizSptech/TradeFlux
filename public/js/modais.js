@@ -71,7 +71,7 @@ function abrirModal(tipo){
     </div>
     <div class="container_perfil_opcoes" id="perfil_opcoes">
       <span onclick="abrirModal('perfil_completo')">Perfil</span>
-      <span>Sair</span>
+      <span onclick="sairParaLogin()">Sair</span>
     </div>
     <div class="bg_modal_perfil_completo" id="bg_modal_perfil_completo">
       <div class="container_perfil_completo" id="div_perfil_completo">

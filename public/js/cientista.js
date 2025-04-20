@@ -20,13 +20,7 @@ var alertas = [
   { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
 ];
 
-function sairParaLogin() {
-  window.location.href = "./login.html";
-}
 
-function sairParaJira() {
-  window.open("https://www.atlassian.com/software/jira", '_blank');
-}
 
 function mudarAtributoRanking() {
   var atributoAtual = document.getElementById("slt_ranking").value;

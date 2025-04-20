@@ -1,5 +1,8 @@
-function carregarMenuLateral(perfil) {
-  if (perfil == "administrador") {
+function carregarMenuLateral() {
+var cargo = sessionStorage.getItem("Cargo");  
+
+console.log(cargo)
+  if (cargo == "administrador") {
     barralateral.innerHTML = `
         <div class="div-logo">
         <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -10,7 +13,12 @@ function carregarMenuLateral(perfil) {
 
         <div class="option selected">
           <i class="fa-solid fa-chart-line"></i>
-          <span><a href="./dashboard.html">Dashboard</a></span>
+          <span><a href="./dashboard.html">Dashboard Analista</a></span>
+        </div>
+
+        <div class="option selected">
+          <i class="fa-solid fa-lightbulb"></i>
+          <span><a href="./dashboard_Cientista.html">Dashboard Cientista</a></span>
         </div>
 
         <div class="option">
@@ -47,9 +55,9 @@ function carregarMenuLateral(perfil) {
 
         <div class="option">
           <i class="fa-solid fa-door-open"></i>
-          <span><a onclick="deslogar()">Sair</a></span>
+          <span><a onclick="sairParaLogin()">Sair</a></span>
         </div>`;
-  } else if (perfil == "cientista") {
+} else if(cargo == "cientista"){
     barralateral.innerHTML = `
     <div class="div-logo">
     <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -57,6 +65,11 @@ function carregarMenuLateral(perfil) {
     </div>
 
     <span class="barraHorizontal"></span>
+
+    <div class="option selected">
+        <i class="fa-solid fa-lightbulb"></i>
+        <span><a href="./dashboard_Cientista.html">Dashboard Cientista</a></span>
+    </div>
 
     <div class="option">
       <i class="fa-solid fa-triangle-exclamation"></i>
@@ -74,7 +87,7 @@ function carregarMenuLateral(perfil) {
       <i class="fa-solid fa-door-open"></i>
       <span><a onclick="sairParaLogin()">Sair</a></span>
     </div>`;
-  } else if (perfil == "alertas") {
+  } else if (cargo == "analista") {
     barralateral.innerHTML = `
   <div class="div-logo">
   <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -85,7 +98,7 @@ function carregarMenuLateral(perfil) {
 
           <div class="option selected">
           <i class="fa-solid fa-chart-line"></i>
-          <span><a href="./dashboard_Cientista.html">Dashboard Cientista</a></span>
+          <span><a href="./dashboard_Cientista.html">Dashboard Analista</a></span>
         </div>
 
   <div class="option">
@@ -99,7 +112,16 @@ function carregarMenuLateral(perfil) {
     <i class="fa-solid fa-door-open"></i>
     <span><a onclick="sairParaLogin()">Sair</a></span>
   </div>`;
-  }
+}
+}
+
+function sairParaLogin() {
+  sessionStorage.clear()
+  window.location.href = "./login.html";
+}
+
+function sairParaJira() {
+  window.open("https://www.atlassian.com/software/jira", '_blank');
 }
 
 /*    

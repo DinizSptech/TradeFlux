@@ -67,3 +67,34 @@ function entrar(){
       cardErro.style.display = "none";
     }
 
+    function entrarSemBD(){ 
+      var emailVar = IPTemail.value;
+      var senhaVar = IPTsenha.value;
+      var cargo = "";
+  
+      if (!emailVar || !senhaVar) {
+        divERROR.innerHTML = "Preencha todos os campos!";
+        divERROR.style.display = "block";
+        return false;
+      } else if(emailVar == "julia.analista@b3.com.br" && senhaVar == "Senha@123"){
+        cargo = "analista"
+        sessionStorage.setItem("Cargo", cargo)  
+        window.location.href = "./dashboard_analista.html"
+      } else if(emailVar == "rogerio.cientista@b3.com.br" && senhaVar == "Senha@123"){
+        cargo = "cientista"
+        sessionStorage.setItem("Cargo", cargo)  
+        window.location.href = "./dashboard_Cientista.html"
+      } else if(emailVar == "jennifer.admin@b3.com.br" && senhaVar == "Senha@123"){
+        cargo = "administrador"
+        sessionStorage.setItem("Cargo", cargo)  
+        window.location.href = "./dashboard_analista.html"
+      }
+  
+      console.log("FORM LOGIN: ", emailVar);
+      console.log("FORM SENHA: ", senhaVar);
+  
+    }
+  
+    function sumirMensagem() {
+      cardErro.style.display = "none";
+    }
