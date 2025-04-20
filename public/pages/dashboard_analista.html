@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../css/menuLateralAlternativo.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -14,70 +18,14 @@
     <script src="../js/modais.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
 </head>
-<body>
+<body onload="carregarMenuLateral(); renderizarModalUsuario();">
     <main class="container-main" id="main_page">
         <div id="barralateral" class="barra-lateral">
         </div>
-        <div class="container mainContent">
-            <div class="sideBar">
-                <div class="divLogo">
-                    <h2 class="tituloLogo">TradeFlux</h2>
-                    <img src="../assets/logoTradeFlux.png" alt="" class="logo">
-                </div>
-                <div class="sideButtons">
-                <button class="sideButton"><a href="./inicioAdm.html">Inicio</a></button>
-                <button class="sideButton"><a href="./dashboard2.html">Dashboard Cientista</a></button>
-                <button class="sideButton"><a href="./dashboardNOC.html">Dashboard NOC</a></button>
-                <button class="sideButton"><a href="./cadastroUsuario.html">Adicionar usuarios</a></button>
-                <!-- <button class="sideButton">Alertas</button> -->
-            </div>
-            <button class="exitButton"><a href="./index.html">Sair</a></button>
-        </div>
-        <div class="main">
-            <div class="kpis">
-                <div class="kpi">
-                    <h2 class="tituloKPI">Status</h2>
-                    <div class="conteudoKPI">Ativo</div>
-                </div>
-                <div class="kpi">
-                    <h2 class="tituloKPI">Maquina</h2>
-                    <div class="conteudoKPI"><select name="" id=""><option value="">Servidor 5</option></select></div>
-                </div>
-                <div class="kpi">
-                    <h2 class="tituloKPI">Tempo Ativo</h2>
-                    <div class="conteudoKPI">10:00:00</div>
-                </div>
-            </div>
-            <div class="graficos">
-                <div class="graficoContainer">
-                    <h1 class="tituloGrafico">Uso da CPU:</h1>
-                    <div class="grafico">
-                        <canvas id="graficoCPU"></canvas>
-                    </div>
-                </div>
-                <div class="graficoContainer">
-                    <h1 class="tituloGrafico">Temperatura da CPU:</h1>
-                    <canvas id="graficoTEMP"></canvas>
-                </div>
-            </div>
+        <div class="mainContent">
             
-            <div class="graficos">
-                <div class="graficoContainer">
-                    <h1 class="tituloGrafico">Uso do Disco:</h1>
-                    <div class="grafico">
-                        <canvas id="graficoDISK"></canvas>
-                    </div>
-                </div>
-                <div class="graficoContainer">
-                    <h1 class="tituloGrafico">Uso da RAM:</h1>
-                    <div class="grafico">
-                        <canvas id="graficoRAM"></canvas>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-</main>
+    </main>
 </body>
 </html>
 <script>
