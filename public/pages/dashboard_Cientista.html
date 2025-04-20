@@ -15,71 +15,44 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral('cientista'); mudarAtributoPico(); mudarAtributoProporcao()">
+<body onload="renderizarModalUsuario();mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); mudarAtributoPico(); mudarAtributoProporcao()">
   
-  <div class="container_perfil">
-    <i class="fa-solid fa-bell" onclick="abrirModalAlertas()"></i>
-    <span class="barraVertical"></span>
-    <div class="button_perfil" onclick="abrirModal('perfil')">
-      <i class="fa-solid fa-circle-user"></i>
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-  </div>
-  <div class="container_tabela_notificacoes" id="tabela_notificacoes">
-    <div class="wrapper">
-    </div>
-  </div>
-  <div class="container_perfil_opcoes" id="perfil_opcoes">
-    <span onclick="abrirModal('perfil_completo')">Perfil</span>
-    <span>Sair</span>
-  </div>
-  <div class="bg_modal_perfil_completo" id="bg_modal_perfil_completo">
-    <div class="container_perfil_completo" id="div_perfil_completo">
-      <div class="perfil_conteudo">
-        <i class="fa-solid fa-circle-user" id="circulo_usuario"></i>
-        <div class="div_informacoes" id="seta_usuario">
-          <span class="spn_perfil spn_perfil_nome">Guilhermo Roberto Coaquira</span>
-          <span class="spn_perfil">Cientista de Dados</span>
-          <span class="spn_perfil">B3</span>
-        </div>
-      </div>
-      <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
-    </div>
-  </div>
-  <div id="barralateral" class="barra-lateral">
-  </div>
-  <div class="main-content">
-    <div class="cards">
-      <div class="card"  >Alertas <br> Críticos:
-        <br>
-      <div id="alertas_criticos"></div>
-      </div>
-      
-      <div class="card" >Alertas <br> Moderados:
-        <br> 
-      <div id="alertas_atencao"></div>
-      </div>
+  <main class="container-main" id="main_page">
 
-      <div class="card" >Pico Máximo de 
-        <select id="slt_pico" onchange="mudarAtributoPico()">
-          <option disabled value="#">Selecione um</option>
-          <option selected value="cpu">CPU (%)</option>
-          <option value="ram">RAM (%)</option>
-          <option value="disco">DISCO (%)</option>
-        </select>
-        <div id="valor_pico"></div>
-        </div>
+    <div id="barralateral" class="barra-lateral">
     </div>
-    <div class="dashboard-sections">
-      <div class="grafico-linha">
-        <div class="grafico-box">
-          <h3>Comparativo média de cada componente entre servidores</h3>
-          <canvas id="grafico_comparacao"></canvas>
+    <div class="main-content">
+      <div class="cards">
+        <div class="card"  >Alertas <br> Críticos:
+          <br>
+          <div id="alertas_criticos"></div>
         </div>
-
-        <div class="grafico-box">
-          <h3>Proporção média de uso de 
-            <select id="slt_proporcao" onchange="mudarAtributoProporcao()">
+        
+        <div class="card" >Alertas <br> Moderados:
+          <br> 
+          <div id="alertas_atencao"></div>
+        </div>
+        
+        <div class="card" >Pico Máximo de 
+          <select id="slt_pico" onchange="mudarAtributoPico()">
+            <option disabled value="#">Selecione um</option>
+            <option selected value="cpu">CPU (%)</option>
+            <option value="ram">RAM (%)</option>
+            <option value="disco">DISCO (%)</option>
+          </select>
+          <div id="valor_pico"></div>
+        </div>
+      </div>
+      <div class="dashboard-sections">
+        <div class="grafico-linha">
+          <div class="grafico-box">
+            <h3>Comparativo média de cada componente entre servidores</h3>
+            <canvas id="grafico_comparacao"></canvas>
+          </div>
+          
+          <div class="grafico-box">
+            <h3>Proporção média de uso de 
+              <select id="slt_proporcao" onchange="mudarAtributoProporcao()">
               <option disabled value="#">Selecione um</option>
               <option selected value="cpu">CPU (%)</option>
               <option value="ram">RAM (%)</option>
@@ -88,38 +61,39 @@
             entre servidores
           </h3>
           <canvas id="grafico_proporcao"></canvas>
-      </div>
-
-      <div class="grafico-linha">
-        <div class="grafico-box">
-          <h3>Ultimos Alertas</h3>
-          <p id="ultimos_alertas"></p>
         </div>
-
-        <div class="grafico-box">
-          <h3>Média de desempenho de
-            <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">
-              <option disabled value="#">Selecione um</option>
-              <option selected value="cpu">CPU (%)</option>
-              <option value="ram">RAM (%)</option>
-              <option value="disco">DISCO (%)</option>
-            </select>
-            do Data-Center
-          </h3>
-          <canvas id="grafico_desempenho"></canvas>
+        
+        <div class="grafico-linha">
+          <div class="grafico-box">
+            <h3>Ultimos Alertas</h3>
+            <p id="ultimos_alertas"></p>
+          </div>
+          
+          <div class="grafico-box">
+            <h3>Média de desempenho de
+              <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">
+                <option disabled value="#">Selecione um</option>
+                <option selected value="cpu">CPU (%)</option>
+                <option value="ram">RAM (%)</option>
+                <option value="disco">DISCO (%)</option>
+              </select>
+              do Data-Center
+            </h3>
+            <canvas id="grafico_desempenho"></canvas>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div id="modalAlertas" class="modal">
+    
+    <div id="modalAlertas" class="modal">
     <div class="modal-content">
       <span class="fechar" onclick="fecharModalAlertas()">&times;</span>
       <h2>Histórico de Alertas</h2>
       <div id="alertasModalContent"></div>
     </div>
   </div>
-
+  
   <script src="../js/cientista.js"></script>
+</main>
 </body>
 </html>

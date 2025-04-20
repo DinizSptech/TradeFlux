@@ -13,6 +13,7 @@ body{
     position: fixed;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background-color: #23283A;
     color: #F0F0F0;
     padding: 20px;
@@ -21,7 +22,6 @@ body{
     height: 100vh;
 }
 .barra-lateral .div-logo{
-    margin-top: 6vh;
     align-self: center;
     display: flex;
     gap: 1vw;

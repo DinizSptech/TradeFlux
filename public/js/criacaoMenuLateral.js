@@ -13,7 +13,7 @@ console.log(cargo)
 
         <div class="option selected">
           <i class="fa-solid fa-chart-line"></i>
-          <span><a href="./dashboard.html">Dashboard Analista</a></span>
+          <span><a href="./dashboard_analista.html">Dashboard Analista</a></span>
         </div>
 
         <div class="option selected">
@@ -28,7 +28,7 @@ console.log(cargo)
 
         <div class="option">
           <i class="fa-solid fa-network-wired"></i>
-          <span><a href="./dash_gerente_datacenters.html">Data Centers</a></span>
+          <span><a href="./dash_gerente_datacenters.html">Data centers</a></span>
         </div>
         
         <div class="option">
@@ -98,7 +98,7 @@ console.log(cargo)
 
           <div class="option selected">
           <i class="fa-solid fa-chart-line"></i>
-          <span><a href="./dashboard_Cientista.html">Dashboard Analista</a></span>
+          <span><a href="./dashboard_analista.html">Dashboard Analista</a></span>
         </div>
 
   <div class="option">
