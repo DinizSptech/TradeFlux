@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/menuLateralAlternativo.css">
+    <link rel="stylesheet" href="../css/modalPerfil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/modais.js"></script>
+    <script src="../js/criacaoMenuLateral.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="sideBar">
-            <div class="divLogo">
-                <h2 class="tituloLogo">TradeFlux</h2>
-                <img src="../assets/logoTradeFlux.png" alt="" class="logo">
-            </div>
-            <div class="sideButtons">
+    <main class="container-main" id="main_page">
+        <div id="barralateral" class="barra-lateral">
+        </div>
+        <div class="container mainContent">
+            <div class="sideBar">
+                <div class="divLogo">
+                    <h2 class="tituloLogo">TradeFlux</h2>
+                    <img src="../assets/logoTradeFlux.png" alt="" class="logo">
+                </div>
+                <div class="sideButtons">
                 <button class="sideButton"><a href="./inicioAdm.html">Inicio</a></button>
                 <button class="sideButton"><a href="./dashboard2.html">Dashboard Cientista</a></button>
                 <button class="sideButton"><a href="./dashboardNOC.html">Dashboard NOC</a></button>
@@ -50,7 +60,7 @@
                     <canvas id="graficoTEMP"></canvas>
                 </div>
             </div>
-
+            
             <div class="graficos">
                 <div class="graficoContainer">
                     <h1 class="tituloGrafico">Uso do Disco:</h1>
@@ -67,6 +77,7 @@
             </div>
         </div>
     </div>
+</main>
 </body>
 </html>
 <script>

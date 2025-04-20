@@ -6,6 +6,7 @@
     <title>TradeFlux - Data Centers</title>
     <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -30,8 +31,8 @@
     <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
   </head>
 
-  <body onload="carregarMenuLateral(); carregarDataCenters()">
-    <main class="container-main">
+  <body onload="renderizarModalUsuario(); carregarMenuLateral(); carregarDataCenters()">
+    <main class="container-main" id="main_page">
       
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
