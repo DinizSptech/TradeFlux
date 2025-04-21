@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,12 +38,17 @@ public class Main implements RequestHandler<S3Event, String> {
             // Geração do arquivo CSV a partir da lista de Stock usando o CsvWriter
             CsvWriter csvWriter = new CsvWriter();
             ByteArrayOutputStream csvOutputStream = csvWriter.writeCsv(stocks);
+            byte[] csvBytes = csvOutputStream.toByteArray();
 
             // Converte o ByteArrayOutputStream para InputStream para enviar ao bucket de destino
-            InputStream csvInputStream = new ByteArrayInputStream(csvOutputStream.toByteArray());
+            InputStream csvInputStream = new ByteArrayInputStream(csvBytes);
+
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(csvBytes.length);
+            metadata.setContentType("text/csv");
 
             // Envio do CSV para o bucket de destino
-            s3Client.putObject(DESTINATION_BUCKET, sourceKey.replace(".json", ".csv"), csvInputStream, null);
+            s3Client.putObject(DESTINATION_BUCKET, sourceKey.replace(".json", ".csv"), csvInputStream, metadata);
 
             return "Sucesso no processamento";
         } catch (Exception e) {
