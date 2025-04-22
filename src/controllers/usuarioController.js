@@ -1,7 +1,8 @@
 const e = require("express");
 const crypto = require('crypto');
 
-const PEPPER = "process.env.PEPPER"; // Aqui você deve definir o valor da sua pimenta, que é uma string secreta e única para o seu sistema. Ela deve ser mantida em segredo e não deve ser armazenada no banco de dados.
+const PEPPER = process.env.PEPPER;
+// Aqui você deve definir o valor da sua pimenta, que é uma string secreta e única para o seu sistema. Ela deve ser mantida em segredo e não deve ser armazenada no banco de dados.
 let usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
@@ -9,22 +10,23 @@ function autenticar(req, res) {
   var senha = req.body.senhaServer;
   
   // Descomente para debugar caso algo dê errado:
-  // const testeSenha = "Jennifer123@";
-  // const hashBDTesteConstrução = criarHashComPepper(testeSenha)
-  // const hashErrado = "6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1";
-  // const testeValido = verificarSenhaComPepper(hashErrado, testeSenha);
-  // const testeValido2 = verificarSenhaComPepper(hashBDTesteConstrução, testeSenha);
+  const testeSenha = "Jennifer123@";
+  const hashBDTesteConstrução = criarHashComPepper(testeSenha)
+  const hashErrado = "6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1";
+  const testeValido = verificarSenhaComPepper(hashErrado, testeSenha);
+  const testeValido2 = verificarSenhaComPepper(hashBDTesteConstrução, testeSenha);
   
-  // console.log("")
-  // console.log("")
-  // console.log("Testes")
+  console.log("")
+  console.log("")
+  console.log("Testes")
   
-  // console.log("Teste manual de verificação:", testeValido);
-  // console.log("Teste manual de verificação:", testeValido2);
+  console.log("Pimenta:", PEPPER);
+  console.log("Teste manual de verificação:", testeValido)
+  console.log("Teste manual de verificação:", testeValido2);
 
-  // console.log("")
-  // console.log("")
-  // console.log("")
+  console.log("")
+  console.log("")
+  console.log("")
 
   senha = senha.trim();
 
