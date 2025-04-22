@@ -138,6 +138,7 @@ function cadastrar() {
 
 
     }
+    
     function editarUsuario(idUsuario, nome, email, senha, cargo, status){
 
     }

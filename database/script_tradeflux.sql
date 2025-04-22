@@ -43,8 +43,8 @@ INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES
 CREATE TABLE IF NOT EXISTS Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
-    email VARCHAR(45),
-    senha VARCHAR(100),
+    email VARCHAR(45) UNIQUE,
+    senha CHAR(161),
     cargo VARCHAR(45),
     ativo TINYINT,
     fkDataCenter INT,
