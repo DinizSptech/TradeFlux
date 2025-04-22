@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-.envdev
+.env.dev
 .env
 APIpython\database.py
 .vscode
