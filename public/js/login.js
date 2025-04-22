@@ -28,21 +28,22 @@ function entrar(){
               sessionStorage.EMAIL_USUARIO = json.email;
               sessionStorage.NOME_USUARIO = json.nome;
               sessionStorage.ID_USUARIO = json.id;
+              sessionStorage.Cargo = json.cargo;
               nivelConta = json.cargo;
   
               if(nivelConta == "administrador") {
                 alert(
-                    "Login realizado com sucesso! Redirecionando para a conta administradora..."
+                    `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`
                   );
-                  window.location.href = "./inicioAdm.html";
+                  window.location.href = "./dashboard_analista.html";
               } else if(nivelConta == "analista") {
                   alert(
-                    "Login realizado com sucesso! Redirecionando para a conta analista!..."
+                    `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta analista!...`
                   );
                   window.location.href = "./dashboard_analista.html";
               } else if(nivelConta == "cientista"){
                     alert(
-                        "Login realizado com sucesso! Redirecionando para a conta Cientista de Dados!..."
+                        `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta Cientista de Dados!...`
                     );
                     window.location.href = "./dashboard_Cientista.html";
               }

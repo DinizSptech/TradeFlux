@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
 );
 
 INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, fkDataCenter) VALUES 
-('Jennifer Silva', 'jennifer.silva@b3.com.br', '6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1', 'administrador', 1, 1);
+('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, 1);
+-- A senha da dondoca é Jennifer123@
 
 SELECT * FROM Usuario_Cliente;
 
