@@ -115,6 +115,7 @@
 
 }
 
+
 .select-container2 {
     width: 50%;
     display: flex;
@@ -124,8 +125,12 @@
   
   }
 
+
   .caracteristicas_servidor{
     color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: bold;
   }
 
   select {

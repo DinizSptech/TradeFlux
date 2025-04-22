@@ -25,12 +25,12 @@ function exibirServidorNoSelect() {
               json.forEach((servidor) => {
                   var option = document.createElement("option");
                   option.value = servidor.idServidor;
-                  option.text = servidor.UUIDServidor;
+                  option.text = `Servidor ${servidor.idServidor}`;
                   selectServidor.add(option);
                   id.push(servidor.idServidor);
                   ram.push(servidor.ramTotal);
                   disco.push(servidor.discoTotal);
-                  cpu.push(servidor.cpuInfo)
+                  cpu.push(servidor.processadorInfo)
                   console.log(ram)
                   console.log(disco)
                   console.log(id)
@@ -46,19 +46,39 @@ function exibirServidorNoSelect() {
 
 }
 
-function exibirCaracteristicas() {
-  var selectServidor = document.getElementById("select_servidor");
-  var servidorSelecionado = selectServidor.value
 
-  for (let i = 0; i < id.length; i++) {
-     if(id[i] == servidorSelecionado){
-      document.getElementById("ram_total").innerHTML = `RAM total: ${ram[i]}GB  |  `
-      document.getElementById("disco_total").innerHTML = `Disco total: ${disco[i]}GB  |  `
-      document.getElementById("cpu").innerHTML = `CPU: ${cpu[i]}`
-      break;
-     }
-      
-  }
+let jaCarregouComponentes = false;
+
+function exibirComponentesNoSelect() {
+    if (jaCarregouComponentes) return; 
+    jaCarregouComponentes = true;
+
+  var selectComponente = document.getElementById("select_componente");
+
+
+  fetch("/componentes/listarComponentes", {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      },
+  }).then(function (resposta) {
+      if (resposta.ok) {
+          resposta.json().then((json) => {
+              json.forEach((Componente) => {
+                  var option = document.createElement("option");
+                  option.value = Componente.idComponente;
+                  option.text = Componente.nomeComponente;
+                  selectComponente.add(option);
+          
+              });
+          });
+      } else {
+          console.log("NÃO deu certo a resposta");
+      }
+  })
+
+
+
 }
 
 
@@ -76,8 +96,12 @@ function exibirCaracteristicas() {
         
     }
 }
-let nomeValidado, servidorValidado, medidaValidado, limiarValidado;
-var nomeAlterado;
+
+
+
+
+let  servidorValidado, componenteValidado, limiarValidado;
+
 
 console.log(nome)
 
@@ -85,58 +109,25 @@ function validarServidor(servidor) {
   servidorValidado = true;
 
   if (servidor == "#") {
-      erros_cadastro_servidor.innerHTML += `<span style="color:red">Preencha o servidor do componente</span><br>`;
+      erros_cadastro_servidor.innerHTML += `<span style="color:red">Selecione um servidor</span><br>`;
     servidorValidado = false;
   }
-
 
   return servidorValidado;
 }
 
-function validarNome(nome) {
-  erros_cadastro_nome.innerHTML = ``;
-  nomeValidado = true;
+function validarComponente(componente) {
+  componenteValidado = true;
 
-  if (nome == "") {
-      erros_cadastro_nome.innerHTML += `<span style="color:red">Preencha o nome do componente</span><br>`;
-    nomeValidado = false;
+  if (componente == "#") {
+      erros_cadastro_componente.innerHTML += `<span style="color:red">Selecione um componente</span><br>`;
+    componenteValidado = false;
   }
 
 
-  return nomeValidado;
+  return componenteValidado;
 }
 
-function validarMedida(medida, nome) {
-  erros_cadastro_medida.innerHTML = ``;
-  medidaValidado = true;
-  nomeAlterado = nome.toLowerCase()
-
-
-  if (medida == "#") {   
-      erros_cadastro_medida.innerHTML += `<span style="color:red">Preencha o campo medida</span><br>`;
-    medidaValidado = false;
-  } else if((medida == "gb" || medida == "bt") && nomeAlterado.includes("cpu")){
-    erros_cadastro_medida.innerHTML += `<span style="color:red">Insira uma medida válida para este componente</span><br>`;
-    medidaValidado = false;
-  } else if(medida == "gz" && (nomeAlterado.includes("ram") || nomeAlterado.includes("disco"))){
-    erros_cadastro_medida.innerHTML += `<span style="color:red">Insira uma medida válida para este componente</span><br>`;
-    medidaValidado = false;
-  } else if (nomeAlterado.includes("ram") && medida == "gb"){
-  nomeAlterado = "RAM_usada"
-  } else if (nomeAlterado.includes("ram") && medida == "pt"){
-  nomeAlterado = "RAM_percentual"
-  } else if (nomeAlterado.includes("disco") && medida == "gb"){
-  nomeAlterado = "Disco_usado"
-  } else if (nomeAlterado.includes("disco") && medida == "pt"){
-  nomeAlterado = "Disco_percentual"
-  } else if (nomeAlterado.includes("cpu") && medida == "gz"){
-  nomeAlterado = "CPU_Frequencia"
-  } else if (nomeAlterado.includes("cpu") && medida == "pt"){
-  nomeAlterado = "CPU_percentual"
-  }
-
-  return {medidaValidado, nomeAlterado};
-}
 
 function validarLimiar(limiar){
   erros_cadastro_limiar.innerHTML = ``;  
@@ -150,25 +141,18 @@ function validarLimiar(limiar){
 }
 
 function cadastrar() {
-  let nome = ipt_nomeComponente.value;
-  let medida = select_medida.value;
   let limiar = ipt_limiar.value;
   let servidor = Number(select_servidor.value);
+  let componente = Number(select_componente.value)
 
   // Validações
-  let nomeValidado = validarNome(nome);
   let servidorValidado = validarServidor(servidor);
   let limiarValidado = validarLimiar(limiar);
-  let resultadoMedida = validarMedida(medida, nome);
-  let medidaValidado = resultadoMedida.medidaValidado;
-  let nomeAlterado = resultadoMedida.nomeAlterado;
+  let componenteValidado = validarComponente(componente)
 
-  if (nomeValidado && servidorValidado && medidaValidado && limiarValidado) {
+
+  if (servidorValidado && limiarValidado && componenteValidado) {
       alert("Cadastro realizado com sucesso!");
-      console.log("Nome: " + nomeAlterado);
-      console.log("Medida: " + medida);
-      console.log("Limiar: " + limiar);
-      console.log("Servidor: " + servidor);
 
       fetch("/componentes/cadastrar", {
           method: "POST",
@@ -176,10 +160,9 @@ function cadastrar() {
               "Content-Type": "application/json",
           },
           body: JSON.stringify({
-              nomeServer: nomeAlterado,
-              medidaServer: medida,
               limiarServer: limiar,
               servidorServer: servidor,
+              componenteServer: componente
           }),
       }).then(function (resposta) {
           if (resposta.ok) {

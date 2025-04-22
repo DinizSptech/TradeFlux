@@ -32,7 +32,7 @@
   </head>
 
   <body onload="carregarMenuLateral(); carregarComponentes(); renderizarModalUsuario()">
-    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
+    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect(); exibirComponentesNoSelect()">
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
@@ -49,35 +49,23 @@
             <span id="disco_total"></span>
             <span id="cpu"></span>
           </div>
-
-          <div class="input">
-            <span>Nome:</span>
-            <input id="ipt_nomeComponente" type="text" />
-          </div>
-          <div class="input">
-            <div class="select-container">
-              <span>Medida</span>
-              <select id="select_medida" name="">
-                <option selected disabled value="#">Selecione uma opção</option>
-                <option value="gb">GB</option>
-                <option value="pt">%</option>
-                <option value="bt">Bytes</option>
-                <option value="gz">GHz</option>
-              </select>
-            </div>
+          <div class="select-container2">
+            <span>Selecione um componente para definir o limiar:</span>
+            <select id="select_componente" name="">
+              <option selected disabled value="#">Selecione um componente</option>
+            </select>
           </div>
           <div class="input">
             <span>Limiar de alerta:</span>
             <input id="ipt_limiar" type="number" />
           </div>
           <div class="buttonCadastrar">
-            <button onclick="cadastrar(); validarNome(); validarServidor(); validarLimiar(); validarMedida()">
+            <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente()">
               Cadastrar
             </button>
           </div>
           <div id="erros_cadastro_servidor"></div>
-          <div id="erros_cadastro_nome"></div>
-          <div id="erros_cadastro_medida"></div>
+          <div id="erros_cadastro_componente"></div>
           <div id="erros_cadastro_limiar"></div>
         </div>
       </div>

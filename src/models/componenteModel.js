@@ -1,22 +1,17 @@
 let database = require("../database/config");
 
-function cadastrar(nome, medida, limiar, servidor) {
+function cadastrar(componente, limiar, servidor) {
   console.log(
     "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
-    nome,
-    medida,
     limiar,
     servidor,
+    componente
   );
 
   let instrucaoSql = `
-        INSERT INTO Componente
-        (componente, medida) VALUES 
-        ('${nome}', '${medida}');
-
         INSERT INTO Parametro_Servidor 
-        (limiar_alerta, fk_Servidor, fk_Componente) VALUES
-        ('${limiar}', '${servidor}', LAST_INSERT_ID());
+        (limiar_alerta, fkServidor, fkComponente) VALUES
+        ('${limiar}', '${servidor}', ${componente});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -34,7 +29,20 @@ function listarServidores() {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
+function listarComponentes() {
+  console.log(
+    "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarComponentes():",
+  );
+
+  let instrucaoSql = `
+        SELECT * FROM Componente;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 module.exports = {
     listarServidores,
-    cadastrar
+    cadastrar,
+    listarComponentes
 };
