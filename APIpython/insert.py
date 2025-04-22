@@ -18,12 +18,13 @@ def inserirData(valor, medida, dataHora, alerta, idParametro):
     exit()       
 
 
-def inserirMaquina(uuidServidor, SO , ramTotal, discoTotal, cpuInfo, idDataCenter):
+def inserirMaquina(uuidServidor, SO , discoTotal, ramTotal, cpuInfo, idDataCenter):
     try:
-     query = (
-    "INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, ramTotal, discoTotal, processadorInfo, fkDataCenter) "
-    "VALUES (%s, %s, %s, %s, %s, %s)")
-     valores = (uuidServidor, SO, ramTotal, discoTotal, cpuInfo, idDataCenter)
+     query = """
+            INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, discoTotal, ramTotal, processadorInfo, fkDataCenter)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """
+     valores = (uuidServidor, SO, discoTotal, ramTotal, cpuInfo, idDataCenter)
      cursor.execute(query, valores)
      mydb.commit()
      print("Máquina inserida no bando de dados\n")
