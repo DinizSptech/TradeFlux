@@ -1,0 +1,28 @@
+.centralMain{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-color: rebeccapurple;
+}
+
+.containerDonut{
+  display: flex;
+  width: 30%;
+  height: 20%;
+  background-color: #2d3348;
+}
+
+.containerDonut img{
+  height: 30px;
+  width: 30px;
+}
+
+.botaoServer{
+  background-color: #414b6e;
+  width: 10px;
+  height: 10px;
+}
+

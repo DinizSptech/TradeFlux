@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,22 +15,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="dashboard_analista.html">
+    <script src="https://cdn.jsdelivr.net/npm/ chart.js"></script>
     <script src="../js/modais.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
+   
 </head>
+
+
 <body onload="carregarMenuLateral(); renderizarModalUsuario();">
     <main class="container-main" id="main_page">
+
         <div id="barralateral" class="barra-lateral">
         </div>
+
         <div class="mainContent">
-            
+            <div class="centralMain">
+            <div class="containerDonut">
+                <img src="../assets/iconram.png" alt="">
+                Uso de Ram
+                <div>
+                    Estável
+                    <div></div>
+                </div>
+            </div>
         </div>
+    </div>
     </main>
+        
 </body>
+
 </html>
+
 <script>
-const ctx = document.getElementById('graficoRAM').getContext('2d');
+// const ctx = document.getElementById('graficoRAM').getContext('2d');
 
 new Chart(ctx, {
         type: 'doughnut', 
