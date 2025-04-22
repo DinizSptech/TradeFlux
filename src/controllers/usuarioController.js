@@ -7,6 +7,33 @@ let usuarioModel = require("../models/usuarioModel");
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
+  
+  const testeSenha = "Jennifer123@";
+  const hashBDTesteConstrução = criarHashComPepper(testeSenha)
+  const hashBD = "6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1";
+  const testeValido = verificarSenhaComPepper(hashBD, testeSenha);
+  const testeValido2 = verificarSenhaComPepper(hashBDTesteConstrução, testeSenha);
+  
+  console.log("")
+  console.log("")
+  console.log("Testes")
+  
+  console.log("Teste manual de verificação:", testeValido);
+  console.log("Teste manual de verificação:", testeValido2);
+
+  console.log("")
+  console.log("")
+  console.log("")
+
+
+  senha = senha.trim();
+
+  const senhaTeste = "Jennifer123@";
+  const senhaHash = criarHashComPepper(senhaTeste);
+  console.log("Senha gerada com hash:", senhaHash);
+  console.log("Verificação bate:", verificarSenhaComPepper(senhaHash, senha));
+
+  console.log("Entrei autenticar")
 
   if (email == undefined) {
     res.status(400).send("Seu email está undefined!");
@@ -21,20 +48,21 @@ function autenticar(req, res) {
         if (resultadoAutenticar.length == 1) {
           console.log(resultadoAutenticar);
 
-          const valido = verificarSenhaComPepper(resultadoAutenticar[0].senha, senha)
+          const senhaBD = resultadoAutenticar[0].senha
+          const valido = verificarSenhaComPepper(senhaBD, senha)
 
           if (valido) {
             res.json({
               id: resultadoAutenticar[0].idUsuario,
               nome: resultadoAutenticar[0].nome,
               email: resultadoAutenticar[0].email,
-              senha: resultadoAutenticar[0].senha,
+              senha: senha,
               cargo: resultadoAutenticar[0].cargo,
               data_center: resultadoAutenticar[0].data_center
             });
           
           } else {
-            res.status(403).send("Email e/ou senha inválido(s)");
+            res.status(403).send("Hash");
           }
 
         } else if (resultadoAutenticar.length == 0) {
@@ -78,10 +106,10 @@ function cadastrar(req, res) {
   }
   else {
 
-    senhaHashirizada = criarHashComPepper(senha)
+    senhaHasheada = criarHashComPepper(senha)
 
     usuarioModel
-      .cadastrar(nome, senhaHashirizada, email, cargo, ativo, data_center)
+      .cadastrar(nome, senhaHasheada, email, cargo, ativo, data_center)
       .then((resultado) => {
         res.status(200).json(resultado);
         res.status(200).send("Usuario cadastrado com sucesso");
@@ -97,8 +125,9 @@ function criarHashComPepper(senha) {
   const salt = crypto.randomBytes(16).toString('hex');
   // Aqui ele tá criando o "Sal", que vamos utilizar pra criar o Hash na const abaixo, pq dessa maneira, sempre será utilizado a String antes de converter, dando mais segurança
   
-  const hash = crypto.scryptSync(senha + PEPPER, salt, 64).toString('hex');
-  // Aqui a gente basicamente cria o "Criptografia", pq entre aspas? Pq isso não é criptografia, basicamente, pelo Hash ser aleatório, a gente vai salvar o hash e dps vai comparar o hash salvo no BD que foi criado utilizando a nossa "pimenta" para ver se bate as duas
+  const hash = crypto.scryptSync(senha + PEPPER, salt, 32).toString('hex');
+  console.log(hash)
+    // Aqui a gente basicamente cria o "Criptografia", pq entre aspas? Pq isso não é criptografia, basicamente, pelo Hash ser aleatório, a gente vai salvar o hash e dps vai comparar o hash salvo no BD que foi criado utilizando a nossa "pimenta" para ver se bate as duas
 
   return `${salt}:${hash}`;
   // Retorna uma string, o : é só um divisor do sal com nosso Hash
@@ -107,10 +136,19 @@ function criarHashComPepper(senha) {
 
 function verificarSenhaComPepper(senhaArmazenada, senhaFornecida) {
   
+  console.log("Senha armazenada:", senhaArmazenada);
+  console.log("Senha fornecida:", senhaFornecida);
+
   const [salt, hash] = senhaArmazenada.split(':');
+  console.log("Salt recuperado:", salt);
+  console.log("Hash original:", hash);
+
   // Ele sepata o Hash que tá lá no BD e separa para gente usar o Salt que ele tem pra criar o novo Hash e validar dps com a criação do Pepper para ver se fununcia
 
-  const hashVerificacao = crypto.scryptSync(senhaFornecida + PEPPER, salt, 64).toString('hex');
+  const hashVerificacao = crypto.scryptSync(senhaFornecida + PEPPER, salt, 32).toString('hex');
+  console.log("Hash gerado para verificação:", hashVerificacao);
+  console.log("Hash original e hash de verificação são iguais?", hash === hashVerificacao);
+
   // aqui criamos o novo Hash 
 
   return hash === hashVerificacao;

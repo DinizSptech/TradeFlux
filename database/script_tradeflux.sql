@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     email VARCHAR(45) UNIQUE,
-    senha CHAR(161),
+    senha VARCHAR(200),
     cargo VARCHAR(45),
     ativo TINYINT,
     fkDataCenter INT,
@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
 );
 
 INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, fkDataCenter) VALUES 
-('Jennifer Silva', 'jennifer.silva@b3.com.br', 'Jennifer123@', 'administrador', 1, 1);
+('Jennifer Silva', 'jennifer.silva@b3.com.br', '6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1', 'administrador', 1, 1);
+
+SELECT * FROM Usuario_Cliente;
 
 CREATE TABLE IF NOT EXISTS Componente (
     idComponente INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,10 +62,7 @@ CREATE TABLE IF NOT EXISTS Componente (
     medida VARCHAR(45)
 );
 
-
 #teste cadastro de componente
-
-
 
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
