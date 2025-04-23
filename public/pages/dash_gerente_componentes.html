@@ -32,7 +32,7 @@
   </head>
 
   <body onload="carregarMenuLateral(); carregarComponentes(); renderizarModalUsuario()">
-    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect(); exibirComponentesNoSelect()">
+    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
@@ -40,7 +40,7 @@
 
           <div class="select-container2">
             <span>Selecione o servidor do Componente:</span>
-            <select id="select_servidor" name="" onchange="exibirCaracteristicas()">
+            <select id="select_servidor" name="" onchange="exibirCaracteristicas(); exibirComponentesNoSelect()">
               <option selected disabled value="#">Selecione uma opção</option>
             </select>
           </div>
@@ -48,6 +48,7 @@
             <span id="ram_total"></span>
             <span id="disco_total"></span>
             <span id="cpu"></span>
+            <span id="so"></span>
           </div>
           <div class="select-container2">
             <span>Selecione um componente para definir o limiar:</span>
@@ -60,7 +61,7 @@
             <input id="ipt_limiar" type="number" />
           </div>
           <div class="buttonCadastrar">
-            <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente()">
+            <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente();">
               Cadastrar
             </button>
           </div>

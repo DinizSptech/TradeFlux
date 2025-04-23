@@ -4,6 +4,7 @@ var id = [];
 var ram = [];
 var disco = [];
 var cpu = [];
+var so = [];
 
 let jaCarregouServidores = false;
 
@@ -31,6 +32,7 @@ function exibirServidorNoSelect() {
                   ram.push(servidor.ramTotal);
                   disco.push(servidor.discoTotal);
                   cpu.push(servidor.processadorInfo)
+                  so.push(servidor.sistemaOperacional)
                   console.log(ram)
                   console.log(disco)
                   console.log(id)
@@ -50,35 +52,54 @@ function exibirServidorNoSelect() {
 let jaCarregouComponentes = false;
 
 function exibirComponentesNoSelect() {
-    if (jaCarregouComponentes) return; 
-    jaCarregouComponentes = true;
 
+
+  var servidor = document.getElementById("select_servidor").value
   var selectComponente = document.getElementById("select_componente");
 
 
-  fetch("/componentes/listarComponentes", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      },
+  fetch(`/componentes/listarComponentes/${servidor}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   }).then(function (resposta) {
-      if (resposta.ok) {
-          resposta.json().then((json) => {
-              json.forEach((Componente) => {
-                  var option = document.createElement("option");
-                  option.value = Componente.idComponente;
-                  option.text = Componente.nomeComponente;
-                  selectComponente.add(option);
-          
-              });
-          });
-      } else {
-          console.log("NÃO deu certo a resposta");
-      }
-  })
+    if (resposta.ok) {
+      resposta.json().then((json) => {
+        const [componentes, parametros] = json;
 
+        selectComponente.innerHTML = "";
 
+        const optionPadrao = document.createElement("option");
+        optionPadrao.disabled = true;
+        optionPadrao.selected = true;
+        optionPadrao.text = "Selecione um componente";
+        optionPadrao.value = "#"; 
 
+        selectComponente.add(optionPadrao);
+
+  
+        componentes.forEach((componente) => {
+          const option = document.createElement("option");
+          option.value = componente.idComponente;
+          option.text = componente.nomeComponente;
+  
+          const jaExiste = parametros.some(
+            (param) => param.fkComponente === componente.idComponente
+          );
+  
+          if (jaExiste) {
+            option.disabled = true;
+            option.text += " (cadastrado)";
+          }
+  
+          selectComponente.add(option);
+        });
+      });
+    } else {
+      console.log("NÃO deu certo a resposta");
+    }
+  });
 }
 
 
@@ -88,9 +109,10 @@ function exibirCaracteristicas() {
 
     for (let i = 0; i < id.length; i++) {
        if(id[i] == servidorSelecionado){
-        document.getElementById("ram_total").innerHTML = `RAM total: ${ram[i]}GB  |  `
-        document.getElementById("disco_total").innerHTML = `Disco total: ${disco[i]}GB  |  `
-        document.getElementById("cpu").innerHTML = `CPU: ${cpu[i]}`
+        document.getElementById("ram_total").innerHTML = `RAM total: ${ram[i]}GB <br>`
+        document.getElementById("disco_total").innerHTML = `Disco total: ${disco[i]}GB <br>`
+        document.getElementById("cpu").innerHTML = `CPU: ${cpu[i]} <br>`
+        document.getElementById("so").innerHTML = `Sistema Operacional: ${so[i]}`
         break;
        }
         

@@ -12,7 +12,7 @@ router.post("/cadastrar", function (req, res) {
     componenteController.cadastrar(req, res);
 })
 
-router.get("/listarComponentes", function (req, res) {
+router.get("/listarComponentes/:servidor", function (req, res) {
     componenteController.listarComponentes(req, res);
 })
 

@@ -40,7 +40,8 @@ function listarServidores(req, res) {
 
 
 function listarComponentes(req, res) {
-    componenteModel.listarComponentes().then((resultado) => {
+  servidor = req.params.servidor
+    componenteModel.listarComponentes(servidor).then((resultado) => {
         res.status(200).json(resultado);
     }).catch(function(erro){
         console.log(erro);
