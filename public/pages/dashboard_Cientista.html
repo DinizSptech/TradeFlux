@@ -4,27 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TradeFlux Dashboard</title>
-  <link rel="stylesheet" href="../css/cientista.css" />
   <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
-    <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
-    <link rel="stylesheet" href="../css/modalPerfil.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+  <link rel="stylesheet" href="../css/modalPerfil.css" />
+  <link rel="stylesheet" href="../css/cientista.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="../js/criacaoMenuLateral.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); mudarAtributoPico(); mudarAtributoProporcao()">
+<body onload="mostrarUltimosAlertas(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); renderizarModalUsuario();gerarGraficoComparacao();gerarGraficoProporcao();gerarGraficoDesempenho()">
   
-  <main class="container-main" id="main_page" onload="renderizarModalUsuario();">
-
+  <main class="container-main" id="main_page">
+    
     <div id="barralateral" class="barra-lateral">
     </div>
-    <div class="main-content">
+    <div class="mainContent">
       <div class="cards">
         <div class="card"  >Alertas <br> Críticos:
           <br>
@@ -95,7 +92,7 @@
       <div id="alertasModalContent"></div>
     </div>
   </div>
-  
+    </div>
   <script src="../js/cientista.js"></script>
 </main>
 </body>

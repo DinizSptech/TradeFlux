@@ -154,7 +154,7 @@ p#ultimos_alertas {
 .grafico-box {
   flex: 1;
   min-width: 380px;
-  max-width: 100%;
+  max-width: 75vw;
   margin: 0 auto;
   padding: 20px;
   background-color: #2D3348;

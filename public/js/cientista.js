@@ -145,11 +145,12 @@ function mudarAtributoPico() {
   valor_pico.style.color = maiorValor >= 90 ? 'red' : maiorValor >= 80 ? 'yellow' : 'white';
 }
 
+var graph_comparacao = null;
+function gerarGraficoComparacao(){
 
-
-var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao'), {
-  type: 'bar',
-  data: {
+  var grafico_comparacoes =new Chart(document.getElementById('grafico_comparacao'), {
+    type: 'bar',
+    data: {
     labels: ['CPU (%)', 'RAM (%)', 'Disco (%)'],
     datasets: [
       { label: 'Servidor 1', data: [23, 87, 60], backgroundColor: 'rgb(0, 123, 255)' },
@@ -200,6 +201,10 @@ var grafico_comparacao = new Chart(document.getElementById('grafico_comparacao')
     }
   }
 });
+graph_comparacao = grafico_comparacoes;
+}
+
+console.log(graph_comparacao)
 
 function mudarAtributoProporcao() {
   var slt_proporcao = document.getElementById("slt_proporcao").value;
@@ -217,90 +222,99 @@ function mudarAtributoProporcao() {
   grafico_proporcao.update();
 }
 
-var grafico_proporcao = new Chart(document.getElementById('grafico_proporcao'), {
-  type: 'pie',
-  data: {
-    labels: ['Servidor 1', 'Servidor 2', 'Servidor 3'],
-    datasets: [{
-      label: 'Uso de recursos',
-      data: [45, 87, 60],
-      backgroundColor: [
-        'rgb(0, 123, 255)',
-        'rgb(255, 99, 133)',
-        'rgb(99, 255, 99)'
-      ]
-    }]
-  },
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          color: 'white',
-          font: {
-            family: 'Segoe UI',
-            size: 14,
-            weight: '600'
+var grafico_proporcao = null
+function gerarGraficoProporcao(){
+  var grafico_proporcao_js = new Chart(document.getElementById('grafico_proporcao'), {
+    type: 'pie',
+    data: {
+      labels: ['Servidor 1', 'Servidor 2', 'Servidor 3'],
+      datasets: [{
+        label: 'Uso de recursos',
+        data: [45, 87, 60],
+        backgroundColor: [
+          'rgb(0, 123, 255)',
+          'rgb(255, 99, 133)',
+          'rgb(99, 255, 99)'
+        ]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: 'white',
+            font: {
+              family: 'Segoe UI',
+              size: 14,
+              weight: '600'
+            }
           }
         }
-      }
-    },
-        },
       },
-    );
+          },
+        },
+      );
 
-var grafico_desempenho = new Chart(document.getElementById('grafico_desempenho'), {
-  type: 'line',
-  data: {
-    labels: ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
-    datasets: [{
-      label: 'Uso médio de (%)',
-      data: [20, 85, 72, 67, 45, 53, 66, 70, 20],
-      borderColor: '#17a2b8',
-      backgroundColor: 'rgba(23,162,184,0.2)',
-      fill: true
-    }]
-  },
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          color: '#fefca4',
-          font: {
-            family: 'Segoe UI',
-            size: 14,
-            weight: '600'
-          }
-        }
-      }
+      grafico_proporcao = grafico_proporcao_js;
+}
+
+var grafico_desempenho = null
+function gerarGraficoDesempenho(){
+  var grafico_desempenhos = new Chart(document.getElementById('grafico_desempenho'), {
+    type: 'line',
+    data: {
+      labels: ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'Uso médio de (%)',
+        data: [20, 85, 72, 67, 45, 53, 66, 70, 20],
+        borderColor: '#17a2b8',
+        backgroundColor: 'rgba(23,162,184,0.2)',
+        fill: true
+      }]
     },
-    scales: {
-      x: {
-        ticks: {
-          color: 'white',
-          font: {
-            family: 'Segoe UI',
-            size: 14,
-            weight: '600'
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fefca4',
+            font: {
+              family: 'Segoe UI',
+              size: 14,
+              weight: '600'
+            }
           }
-        },
-        grid: {
-          color: '#1e3a5f'
         }
       },
-      y: {
-        ticks: {
-          color: 'white',
-          font: {
-            family: 'Segoe UI',
-            size: 14,
-            weight: '600'
+      scales: {
+        x: {
+          ticks: {
+            color: 'white',
+            font: {
+              family: 'Segoe UI',
+              size: 14,
+              weight: '600'
+            }
+          },
+          grid: {
+            color: '#1e3a5f'
           }
         },
-        grid: {
-          color: 'white'
+        y: {
+          ticks: {
+            color: 'white',
+            font: {
+              family: 'Segoe UI',
+              size: 14,
+              weight: '600'
+            }
+          },
+          grid: {
+            color: 'white'
+          }
         }
       }
     }
-  }
-});
+  });
+  grafico_desempenho = grafico_desempenhos;
+}
 
