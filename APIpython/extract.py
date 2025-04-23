@@ -39,6 +39,50 @@ def coletarDiscoUsadoGB():
     disco_usado_gb = disco.used / (1024 ** 3)  # Converte de bytes para GB
     return round(disco_usado_gb, 1)  # Retorna o valor arredondado para 1 casa decimal
 
+import time
+import psutil
+
+import psutil
+import time
+
+
+def coletarProcessos():
+    num_cores = psutil.cpu_count(logical=True)
+
+    # Inicia medição de CPU
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            proc.cpu_percent(interval=None)
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+
+    time.sleep(1)
+
+    processos = []
+    for proc in psutil.process_iter(['pid', 'name', 'memory_percent']):
+        try:
+            nome = proc.info['name']
+            if nome == "System Idle Process":
+                continue
+
+            cpu = proc.cpu_percent(interval=None) / num_cores
+            mem = proc.memory_percent()
+
+            if cpu > 0 or mem > 0:
+                processos.append({
+                    'pid': proc.pid,
+                    'name': nome,
+                    'cpu_percent': round(cpu, 2),
+                    'memory_percent': round(mem, 2)
+                })
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
+
+    processos_ordenados = sorted(processos, key=lambda x: x['cpu_percent'], reverse=True)
+    return processos_ordenados[:10]
+
+
+
 def coletaLocal(idServidor):
     contador = 0
     listaJson = []
@@ -174,7 +218,9 @@ def coletaLocal(idServidor):
                 insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 1, idParametro)
             else:
                 insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
-  
+
+        print(f"Processos em execução: {coletarProcessos()}")
+
         print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("-----------------------------------\n\n")
 
@@ -197,7 +243,7 @@ def coletaLocal(idServidor):
         if disco_usado:
             jsonDados["discoUsadoGB"] = DiscoUsadoGB
 
-
+        jsonDados["processos"] = coletarProcessos()
         listaJson.append(jsonDados)
         if contador == 12:
             print("Criando arquivo JSON...")
