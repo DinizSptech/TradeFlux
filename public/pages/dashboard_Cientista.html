@@ -18,9 +18,9 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="renderizarModalUsuario();mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); mudarAtributoPico(); mudarAtributoProporcao()">
+<body onload="mostrarUltimosAlertas(); mudarAtributoDesempenho(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); mudarAtributoPico(); mudarAtributoProporcao()">
   
-  <main class="container-main" id="main_page">
+  <main class="container-main" id="main_page" onload="renderizarModalUsuario();">
 
     <div id="barralateral" class="barra-lateral">
     </div>
