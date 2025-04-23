@@ -53,17 +53,12 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
 
 INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, fkDataCenter) VALUES 
 ('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, 1);
--- A senha da dondoca é Jennifer123@
-
-SELECT * FROM Usuario_Cliente;
 
 CREATE TABLE IF NOT EXISTS Componente (
     idComponente INT AUTO_INCREMENT PRIMARY KEY,
     nomeComponente VARCHAR(45),
     medida VARCHAR(45)
 );
-
-#teste cadastro de componente
 
 CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
@@ -127,13 +122,11 @@ BEGIN
         VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro);
     END IF;
 END$$
-
-DELIMITER ;
+DELIMITER;
 
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
 CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
 GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
-
 
 DROP USER IF EXISTS 'user_select_tradeflux'@'%';
 CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
@@ -142,7 +135,7 @@ GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
 FLUSH PRIVILEGES;
 
 #deixar componentes chumbados
- INSERT INTO Componente (nomeComponente, medida) VALUES 
+INSERT INTO Componente (nomeComponente, medida) VALUES 
 ('Cpu_Percentual', '%'), 
 ('Cpu_Frequencia',  'GHz'),
 ('Ram_Percentual', '%'),
@@ -160,7 +153,7 @@ FLUSH PRIVILEGES;
 -- (200.0, 1, 6);
 
 
-select * from servidor_cliente;
-select * from captura;
-select * from alerta;
-
+--  select * from servidor_cliente;
+-- select * from captura;
+-- select * from alerta;
+-- select * from usuario_cliente

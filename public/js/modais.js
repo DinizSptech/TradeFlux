@@ -41,7 +41,6 @@ function abrirModal(tipo){
         bg_modal_perfil_completo.style.display = "none";
     }
   }
-
   function renderizarModalUsuario(){
     main_page.innerHTML += `<div class="container_perfil" id="modal_perfil">
       <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
@@ -78,12 +77,14 @@ function abrirModal(tipo){
         <div class="perfil_conteudo">
           <i class="fa-solid fa-circle-user" id="circulo_usuario"></i>
           <div class="div_informacoes" id="seta_usuario">
-            <span class="spn_perfil spn_perfil_nome">Tobias Maria Roberto</span>
-            <span class="spn_perfil">Administrador</span>
+            <span id="nome_usuario" class="spn_perfil spn_perfil_nome">Tobias Maria Roberto</span>
+            <span id="cargo_usuario"class="spn_perfil">Administrador</span>
             <span class="spn_perfil">B3</span>
           </div>
         </div>
         <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
       </div>
     </div>`
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    cargo_usuario.innerHTML = sessionStorage.Cargo;
   }

@@ -27,7 +27,7 @@ function cadastrar(nome, senha, email, cargo, ativo, data_center) {
 
   let instrucaoSql = `
         INSERT INTO Usuario_Cliente 
-        (nome,email,senha,cargo,ativo,fkData_Center) VALUES 
+        (nome,email,senha,cargo,ativo,fkDataCenter) VALUES 
         ('${nome}', '${email}', '${senha}', '${cargo}','${ativo}','${data_center}');
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
