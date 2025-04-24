@@ -1,0 +1,878 @@
+[
+  {
+    "data-hora": "2025-04-24 18:35:58",
+    "percentualCPU": 4.3,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 83.7,
+    "memoriaUsadaGB": 6.2,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.107776,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.31,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 7700,
+        "name": "brave.exe",
+        "cpu_percent": 0.85,
+        "memory_percent": 3.54
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.51,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 9048,
+        "name": "brave.exe",
+        "cpu_percent": 0.46,
+        "memory_percent": 2.9
+      },
+      {
+        "pid": 14456,
+        "name": "brave.exe",
+        "cpu_percent": 0.22,
+        "memory_percent": 5.78
+      },
+      {
+        "pid": 11320,
+        "name": "svchost.exe",
+        "cpu_percent": 0.18,
+        "memory_percent": 0.23
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.14,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 13084,
+        "name": "pwsh.exe",
+        "cpu_percent": 0.13,
+        "memory_percent": 1.27
+      },
+      {
+        "pid": 15600,
+        "name": "ShellHost.exe",
+        "cpu_percent": 0.13,
+        "memory_percent": 1.42
+      },
+      {
+        "pid": 3064,
+        "name": "atieclxx.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:36:13",
+    "percentualCPU": 7.6,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 82.0,
+    "memoriaUsadaGB": 6.1,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 18.780272,
+    "velocidadeUploadMbps": 0.338488,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.16,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 0.79,
+        "memory_percent": 1.79
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.32,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 7700,
+        "name": "brave.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 3.52
+      },
+      {
+        "pid": 8,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 236,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.56
+      },
+      {
+        "pid": 280,
+        "name": "Registry",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.49
+      },
+      {
+        "pid": 752,
+        "name": "AsusSystemAnalysis.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.03
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:36:27",
+    "percentualCPU": 4.2,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.8,
+    "memoriaUsadaGB": 6.1,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.000688,
+    "velocidadeUploadMbps": 0.003168,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.26,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.57,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 11416,
+        "name": "Code.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 3.61
+      },
+      {
+        "pid": 13516,
+        "name": "brave.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 2.4
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 1864,
+        "name": "brave.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 1.12
+      },
+      {
+        "pid": 2612,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 1.37
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 13084,
+        "name": "pwsh.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 1.35
+      },
+      {
+        "pid": 8,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.02
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:36:41",
+    "percentualCPU": 4.3,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.7,
+    "memoriaUsadaGB": 6.1,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 2.738224,
+    "velocidadeUploadMbps": 0.119528,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.29,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 1.18,
+        "memory_percent": 1.77
+      },
+      {
+        "pid": 9048,
+        "name": "brave.exe",
+        "cpu_percent": 0.85,
+        "memory_percent": 2.77
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.7,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.51,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 13516,
+        "name": "brave.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 2.4
+      },
+      {
+        "pid": 2612,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 1.37
+      },
+      {
+        "pid": 13792,
+        "name": "brave.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 15956,
+        "name": "less.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 0.11
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:36:55",
+    "percentualCPU": 6.5,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.8,
+    "memoriaUsadaGB": 6.1,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.06704,
+    "velocidadeUploadMbps": 0.08124,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.21,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.45,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 6220,
+        "name": "mysqld.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.26
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 6248,
+        "name": "brave.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 0.82
+      },
+      {
+        "pid": 15600,
+        "name": "ShellHost.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 1.41
+      },
+      {
+        "pid": 8,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 236,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.56
+      },
+      {
+        "pid": 280,
+        "name": "Registry",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.49
+      },
+      {
+        "pid": 752,
+        "name": "AsusSystemAnalysis.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.03
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:37:09",
+    "percentualCPU": 3.4,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.7,
+    "memoriaUsadaGB": 6.1,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.018992,
+    "velocidadeUploadMbps": 0.039808,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.15,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.51,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.35,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 6220,
+        "name": "mysqld.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.27
+      },
+      {
+        "pid": 7700,
+        "name": "brave.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 3.53
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 1.76
+      },
+      {
+        "pid": 1788,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 4044,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.24
+      },
+      {
+        "pid": 4384,
+        "name": "unsecapp.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.05
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:37:23",
+    "percentualCPU": 5.2,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 80.8,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.052344,
+    "velocidadeUploadMbps": 0.284488,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.2,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.64,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 15956,
+        "name": "less.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 0.11
+      },
+      {
+        "pid": 6220,
+        "name": "mysqld.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 0.27
+      },
+      {
+        "pid": 8760,
+        "name": "Code.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 5.22
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 11416,
+        "name": "Code.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 3.59
+      },
+      {
+        "pid": 15828,
+        "name": "conhost.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 0.1
+      },
+      {
+        "pid": 8,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.02
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:37:38",
+    "percentualCPU": 4.1,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 80.6,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.069904,
+    "velocidadeUploadMbps": 0.068472,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.27,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 1.18,
+        "memory_percent": 1.77
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.88,
+        "memory_percent": 1.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.76,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 9048,
+        "name": "brave.exe",
+        "cpu_percent": 0.76,
+        "memory_percent": 2.64
+      },
+      {
+        "pid": 8408,
+        "name": "explorer.exe",
+        "cpu_percent": 0.34,
+        "memory_percent": 1.89
+      },
+      {
+        "pid": 7700,
+        "name": "brave.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 3.53
+      },
+      {
+        "pid": 13540,
+        "name": "Code.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 1.26
+      },
+      {
+        "pid": 13408,
+        "name": "Code.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 1.4
+      },
+      {
+        "pid": 5680,
+        "name": "svchost.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 0.56
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:37:52",
+    "percentualCPU": 6.7,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.5,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 15.72556,
+    "velocidadeUploadMbps": 0.157056,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.24,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.51,
+        "memory_percent": 1.23
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.35,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 8892,
+        "name": "svchost.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 0.35
+      },
+      {
+        "pid": 1632,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.31
+      },
+      {
+        "pid": 4400,
+        "name": "Code.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.31
+      },
+      {
+        "pid": 5680,
+        "name": "svchost.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 0.56
+      },
+      {
+        "pid": 7700,
+        "name": "brave.exe",
+        "cpu_percent": 0.05,
+        "memory_percent": 3.54
+      },
+      {
+        "pid": 15956,
+        "name": "less.exe",
+        "cpu_percent": 0.04,
+        "memory_percent": 0.11
+      },
+      {
+        "pid": 8,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.02
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:38:06",
+    "percentualCPU": 5.2,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.4,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.085456,
+    "velocidadeUploadMbps": 0.122768,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.29,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 11416,
+        "name": "Code.exe",
+        "cpu_percent": 1.44,
+        "memory_percent": 3.61
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.75,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.69,
+        "memory_percent": 1.23
+      },
+      {
+        "pid": 9152,
+        "name": "brave.exe",
+        "cpu_percent": 0.47,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 13540,
+        "name": "Code.exe",
+        "cpu_percent": 0.36,
+        "memory_percent": 1.26
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 0.33,
+        "memory_percent": 1.78
+      },
+      {
+        "pid": 13408,
+        "name": "Code.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 1.31
+      },
+      {
+        "pid": 2040,
+        "name": "WUDFHost.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.11
+      },
+      {
+        "pid": 1508,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.15
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:38:20",
+    "percentualCPU": 7.7,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.5,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.069576,
+    "velocidadeUploadMbps": 0.213856,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.22,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.44,
+        "memory_percent": 1.23
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 13540,
+        "name": "Code.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 1.26
+      },
+      {
+        "pid": 6220,
+        "name": "mysqld.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.3
+      },
+      {
+        "pid": 11416,
+        "name": "Code.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 3.62
+      },
+      {
+        "pid": 3064,
+        "name": "atieclxx.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 1452,
+        "name": "brave.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 1.73
+      },
+      {
+        "pid": 1508,
+        "name": "svchost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.15
+      },
+      {
+        "pid": 2040,
+        "name": "WUDFHost.exe",
+        "cpu_percent": 0.06,
+        "memory_percent": 0.11
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-24 18:38:35",
+    "percentualCPU": 4.3,
+    "frequenciaCPU": 2.901,
+    "percentualRAM": 81.0,
+    "memoriaUsadaGB": 6.0,
+    "percentualDisco": 61.0,
+    "discoUsadoGB": 141.6,
+    "velocidadeDownloadMbps": 0.002368,
+    "velocidadeUploadMbps": 0.036808,
+    "processos": [
+      {
+        "pid": 11108,
+        "name": "python.exe",
+        "cpu_percent": 3.33,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1892,
+        "name": "dwm.exe",
+        "cpu_percent": 0.44,
+        "memory_percent": 1.23
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.0
+      },
+      {
+        "pid": 4868,
+        "name": "svchost.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 0.24
+      },
+      {
+        "pid": 6220,
+        "name": "mysqld.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 0.3
+      },
+      {
+        "pid": 9844,
+        "name": "Widgets.exe",
+        "cpu_percent": 0.18,
+        "memory_percent": 0.53
+      },
+      {
+        "pid": 11320,
+        "name": "svchost.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 0.23
+      },
+      {
+        "pid": 11416,
+        "name": "Code.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 3.63
+      },
+      {
+        "pid": 1496,
+        "name": "lsass.exe",
+        "cpu_percent": 0.13,
+        "memory_percent": 0.21
+      },
+      {
+        "pid": 13540,
+        "name": "Code.exe",
+        "cpu_percent": 0.13,
+        "memory_percent": 1.26
+      }
+    ]
+  }
+]
