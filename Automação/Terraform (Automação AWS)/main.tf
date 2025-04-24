@@ -17,7 +17,7 @@ resource "aws_instance" "server_producao" {
     instance_type = "t2.micro"
 
     tags = {
-        Name = "InstânciaProduçãoAplicação"
+        Name = "InstânciaBDQuente"
     }
 }
 
@@ -26,7 +26,7 @@ resource "aws_instance" "server_bd" {
     instance_type = "t2.micro"
 
     tags = {
-        Name = "InstânciaProduçãoBD"
+        Name = "InstânciaBDFrio"
     }
 }
 

@@ -3,15 +3,13 @@ document.getElementById("contatoForm").addEventListener("submit", function (even
 
   });
 
-emailjs.init('iFj8pPu2mOXkR1U7D')
-
 function enviarMensagemSuporte() {
     
     var nome = document.getElementById("ipt_nome").value
     var email = document.getElementById("ipt_email").value
     var mensagem = document.getElementById("ipt_mensagem").value
 
-    var templateID = 'template_8nkl193'
+    emailjs.init('iFj8pPu2mOXkR1U7D')
 
     var templateParametros = {
         from_nome: nome,
@@ -19,12 +17,10 @@ function enviarMensagemSuporte() {
         mensagem: mensagem
     };
 
-    emailjs.send(servicoID, templateID, templateParametros)
-
     alert("Mensagem enviada com sucesso, aguarde retorno e um e-mail foi enviado com as informações de sua mensagem")
 
     var servicoID = 'service_uon868g'
-    var templateID = 'template_0m2y3t9'
+    var templateID = 'template_8nkl193'
     
     emailjs.send(servicoID, templateID, templateParametros)
 
