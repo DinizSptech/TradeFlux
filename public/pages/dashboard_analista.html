@@ -41,7 +41,7 @@
                             <input type="checkbox" id="chkServer" oninput="esconderServers()">
                         <label for="chkServer" class="boxSelect" >
 
-                                Servidor 1 <svg id="setinha" width="22" height="13" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <span id="nomeServer"></textarea> <svg id="setinha" width="22" height="13" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.78825 12.5399L0.3417 3.09327C-0.1139 2.63767 -0.1139 1.89903 0.3417 1.44348L1.44349 0.341688C1.89831 -0.113133 2.63545 -0.114009 3.09134 0.339744L10.6132 7.82634L18.135 0.339744C18.5909 -0.114009 19.328 -0.113133 19.7828 0.341688L20.8846 1.44348C21.3402 1.89908 21.3402 2.63772 20.8846 3.09327L11.4381 12.5399C10.9825 12.9954 10.2439 12.9954 9.78825 12.5399Z" fill="#F0F0F0"/>
                                 </svg>
 
@@ -57,42 +57,52 @@
 
                 <div class="donutHolder">
 
-            <div class="containerDonut">
+            <div class="containerDonut" onclick="expandirDash('ram', servidor)">
                 <div class="donutTitle">
                     <img src="../assets/iconram.png" alt="">
                     Uso de Ram
                 </div>
                 <div class="midDonut">
                     <div id="ramStatus" class="statusComp"></div>
-                    <div class="donut" id="graficoRAM"></div>
+                    <div class="donut">
+                        <canvas id="graficoRAM"></canvas>
+                    </div>
                 </div>
             </div>
 
-            <div class="containerDonut">
+            <div class="containerDonut" onclick="expandirDash('disco', servidor)">
                 <div class="donutTitle">
                     <img src="../assets/icondisco.png" alt="">
                     Uso de Disco
                 </div>
                 <div class="midDonut">
                     <div id="discoStatus" class="statusComp"></div>
-                    <div class="donut" id="graficoDisco"></div>
+                    <div class="donut">
+                        <canvas id="graficoDisco"></canvas>
+                    </div>
                 </div>
             </div>
 
-            <div class="containerDonut">
+            <div class="containerDonut" onclick="expandirDash('cpu', servidor)">
                 <div class="donutTitle">
                     <img src="../assets/iconcpu.png" alt="">
                     Uso de CPU
                 </div>
                 <div class="midDonut">
                     <div id="cpuStatus" class="statusComp"></div>
-                    <div class="donut" id="graficoCPU"></div>
+                    <div class="donut">
+                        <canvas id="graficoCPU"></canvas>
+                    </div>
                 </div>
             </div>
 
+
         </div>
 
-       <div></div>
+        <div class="bigDashHolder">
+            <canvas></canvas>
+        </div>
+
 
     </div>
 </div>
@@ -112,71 +122,103 @@
 
 var componente = null
 
-var dados = [
 
+
+var dadosTeste = [{
+    'servidor': 'Servidor 1',
+    'dados': [{
+        'momento': '2025-04-24 13:30:20',
+        "ram": 75,
+        "disco": 60,
+        "cpu": 85 
+    },{
+        'momento': '2025-04-24 13:30:25',
+        "ram": 80,
+        "disco": 55,
+        "cpu": 90 
+    }
+]
+},{
+    'servidor': 'Servidor 1',
+    'dados': [{
+        'momento': '2025-04-24 13:30:20',
+        "ram": 75,
+        "disco": 60,
+        "cpu": 85 
+    },{
+        'momento': '2025-04-24 13:30:25',
+        "ram": 80,
+        "disco": 55,
+        "cpu": 90 
+    }
+]
+},]
+
+
+
+var dados = [
 
     {
         "servidor": "Servidor 1",
-        "ram": 75,
-        "disco": 60,
-        "cpu": 85
+        "RAM": 75,
+        "Disco": 60,
+        "CPU": 85
     },
     {
         "servidor": "Servidor 2",
-        "ram": 40,
-        "disco": 90,
-        "cpu": 55
+        "RAM": 40,
+        "Disco": 90,
+        "CPU": 55
     },
     {
         "servidor": "Servidor 3",
-        "ram": 65,
-        "disco": 70,
-        "cpu": 80
+        "RAM": 65,
+        "Disco": 70,
+        "CPU": 80
     },
     {
         "servidor": "Servidor 4",
-        "ram": 30,
-        "disco": 50,
-        "cpu": 95
+        "RAM": 30,
+        "Disco": 50,
+        "CPU": 95
     },
     {
         "servidor": "Servidor 5",
-        "ram": 85,
-        "disco": 40,
-        "cpu": 60
+        "RAM": 85,
+        "Disco": 40,
+        "CPU": 60
     },
     {
         "servidor": "Servidor 6",
-        "ram": 55,
-        "disco": 75,
-        "cpu": 45
+        "RAM": 55,
+        "Disco": 75,
+        "CPU": 45
     },
     {
         "servidor": "Servidor 7",
-        "ram": 20,
-        "disco": 65,
-        "cpu": 70
+        "RAM": 20,
+        "Disco": 65,
+        "CPU": 70
     },
     {
         "servidor": "Servidor 8",
-        "ram": 90,
-        "disco": 30,
-        "cpu": 50
+        "RAM": 90,
+        "Disco": 30,
+        "CPU": 50
     },
     {
         "servidor": "Servidor 9",
-        "ram": 10,
-        "disco": 80,
-        "cpu": 95
+        "RAM": 10,
+        "Disco": 80,
+        "CPU": 95
     },
     {
         "servidor": "Servidor 10",
-        "ram": 50,
-        "disco": 55,
-        "cpu": 40
+        "RAM": 50,
+        "Disco": 55,
+        "CPU": 40
     }
 ]
-
 
 carregarServers()
 selecionarServer(0)
@@ -207,133 +249,145 @@ function carregarServers(){
     var disco = document.getElementById('discoStatus')
 
     function selecionarServer(index){
-      var servidor = dados[index]
-      if (servidor.cpu > 80){
-          document.getElementById('cpuStatus').innerHTML = `<b style='color: red;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
+        var servidor = dados[index]
+        document.getElementById('nomeServer').innerHTML = servidor.servidor
+      if (servidor.CPU > 80){
+          document.getElementById('cpuStatus').innerHTML = `<b style='color: #af0707;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
+        criarGrafico('CPU','critico', servidor)
         
-      } else if (servidor.cpu > 60){
-        document.getElementById('cpuStatus').innerHTML = `<b style='color: yellow;'> Perigo! </b><svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
-      } else {
-        document.getElementById('cpuStatus').innerHTML = `<b style='color: lime;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+      } else if (servidor.CPU > 60){
+          document.getElementById('cpuStatus').innerHTML = `<b style='color: #dda120;'> Perigo! </b><svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
+          criarGrafico('CPU','perigoso', servidor)
+        } else {
+            document.getElementById('cpuStatus').innerHTML = `<b style='color: #4fb142;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+            criarGrafico('CPU','estavel', servidor)
       }
 
-      if (servidor.ram > 80){
-        document.getElementById('ramStatus').innerHTML = `<b style='color: red;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
-      } else if (servidor.ram > 60){
-        document.getElementById('ramStatus').innerHTML = `<b style='color: yellow;'> Perigo! </b><svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
-      } else {
-        document.getElementById('ramStatus').innerHTML = `<b style='color: lime;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+      if (servidor.RAM > 80){
+          document.getElementById('ramStatus').innerHTML = `<b style='color: #af0707;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
+        criarGrafico('RAM','critico', servidor)
+      } else if (servidor.RAM > 60){
+          document.getElementById('ramStatus').innerHTML = `<b style='color: #dda120;'> Perigo! </b><svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
+          criarGrafico('RAM','perigoso', servidor)
+        } else {
+            document.getElementById('ramStatus').innerHTML = `<b style='color: #4fb142;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+            criarGrafico('RAM','estavel', servidor)
       }
 
-      if (servidor.disco > 80){
-        document.getElementById('discoStatus').innerHTML = `<b style='color: red;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
-      } else if (servidor.disco > 60){
-        document.getElementById('discoStatus').innerHTML = `<b style='color: yellow;'> Perigo! </b> <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
-      } else {
-        document.getElementById('discoStatus').innerHTML = `<b style='color: lime;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+      if (servidor.Disco > 80){
+          document.getElementById('discoStatus').innerHTML = `<b style='color: #af0707;'> Crítico! </b> <svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.7771 1.63237C14.7771 0.00414831 12.6803 -0.609513 11.7567 0.740268C3.28381 13.125 15.3244 13.6826 15.3244 19.7029C15.3244 22.1404 13.3329 24.1128 10.8879 24.0806C8.4818 24.0498 6.56762 22.044 6.56762 19.6379V13.7879C6.56762 12.3034 4.75673 11.583 3.73328 12.6591C1.90187 14.5829 0 17.8783 0 21.8921C0 29.1349 5.89238 35.0273 13.1352 35.0273C20.3781 35.0273 26.2705 29.1349 26.2705 21.8921C26.2705 10.2421 14.7771 8.68845 14.7771 1.63237Z" fill="#FF0000"/> </svg> `
+        criarGrafico('Disco','critico', servidor)
+      } else if (servidor.Disco > 60){
+          document.getElementById('discoStatus').innerHTML = `<b style='color: #dda120;'> Perigo! </b> <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.5611 29.7925C39.8108 31.9588 38.2421 34.6667 35.7459 34.6667H3.25367C0.752733 34.6667 -0.808756 31.9546 0.438566 29.7925L16.6849 1.62398C17.9353 -0.543291 21.067 -0.539364 22.3151 1.62398L38.5611 29.7925ZM19.5 23.9687C17.7799 23.9687 16.3854 25.3632 16.3854 27.0833C16.3854 28.8035 17.7799 30.1979 19.5 30.1979C21.2201 30.1979 22.6146 28.8035 22.6146 27.0833C22.6146 25.3632 21.2201 23.9687 19.5 23.9687ZM16.543 12.7734L17.0452 21.9818C17.0687 22.4127 17.425 22.75 17.8565 22.75H21.1435C21.575 22.75 21.9313 22.4127 21.9548 21.9818L22.457 12.7734C22.4824 12.308 22.1119 11.9167 21.6458 11.9167H17.3542C16.8881 11.9167 16.5176 12.308 16.543 12.7734Z" fill="#FFC601"/> </svg> `
+          criarGrafico('Disco','perigoso', servidor)
+        } else {
+            document.getElementById('discoStatus').innerHTML = `<b style='color: #4fb142;'>Estável! </b> <svg width="51" height="35" viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16699 18.8495L17.6798 29.6458L45.8337 5.35413" stroke="#41E441" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> </svg> `
+            criarGrafico('Disco','estavel', servidor)
       }
     }
     
-    function expandirDash(componente, index){
+    function expandirDash(componente, servidor){
         
     }
 
-    function criarGraficoRAM(nivel){
+var vetorGrafico = {
+    'CPU' : null,
+    'RAM' : null,
+    'Disco' : null
+}
+
+    function criarGrafico(componente, nivel, servidor){
+
+        console.log(servidor)
+        if (vetorGrafico[componente] instanceof Chart){
+            vetorGrafico[componente].destroy()
+        }
+
+        var idGrafico = document.getElementById(`grafico${componente}`)
+        var existe = idGrafico.getContext('2d')
         var cor
         if (nivel == 'critico'){
-         cor = '#ff0000'
+         cor = '#7c2e2e'
         } else if (nivel == 'estavel'){
-            cor = '#00ff00'
+            cor = '#406940'
         } else {
-            cor = '#ffff00'
+            cor = '#dda120'
         }
-        new Chart(document.getElementById('graficoRAM'), {
+        vetorGrafico[id] = new Chart(idGrafico, {
             type: 'doughnut', 
             data: {
                 labels: ['Usado', 'Disponível'],
                 datasets: [{
-                    data: [70, 30], 
-                    backgroundColor: ['#ff6384', '#36a2eb']
+                    data: [servidor[componente], 100 - servidor[componente]], 
+                    backgroundColor: [cor, '#0e2144'],
+                    borderWidth: 0
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: 'white' // Define a cor do texto das labels para branco
-                        }
-                    }
+                    legend: false
                 }
             }
         });
     }
 
-    function criarGraficoCPU(nivel){
-        var cor
-        if (nivel == 'critico'){
-         cor = '#ff0000'
-        } else if (nivel == 'estavel'){
-            cor = '#00ff00'
-        } else {
-            cor = '#ffff00'
-        }
-        new Chart(document.getElementById('graficoCPU'), {
-            type: 'doughnut', 
-        data: {
-            labels: ['Usado', 'Disponível'],
-            datasets: [{
-                data: [40, 60], 
-                backgroundColor: ['#ff6384', '#36a2eb']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: 'white' // Define a cor do texto das labels para branco
-                    }
-                }
-            }
-        }
-    });
-}
+//     function criarGraficoCPU(nivel, servidor){
+//         var cor
+//         if (nivel == 'critico'){
+//          cor = '#ff0000'
+//         } else if (nivel == 'estavel'){
+//             cor = '#00ff00'
+//         } else {
+//             cor = '#ffff00'
+//         }
+//         new Chart(document.getElementById('graficoCPU'), {
+//             type: 'doughnut', 
+//         data: {
+//             labels: ['Usado', 'Disponível'],
+//             datasets: [{
+//                 data: [40, 60], 
+//                 backgroundColor: [cor, '#0e2144'],
+//                 borderWidth: 0
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 legend: false
+//             }
+//         }
+//     });
+// }
 
-function criarGraficoDisco(nivel){
-    var cor
-    if (nivel == 'critico'){
-         cor = '#ff0000'
-    } else if (nivel == 'estavel'){
-        cor = '#00ff00'
-    } else {
-        cor = '#ffff00'
-    }
+// function criarGraficoDisco(nivel, servidor){
+//     var cor
+//     if (nivel == 'critico'){
+//          cor = '#ff0000'
+//     } else if (nivel == 'estavel'){
+//         cor = '#00ff00'
+//     } else {
+//         cor = '#ffff00'
+//     }
     
-    new Chart(document.getElementById('graficoDisco'), {
-        type: 'doughnut', 
-        data: {
-            labels: ['Usado', 'Disponível'],
-            datasets: [{
-                data: [20, 80], 
-                backgroundColor: ['#ff6384', '#36a2eb']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: 'white' // Define a cor do texto das labels para branco
-                    }
-                }
-            }
-        }
-    });
-}
+//     new Chart(document.getElementById('graficoDisco'), {
+//         type: 'doughnut', 
+//         data: {
+//             labels: ['Usado', 'Disponível'],
+//             datasets: [{
+//                 data: [20, 80], 
+//                 backgroundColor: [cor, '#0e2144'],
+//                 borderWidth: 0
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 legend: false
+//             }
+//         }
+//     });
+// }
 
 
 </script>

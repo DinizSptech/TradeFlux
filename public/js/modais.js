@@ -85,5 +85,4 @@ function abrirModal(tipo){
         <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
       </div>
     </div>`
-    
-  }
+ }

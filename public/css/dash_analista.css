@@ -27,13 +27,13 @@
   height: 100%;
   background-color: #2d3348;
   border-radius: 20px;
-  padding: 8px;
-  padding-bottom: 12px;
+  padding: 1%;
+  padding-bottom: 1.5%;
 }
 
 .containerDonut img{
-  height: 40px;
-  width: 40px;
+  width: 2vw;
+  height: auto;
 }
 
 .donutHolder{
@@ -76,6 +76,8 @@
 .donut{
   width: 50%;
   height: 100%;
+  padding: 2%;
+  /* background-color: #af0707; */
 }
 
 
@@ -145,4 +147,15 @@ input[type=checkbox]:checked + label{
   justify-content: center;
   align-items: center;
   
+}
+
+.bigDashHolder{
+  width: 100%;
+  height: 100%;
+  background-color: #2d3348;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin: 25px;
 }
