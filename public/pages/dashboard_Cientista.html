@@ -15,7 +15,7 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarUltimosAlertas(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); renderizarModalUsuario();gerarGraficoComparacao();gerarGraficoProporcao();gerarGraficoDesempenho()">
+<body onload="mostrarRankingServidores(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); renderizarModalUsuario();gerarGraficoComparacao();gerarGraficoProporcao();gerarGraficoDesempenho()">
   
   <main class="container-main" id="main_page">
     
@@ -23,12 +23,12 @@
     </div>
     <div class="mainContent">
       <div class="cards">
-        <div class="card"  >Alertas <br> Críticos:
+        <div class="card"  >Alertas Críticos:
           <br>
           <div id="alertas_criticos"></div>
         </div>
         
-        <div class="card" >Alertas <br> Moderados:
+        <div class="card" >Alertas Moderados:
           <br> 
           <div id="alertas_atencao"></div>
         </div>
@@ -49,6 +49,20 @@
             <h3>Comparativo média de cada componente entre servidores</h3>
             <canvas id="grafico_comparacao"></canvas>
           </div>
+
+          <div class="grafico-box">
+            <h3>Ranking de uso médio de:
+              <select id="slt_ranking" onchange="mudarAtributoRanking()">
+                <option selected value="cpu">CPU (%)</option>
+                <option value="ram">RAM (%)</option>
+                <option value="disco">DISCO (%)</option>
+              </select>
+            </h3>
+            <div id="ranking_servidores"></div>
+          </div>
+          
+        </div>
+        <div class="grafico-linha">
           
           <div class="grafico-box">
             <h3>Proporção média de uso de 
@@ -62,13 +76,7 @@
           </h3>
           <canvas id="grafico_proporcao"></canvas>
         </div>
-        
-        <div class="grafico-linha">
-          <div class="grafico-box">
-            <h3>Ultimos Alertas</h3>
-            <p id="ultimos_alertas"></p>
-          </div>
-          
+
           <div class="grafico-box">
             <h3>Média de desempenho de
               <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">

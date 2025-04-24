@@ -66,16 +66,52 @@ function mudarAtributoDesempenho() {
   grafico_desempenho.update();
 }
 
-function mostrarUltimosAlertas() {
-  var ultimos = document.getElementById("ultimos_alertas");
-  ultimos.innerHTML = '';
-  for (var i = 0; i < 3 && i < alertas.length; i++) {
-    let cor = alertas[i].nivel === 'crítico' ? 'red' : 'yellow';
-    ultimos.innerHTML += `
-      <span style="color: ${cor}; font-weight: bold;">${alertas[i].nivel.toUpperCase()}</span>
-      - Alerta de <b>${alertas[i].componente}</b> no ${alertas[i].servidor}: <b style="color: ${cor};">${alertas[i].valor}%</b> em ${alertas[i].data}<br>
+function mostrarRankingServidores() {
+  const rankingContainer = document.getElementById("ranking_servidores");
+  const tipoRanking = document.getElementById("slt_ranking").value;
+  
+  const servidores = [
+    { nome: "Server_1", cpu: 87, ram: 76, disco: 58 },
+    { nome: "Server_2", cpu: 44, ram: 42, disco: 57 },
+    { nome: "Server_3", cpu: 36, ram: 35, disco: 43 }
+  ];
+  
+  servidores.sort((a, b) => b[tipoRanking] - a[tipoRanking]);
+  
+  rankingContainer.innerHTML = '';
+  
+  let table = `
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Servidor</th>
+          <th>(%)</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+  
+  servidores.forEach((servidor, index) => {
+    table += `
+      <tr>
+        <td>${index + 1}º</td>
+        <td>${servidor.nome}</td>
+        <td>${servidor[tipoRanking]}%</td>
+      </tr>
     `;
-  }
+  });
+  
+  table += `
+      </tbody>
+    </table>
+  `;
+  
+  rankingContainer.innerHTML = table;
+}
+
+function mudarAtributoRanking() {
+  mostrarRankingServidores();
 }
 
 function contarAlertasCriticos(){
@@ -137,10 +173,9 @@ function mudarAtributoPico() {
   }
 
   var alertaPico = alertascomponente.find(a => a.valor === maiorValor);
-  valor_pico.innerHTML = `<spam style="font-size: 50px;">
-    ${maiorValor}%</spam><br>
-    <p style="font-size: 15px;">Servidor: ${alertaPico.servidor}<br>
-    Data/Hora: ${alertaPico.data}</p>
+  valor_pico.innerHTML = `<span>
+    ${maiorValor}%</span><br>
+    
   `;
   valor_pico.style.color = maiorValor >= 90 ? 'red' : maiorValor >= 80 ? 'yellow' : 'white';
 }
