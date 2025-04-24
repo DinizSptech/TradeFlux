@@ -42,7 +42,7 @@ function abrirModal(tipo){
     }
   }
   function renderizarModalUsuario(){
-    main_page.innerHTML += `<div class="container_perfil" id="modal_perfil">
+    sistema_modais.innerHTML += `<div class="container_perfil" id="modal_perfil">
       <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
       <span class="barraVertical"></span>
       <div class="button_perfil" onclick="abrirModal('perfil')">

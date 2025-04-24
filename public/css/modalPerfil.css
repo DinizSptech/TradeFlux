@@ -1,4 +1,11 @@
 
+#sistema_modais{
+    display: flex;
+    background-color: #0aa3a9;
+    height: auto;
+    width: auto;
+    z-index: 5;
+}
 .container_perfil{
     width: 12vw;
     height: 8vh;
