@@ -95,7 +95,7 @@ function validarCep(cep) {
         console.log("numero: " + numero)
         console.log("complemento: " + complemento)
 
-        fetch("/unidades/cadastrar", {
+        fetch("/dataCenter/cadastrar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -126,17 +126,5 @@ function validarCep(cep) {
             }
           });
         }
-
-
+        
     } 
-    
-  
-
-
-
-
-
-
-
-
-

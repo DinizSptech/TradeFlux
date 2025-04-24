@@ -3,7 +3,6 @@ var router = express.Router();
 
 var componenteController = require("../controllers/componenteController");
 
-
 router.get("/listarServidores", function (req, res) {
     componenteController.listarServidores(req, res);
 })
@@ -15,7 +14,5 @@ router.post("/cadastrar", function (req, res) {
 router.get("/listarComponentes/:servidor", function (req, res) {
     componenteController.listarComponentes(req, res);
 })
-
-
 
 module.exports = router;

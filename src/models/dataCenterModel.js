@@ -1,0 +1,29 @@
+var database = require("../database/config");
+
+function cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complemento) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
+    nome,
+    logradouro,
+    bairro,
+    cidade,
+    uf,
+    numero,
+    cep,
+    complemento,
+  );
+
+  let instrucaoSql = `
+       INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
+        ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${cidade}', '${estado}', '${complemento}');
+
+        INSERT INTO Data_Center (nome, fk_endereco, fk_cliente) VALUES
+        ('${nome}', LAST_INSERT_ID(), 1);
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+module.exports = {
+  cadastrar,
+};
