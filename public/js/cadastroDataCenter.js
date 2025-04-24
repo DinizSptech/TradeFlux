@@ -1,6 +1,6 @@
 let nome = document.getElementById("ipt_nome")
 let cep = document.getElementById("ipt_cep") 
-let estado = document.getElementById("ipt_estado")
+let uf = document.getElementById("ipt_uf")
 let cidade = document.getElementById("ipt_cidade")
 let bairro = document.getElementById("ipt_bairro")
 let logradouro = document.getElementById("ipt_logradouro")
@@ -37,7 +37,7 @@ function validarCep(cep) {
           document.getElementById("ipt_logradouro").value = data.logradouro;
           document.getElementById("ipt_bairro").value = data.bairro;
           document.getElementById("ipt_cidade").value = data.localidade;
-          document.getElementById("ipt_estado").value = data.uf;
+          document.getElementById("ipt_uf").value = data.uf;
         })
         .catch((error) => console.error("Erro ao buscar CEP:", error));
     }
@@ -72,7 +72,7 @@ function validarCep(cep) {
     if (nomeValido && cepValido && numeroValido) {
         nome = document.getElementById("ipt_nome").value
         cep = document.getElementById("ipt_cep").value
-        estado = document.getElementById("ipt_estado").value
+        uf = document.getElementById("ipt_uf").value
         cidade = document.getElementById("ipt_cidade").value
         bairro = document.getElementById("ipt_bairro").value
         logradouro = document.getElementById("ipt_logradouro").value
@@ -88,7 +88,7 @@ function validarCep(cep) {
         console.log("Dados do Data Center:")
         console.log("nome: " + nome)
         console.log("cep: " + cep)
-        console.log("estado: " + estado)
+        console.log("uf: " + uf)
         console.log("cidade: " + cidade)
         console.log("bairro: " + bairro)
         console.log("logradouro: " + logradouro)
@@ -102,14 +102,14 @@ function validarCep(cep) {
             },
             body: JSON.stringify({
                 nomeServer: nome,
-                cepServer: cep,
-                estadoServer: estado,
-                cidadeServer: cidade,
-                bairroServer: bairro,
                 logradouroServer: logradouro,
+                bairroServer: bairro,
+                cidadeServer: cidade,
+                ufServer: uf,
                 numeroServer: numero,
                 complementoServer: complemento,
-            })
+                cepServer: cep,
+              })
           }).then(function (resposta) {
             if (resposta.ok) {
               console.log(resposta);
