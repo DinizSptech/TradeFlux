@@ -27,6 +27,12 @@ public class Stock {
     @JsonProperty("discoUsadoGB")
     private double discoUsadoGB;
 
+    @JsonProperty("velocidadeDownloadMbps")
+    private double velocidadeDownloadMbps;
+
+    @JsonProperty("velocidadeUploadMbps")
+    private double velocidadeUploadMbps;
+
     // Getters e setters
     public String getDataHora() {
         return dataHora;
@@ -82,5 +88,21 @@ public class Stock {
 
     public void setDiscoUsadoGB(double discoUsadoGB) {
         this.discoUsadoGB = discoUsadoGB;
+    }
+
+    public double getVelocidadeDownloadMbps() {
+        return velocidadeDownloadMbps;
+    }
+
+    public void setVelocidadeDownloadMbps(double velocidadeDownloadMbps) {
+        this.velocidadeDownloadMbps = velocidadeDownloadMbps;
+    }
+
+    public double getVelocidadeUploadMbps() {
+        return velocidadeUploadMbps;
+    }
+
+    public void setVelocidadeUploadMbps(double velocidadeUploadMbps) {
+        this.velocidadeUploadMbps = velocidadeUploadMbps;
     }
 }

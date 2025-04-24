@@ -14,7 +14,7 @@ public class CsvWriter {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
         CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Data Hora", "CPU Percentual", "CPU Frequência",
-                "RAM Percentual", "Memória Usada (GB)", "Disco Percentual", "Disco Usado (GB)"));
+                "RAM Percentual", "Memória Usada (GB)", "Disco Percentual", "Disco Usado (GB)", "Velocidade Download (Mbps)", "Velocidade Upload (Mbps)"));
 
         // Processar e escrever cada objeto no CSV
         for(Stock stock : stocks) {
@@ -25,7 +25,9 @@ public class CsvWriter {
             stock.getPercentualRAM(),
             stock.getMemoriaUsadaGB(),
             stock.getPercentualDisco(),
-            stock.getDiscoUsadoGB()
+            stock.getDiscoUsadoGB(),
+            stock.getVelocidadeDownloadMbps(),
+            stock.getVelocidadeUploadMbps()
             );
         }
 
