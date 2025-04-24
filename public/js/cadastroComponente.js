@@ -56,7 +56,7 @@ function exibirComponentesNoSelect() {
 
   var servidor = document.getElementById("select_servidor").value
   var selectComponente = document.getElementById("select_componente");
-
+  var componentesNomes = ['CPU Percentual (%)', 'CPU Frequência (GHz)', 'RAM Percentual (%)', 'RAM Usada (GB)', 'Disco Percentual (%)', 'Disco Usado (GB)']
 
   fetch(`/componentes/listarComponentes/${servidor}`, {
     method: "GET",
@@ -79,10 +79,10 @@ function exibirComponentesNoSelect() {
         selectComponente.add(optionPadrao);
 
   
-        componentes.forEach((componente) => {
+        componentes.forEach((componente, index) => {
           const option = document.createElement("option");
           option.value = componente.idComponente;
-          option.text = componente.nomeComponente;
+          option.text = componentesNomes[index];
   
           const jaExiste = parametros.some(
             (param) => param.fkComponente === componente.idComponente
@@ -174,7 +174,6 @@ function cadastrar() {
 
 
   if (servidorValidado && limiarValidado && componenteValidado) {
-      alert("Cadastro realizado com sucesso!");
 
       fetch("/componentes/cadastrar", {
           method: "POST",
@@ -188,15 +187,21 @@ function cadastrar() {
           }),
       }).then(function (resposta) {
           if (resposta.ok) {
+            exibirComponentesNoSelect()
+            alert("Cadastro realizado com sucesso!");
               console.log("Cadastrado no BD com sucesso.");
               resposta.json().then((json) => {
                   console.log(json);
               });
           } else {
               console.log("Erro ao cadastrar no BD.");
+              alert("Erro ao cadastrar!");
           }
       });
   }
+
+
+  
 }
 
 
