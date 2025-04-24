@@ -39,12 +39,6 @@ def coletarDiscoUsadoGB():
     disco_usado_gb = disco.used / (1024 ** 3)  # Converte de bytes para GB
     return round(disco_usado_gb, 1)  # Retorna o valor arredondado para 1 casa decimal
 
-import time
-import psutil
-
-import psutil
-import time
-
 
 def coletarProcessos():
     num_cores = psutil.cpu_count(logical=True)
@@ -81,6 +75,25 @@ def coletarProcessos():
     processos_ordenados = sorted(processos, key=lambda x: x['cpu_percent'], reverse=True)
     return processos_ordenados[:10]
 
+def coletarVelocidadeDownload():
+    antes = psutil.net_io_counters()
+    time.sleep(1)
+    depois = psutil.net_io_counters()
+
+    bytes_recebidos = depois.bytes_recv - antes.bytes_recv
+    velocidade_mbps = (bytes_recebidos * 8) / 1_000_000  # bits para Megabits
+
+    return velocidade_mbps
+
+def coletarVelocidadeUpload():
+    antes = psutil.net_io_counters()
+    time.sleep(1)
+    depois = psutil.net_io_counters()
+
+    bytes_enviados = depois.bytes_sent - antes.bytes_sent
+    velocidade_mbps = (bytes_enviados * 8) / 1_000_000  # bits para Megabits
+
+    return velocidade_mbps
 
 
 def coletaLocal(idServidor):
@@ -219,6 +232,8 @@ def coletaLocal(idServidor):
             else:
                 insert.inserirData(DiscoUsadoGB, 'GB', momento.strftime("%Y-%m-%d %H:%M:%S"), 0, idParametro)
 
+        print(f"Velocidade de download: {coletarVelocidadeDownload()} Mbps")
+        print(f"Velocidade de upload: {coletarVelocidadeUpload()} Mbps")
         print(f"Processos em execução: {coletarProcessos()}")
 
         print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -243,6 +258,8 @@ def coletaLocal(idServidor):
         if disco_usado:
             jsonDados["discoUsadoGB"] = DiscoUsadoGB
 
+        jsonDados["velocidadeDownloadMbps"] = coletarVelocidadeDownload()
+        jsonDados["velocidadeUploadMbps"] = coletarVelocidadeUpload()
         jsonDados["processos"] = coletarProcessos()
         listaJson.append(jsonDados)
         if contador == 12:
