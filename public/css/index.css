@@ -12,7 +12,7 @@ body {
   justify-content: center;
   display: flex;
   flex-direction: column;
-  background-color: #000957;
+  background-color: #23283a;
 }
 
 .header-left {
@@ -22,7 +22,7 @@ body {
   height: 100%;
   width: 65px;
   z-index: 10;
-  background-color: #e0a30a;
+  background-color: #00c2a8;
 }
 
 .banner {
@@ -42,7 +42,7 @@ body {
 }
 
 .contato {
-  background-color: #e0a30a;
+  background-color: #00c2a8;
   border-radius: 15px;
   text-align: center;
   align-items: center;
@@ -93,7 +93,7 @@ a {
 }
 
 .header h3:hover {
-  color: #e0a30a;
+  color: #00c2a8;
 }
 
 .nav-underline {
@@ -134,14 +134,14 @@ a {
 }
 
 .texto-laranja {
-  color: #e0a30a;
+  color: #00c2a8;
 }
 
 .container button {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #e0a30a;
+  background-color: #00c2a8;
   border: none;
   font-weight: 600;
   display: flex;
@@ -207,7 +207,7 @@ h1 {
   align-items: center;
   height: 85vh;
   width: 65%;
-  background-color: #000957;
+  background-color: #23283a;
   align-self: center;
 }
 
@@ -273,7 +273,7 @@ h1 {
 
 .espacamento {
   height: 3vh;
-  background-color: #e0a30a;
+  background-color: #00c2a8;
 }
 
 /*  CADASTRO  */
@@ -282,7 +282,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000957;
+  background-color: #23283a;
 }
 
 .contatenos {
@@ -613,7 +613,7 @@ textarea {
     height: 100%;
     width: 40px;
     z-index: 10;
-    background-color: #e0a30a;
+    background-color: #00c2a8;
   }
 
   .banner {
