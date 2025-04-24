@@ -35,7 +35,7 @@
     <main class="container-main" id="main_page">
       
       <div class="bgForm" id="bg_formulario">
-        <div class="formUsuario">
+        <div class="formUsuario" id="div_formulario">
           <i
             onclick="fecharModal('cadastro')"
             class="fechar fa-solid fa-xmark"
@@ -49,15 +49,14 @@
             <span>CEP:</span>
             <input id="ipt_cep" type="text" />
           </div>
-
-          <div class="input">
-            <span>Quantidade de Servidores:</span>
-            <input id="ipt_qtdComponentesAdicao" type="text" />
-          </div>
           <div class="buttonCadastrar">
-            <button onclick="adicionarServidor(); fecharModal('cadastro')">
-              Cadastrar
+            <button onclick="adicionarServidor()" id="botaoCadastro">
+              Verificar CEP
             </button>
+            <button onclick="adicionarServidor()" id="botaoCadastro2">
+              Salvar DataCenter
+            </button>
+            <!-- Deixar o Segundo invisível -->
           </div>
           <div id="erros_cadastro_usuario"></div>
           <div id="erros_cadastro_confirmsenha"></div>

@@ -1,7 +1,7 @@
 const e = require("express");
 const crypto = require('crypto');
 
-const PEPPER = process.env.PEPPER;
+const PEPPER = 'Tralalelo_tralala';
 // Aqui você deve definir o valor da sua pimenta, que é uma string secreta e única para o seu sistema. Ela deve ser mantida em segredo e não deve ser armazenada no banco de dados.
 let usuarioModel = require("../models/usuarioModel");
 

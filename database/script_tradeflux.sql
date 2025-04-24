@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS Data_Center (
     FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
 );
 
+SELECT * FROM Data_Center;
+
 INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES
 ('Data Center B3', 1, 2);
 
