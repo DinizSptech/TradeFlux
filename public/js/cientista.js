@@ -2,6 +2,10 @@ var servidor1 = { cpu: 23, ram: 87, disco: 60 };
 var servidor2 = { cpu: 67, ram: 44, disco: 56 };
 var servidor3 = { cpu: 85, ram: 36, disco: 44 };
 
+var corServidor1 = 'rgb(73, 139, 73)'
+var corServidor2 = 'rgb(216, 89, 4)'
+var corServidor3 = 'rgb(45, 99, 158)' 
+
 var alertas = [
   { valor: 85, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 1', data: '11-04-2025 10:12' },
   { valor: 91, unidade: '%', componente: 'CPU', nivel: 'crítico', servidor: 'Servidor 3', data: '11-04-2025 09:47' },
@@ -188,9 +192,9 @@ function gerarGraficoComparacao(){
     data: {
     labels: ['CPU (%)', 'RAM (%)', 'Disco (%)'],
     datasets: [
-      { label: 'Servidor 1', data: [23, 87, 60], backgroundColor: 'rgb(0, 123, 255)' },
-      { label: 'Servidor 2', data: [67, 44, 56], backgroundColor: 'rgb(255, 99, 133)' },
-      { label: 'Servidor 3', data: [85, 36, 44], backgroundColor: 'rgb(99, 255, 99)' }
+      { label: 'Servidor 1', data: [23, 87, 60], backgroundColor: corServidor1 },
+      { label: 'Servidor 2', data: [67, 44, 56], backgroundColor: corServidor2 },
+      { label: 'Servidor 3', data: [85, 36, 44], backgroundColor: corServidor3 }
     ]
   },
   options: {
@@ -267,10 +271,11 @@ function gerarGraficoProporcao(){
         label: 'Uso de recursos',
         data: [45, 87, 60],
         backgroundColor: [
-          'rgb(0, 123, 255)',
-          'rgb(255, 99, 133)',
-          'rgb(99, 255, 99)'
-        ]
+          corServidor1,
+          corServidor2,
+          corServidor3
+        ],
+        borderWidth: 0
       }]
     },
     options: {
