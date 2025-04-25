@@ -47,8 +47,8 @@ function adicionarServidorParte1() {
             <input id="ipt_complemento" type="text" />
           </div>`
 
-          botaoCadastro1.style.display = "none";
-          botaoCadastro2.style.display = "flex";
+          // botaoCadastro.style.display = "none";
+          // botaoCadastro2.style.display = "flex";
     }
 
   autoPreencherCep(cep)
