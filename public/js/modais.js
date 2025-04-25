@@ -85,4 +85,9 @@ function abrirModal(tipo){
         <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
       </div>
     </div>`
+    nome_usuario = document.getElementById("nome_usuario")
+    cargo_usuario = document.getElementById("cargo_usuario")
+
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    cargo_usuario.innerHTML = sessionStorage.Cargo;
  }
