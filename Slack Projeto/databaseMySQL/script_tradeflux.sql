@@ -1,3 +1,5 @@
+-- Banco de dados Frio:
+
 DROP DATABASE IF EXISTS tradeflux;
 CREATE DATABASE tradeflux;
 USE tradeflux;
@@ -82,6 +84,8 @@ CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     FOREIGN KEY (fkServidor) REFERENCES Servidor_Cliente(idServidor),
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
 );
+
+-- Fim frio
 
 CREATE TABLE IF NOT EXISTS Captura (
     idCaptura INT AUTO_INCREMENT PRIMARY KEY,

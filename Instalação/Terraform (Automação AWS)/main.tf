@@ -21,14 +21,14 @@ resource "aws_instance" "server_producao" {
     }
 }
 
-resource "aws_instance" "server_bd" {
-    ami = "ami-084568db4383264d4"
-    instance_type = "t2.micro"
+# resource "aws_instance" "server_bd" {
+#     ami = "ami-084568db4383264d4"
+#     instance_type = "t2.micro"
 
-    tags = {
-        Name = "InstânciaBDFrio"
-    }
-}
+#     tags = {
+#         Name = "InstânciaBDFrio"
+#     }
+# }
 
 resource "aws_s3_bucket" "s3_raw" {
   bucket = "bucket-raw-tradeflux"

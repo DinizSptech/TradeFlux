@@ -1,6 +1,7 @@
+-- Banco de dados Frio:
+
 CREATE DATABASE IF NOT EXISTS tradeflux;
 use tradeflux;
-
 
 CREATE TABLE IF NOT EXISTS Endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,9 +52,9 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     CONSTRAINT fk_servidor_datacenter FOREIGN KEY (fk_data_center) REFERENCES Data_Center(idData_Center)
 );
 
-
 -- alter table servidor_cliente auto_increment = 1;
- select * from servidor_cliente;
+--  select * from servidor_cliente;
+
 CREATE TABLE IF NOT EXISTS Parametros_Servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     componente VARCHAR(45),
@@ -62,6 +63,8 @@ CREATE TABLE IF NOT EXISTS Parametros_Servidor (
     fk_Servidor_Cliente INT,
     CONSTRAINT fk_parametros_servidor FOREIGN KEY (fk_Servidor_Cliente) REFERENCES Servidor_Cliente(idServidor)
 );  
+
+-- Fim banco de dados Frio
 
 CREATE TABLE IF NOT EXISTS Captura (
     idCaptura INT AUTO_INCREMENT,
