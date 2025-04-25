@@ -159,11 +159,7 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 -- (80.0, 1, 5),
 -- (200.0, 1, 6);
 
-
 -- select * from servidor_cliente;
 -- select * from captura;
 -- select * from alerta;
 -- select * from usuario_cliente
-
-
-

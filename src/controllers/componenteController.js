@@ -1,4 +1,4 @@
-var componenteModel = require("../models/ComponenteModel");
+var componenteModel = require("../models/componenteModel");
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
