@@ -1,5 +1,3 @@
-
-
 CREATE DATABASE IF NOT EXISTS tradeflux;
 use tradeflux;
 
@@ -96,6 +94,16 @@ select * from servidor_cliente;
 -- SELECT * FROM empresa_cliente as ec
 -- JOIN data_center as dc ON ec.idCliente = dc.fk_cliente
 -- JOIN servidor_cliente as sc ON dc.idData_Center = sc.fk_data_center;
+
+INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES
+(80.0, 1, 1),
+(2.30, 1, 2),
+(80.0, 1, 3),
+(6.0, 1, 4),
+(80.0, 1, 5),
+(200.0, 1, 6);
+
+select 
 
 SELECT * FROM empresa_cliente;
 

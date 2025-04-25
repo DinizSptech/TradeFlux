@@ -1,0 +1,878 @@
+[
+  {
+    "data-hora": "2025-04-25 12:42:20",
+    "percentualCPU": 6.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 84.4,
+    "memoriaUsadaGB": 6.6,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.000896,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.46,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.85,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 11456,
+        "name": "igfxEM.exe",
+        "cpu_percent": 0.45,
+        "memory_percent": 0.31
+      },
+      {
+        "pid": 5240,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 1.43
+      },
+      {
+        "pid": 9044,
+        "name": "WmiPrvSE.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.24
+      },
+      {
+        "pid": 11412,
+        "name": "uihost.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 1516,
+        "name": "svchost.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 0.13
+      },
+      {
+        "pid": 3472,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.28
+      },
+      {
+        "pid": 15772,
+        "name": "Code.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.68
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:42:36",
+    "percentualCPU": 7.9,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 82.4,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.00224,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.28,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 20536,
+        "name": "LogonUI.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 18884,
+        "name": "OverwolfHelper64.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 132,
+        "name": "Registry",
+        "cpu_percent": 0.0,
+        "memory_percent": 1.44
+      },
+      {
+        "pid": 416,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.37
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:42:52",
+    "percentualCPU": 5.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 82.4,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.002352,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.28,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 20536,
+        "name": "LogonUI.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 1.01
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 2744,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.13
+      },
+      {
+        "pid": 3888,
+        "name": "svchost.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 0.31
+      },
+      {
+        "pid": 15816,
+        "name": "svchost.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:43:08",
+    "percentualCPU": 7.5,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 83.1,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.000896,
+    "velocidadeUploadMbps": 0.00044,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.38,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.79,
+        "memory_percent": 1.6
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.64,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.44,
+        "memory_percent": 2.03
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 828,
+        "name": "svchost.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 0.2
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 132,
+        "name": "Registry",
+        "cpu_percent": 0.0,
+        "memory_percent": 1.44
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:43:23",
+    "percentualCPU": 9.0,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 82.6,
+    "memoriaUsadaGB": 6.5,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.002128,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.33,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.15,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.36,
+        "memory_percent": 2.05
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.36,
+        "memory_percent": 1.65
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 1.56
+      },
+      {
+        "pid": 5240,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 1.43
+      },
+      {
+        "pid": 3472,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.26
+      },
+      {
+        "pid": 18884,
+        "name": "OverwolfHelper64.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:43:39",
+    "percentualCPU": 7.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 82.0,
+    "memoriaUsadaGB": 6.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.3,
+    "velocidadeDownloadMbps": 0.002864,
+    "velocidadeUploadMbps": 0.000336,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.12,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.97,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.74,
+        "memory_percent": 1.62
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 1.55
+      },
+      {
+        "pid": 6344,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 0.27
+      },
+      {
+        "pid": 15620,
+        "name": "NVIDIA Share.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.56
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 2.05
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:43:55",
+    "percentualCPU": 7.2,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 80.7,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.002576,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.22,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.96,
+        "memory_percent": 2.05
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 1.62
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 1.55
+      },
+      {
+        "pid": 11412,
+        "name": "uihost.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 1460,
+        "name": "svchost.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 0.22
+      },
+      {
+        "pid": 2776,
+        "name": "NVDisplay.Container.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 10828,
+        "name": "aswidsagent.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.95
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:44:10",
+    "percentualCPU": 6.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 80.6,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.001792,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.19,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 1.54
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 132,
+        "name": "Registry",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.68
+      },
+      {
+        "pid": 416,
+        "name": "svchost.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.37
+      },
+      {
+        "pid": 448,
+        "name": "msedgewebview2.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 756,
+        "name": "smss.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.01
+      },
+      {
+        "pid": 772,
+        "name": "nvcontainer.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.41
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:44:26",
+    "percentualCPU": 5.9,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 79.9,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.003336,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.44,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 23404,
+        "name": "rsession-utf8.exe",
+        "cpu_percent": 0.94,
+        "memory_percent": 2.88
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.44,
+        "memory_percent": 1.66
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.38,
+        "memory_percent": 2.05
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.25,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 1.54
+      },
+      {
+        "pid": 10828,
+        "name": "aswidsagent.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.95
+      },
+      {
+        "pid": 12000,
+        "name": "explorer.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 1.75
+      },
+      {
+        "pid": 2428,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.1
+      },
+      {
+        "pid": 3472,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.26
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:44:41",
+    "percentualCPU": 7.0,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 79.9,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.001232,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.15,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 1.34,
+        "memory_percent": 2.02
+      },
+      {
+        "pid": 12000,
+        "name": "explorer.exe",
+        "cpu_percent": 1.0,
+        "memory_percent": 1.71
+      },
+      {
+        "pid": 2908,
+        "name": "svchost.exe",
+        "cpu_percent": 0.82,
+        "memory_percent": 0.15
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.66,
+        "memory_percent": 1.62
+      },
+      {
+        "pid": 13368,
+        "name": "svchost.exe",
+        "cpu_percent": 0.42,
+        "memory_percent": 0.46
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.38,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 11256,
+        "name": "msedgewebview2.exe",
+        "cpu_percent": 0.36,
+        "memory_percent": 1.28
+      },
+      {
+        "pid": 14120,
+        "name": "RuntimeBroker.exe",
+        "cpu_percent": 0.35,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.33,
+        "memory_percent": 0.99
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:44:57",
+    "percentualCPU": 10.4,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 80.9,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.003024,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.08,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.88,
+        "memory_percent": 0.99
+      },
+      {
+        "pid": 16156,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.39,
+        "memory_percent": 2.03
+      },
+      {
+        "pid": 21564,
+        "name": "rstudio.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 1.68
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 4572,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.1
+      },
+      {
+        "pid": 4764,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.22
+      },
+      {
+        "pid": 5008,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.12
+      },
+      {
+        "pid": 11832,
+        "name": "svchost.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.45
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 12:45:13",
+    "percentualCPU": 10.9,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 80.9,
+    "memoriaUsadaGB": 6.3,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.4,
+    "velocidadeDownloadMbps": 0.00224,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 5.1,
+        "memory_percent": 0.57
+      },
+      {
+        "pid": 828,
+        "name": "svchost.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.2
+      },
+      {
+        "pid": 2744,
+        "name": "svchost.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 0.13
+      },
+      {
+        "pid": 2908,
+        "name": "svchost.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.15
+      },
+      {
+        "pid": 4704,
+        "name": "RuntimeBroker.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 0.15
+      },
+      {
+        "pid": 6220,
+        "name": "KillerNetworkService.exe",
+        "cpu_percent": 0.09,
+        "memory_percent": 0.14
+      },
+      {
+        "pid": 14064,
+        "name": "svchost.exe",
+        "cpu_percent": 0.07,
+        "memory_percent": 0.3
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.08
+      },
+      {
+        "pid": 72,
+        "name": "",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.29
+      },
+      {
+        "pid": 96,
+        "name": "services.exe",
+        "cpu_percent": 0.0,
+        "memory_percent": 0.17
+      }
+    ]
+  }
+]

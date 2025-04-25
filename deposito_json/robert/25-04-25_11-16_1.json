@@ -1,0 +1,878 @@
+[
+  {
+    "data-hora": "2025-04-25 11:11:47",
+    "percentualCPU": 75.9,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 95.7,
+    "memoriaUsadaGB": 7.5,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.001344,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 38.16,
+        "memory_percent": 6.5
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 6.34,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 3160,
+        "name": "MemCompression",
+        "cpu_percent": 4.25,
+        "memory_percent": 2.61
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 3.06,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 0.34,
+        "memory_percent": 0.78
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.31,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 0.24
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 1.24
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 14136,
+        "name": "Code.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 4.96
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:12:10",
+    "percentualCPU": 59.9,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.5,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.977896,
+    "velocidadeUploadMbps": 0.015088,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 13.2,
+        "memory_percent": 6.29
+      },
+      {
+        "pid": 5436,
+        "name": "msedge.exe",
+        "cpu_percent": 10.26,
+        "memory_percent": 2.02
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 7.47,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 6464,
+        "name": "steam.exe",
+        "cpu_percent": 2.21,
+        "memory_percent": 0.53
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.69,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.15,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 19312,
+        "name": "msedge.exe",
+        "cpu_percent": 1.04,
+        "memory_percent": 0.37
+      },
+      {
+        "pid": 19988,
+        "name": "msedge.exe",
+        "cpu_percent": 0.79,
+        "memory_percent": 1.02
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.68,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 5240,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.5,
+        "memory_percent": 1.74
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:12:33",
+    "percentualCPU": 39.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.4,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.002768,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 14.99,
+        "memory_percent": 6.38
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.44,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 2.89,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.75,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 5436,
+        "name": "msedge.exe",
+        "cpu_percent": 0.95,
+        "memory_percent": 1.91
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.56,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.55,
+        "memory_percent": 1.15
+      },
+      {
+        "pid": 15544,
+        "name": "opera.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 1.56
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 0.16
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:12:58",
+    "percentualCPU": 34.7,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.6,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.005224,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 15.41,
+        "memory_percent": 6.72
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.43,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.82,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.64,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.95,
+        "memory_percent": 1.18
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.82,
+        "memory_percent": 0.16
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.56,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 15544,
+        "name": "opera.exe",
+        "cpu_percent": 0.34,
+        "memory_percent": 1.56
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 0.24
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:13:23",
+    "percentualCPU": 34.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.8,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.004432,
+    "velocidadeUploadMbps": 0.051152,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 15.35,
+        "memory_percent": 6.76
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.66,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.74,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 1.21,
+        "memory_percent": 1.1
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 0.72,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.41,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 15544,
+        "name": "opera.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 1.56
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 0.16
+      },
+      {
+        "pid": 14460,
+        "name": "Code.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 1.05
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:13:47",
+    "percentualCPU": 36.0,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.8,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.000896,
+    "velocidadeUploadMbps": 0.005296,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 14.18,
+        "memory_percent": 6.76
+      },
+      {
+        "pid": 2732,
+        "name": "msedge.exe",
+        "cpu_percent": 10.1,
+        "memory_percent": 1.8
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 7.46,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 1.84,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.23,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.0,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 19988,
+        "name": "msedge.exe",
+        "cpu_percent": 0.65,
+        "memory_percent": 0.96
+      },
+      {
+        "pid": 5240,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.46,
+        "memory_percent": 1.51
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.42,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.39,
+        "memory_percent": 1.2
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:14:12",
+    "percentualCPU": 39.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.6,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.140608,
+    "velocidadeUploadMbps": 0.030848,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 12.69,
+        "memory_percent": 6.77
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 7.65,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 2.96,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 2.6,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 19988,
+        "name": "msedge.exe",
+        "cpu_percent": 1.21,
+        "memory_percent": 0.9
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.19,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.86,
+        "memory_percent": 0.93
+      },
+      {
+        "pid": 19312,
+        "name": "msedge.exe",
+        "cpu_percent": 0.86,
+        "memory_percent": 0.32
+      },
+      {
+        "pid": 5240,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.56,
+        "memory_percent": 1.49
+      },
+      {
+        "pid": 6464,
+        "name": "steam.exe",
+        "cpu_percent": 0.34,
+        "memory_percent": 0.53
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:14:36",
+    "percentualCPU": 39.6,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 94.7,
+    "memoriaUsadaGB": 7.4,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.001344,
+    "velocidadeUploadMbps": 0.02984,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 11.43,
+        "memory_percent": 6.78
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.35,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.85,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.77,
+        "memory_percent": 0.44
+      },
+      {
+        "pid": 6464,
+        "name": "steam.exe",
+        "cpu_percent": 1.0,
+        "memory_percent": 0.53
+      },
+      {
+        "pid": 6344,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.81,
+        "memory_percent": 0.31
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.76,
+        "memory_percent": 1.0
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.57,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.54,
+        "memory_percent": 1.2
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.47,
+        "memory_percent": 0.16
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:15:00",
+    "percentualCPU": 35.2,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 90.4,
+    "memoriaUsadaGB": 7.1,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.074024,
+    "velocidadeUploadMbps": 0.02428,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 11.1,
+        "memory_percent": 6.78
+      },
+      {
+        "pid": 3160,
+        "name": "MemCompression",
+        "cpu_percent": 9.38,
+        "memory_percent": 1.15
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.05,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 3012,
+        "name": "svchost.exe",
+        "cpu_percent": 3.44,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.68,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 6464,
+        "name": "steam.exe",
+        "cpu_percent": 1.55,
+        "memory_percent": 0.53
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.21,
+        "memory_percent": 0.43
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.84,
+        "memory_percent": 0.83
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.78,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.38,
+        "memory_percent": 1.17
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:15:23",
+    "percentualCPU": 34.2,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 87.1,
+    "memoriaUsadaGB": 6.8,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.001792,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 15.44,
+        "memory_percent": 6.78
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.14,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 11920,
+        "name": "msedge.exe",
+        "cpu_percent": 2.11,
+        "memory_percent": 1.67
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.65,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 1.19,
+        "memory_percent": 0.43
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.53,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.4,
+        "memory_percent": 0.84
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.38,
+        "memory_percent": 1.18
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.35,
+        "memory_percent": 0.16
+      },
+      {
+        "pid": 6124,
+        "name": "servicehost.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.33
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:15:48",
+    "percentualCPU": 33.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 86.9,
+    "memoriaUsadaGB": 6.8,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.03672,
+    "velocidadeUploadMbps": 0.00444,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 13.55,
+        "memory_percent": 6.78
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.47,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 2.05,
+        "memory_percent": 0.43
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 1.43,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 1.29,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.69,
+        "memory_percent": 0.16
+      },
+      {
+        "pid": 15544,
+        "name": "opera.exe",
+        "cpu_percent": 0.38,
+        "memory_percent": 1.49
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.89
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 1.17
+      },
+      {
+        "pid": 19128,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.24
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-25 11:16:12",
+    "percentualCPU": 33.7,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 86.6,
+    "memoriaUsadaGB": 6.8,
+    "percentualDisco": 89.4,
+    "discoUsadoGB": 425.2,
+    "velocidadeDownloadMbps": 0.002688,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 6904,
+        "name": "ItTakesTwo.exe",
+        "cpu_percent": 15.24,
+        "memory_percent": 6.81
+      },
+      {
+        "pid": 1660,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.45,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 20820,
+        "name": "opera.exe",
+        "cpu_percent": 2.61,
+        "memory_percent": 0.43
+      },
+      {
+        "pid": 2228,
+        "name": "dwm.exe",
+        "cpu_percent": 2.38,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 18380,
+        "name": "opera.exe",
+        "cpu_percent": 0.74,
+        "memory_percent": 0.84
+      },
+      {
+        "pid": 10444,
+        "name": "audiodg.exe",
+        "cpu_percent": 0.56,
+        "memory_percent": 0.16
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.53,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6596,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 1.17
+      },
+      {
+        "pid": 15544,
+        "name": "opera.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 1.49
+      },
+      {
+        "pid": 16616,
+        "name": "jetbrains-toolbox.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 1.01
+      }
+    ]
+  }
+]
