@@ -51,7 +51,7 @@
       gap: 2vh;
     }
     .grafico-box h3{
-        font-size: 1.6vh;
+        font-size: 1.8vh;
     }
     .grafico-box select{
         font-size: 1.2vh;
@@ -60,7 +60,7 @@
         font-size: 3vh;
     }
     .ranking-table th, .ranking-table td{
-        font-size: 1.3vh;
+        font-size: 1.6vh;
     }
     .slt_span{
         font-size: 1.2vh;

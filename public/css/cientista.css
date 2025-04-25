@@ -110,14 +110,18 @@ body {
 }
 
 .grafico-box select {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #1b213a;
   color: white;
   border: none;
   padding: 4px 8px;
   border-radius: 5px;
   font-size: 0.9rem;
 }
+.opt_pico{
+  background-color: #2D3348;
+  color: #eeeeee;
 
+}
 canvas {
   width: 100% !important;
   max-height: 27vh !important;
