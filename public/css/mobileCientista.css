@@ -1,228 +1,86 @@
-
-@media(max-width: 991px){
-	
-    /* html{
-        font-size: 55%;
-    } */
-    /* header{
-        padding: 2rem;
-    } */
-    /* section{
-        padding: 2rem;
-} */
- 
- 
-/* media queries 768px */
-
-@media(max-width: 768px) and (orientation: portrait){
-.barra-lateral{
-    display: none;
-}
-.quem-somos{
-    height: auto;
-    flex-direction: column;
-    justify-content: start;
-    gap: 4vh;
-    padding: 3vh 0 3vh 0;
-}
-.div_quadro{
-    flex-direction: column;
-    width: 90vw;
-    height:50vh;
-    
-}
-.textos{
-    width: 80vw;
-    font-size: 2vh;
-}
-.alicerces{
-    height: auto;
-    padding: 0 0 5vh 0;
-}
-.grupo_quadros{
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    margin-top: 4vh;
-}
-.alicerces h1{
-    color: #fff;
-    z-index: 10;
-    margin-top: 0;
-    padding-top: 5vh;
-    font-size: 6vh;
-    font-size: 4vh;
-}
-.quadro{
-    height: auto;
-    width:auto;
-    padding: 0 2vw 4vh 2vw;
-}
-.quadro .icons{
-    height: auto;
-    font-size: 8vh;
-}
-.quadro .textos{
-    font-size: 2vh;
-    width: 75vw;
-}
-.servicos{
-    height: auto;
-    justify-content: center;
-    padding: 2vh 0 6vh 0;
-}
-.servicos h1{
-    font-size: 4vh;
-    width: 80vw;
-    margin-top: 2vh;
-}
-.servicos_div{
-    display: flex;
-    gap: 0vh;
-    align-items: center;
-
-    flex-direction: column;
-}
-.beneficio{
-    height: auto;
-}
-.beneficio .icons{
-    margin-top: 4vh;
-    font-size: 6vh;
-}
-.beneficio .textos{
-    width: 70vw;
-}
-.porqueAllSet{
-    justify-content: center;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    width: auto;
-    padding: 0 0 4vh 0;
-    
-}
-.porqueAllSet h1{
-    font-size: 4vh;
-}
-.img-texto-pq{
-    width: auto;
-    margin-top: 4vh;
-    justify-content: center;
-    flex-direction: column-reverse;
-}
-.texto-pq{
-    padding: 3vh;
-    width: 75vw;
-    height: auto;
-    border-radius: 3vh;
-}
-.img-pq img{
-    width: 88vw;
-    height: 30vh;
-}
-
-.texto-pq p{
-    font-size: 2vh;
-    width: auto;
-}
-.home .content p{
-    font-size: 4vh;
-}
-.content .blocoTextos {
-    z-index: 2;
-    bottom: 30vh;
-    left: 4vh;
-    color: #fff;
-    position: absolute;
-}
-.content .btn {
-    position: absolute;
-    bottom: 20vh;
-    left: 4vh;
-    font-size: 3vh;
-}
-    #menu-bar{
-        display: initial;
+@media(max-width: 991px) {
+    .container-main {
+      height: auto;
+      width: 100vw;
+      margin: 0;
     }
-    header .navbar{
-        position: absolute;
-        top: 100%; left: 0; right: 0;
-        border-top: .1rem solid rgba(0,0,0,.1);
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        flex-direction: column;
-        z-index: 8;
+  
+    .mainContent {
+      margin: 0;
+      height: auto;
+      width: 100vw;
     }
-    
-    header .navbar.active{
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-
+  }
+  
+  @media(max-width: 768px) {
+    .barra-lateral {
+      display: none;
     }
-    header .logo{
-         font-size: 4rem;
+  
+    .container-main {
+      height: auto;
+      width: 100vw;
+      margin: 0;
     }
-
-    header .navbar a{
-        margin: 1.5rem;
-        padding: 1.5rem;
-        font-size: 2rem;
-        display: block;
-        border-left: .5rem solid var(--blue);
-        background: #051D34;
+    .container_perfil{
+        display: none;
     }
-
-    header .navbar .login-hide{
-        font-size: 2rem;
+    .mainContent {
+      margin: 0;
+      height: auto;
+      width: 100vw;
     }
-    
-
-    
-
-    .quem-proposito{
-        flex-direction: column;
+    .cards{
+        flex-direction: row;
     }
-
-    
-
-    .footer{
+    .holderSlt{
+        gap: 1vh;
+    }
+    .card select{
         height: auto;
+        font-size: 1.2vh;
+    }
+    .titlePico{
         flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;
+        gap: 0;
     }
-        
-
-}
-
-@media(max-width: 450px){
-
-.home{
-    background-image: url(../assets/img/carro-autonomo\ -corte.jpg);
-    background-size: cover;
-}
-
-    html{
-        font-size: 50%;
+    .titlePico #serverPico, .titlePico #valorPico{
+        font-size: 1.3vh;
     }
-
-    .servicos_div{
-        
-        margin-top: 0;
+    .grafico-linha{
+      gap: 2vh;
     }
-    
-    header {
-        padding: 2rem;
+    .grafico-box h3{
+        font-size: 1.6vh;
     }
-}
-}
-@media(max-width: 320px){
-
-    html{
-        font-size: 50%;
+    .grafico-box select{
+        font-size: 1.2vh;
     }
-    
-    header {
-        padding: 2rem;
+    #alertas_criticos, #alertas_atencao{
+        font-size: 3vh;
     }
-}
+    .ranking-table th, .ranking-table td{
+        font-size: 1.3vh;
+    }
+    .slt_span{
+        font-size: 1.2vh;
+    }
+    body{
+        font-size: 1.5vh;
+    }
+  }
+  
+  @media(max-width: 450px) {
+    html {
+      font-size: 50%;
+    }
+  
+    .servicos_div {
+      margin-top: 0;
+    }
+  
+    .header {
+      padding: 2vh;
+    }
+  }
+  
