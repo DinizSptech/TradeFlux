@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./assets/TRADEFLUX__2_-removebg-preview 1.png" />
     <script src="./js/emails.js" defer></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"> </script>  
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
   </head>
   <body>
     <div class="header-left">
@@ -103,13 +106,11 @@
           Quer trabalhar em conjunto? Preencha o formulário, e entraremos em
           contato em breve! Será um prazer falar com você.
         </p>
-        <form
-          id="contatoForm"
-        >
+        <form id="contatoForm">
           <h3>Nome:</h3>
           <input
             type="text"
-            id = "ipt_nome"
+            id="ipt_nome"
             name="name"
             required
             placeholder="Escreva seu nome:"
@@ -117,7 +118,7 @@
           <h3>Email:</h3>
           <input
             type="email"
-            id = "ipt_email"
+            id="ipt_email"
             name="email"
             required
             placeholder="Escreva seu email:"
@@ -130,11 +131,17 @@
             id="ipt_mensagem"
             required
           ></textarea>
-          <button type="submit" class="button" onclick="enviarMensagemSuporte()"><b>Enviar</b></button>
+          <button
+            type="submit"
+            class="button"
+            onclick="enviarMensagemSuporte()"
+          >
+            <b>Enviar</b>
+          </button>
           <!-- <input -->
-            <!-- type="hidden" -->
-            <!-- name="_next" -->
-            <!-- value="http://127.0.0.1:5500/html/" -->
+          <!-- type="hidden" -->
+          <!-- name="_next" -->
+          <!-- value="http://127.0.0.1:5500/html/" -->
           <!-- /> -->
         </form>
       </div>
