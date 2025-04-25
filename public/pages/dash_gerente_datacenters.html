@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css" />
     <!-- <script src="../script/sessao.js"></script> -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="../css/cadastroUsuario_copy.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -19,12 +17,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link
-      rel="shortcut icon"
-      href="../assets/TRADEFLUX__2_cortado.png"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../css/cadastroUsuario.css" />
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
     <script src="../js/cadastroDataCenter.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/modais.js"></script>
@@ -38,32 +31,69 @@
       
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario" id="div_formulario">
-          <i
-            onclick="fecharModal('cadastro')"
-            class="fechar fa-solid fa-xmark"
-          ></i>
+          <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
           <div class="tituloForm">Cadastrar Data Centers</div>
-          <div class="input">
-            <span>Nome:</span>
-            <input id="ipt_nome" type="text" />
+          <div id="div_form_parte1">
+
+            <div class="input">
+              <span>Nome:</span>
+              <input id="ipt_nome" type="text" />
+            </div>
+            <div class="input">
+              <span>CEP:</span>
+              <input id="ipt_cep" type="text" />
+            </div>
+            <div id="erros_cadastro_usuario"></div>
+            <div class="buttonCadastrar">
+              <button onclick="adicionarServidorParte1()" id="botaoCadastro">
+                Verificar CEP
+              </button>
           </div>
-          <div class="input">
-            <span>CEP:</span>
-            <input id="ipt_cep" type="text" />
+          </div>
+        
+        <div id="div_form_parte2">
+          <div id="form_colunas">
+
+            <div id="coluna1_form">
+              
+              <div class="input">
+                <span>Logradouro:</span>
+                <input id="ipt_logradouro" type="text" />
+              </div>
+              <div class="input">
+                <span>Bairro:</span>
+                <input id="ipt_bairro" type="text" />
+              </div>
+              <div class="input">
+                <span>Cidade:</span>
+                <input id="ipt_cidade" type="text" />
+              </div>
+            </div>
+            <div id="coluna2_form">
+              
+              <div class="input">
+                <span>UF:</span>
+                <input id="ipt_uf" type="text" />
+              </div>
+            <div class="input">
+              <span>Numero:</span>
+              <input id="ipt_numero" type="text" />
+            </div>
+            <div class="input">
+              <span>Complemento:</span>
+              <input id="ipt_complemento" type="text" />
+            </div>
+          </div>
           </div>
           <div class="buttonCadastrar">
-            <button onclick="adicionarServidorParte1()" id="botaoCadastro">
-              Verificar CEP
-            </button>
             <button onclick="adicionarServidorParte2()" id="botaoCadastro2">
               Salvar DataCenter
             </button>
-            <!-- Deixar o Segundo invisível -->
           </div>
-          <div id="erros_cadastro_usuario"></div>
-          <div id="erros_cadastro_confirmsenha"></div>
+          <!-- Deixar o Segundo invisível -->
         </div>
       </div>
+    </div>
       <div class="bgForm" id="bg_formulario_edicao">
         <div class="formUsuario">
           <div class="tituloForm">Editar Servidor</div>
@@ -89,11 +119,7 @@
         </div>
         <div class="containerFiltro">
           <div class="container-btnCadastro">
-            <button
-              id="btnCadastro"
-              class="btn-cadastro"
-              onclick="abrirModal('cadastro')"
-            >
+            <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
               <i class="fa-solid fa-circle-plus"></i> Adicionar Data Center
             </button>
           </div>

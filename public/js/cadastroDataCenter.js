@@ -8,7 +8,7 @@ let numero
 let complemento
 let maisInformacao = false;
 
-function adicionarServidorParte1() {
+async function adicionarServidorParte1() {
   
   nome = document.getElementById("ipt_nome").value
   cep = document.getElementById("ipt_cep").value
@@ -21,49 +21,27 @@ function adicionarServidorParte1() {
 
   let nomeValido = validarNome()
   let cepValido = validarCep()
+
+  console.log("Nome valido: ", nomeValido, "CEP valido: ", cepValido)
   
   if (nomeValido && cepValido && maisInformacao == false) {
     
     maisInformacao = true
 
-    div_formulario.innerHTML += ` <div class="input">
-            <span>Logradouro:</span>
-            <input id="ipt_logradouro" type="text" />
-          </div>
-          <div class="input">
-            <span>Bairro:</span>
-            <input id="ipt_bairro" type="text" />
-          </div>
-          <div class="input">
-            <span>Cidade:</span>
-            <input id="ipt_cidade" type="text" />
-          </div>
-          <div class="input">
-            <span>UF:</span>
-            <input id="ipt_uf" type="text" />
-          </div>
-          <div class="input">
-            <span>Numero:</span>
-            <input id="ipt_numero" type="text" />
-          </div>
-          <div class="input">
-            <span>Complemento:</span>
-            <input id="ipt_complemento" type="text" />
-          </div>`
-
-          // botaoCadastro.style.display = "none";
-          // botaoCadastro2.style.display = "flex";
+    div_form_parte1.style.display = "none";
+    await autoPreencherCep(cep)
+    div_form_parte2.style.display = "flex";
     }
 
-  autoPreencherCep(cep)
+  
 
 } 
 
 // Preenchimento do CEP:
 
-function autoPreencherCep() {
+ async function autoPreencherCep() {
   cep = document.getElementById("ipt_cep").value
-    
+  console.log(cep)
   if (validarCep(cep)) {
     
     const url = `https://viacep.com.br/ws/${cep}/json/`;
