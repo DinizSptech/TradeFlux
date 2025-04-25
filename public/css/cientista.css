@@ -37,12 +37,11 @@ body {
 .card {
   background-color: #2D3348;
   padding: 15px;
-  
+  width: fit-content;
   border-radius: 10px;
   text-align: center;
   font-weight: bold;
   color: white;
-  max-width: 20vw;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   border: 1px solid #2d3348;
 }
@@ -54,6 +53,7 @@ body {
   padding: 4px 8px;
   border-radius: 5px;
   font-size: 0.9rem;
+  height: 60px;
 }
 
 #alertas_criticos {
@@ -69,6 +69,8 @@ body {
 }
 
 #holderPico{
+  flex-direction: column;
+  display: none;
   font-size: 2.5vw;
   margin-top: 10px;
 }
@@ -194,6 +196,12 @@ canvas {
   }
 }
 
+.linha{
+  height: 100%;
+  width: 3px;
+  background-color: #1e2144;
+}
+
 .ranking-table {
   width: 100%;
   border-collapse: collapse;
@@ -227,8 +235,18 @@ canvas {
 }
 
 .titlePico{
+  font-size: 2vw;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  gap: 3vw;
+}
+
+.holderSlt{
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-evenly;
+   height: 100%;
+   white-space: nowrap;
 }

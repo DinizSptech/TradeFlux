@@ -1,3 +1,5 @@
+var dadosTotais
+
 var dadosServidores = [
   {
     'servidor': 'Servidor 1',
@@ -392,7 +394,8 @@ console.log(alertascomponente)
   }
   var maiorValor = alertascomponente[indiceMaior].valor
   var maiorValorServer = alertascomponente[indiceMaior].servidor
-  serverPico.innerHTML = `${maiorValorServer}:`
+  holderPico.style.display = 'flex'
+  serverPico.innerHTML = `${maiorValorServer}`
   valorPico.innerHTML = ` 
   <span style="color: ${maiorValor >= 80 ? '#e74c3c' : maiorValor >= 60 ? '#eb9100' : 'green'};">${maiorValor}% </span>
     
@@ -436,7 +439,7 @@ function gerarGraficoComparacao(){
           }
         },
         grid: {
-          color: 'white'
+          color: 'rgba(255,255,255,0.1)'
         }
       },
       y: {
@@ -449,7 +452,7 @@ function gerarGraficoComparacao(){
           }
         },
         grid: {
-          color: 'white'
+          color: 'rgba(255,255,255,0.1)'
         }
       }
     }
@@ -564,7 +567,7 @@ function gerarGraficoDesempenho(){
             }
           },
           grid: {
-            color: 'white'
+            color: 'rgba(255,255,255,0.1)'
           }
         }
       }
