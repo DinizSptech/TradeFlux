@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS Endereco (
     numero INT,
     bairro VARCHAR(45),
     cidade VARCHAR(45),
-    uf CHAR(2)
+    uf CHAR(2),
+    complemento VARCHAR(45)
 );
 
 INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES
@@ -155,7 +156,10 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 -- (200.0, 1, 6);
 
 
---  select * from servidor_cliente;
+-- select * from servidor_cliente;
 -- select * from captura;
 -- select * from alerta;
 -- select * from usuario_cliente
+
+
+
