@@ -18,6 +18,23 @@
 .barra-lateral{
     display: none;
 }
+.mainContent{
+    margin: 0;
+}
+.selectServer{
+    flex-direction: column;
+    align-items: start;
+}
+.selectServer span{
+    margin-left: 1vw;
+}
+.boxSelect{
+    width: auto;
+    min-width: auto;
+}
+body{
+    font-size: 2.5vh;
+}
 .quem-somos{
     height: auto;
     flex-direction: column;
