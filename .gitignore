@@ -4,6 +4,6 @@ package-lock.json
 .env
 APIpython\database.py
 .vscode
-Automação/Terraform (Automação AWS)/.Terraform/
-Automação/Terraform (Automação AWS)/.terraform.lock.hcl
-Automação/Terraform (Automação AWS/terraform.tfstate.backup
+Instalação/Terraform (Automação AWS)/.Terraform/
+Instalação/Terraform (Automação AWS)/.terraform.lock.hcl
+Instalação/Terraform (Automação AWS/terraform.tfstate.backup
