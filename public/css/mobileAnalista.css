@@ -35,6 +35,15 @@
 body{
     font-size: 2.5vh;
 }
+.wrapper span{
+    width: 100%;
+}
+.bigDashHolder{
+    height: 320px;
+}
+.container_perfil{
+    display: none;
+}
 .quem-somos{
     height: auto;
     flex-direction: column;

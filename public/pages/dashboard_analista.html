@@ -119,52 +119,9 @@
                 "RAM": 65,
                 "Disco": 70,
                 "CPU": 80
-            },
-            {
-                "servidor": "Servidor 4",
-                "RAM": 30,
-                "Disco": 50,
-                "CPU": 95
-            },
-            {
-                "servidor": "Servidor 5",
-                "RAM": 85,
-                "Disco": 40,
-                "CPU": 60
-            },
-            {
-                "servidor": "Servidor 6",
-                "RAM": 55,
-                "Disco": 75,
-                "CPU": 45
-            },
-            {
-                "servidor": "Servidor 7",
-                "RAM": 20,
-                "Disco": 65,
-                "CPU": 70
-            },
-            {
-                "servidor": "Servidor 8",
-                "RAM": 90,
-                "Disco": 30,
-                "CPU": 50
-            },
-            {
-                "servidor": "Servidor 9",
-                "RAM": 10,
-                "Disco": 80,
-                "CPU": 95
-            },
-            {
-                "servidor": "Servidor 10",
-                "RAM": 50,
-                "Disco": 55,
-                "CPU": 40
             }
         ];
 
-        // Armazenar instâncias dos gráficos
         const charts = {
             RAM: null,
             Disco: null,
@@ -172,30 +129,21 @@
             Principal: null
         };
 
-        // Servidor selecionado atualmente
         let servidorAtual = null;
         
-        // Dados de histórico para o gráfico principal (simulados)
         const historicoSimulado = {
-            CPU: [65, 70, 75, 80, 85, 82, 78, 80, 85, 88, 85, 83],
-            RAM: [60, 65, 68, 70, 72, 75, 73, 74, 75, 77, 76, 75],
-            Disco: [50, 52, 55, 57, 59, 60, 58, 59, 60, 62, 61, 60]
+            CPU: [78, 80, 85, 88, 85, 83],
+            RAM: [73, 74, 75, 77, 76, 75],
+            Disco: [58, 59, 60, 62, 61, 60]
         };
         
-        // Timestamps para o eixo X (últimas 12 horas)
-        const timestamps = [...Array(12).keys()].map(i => {
-            const now = new Date();
-            now.setHours(now.getHours() - (11 - i));
-            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        });
+        const timestamps = ["16:05:10", "16:05:15", "16:05:20", "16:05:25", "16:05:30", "16:05:35"];
 
-        // Inicializar a página
         document.addEventListener('DOMContentLoaded', () => {
             carregarListaServidores();
             selecionarServidor(0);
         });
 
-        // Carregar lista de servidores no dropdown
         function carregarListaServidores() {
             const spawnpoint = document.getElementById('spawnpointServer');
             spawnpoint.innerHTML = servidores.map((servidor, index) => 
@@ -203,7 +151,6 @@
             ).join('');
         }
 
-        // Mostrar/esconder lista de servidores
         function toggleServerList() {
             const lista = document.getElementById('optionsServer');
             if (lista.style.display === 'block') {
@@ -213,7 +160,6 @@
             }
         }
 
-        // Selecionar um servidor e atualizar os gráficos
         function selecionarServidor(index) {
             servidorAtual = servidores[index];
             document.getElementById('nomeServer').textContent = servidorAtual.servidor;
@@ -229,7 +175,6 @@
             atualizarGraficoPrincipal();
         }
 
-        // Atualizar o status visual (texto e ícone)
         function atualizarStatus(componente, valor) {
             const elementoStatus = document.getElementById(`${componente.toLowerCase()}Status`);
             
@@ -251,7 +196,6 @@
             }
         }
 
-        // Atualizar cada gráfico individual (donut)
         function atualizarGrafico(componente, valor) {
             const canvas = document.getElementById(`grafico${componente}`);
             const ctx = canvas.getContext('2d');
@@ -308,7 +252,6 @@
             
             const componenteAtual = servidorAtual.RAM > 70 ? 'RAM' : (servidorAtual.CPU > 70 ? 'CPU' : 'Disco');
             
-            // Criar gráfico de linha
             charts.Principal = new Chart(ctx, {
                 type: 'line',
                 data: {
