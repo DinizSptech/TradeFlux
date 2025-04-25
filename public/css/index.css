@@ -176,14 +176,14 @@ h1 {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: 300ms;
+  /* transition: 300ms; */
 }
 
-.servicos .card:hover {
+/* .servicos .card:hover {
   width: 325px;
   transform: scale(1.1);
   transition: 300ms;
-}
+} */
 
 .servicos .card img {
   width: 100%;
@@ -410,7 +410,6 @@ textarea {
   /*serviço*/
 
   .servicos .card {
-    background-color: white;
     width: 75%;
     padding: 20px;
     border-radius: 8px;
@@ -428,7 +427,6 @@ textarea {
 
   .servicos .card p {
     font-size: 25px;
-    color: #333;
     line-height: 1.5;
   }
 
@@ -544,7 +542,6 @@ textarea {
   /*serviço*/
 
   .servicos .card {
-    background-color: white;
     width: 75%;
     padding: 20px;
     border-radius: 8px;
@@ -562,7 +559,6 @@ textarea {
 
   .servicos .card p {
     font-size: 20px;
-    color: #333;
     line-height: 1.5;
   }
 
@@ -654,7 +650,6 @@ textarea {
   /*serviço*/
 
   .servicos .card {
-    background-color: white;
     width: 75%;
     padding: 1.5rem;
     border-radius: 8px;
@@ -668,7 +663,6 @@ textarea {
 
   .servicos .card p {
     font-size: 15px;
-    color: #333;
     line-height: 1.5;
   }
 
@@ -737,7 +731,6 @@ textarea {
     font-size: 1.2rem;
     text-align: center;
     width: 100%;
-    color: white;
     font-family: "Inter";
     text-align: start;
   }
@@ -749,7 +742,6 @@ textarea {
   /*serviço*/
 
   .servicos .card {
-    background-color: white;
     width: 75%;
     padding: 1.5rem;
     border-radius: 8px;
@@ -763,7 +755,6 @@ textarea {
 
   .servicos .card p {
     font-size: 15px;
-    color: #333;
     line-height: 1.5;
   }
 
