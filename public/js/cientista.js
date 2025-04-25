@@ -126,7 +126,7 @@ function contarAlertasCriticos(){
     }
   }
   alertas_criticos.innerHTML = contagem;
-  alertas_criticos.style.color = 'red';
+  alertas_criticos.style.color = '#e74c3c';
 }
 
 function contarAlertasAtencao(){
@@ -137,7 +137,7 @@ function contarAlertasAtencao(){
     }
   }
   alertas_atencao.innerHTML = contagem;
-  alertas_atencao.style.color = 'yellow';
+  alertas_atencao.style.color = '#eb9100';
 }
 
 function abrirModalAlertas() {

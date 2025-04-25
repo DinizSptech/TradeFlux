@@ -167,16 +167,13 @@ hr {
   
   
   .status-ok {
-    color: rgb(1, 188, 1);
-    font-weight: bold;
+    color: #2ecc71;
 }
 
 .status-alerta {
-    color: yellow;
-    font-weight: bold;
+    color: #eb9100;
 }
 
 .status-critico {
-    color: rgb(255, 67, 67);
-    font-weight: bold;
+    color: #e74c3c;
 }

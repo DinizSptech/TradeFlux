@@ -172,7 +172,7 @@
             email: "tobias@b3.com",
             senha: "Teste123",
             cargo: "Administrador",
-            status: "ativo",
+            status: "Ativo",
             ultimoAcesso: "2025-04-12 13:24:11"
         
         },
@@ -183,7 +183,7 @@
             email: "leonardo.scarparo@b3.com",
             senha: "Teste123",
             cargo: "Monitoramento",
-            status: "inativo",
+            status: "Inativo",
             ultimoAcesso: "2025-04-12 13:24:11"
 
         },
@@ -193,7 +193,7 @@
             email: "emilly.lima@b3.com",
             senha: "Teste123",
             cargo: "Monitoramento",
-            status: "ativo",
+            status: "Ativo",
             ultimoAcesso: "2025-04-12 13:24:11"
 
         },
@@ -203,7 +203,7 @@
             email: "adriel.colombo@b3.com",
             senha: "Teste123",
             cargo: "Cientista de Dados",
-            status: "ativo",
+            status: "Ativo",
             ultimoAcesso: "2025-04-12 13:24:11"
 
         },
@@ -217,7 +217,7 @@
             <td>${usuarios[i].nome}</td>
             <td>${usuarios[i].email}</td>
             <td>${(usuarios[i].cargo)}</td>
-            <td>${(usuarios[i].status)}</td>
+            <td style="color: ${(usuarios[i].status) == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${(usuarios[i].status)}</td>
             <td>${(usuarios[i].ultimoAcesso)}</td>
             <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}', '${usuarios[i].cargo}', '${usuarios[i].status}')" ></i></td>
             <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${usuarios[i].idUsuario})'></i></td>

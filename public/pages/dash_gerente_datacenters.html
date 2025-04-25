@@ -164,7 +164,7 @@
       idDataCenter: 2,
       nome: "Data_Center2",
       Servidores: "3",
-      status: "Estável",
+      status: "Perigo",
       monitoramento: "Inativo",
     },
 
@@ -180,7 +180,7 @@
       idDataCenter: 4,
       nome: "Data_Center4",
       Servidores: "2",
-      status: "Estável",
+      status: "Crítico",
       monitoramento: "Ativo",
     },
   ];
@@ -191,8 +191,8 @@
             <tr>
             <td>${dataCenters[i].nome}</td>
             <td>${dataCenters[i].Servidores}</td>
-            <td>${dataCenters[i].status}</td>
-            <td>${dataCenters[i].monitoramento}</td>
+            <td style="color: ${dataCenters[i].status == 'Estável' ? '#2ecc71' : dataCenters[i].status == 'Perigo' ? '#f39c12' : '#e74c3c'};">${dataCenters[i].status}</td>
+            <td style="color: ${dataCenters[i].monitoramento == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${dataCenters[i].monitoramento}</td>
             <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${dataCenters[i].idUsuario}, '${dataCenters[i].nome}', '${dataCenters[i].email}', '${dataCenters[i].senha}', '${dataCenters[i].cargo}', '${dataCenters[i].status}')" ></i></td>
             <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${dataCenters[i].idUsuario})'></i></td>
             </tr>

@@ -25,7 +25,7 @@
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral(); carregarUsuarios();renderizarModalUsuario();">
+<body onload="carregarMenuLateral(); carregarServidor();renderizarModalUsuario();">
   <div id="sistema_modais">
   </div>
   <main class="container-main" id="main_page">
@@ -112,7 +112,7 @@
         }
     ]
     
-    var usuarios = [
+    var servidor = [
         {
             idServidor: 1,
             nome: "Server_1",
@@ -147,16 +147,16 @@
         
     ]
 
-    function carregarUsuarios(){
-        for (var i = 0; i < usuarios.length; i++) {
+    function carregarServidor(){
+        for (var i = 0; i < servidor.length; i++) {
             bodyTabela.innerHTML += `
             <tr>
-            <td>${usuarios[i].nome}</td>
-            <td>${usuarios[i].componentes}</td>
-            <td>${(usuarios[i].status)}</td>
-            <td>${(usuarios[i].monitoramento)}</td>
-            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}', '${usuarios[i].cargo}', '${usuarios[i].status}')" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${usuarios[i].idUsuario})'></i></td>
+            <td>${servidor[i].nome}</td>
+            <td>${servidor[i].componentes}</td>
+            <td style="color: ${servidor[i].status == 'Estável' ? '#2ecc71' : servidor[i].status == 'Perigo' ? '#f39c12' : '#e74c3c'};">${servidor[i].status}</td>
+            <td style="color: ${servidor[i].monitoramento == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${servidor[i].monitoramento}</td>
+            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${servidor[i].idUsuario}, '${servidor[i].nome}', '${servidor[i].email}', '${servidor[i].senha}', '${servidor[i].cargo}', '${servidor[i].status}')" ></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${servidor[i].idUsuario})'></i></td>
             </tr>
             `
         }

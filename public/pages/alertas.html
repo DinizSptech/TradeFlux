@@ -94,9 +94,9 @@
             bodyTabela.innerHTML += `
             <tr>
               <td>${alertas[i].componente}</td>
-            <td style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};">${alertas[i].valor}</td>
+            <td style="color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 80 ? '#eb9100' : 'black'};">${alertas[i].valor}</td>
             <td>${alertas[i].unidade}</td>
-            <td style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};"><b>${(alertas[i].nivel)}</b></td>
+            <td style="color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 80 ? '#eb9100' : 'black'};">${(alertas[i].nivel)}</td>
             <td>${(alertas[i].servidor)}</td>
             <td>${(alertas[i].data)}</td>
             <td><input type="checkbox" id="visto" onclick="confirmarVisto()" /></td>
