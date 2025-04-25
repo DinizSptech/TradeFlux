@@ -85,6 +85,17 @@ CREATE TABLE IF NOT EXISTS Parametro_Servidor (
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
 );
 
+
+DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
+CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
+GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
+
+DROP USER IF EXISTS 'user_select_tradeflux'@'%';
+CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
+GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
+
+FLUSH PRIVILEGES;
+
 -- Fim frio
 
 CREATE TABLE IF NOT EXISTS Captura (
