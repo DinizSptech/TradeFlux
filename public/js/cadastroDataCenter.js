@@ -137,8 +137,13 @@ function adicionarServidorParte2() {
   });
 
   alert('DataCenter inserido com sucesso')
-
-  fecharModal()
+  document.getElementById("ipt_nome").value = "";
+  document.getElementById("ipt_cep").value = "";
+  document.getElementById("ipt_numero").value = "";
+  document.getElementById("ipt_complemento").value = "";
+  div_form_parte1.style.display = "flex";
+  div_form_parte2.style.display = "none";
+  bg_formulario.style.display = "none";
 
 }
 
