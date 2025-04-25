@@ -10,11 +10,14 @@ html {
   height: 100vh;
 }
 
+/* #0A0E27 */
+/* #23283ad4 */
+
 body {
-  /* background-color: #344cb7; */
-  background-image: url("../assets/index.photo.jpg");
+  background-color: #0a0e27;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   color: white;
   font-family: "Ubuntu", serif;
   margin: 0px;
@@ -57,12 +60,12 @@ a {
 }
 
 .lista-nav a:hover {
-  color: #e0a30a;
+  color: #00c2a8;
   cursor: pointer;
 }
 
 .contato {
-  background-color: #e0d00a;
+  background-color: #00c2a8;
   border-radius: 20px;
   height: 50%;
   text-align: center;
@@ -88,7 +91,7 @@ a {
   justify-content: space-around;
   align-items: center;
   border-radius: 20px;
-  background-color: #000957;
+  background-color: #23283a;
   width: 30%;
   height: 80%;
 }
@@ -105,7 +108,7 @@ a {
 .menu h4 {
   margin: 0;
   font-size: 25px;
-  color: #e0d00a;
+  color: #00c2a8;
 }
 
 .msgErro {
@@ -133,11 +136,11 @@ a {
   border: none;
   font-size: 20px;
   font-weight: 1000;
-  background-color: #e0d00a;
+  background-color: #00c2a8;
 }
 
 .menu button:hover {
-  background-color: #e0a30a;
+  background-color: #00c2a8;
   cursor: pointer;
 }
 
@@ -155,7 +158,7 @@ a {
 }
 
 .footer {
-  background-color: #000957;
+  background-color: #23283a;
   min-height: 10%;
   color: #fff;
   display: flex;
@@ -165,7 +168,6 @@ a {
 }
 
 @media screen and (max-width: 1200px) {
-  
   .menu {
     width: 60%;
   }
@@ -226,7 +228,7 @@ a {
   .menu {
     width: 80%;
   }
- 
+
   .menu h4 {
     text-align: center;
     font-size: 25px;
@@ -240,4 +242,3 @@ a {
     width: 20%;
   }
 }
-
