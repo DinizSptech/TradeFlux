@@ -16,7 +16,7 @@
   <script src="../js/modais.js"></script>
 </head>
 
-<body onload="mostrarRankingServidores(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); renderizarModalUsuario();gerarGraficoComparacao();gerarGraficoProporcao();gerarGraficoDesempenho()">
+<body onload="mostrarRankingServidores(); contarAlertasCriticos(); contarAlertasAtencao(); carregarMenuLateral(); renderizarModalUsuario();gerarGraficoComparacao();gerarGraficoProporcao();gerarGraficoDesempenho(); carregarServers()">
   <div id="sistema_modais">
   </div>
   <main class="container-main" id="main_page">
@@ -35,14 +35,28 @@
           <div id="alertas_atencao"></div>
         </div>
         
-        <div class="card" >Pico Máximo de 
-          <select id="slt_pico" onchange="mudarAtributoPico()">
-            <option disabled value="#">Selecione um</option>
+        <div class="card">
+          <div class="titlePico">
+
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+              <span>Pico Máximo de </span> 
+              <select id="slt_pico" onchange="mudarAtributoPico()">
+                <option disabled value="#">Selecione um</option>
             <option selected value="cpu">CPU (%)</option>
             <option value="ram">RAM (%)</option>
             <option value="disco">DISCO (%)</option>
           </select>
-          <div id="valor_pico"></div>
+          </div>
+
+
+        <div id='holderPico'>
+          <div id="serverPico"></div>
+          <div id="valorPico"></div>
+         </div>
+          
+
+
+        </div>
         </div>
       </div>
       <div class="dashboard-sections">
@@ -70,11 +84,14 @@
             <h3>Média de desempenho de
               <select id="slt_desempenho" onchange="mudarAtributoDesempenho()">
                 <option disabled value="#">Selecione um</option>
-                <option selected value="cpu">CPU (%)</option>
-                <option value="ram">RAM (%)</option>
+                <option selected value="ram">RAM (%)</option>
+                <option value="cpu">CPU (%)</option>
                 <option value="disco">DISCO (%)</option>
               </select>
-              do Data-Center
+              do 
+              <select id="slt_server" onload="carregarServers()" onchange="mudarAtributoDesempenho()">
+                <option disabled value="#">Selecione um</option>
+              </select>
             </h3>
             <canvas id="grafico_desempenho"></canvas>
           </div>

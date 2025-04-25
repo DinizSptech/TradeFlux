@@ -68,9 +68,13 @@ body {
   margin-top: 10px;
 }
 
-#valor_pico {
+#holderPico{
   font-size: 2.5vw;
   margin-top: 10px;
+}
+
+#serverPico {
+  white-space: nowrap;
 }
 
 /* Dashboard sections */
@@ -220,4 +224,11 @@ canvas {
 #ranking_servidores {
   max-height: 25vh;
   overflow-y: auto;
+}
+
+.titlePico{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }

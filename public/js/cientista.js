@@ -1,7 +1,201 @@
-var servidor1 = { cpu: 23, ram: 87, disco: 60 };
-var servidor2 = { cpu: 67, ram: 44, disco: 56 };
-var servidor3 = { cpu: 85, ram: 36, disco: 44 };
+var dadosServidores = [
+  {
+    'servidor': 'Servidor 1',
+    'dados': [
+      {
+        'Momento': '2023-10-01 09:00:00',
+        'ram': 90,
+        'cpu': 95,
+        'disco': 85
+      },
+      {
+        'Momento': '2023-10-01 10:00:00',
+        'ram': 60,
+        'cpu': 70,
+        'disco': 50
+      },
+      {
+        'Momento': '2023-10-01 11:00:00',
+        'ram': 55,
+        'cpu': 65,
+        'disco': 60
+      },
+      {
+        'Momento': '2023-10-01 12:00:00',
+        'ram': 70,
+        'cpu': 80,
+        'disco': 75
+      },
+      {
+        'Momento': '2023-10-01 13:00:00',
+        'ram': 95,
+        'cpu': 90,
+        'disco': 80
+      },
+      {
+        'Momento': '2023-10-01 14:00:00',
+        'ram': 50,
+        'cpu': 55,
+        'disco': 65
+      },
+      {
+        'Momento': '2023-10-01 15:00:00',
+        'ram': 45,
+        'cpu': 50,
+        'disco': 55
+      },
+      {
+        'Momento': '2023-10-01 16:00:00',
+        'ram': 40,
+        'cpu': 45,
+        'disco': 50
+      },
+      {
+        'Momento': '2023-10-01 17:00:00',
+        'ram': 35,
+        'cpu': 40,
+        'disco': 45
+      },
+      {
+        'Momento': '2023-10-01 18:00:00',
+        'ram': 30,
+        'cpu': 35,
+        'disco': 40
+      }
+    ]
+  },
+  {
+    'servidor': 'Servidor 2',
+    'dados': [
+      {
+        'Momento': '2023-10-01 09:00:00',
+        'ram': 85,
+        'cpu': 90,
+        'disco': 95
+      },
+      {
+        'Momento': '2023-10-01 10:00:00',
+        'ram': 55,
+        'cpu': 65,
+        'disco': 60
+      },
+      {
+        'Momento': '2023-10-01 11:00:00',
+        'ram': 50,
+        'cpu': 60,
+        'disco': 70
+      },
+      {
+        'Momento': '2023-10-01 12:00:00',
+        'ram': 75,
+        'cpu': 80,
+        'disco': 85
+      },
+      {
+        'Momento': '2023-10-01 13:00:00',
+        'ram': 90,
+        'cpu': 95,
+        'disco': 90
+      },
+      {
+        'Momento': '2023-10-01 14:00:00',
+        'ram': 45,
+        'cpu': 50,
+        'disco': 55
+      },
+      {
+        'Momento': '2023-10-01 15:00:00',
+        'ram': 40,
+        'cpu': 45,
+        'disco': 50
+      },
+      {
+        'Momento': '2023-10-01 16:00:00',
+        'ram': 35,
+        'cpu': 40,
+        'disco': 45
+      },
+      {
+        'Momento': '2023-10-01 17:00:00',
+        'ram': 30,
+        'cpu': 35,
+        'disco': 40
+      },
+      {
+        'Momento': '2023-10-01 18:00:00',
+        'ram': 25,
+        'cpu': 30,
+        'disco': 35
+      }
+    ]
+  },
+  {
+    'servidor': 'Servidor 3',
+    'dados': [{
+      'Momento': '2023-10-01 09:00:00',
+      'ram': 80,
+      'cpu': 85,
+      'disco': 75
+    },
+    {
+      'Momento': '2023-10-01 10:00:00',
+      'ram': 65,
+      'cpu': 70,
+      'disco': 60
+    },
+    {
+      'Momento': '2023-10-01 11:00:00',
+      'ram': 60,
+      'cpu': 65,
+      'disco': 55
+    },
+    {
+      'Momento': '2023-10-01 12:00:00',
+      'ram': 70,
+      'cpu': 75,
+      'disco': 80
+    },
+    {
+      'Momento': '2023-10-01 13:00:00',
+      'ram': 95,
+      'cpu': 90,
+      'disco': 85
+    },
+    {
+      'Momento': '2023-10-01 14:00:00',
+      'ram': 50,
+      'cpu': 55,
+      'disco': 65
+    },
+    {
+      'Momento': '2023-10-01 15:00:00',
+      'ram': 45,
+      'cpu': 50,
+      'disco': 55
+    },
+    {
+      'Momento': '2023-10-01 16:00:00',
+      'ram': 40,
+      'cpu': 45,
+      'disco': 50
+    },
+    {
+      'Momento': '2023-10-01 17:00:00',
+      'ram': 35,
+      'cpu': 40,
+      'disco': 45
+    },
+    {
+      'Momento': '2023-10-01 18:00:00',
+      'ram': 30,
+      'cpu': 35,
+      'disco': 40
+    }
+  ]
+}
+];
 
+dadosServidores[0].servidor
 var corServidor1 = 'rgb(73, 139, 73)'
 var corServidor2 = 'rgb(216, 89, 4)'
 var corServidor3 = 'rgb(45, 99, 158)' 
@@ -24,7 +218,17 @@ var alertas = [
   { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
 ];
 
-
+function carregarServers(){
+  var servidores = []
+  var opcoes = ``
+  for(var i = 0; i < dadosServidores.length; i++){
+   if(!servidores.includes(dadosServidores[i].servidor)){
+    servidores.push(dadosServidores[i].servidor)
+    opcoes += `<option value = '${dadosServidores[i].servidor}'>${dadosServidores[i].servidor}</option>`
+  }
+}
+  document.getElementById('slt_server').innerHTML += opcoes
+}
 
 function mudarAtributoRanking() {
   var atributoAtual = document.getElementById("slt_ranking").value;
@@ -55,18 +259,27 @@ function mudarAtributoRanking() {
 
 function mudarAtributoDesempenho() {
   var atributoAtual = document.getElementById("slt_desempenho").value;
+  var servidorAtual = document.getElementById("slt_server").value
+
+  var dadosComponente = []
+  for (let i = 0; i < dadosServidores.length; i++) {
+    if(dadosServidores[i].servidor == servidorAtual){
+      for(let j = 0; j < dadosServidores[i].dados.length; j++){
+        dadosComponente.push(dadosServidores[i].dados[j][atributoAtual])
+      }
+      break
+    }
+  }
 
   if (atributoAtual == 'cpu') {
     grafico_desempenho.data.datasets[0].label = 'Uso médio de CPU (%)';
-    grafico_desempenho.data.datasets[0].data = [8, 45, 31, 31, 11, 19, 20, 22, 8];
   } else if (atributoAtual == 'ram') {
     grafico_desempenho.data.datasets[0].label = 'Uso médio de RAM (%)';
-    grafico_desempenho.data.datasets[0].data = [20, 85, 72, 67, 45, 53, 66, 70, 20];
   } else if (atributoAtual == 'disco') {
     grafico_desempenho.data.datasets[0].label = 'Uso médio de Disco (%)';
-    grafico_desempenho.data.datasets[0].data = [20, 21, 21, 21, 21, 21, 21, 22, 22];
   }
-
+  
+  grafico_desempenho.data.datasets[0].data = dadosComponente
   grafico_desempenho.update();
 }
 
@@ -169,19 +382,21 @@ function mudarAtributoPico() {
 
   var alertascomponente = alertas.filter(a => a.componente.toLowerCase() === slt_pico.toLowerCase());
 
-  var maiorValor = 0;
+console.log(alertascomponente)
+
+  var indiceMaior = 0;
   for (let i = 0; i < alertascomponente.length; i++) {
-    if (alertascomponente[i].valor > maiorValor) {
-      maiorValor = alertascomponente[i].valor;
+    if (alertascomponente[i].valor > alertascomponente[indiceMaior].valor) {
+      indiceMaior = i
     }
   }
-
-  var alertaPico = alertascomponente.find(a => a.valor === maiorValor);
-  valor_pico.innerHTML = `<span>
-    ${maiorValor}%</span><br>
+  var maiorValor = alertascomponente[indiceMaior].valor
+  var maiorValorServer = alertascomponente[indiceMaior].servidor
+  serverPico.innerHTML = `${maiorValorServer}:`
+  valorPico.innerHTML = ` 
+  <span style="color: ${maiorValor >= 80 ? '#e74c3c' : maiorValor >= 60 ? '#eb9100' : 'green'};">${maiorValor}% </span>
     
   `;
-  valor_pico.style.color = maiorValor >= 90 ? 'red' : maiorValor >= 80 ? 'yellow' : 'white';
 }
 
 var graph_comparacao = null;
