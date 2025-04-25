@@ -255,22 +255,19 @@
             const canvas = document.getElementById(`grafico${componente}`);
             const ctx = canvas.getContext('2d');
             
-            // Determinar cor baseada no valor
             let cor;
             if (valor > 80) {
-                cor = '#e74c3c'; // Vermelho - crítico
+                cor = '#e74c3c'; 
             } else if (valor > 60) {
-                cor = '#f39c12'; // Amarelo - alerta
+                cor = '#f39c12'; 
             } else {
-                cor = '#2ecc71'; // Verde - estável
+                cor = '#2ecc71'; 
             }
             
-            // Destruir gráfico anterior se existir
             if (charts[componente]) {
                 charts[componente].destroy();
             }
             
-            // Criar novo gráfico
             charts[componente] = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -300,17 +297,14 @@
             });
         }
         
-        // Atualizar o gráfico principal (histórico)
         function atualizarGraficoPrincipal() {
             const canvas = document.getElementById('graficoPrincipal');
             const ctx = canvas.getContext('2d');
             
-            // Destruir gráfico anterior se existir
             if (charts.Principal) {
                 charts.Principal.destroy();
             }
             
-            // Simular histórico com uma pequena variação baseada no valor atual
             const componenteAtual = servidorAtual.RAM > 70 ? 'RAM' : (servidorAtual.CPU > 70 ? 'CPU' : 'Disco');
             
             // Criar gráfico de linha
@@ -392,9 +386,7 @@
             });
         }
         
-        // Expandir dashboard para mostrar mais detalhes de um componente específico
         function expandirDash(componente) {
-            // Atualizar gráfico principal para mostrar apenas o componente selecionado
             if (charts.Principal) {
                 charts.Principal.destroy();
             }
@@ -402,22 +394,17 @@
             const canvas = document.getElementById('graficoPrincipal');
             const ctx = canvas.getContext('2d');
             
-            // Simular histórico mais detalhado para o componente específico
-            // Gerar dados mais detalhados para as últimas 24 horas
             const horasDetalhadas = [...Array(24).keys()].map(i => {
                 const now = new Date();
                 now.setHours(now.getHours() - (23 - i));
                 return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             });
             
-            // Gerar dados simulados mais detalhados
             const valorBase = servidorAtual[componente];
             const dadosDetalhados = horasDetalhadas.map((_, i) => {
-                // Simular uma variação de +/- 10% do valor atual
                 return Math.max(0, Math.min(100, valorBase + (Math.random() * 20 - 10)));
             });
             
-            // Definir cor baseada no componente
             let corComponente;
             switch(componente) {
                 case 'CPU': corComponente = '#e74c3c'; break;
@@ -425,7 +412,6 @@
                 case 'Disco': corComponente = '#2ecc71'; break;
             }
             
-            // Criar gráfico detalhado
             charts.Principal = new Chart(ctx, {
                 type: 'line',
                 data: {

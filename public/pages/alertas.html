@@ -41,9 +41,9 @@
             <table id="tabelaFuncionarios">
               <thead>
                 <tr>
+                  <th>Componente</th>
                   <th>Valor</th>
                   <th>Unidade de Medida</th>
-                  <th>Componente</th>
                   <th>Nível</th>
                   <th>Servidor</th>
                   <th>Data e Hora</th>
@@ -93,10 +93,10 @@
         for (var i = 0; i < alertas.length; i++) {
             bodyTabela.innerHTML += `
             <tr>
-            <td>${alertas[i].valor}</td>
+              <td>${alertas[i].componente}</td>
+            <td style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};">${alertas[i].valor}</td>
             <td>${alertas[i].unidade}</td>
-            <td>${alertas[i].componente}</td>
-            <td style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};">${(alertas[i].nivel)}</td>
+            <td style="color: ${alertas[i].valor >= 90 ? 'red' : alertas[i].valor >= 80 ? 'yellow' : 'black'};"><b>${(alertas[i].nivel)}</b></td>
             <td>${(alertas[i].servidor)}</td>
             <td>${(alertas[i].data)}</td>
             <td><input type="checkbox" id="visto" onclick="confirmarVisto()" /></td>
