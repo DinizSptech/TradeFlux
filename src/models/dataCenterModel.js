@@ -15,7 +15,7 @@ function cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complement
 
   let instrucaoSql = `
        INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
-        ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${cidade}', '${estado}', '${complemento}');
+        ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${complemento}');
 
         INSERT INTO Data_Center (nome, fk_endereco, fk_cliente) VALUES
         ('${nome}', LAST_INSERT_ID(), 1);

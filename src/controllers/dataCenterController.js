@@ -1,3 +1,5 @@
+var dataCenterModel = require("../models/dataCenterModel");
+
 function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   let nome = req.body.nomeServer;
@@ -27,7 +29,7 @@ function cadastrar(req, res) {
   } 
   else {
 
-    usuarioModel
+    dataCenterModel
       .cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complemento)
       .then((resultado) => {
         res.status(200).json(resultado);

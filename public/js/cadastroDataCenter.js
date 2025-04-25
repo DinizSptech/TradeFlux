@@ -6,6 +6,7 @@ let bairro
 let logradouro
 let numero 
 let complemento
+let maisInformacao = false;
 
 function adicionarServidorParte1() {
   
@@ -21,7 +22,10 @@ function adicionarServidorParte1() {
   let nomeValido = validarNome()
   let cepValido = validarCep()
   
-  if (nomeValido && cepValido) {
+  if (nomeValido && cepValido && maisInformacao == false) {
+    
+    maisInformacao = true
+
     div_formulario.innerHTML += ` <div class="input">
             <span>Logradouro:</span>
             <input id="ipt_logradouro" type="text" />
@@ -86,17 +90,12 @@ function autoPreencherCep() {
 
 function adicionarServidorParte2() {
 
-  let cep2 = document.getElementById("ipt_cep")
+  // let cep2 = document.getElementById("ipt_cep")
     
-  if(cep != cep2) {
-    adicionarServidorParte1()
-    return;
-  } 
-
-  if (complemento == "") {
-  complemento = "--"
-    
-  }
+  // if(cep != cep2) {
+  //   adicionarServidorParte1()
+  //   return;
+  // } 
 
   nome = document.getElementById("ipt_nome").value
   cep = document.getElementById("ipt_cep").value
@@ -106,6 +105,16 @@ function adicionarServidorParte2() {
   logradouro = document.getElementById("ipt_logradouro").value
   numero = document.getElementById("ipt_numero").value
   complemento = document.getElementById("ipt_complemento").value
+
+  if (complemento == "") {
+    complemento = "--"
+      
+  }
+
+  if (numero == "") {
+    erros_cadastro_usuario.innerHTML += "Preencha o campo Numero\n";
+    
+  }
 
   alert("Data Center cadastrado com sucesso!")
   console.log("Dados do Data Center:")
