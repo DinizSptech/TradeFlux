@@ -3,10 +3,11 @@ from mysql.connector import connection, Error
 def gerarMyDbInsert():
     try:
         conn = connection.MySQLConnection(
-            host='localhost',
+            host='44.216.78.224',
             user='user_insert_tradeflux',
             password='tradeflux_insert',
-            database='tradeflux',
+            database='tradefluxQuente',
+            port=9642,
             auth_plugin='mysql_native_password',
             ssl_disabled=True
         )
@@ -22,10 +23,11 @@ def gerarMyDbInsert():
 def gerarMyDbSelect():
     try:
         conn = connection.MySQLConnection(
-            host='localhost',
+            host='44.216.78.224',
             user='user_select_tradeflux',
             password='tradeflux_select',
-            database='tradeflux',
+            database='tradefluxFria',
+            port=1730,
             auth_plugin='mysql_native_password',
             ssl_disabled=True
         )
