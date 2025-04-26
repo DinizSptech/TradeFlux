@@ -1,0 +1,134 @@
+/* Simple Mobile Responsive Styles */
+@media screen and (max-width: 767px) {
+    /* Main layout */
+    .barra-lateral {
+      display: none;
+    }
+    .bgForm{
+        width: 100vw;
+        height: 100vh ;
+        margin: 0;
+    }
+    
+    /* Modal adjustment */
+    .formUsuario {
+      width: 90vw;
+      height: auto;
+      overflow-y: auto;
+      gap: 2vh;
+    }
+    .areaInputs{
+        display: flex;
+        flex-direction: column;
+        gap: 4vh;
+        width: auto;
+        height: auto;
+        background-color: aqua;
+    }
+    .tituloForm{
+        text-align: center;
+        font-size: 4vh;
+    }
+    .input{
+        width: 70vw;
+    }
+    .input input{
+        height: 5vh;
+        width: 100%;
+    }
+    .input span{
+        font-size: 3vh;
+    }
+    .container-main {
+      width: auto;
+      height: auto;
+      margin: 0;
+    }
+    .container_perfil{
+        display: none;
+    }
+    .containerEsteiras{
+        margin-left: 0;
+        width: 100%;
+        height: 70vh;
+    }
+    .container-title p{
+        font-size: 4vh;
+    }
+    .btn-cadastro{
+        font-size: 2.5vh;
+        padding: 1.5vh;
+    }
+    .containerFiltro{
+        padding: 0;
+        margin-top: 3vh;
+    }
+    .mainContent {
+      width: 100vw;
+      margin: 0;
+      padding: 2vh 4vw;
+    }
+    
+    .btn-cadastro {
+      width: 100%;
+    }
+    
+    #tabelaFuncionarios {
+      width: 100%;
+    }
+    
+    #tabelaFuncionarios thead {
+      display: none;
+    }
+    
+    #tabelaFuncionarios tbody tr {
+      display: block;
+      margin-bottom: 1vh;
+      background-color: #272B3F;
+      border-radius: 8px;
+      padding: 3vh 4vw;
+    }
+    
+    #tabelaFuncionarios td {
+      display: flex;
+      padding: 1vh 0;
+      text-align: left;
+      align-items: center;
+      border: none;
+      position: relative;
+    }
+    
+    #tabelaFuncionarios td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      color: #8f94af;
+      display: inline-block;
+      width: 30%;
+    }
+    
+    /* Align action buttons */
+    .tableIcons {
+      display: inline-block;
+      text-align: center;
+      width: auto;
+      padding: 1vh 4vw;
+    }
+
+    
+  }
+  
+  /* Tablet adjustments */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .container-main {
+      width: 100vw;
+    }
+    
+    .barra-lateral {
+      width: 30vw;
+    }
+    
+    .mainContent {
+      width: 70vw;
+      margin-left: 30vw;
+    }
+  }
