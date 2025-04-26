@@ -131,6 +131,7 @@ DROP TRIGGER IF EXISTS gatilho_insert_alerta;
 
 DELIMITER $$
 
+/*
 CREATE TRIGGER gatilho_insert_alerta
 AFTER INSERT ON Captura
 FOR EACH ROW
@@ -141,7 +142,7 @@ BEGIN
     END IF;
 END$$
 DELIMITER;
-
+*/
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
 CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
 GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
