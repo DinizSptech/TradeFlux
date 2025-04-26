@@ -40,7 +40,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5vh;
 }
 
 .selectServer {
@@ -93,7 +93,7 @@ body {
 .donutHolder {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 60px;
     margin-top: 30px;
     margin-bottom: 40px;
 }
@@ -139,6 +139,9 @@ body {
 .donut {
     width: 140px;
     height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bigDashHolder {
@@ -146,4 +149,11 @@ body {
     border-radius: 10px;
     padding: 20px;
     height: 500px;
+}
+
+.centralDonut{
+    z-index: 2;
+    position: absolute;
+    font-weight: bolder;
+    font-size: 1.5vw;
 }

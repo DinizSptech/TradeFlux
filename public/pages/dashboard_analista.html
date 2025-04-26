@@ -60,6 +60,7 @@
                             <div class="midDonut">
                                 <div id="ramStatus" class="statusComp"></div>
                                 <div class="donut">
+                                    <div class="centralDonut" id="centralRAM"></div>
                                     <canvas id="graficoRAM"></canvas>
                                 </div>
                             </div>
@@ -73,6 +74,7 @@
                             <div class="midDonut">
                                 <div id="discoStatus" class="statusComp"></div>
                                 <div class="donut">
+                                    <div class="centralDonut" id="centralDisco"></div>
                                     <canvas id="graficoDisco"></canvas>
                                 </div>
                             </div>
@@ -86,6 +88,7 @@
                             <div class="midDonut">
                                 <div id="cpuStatus" class="statusComp"></div>
                                 <div class="donut">
+                                    <div class="centralDonut" id="centralCPU"></div>
                                     <canvas id="graficoCPU"></canvas>
                                 </div>
                             </div>
@@ -197,50 +200,66 @@
         }
 
         function atualizarGrafico(componente, valor) {
-            const canvas = document.getElementById(`grafico${componente}`);
-            const ctx = canvas.getContext('2d');
-            
-            let cor;
-            if (valor > 80) {
-                cor = '#e74c3c'; 
-            } else if (valor > 60) {
-                cor = '#f39c12'; 
-            } else {
-                cor = '#2ecc71'; 
-            }
-            
-            if (charts[componente]) {
-                charts[componente].destroy();
-            }
-            
-            charts[componente] = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Usado', 'Disponível'],
-                    datasets: [{
-                        data: [valor, 100 - valor],
-                        backgroundColor: [cor, '#24283e'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    cutout: '60%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.label}: ${context.raw}%`;
-                                }
-                            }
-                        }
-                    }
+    const canvas = document.getElementById(`grafico${componente}`);
+    const ctx = canvas.getContext('2d');
+
+    let cor;
+    if (valor > 80) {
+        cor = '#e74c3c'; 
+    } else if (valor > 60) {
+        cor = '#f39c12'; 
+    } else {
+        cor = '#2ecc71'; 
+    }
+    document.getElementById(`central${componente}`).innerHTML = `<span style='color: ${cor}'>${valor}</span>`
+
+
+    if (charts[componente]) {
+        charts[componente].destroy();
+    }
+
+    // const donutLabel = {
+    //     id: 'donutLabel',
+    //     beforeDatasetsDraw(chart) {
+    //         console.log('passei aqui 1')
+    //         const { ctx } = chart;
+    //         ctx.save();
+    //         const xCoor = chart.getDatasetMeta(0).data[0].x;
+    //         const yCoor = chart.getDatasetMeta(0).data[0].y;
+
+    //         // Definindo o texto a ser exibido
+    //         const text = `${valor}%`;
+    //         ctx.font = 'bold 30px sans-serif';
+    //         ctx.fillStyle = cor;
+    //         ctx.textAlign = 'center';
+    //         ctx.textBaseline = 'middle';
+    //         ctx.fillText(text, xCoor, yCoor);
+    //         ctx.restore();
+    //         console.log('passei aqui 2')
+    //     }
+    // };
+
+    charts[componente] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Usado', 'Disponível'],
+            datasets: [{
+                data: [valor, 100 - valor],
+                backgroundColor: [cor, '#24283e'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    display: false
                 }
-            });
+            }
         }
+    });
+}
         
         function atualizarGraficoPrincipal() {
             const canvas = document.getElementById('graficoPrincipal');

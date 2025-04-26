@@ -290,9 +290,15 @@ function mostrarRankingServidores() {
   const tipoRanking = document.getElementById("slt_ranking").value;
   
   const servidores = [
+<<<<<<< Updated upstream
     { nome: "Server_1", cpu: 23, ram: 67, disco: 85 },
     { nome: "Server_2", cpu: 87, ram: 44, disco: 36 },
     { nome: "Server_3", cpu: 60, ram: 56, disco: 44 }
+=======
+    { nome: "Servidor 1", cpu: 87, ram: 76, disco: 58 },
+    { nome: "Servidor 2", cpu: 44, ram: 42, disco: 57 },
+    { nome: "Servidor 3", cpu: 36, ram: 35, disco: 43 }
+>>>>>>> Stashed changes
   ];
   
   servidores.sort((a, b) => b[tipoRanking] - a[tipoRanking]);
@@ -524,6 +530,7 @@ function gerarGraficoDesempenho(){
       labels: ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
       datasets: [{
         label: 'Uso médio de (%)',
+        labelcolor: 'rgb(255,255,255)',
         data: [20, 85, 72, 67, 45, 53, 66, 70, 20],
         borderColor: '#17a2b8',
         backgroundColor: 'rgba(23,162,184,0.2)',
