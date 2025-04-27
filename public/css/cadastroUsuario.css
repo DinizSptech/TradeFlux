@@ -17,7 +17,7 @@
   animation: aparecer 1s;
 }
 .bgFormEditar {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
@@ -52,7 +52,7 @@
 .formUsuario {
   display: flex;
   width: 30vw;
-  height: 70vh;
+  height: auto;
   background-color: #262B3C;
   justify-content: center;
   align-items: center;
@@ -74,27 +74,39 @@
   color: red;
 }
 
+.areaInputs{
+  display: flex;
+  width: auto;
+  height: auto;
+  margin-top: 2vh;
+  flex-direction: column;
+  gap: 2vh;
+}
+.erros{
+  display: none;
+}
+
 .tituloForm {
-  font-size: 45px;
+  font-size: 2.4vw;
   font-weight: bold;
 }
 
 .input {
-  width: 57%;
-  justify-content: center;
+  width: auto;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   height: 10%;
 }
 
 .input input {
-  width: 100%;
+  width: auto;
   border: none;
   border-radius: 10px;
   height: 40%;
   font-size: 20px;
-  padding: 10px;
+  padding: 1vh;
   border: #3A3F58 3px solid;
   background-color: #494f78;
   color: #FFF
@@ -102,8 +114,7 @@
 
 .input span {
   width: 100%;
-  font-size: 25px;
-  /* text-justify: center; */
+  font-size: 1.3vw;
 }
 
 .select-container {
@@ -114,18 +125,14 @@
   /* align-items: center; */
   gap: 5%;
 }
-.select-container span {
-  width: auto;
-  height: auto;
-  
-}
 
 select {
   border: #3A3F58 3px solid;
   width: 100%;
+  height: 6vh;
   font-size: 20px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 10px;
   background: #494f78;
   color: #fff
 }
@@ -141,10 +148,11 @@ select {
 }
 
 .buttonCadastrar button {
-  height: 100%;
-  width: 30%;
+  height: auto;
+  width: auto;
   font-size: 20px;
   border-radius: 10px;
+  padding: 1vw 3vh;
   border: none;
   background-color: #008573;
   color: #ffffff;

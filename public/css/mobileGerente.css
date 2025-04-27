@@ -12,32 +12,65 @@
     
     /* Modal adjustment */
     .formUsuario {
-      width: 90vw;
-      height: auto;
-      overflow-y: auto;
-      gap: 2vh;
+      width: 85vw;
+      padding: 10px;
+      box-sizing: border-box;
     }
     .areaInputs{
         display: flex;
         flex-direction: column;
-        gap: 4vh;
+        gap: 2vh;
         width: auto;
         height: auto;
-        background-color: aqua;
     }
     .tituloForm{
         text-align: center;
         font-size: 4vh;
     }
-    .input{
-        width: 70vw;
+    .input {
+      width: 90%;
+      margin: 0 auto;
     }
     .input input{
         height: 5vh;
         width: 100%;
     }
     .input span{
-        font-size: 3vh;
+        font-size: 2.4vh;
+    }
+    select {
+      display: block;
+      width: 100%;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.3;
+      border: 3px solid #3A3F58;
+      border-radius: 10px;
+      color: white;
+      background-color: #494f78;
+      background-image: none;
+      box-sizing: border-box;
+      appearance: menulist; 
+      -webkit-appearance: menulist;
+      -moz-appearance: menulist;
+    }
+    
+    option {
+      font-size: 16px;
+      padding: 8px;
+    }
+    .erros{
+      display: none;
+    }
+    .buttonCadastrar{
+      height: auto;
+    }
+    .buttonCadastrar button{
+      height: auto;
+      width: auto;
+      padding: 1vh;
+      font-size: 2vh;
     }
     .container-main {
       width: auto;

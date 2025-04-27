@@ -76,6 +76,7 @@ function cadastrar() {
 
   function validarEmail(email) {
     erros_cadastro_email.innerHTML = ``;
+    erros_cadastro_senha.style.display = 'flex';
     let emailValidado = true;
     
     if (email == "") {
@@ -105,6 +106,7 @@ function cadastrar() {
 
   function validarSenha(senha) {
     erros_cadastro_senha.innerHTML = ``;
+    erros_cadastro_senha.style.display = 'flex';
     let senhaValidada = true;
     
     if (senha == "") {

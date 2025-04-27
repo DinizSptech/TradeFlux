@@ -5,9 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TradeFlux</title>
+  <link rel="stylesheet" href="../css/cadastroUsuario.css">
   <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
   <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
   <link rel="stylesheet" href="../css/modalPerfil.css" />
+  <link rel="stylesheet" href="../css/mobileGerente.css" />
   <!-- <script src="../script/sessao.js"></script> -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -16,9 +18,9 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cadastroUsuario.css">
     <script src="../js/cadastroUsuario.js"></script>
     <script src="../js/modais.js"></script>
+    <script src="../js/mobileGerente.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
@@ -33,42 +35,45 @@
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
             <div class="tituloForm">Cadastrar Usuario</div>
-            <div class="input">
-              <span>Usuario:</span>
-              <input id="ipt_nome" type="text" />
-            </div>
-            <div class="input">
-              <span>Email:</span>
-              <input id="ipt_email" type="text" />
-            </div>
-            <div class="input">
-              <div class="select-container">
-                <span>Selecione o Cargo:</span>
-                <select id="select_cargo" name="">
-                  <option selected disabled value="#">Selecione uma opção</option>
-                  <option value="analista">Analista</option>
-                  <option value="cientista">Cientista</option>
-                  <option value="administrador">Administrador</option>
-                </select>
+            <div class="areaInputs">
+
+              <div class="input">
+                <span>Usuario:</span>
+                <input id="ipt_nome" type="text" />
+              </div>
+              <div class="input">
+                <span>Email:</span>
+                <input id="ipt_email" type="text" />
+              </div>
+              <div class="input">
+                <div class="select-container">
+                  <span>Selecione o Cargo:</span>
+                  <select id="select_cargo" name="">
+                    <option selected disabled value="#">Selecione uma opção</option>
+                    <option value="analista">Analista</option>
+                    <option value="cientista">Cientista</option>
+                    <option value="administrador">Administrador</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input">
+                <span>Senha:</span>
+                <input id="ipt_senha" type="password" />
+              </div>
+              <div class="input">
+                <span>Confirmar senha:</span>
+                <input id="ipt_confirmSenha" type="password" />
+              </div>
+              <div class="buttonCadastrar">
+                <button onclick="cadastrar()">Cadastrar</button>
               </div>
             </div>
-            <div class="input">
-              <span>Senha:</span>
-              <input id="ipt_senha" type="password" />
-            </div>
-            <div class="input">
-              <span>Confirmar senha:</span>
-              <input id="ipt_confirmSenha" type="password" />
-            </div>
-            <div class="buttonCadastrar">
-              <button onclick="cadastrar()">Cadastrar</button>
-            </div>
             <br>
-            <div id="erros_cadastro_usuario"></div>
-            <div id="erros_cadastro_email"></div>
-            <div id="erros_cadastro_cargo"></div>
-            <div id="erros_cadastro_senha"></div>
-            <div id="erros_cadastro_confirmsenha"></div>
+            <div class="erros" id="erros_cadastro_usuario"></div>
+            <div class="erros" id="erros_cadastro_email"></div>
+            <div class="erros" id="erros_cadastro_cargo"></div>
+            <div class="erros" id="erros_cadastro_senha"></div>
+            <div class="erros" id="erros_cadastro_confirmsenha"></div>
           </div>
     </div>
     <div class="bgForm" id="bg_formulario_edicao">

@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TradeFlux - Componentes</title>
+    <link rel="stylesheet" href="../css/cadastroComponente.css" />
     <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css" />
+    <link rel="stylesheet" href="../css/mobileGerente.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -24,7 +26,6 @@
       href="../assets/TRADEFLUX__2_cortado.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="../css/cadastroComponente.css" />
     <script src="../js/cadastroComponente.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/modais.js"></script>
@@ -39,37 +40,39 @@
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
           <div class="tituloForm">Cadastrar Componente</div>
+          <div class="areaInputs">
 
-          <div class="select-container2">
-            <span>Selecione o servidor do Componente:</span>
-            <select id="select_servidor" name="" onchange="exibirCaracteristicas(); exibirComponentesNoSelect()">
-              <option selected disabled value="#">Selecione uma opção</option>
-            </select>
+            <div class="select-container2">
+              <span>Selecione o servidor do Componente:</span>
+              <select id="select_servidor" name="" onchange="exibirCaracteristicas(); exibirComponentesNoSelect()">
+                <option selected disabled value="#">Selecione uma opção</option>
+              </select>
+            </div>
+            <div class="caracteristicas_servidor">
+              <span id="ram_total"></span>
+              <span id="disco_total"></span>
+              <span id="cpu"></span>
+              <span id="so"></span>
+            </div>
+            <div class="select-container2">
+              <span>Selecione um componente para definir o limiar:</span>
+              <select id="select_componente" name="">
+                <option selected disabled value="#">Selecione um componente</option>
+              </select>
+            </div>
+            <div class="input">
+              <span>Limiar de alerta:</span>
+              <input id="ipt_limiar" type="number" />
+            </div>
+            <div class="buttonCadastrar">
+              <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente();">
+                Cadastrar
+              </button>
+            </div>
           </div>
-          <div class="caracteristicas_servidor">
-            <span id="ram_total"></span>
-            <span id="disco_total"></span>
-            <span id="cpu"></span>
-            <span id="so"></span>
-          </div>
-          <div class="select-container2">
-            <span>Selecione um componente para definir o limiar:</span>
-            <select id="select_componente" name="">
-              <option selected disabled value="#">Selecione um componente</option>
-            </select>
-          </div>
-          <div class="input">
-            <span>Limiar de alerta:</span>
-            <input id="ipt_limiar" type="number" />
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente();">
-              Cadastrar
-            </button>
-          </div>
-          <div id="erros_cadastro_servidor"></div>
-          <div id="erros_cadastro_componente"></div>
-          <div id="erros_cadastro_limiar"></div>
+          <div class="erros" id="erros_cadastro_servidor"></div>
+          <div class="erros" id="erros_cadastro_componente"></div>
+          <div class="erros" id="erros_cadastro_limiar"></div>
         </div>
       </div>
       <div class="bgForm" id="bg_formulario_edicao">
