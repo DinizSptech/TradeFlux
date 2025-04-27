@@ -26,6 +26,7 @@
     width: auto;
     padding: 0;
     position: absolute;
+    z-index: 20;
     top: 12vh;
     right: 11vw;
     background-color: #3B3E58;
