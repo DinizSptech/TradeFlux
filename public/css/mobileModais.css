@@ -1,13 +1,14 @@
+@media screen and (max-width: 767px) {
 .container_perfil_menu {
-  width: 12vw;
-  height: 8vh;
-  display: flex;
+  width: 25vw;
+  height: 3vh;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 4vh;
-  right: 4vw;
-  gap: 0.7vw;
+  display: flex;
+  position:fixed;
+  gap: 2vw;
+  top: 1.2vh;
+  right: 10px;
   /* background-color: #ffc228; */
 }
 
@@ -17,8 +18,8 @@
   width: auto;
   padding: 0;
   position: absolute;
-  top: 12vh;
-  right: 11vw;
+  top:6vh;
+  right: 17vw;
   background-color: #3b3e58;
   border-radius: 8px;
   border: 2px solid #3b3e58;
@@ -54,7 +55,7 @@
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  top: 12vh;
+  top:6vh;
   right: 5vw;
   background-color: #3b3e58;
   border-radius: 8px;
@@ -72,12 +73,12 @@
 }
 
 .barraVertical {
-  height: 3vh;
+  height: 1.5vh;
   width: 0.1vh;
   border: solid #00c2a8;
-  border-left-width: 0.5vh;
+  border-left-width: 0.2vh;
 }
-.button_perfil {
+.button_perfil_nav_bar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,18 +86,23 @@
   width: auto;
   gap: 0.6vw;
   cursor: pointer;
+  /* background-color: #a1fff2; */
 }
-.container_perfil .fa-solid {
+.imgPerfil{
+  width: 7vw;
+  height: 7vw;
+}
+.container_perfil_menu .fa-solid {
   text-decoration: none;
   color: #00c2a8;
-  font-size: 3vw;
+  font-size: 3vh;
 }
-.container_perfil .fa-chevron-down {
+.container_perfil_menu .fa-chevron-down {
   text-decoration: none;
   color: #00c2a8;
-  font-size: 1.5vw;
+  font-size: 1.5vh;
 }
-.button_perfil:hover .fa-solid {
+.button_perfil_nav_bar:hover .fa-solid {
   color: #a1fff2;
 }
 .container_perfil .fa-bell:hover {
@@ -112,14 +118,14 @@
   overflow-x: hidden;
   overflow-y: hidden;
   position: absolute;
-  z-index: 2;
+  z-index: 21;
   height: 100vh;
-  width: 80vw;
-  margin-left: 20vw;
+  width: 100vw;
   font-weight: 500;
   background-color: #07142c98;
   backdrop-filter: blur(5px);
   animation: aparecer 1s;
+  margin: 0;
 }
 .container_perfil_completo {
   display: flex;
@@ -128,10 +134,10 @@
   background-color: #262b3c;
   justify-content: center;
   gap: 2%;
-  padding: 4vh 2vw;
+  padding: 4vh 10vw;
   flex-direction: column;
   border-radius: 20px;
-  font-size: 1.2vw;
+  font-size: 1.8vh;
   border: solid 3px #3a3f58;
 }
 .perfil_conteudo {
@@ -143,13 +149,12 @@
   flex-direction: column;
   align-items: start;
   gap: 2vh;
-  /* background-color: aqua; */
 }
 .perfil_conteudo i {
-  font-size: 8vw;
+  font-size: 8vh;
 }
 .spn_perfil_nome {
-  font-size: 1.5vw;
+  font-size: 2.2vh;
 }
 .spn_perfil {
   /* background-color: #5ec200; */
@@ -159,12 +164,13 @@
   align-self: center;
   text-align: center;
   background-color: #00c2a8;
-  border-radius: 1vw;
-  font-size: 1.5vw;
+  border-radius: 1vh;
+  font-size: 1.8vh;
   color: #f0f0f0;
-  width: 10vw;
+  width: auto;
   margin: 3vh 0vw 0vh 0vw;
-  padding: 2vh 0vw;
+  padding: 1vh 3vw;
   cursor: pointer;
   font-weight: 700;
+}
 }

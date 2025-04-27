@@ -136,5 +136,13 @@ function carregarMenuLateral() {
        <span><a href="/pages/login.html">Sair</a></span>
     </div>
     `;
+    
+  }
+  if (cargo == "cientista") {
+    document.getElementById("rogerioCientista2").style.display = "block";
+  } else if (cargo == "analista") {
+    document.getElementById("juliaAnalista2").style.display = "block";
+  } else if (cargo == "administrador") {
+    document.getElementById("jenniferADM2").style.display = "block";
   }
 }

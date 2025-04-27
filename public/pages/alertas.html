@@ -29,6 +29,16 @@
   </div>
   <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+    <div class="container_perfil_menu" id="modal_perfil">
+      <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
+      <span class="barraVertical"></span>
+      <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
+      <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
+      <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
+      <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
   </div>
   <div id="barralateral" class="barra-lateral">
 
@@ -75,21 +85,21 @@
     }
   ]
   var alertas = [
-    { valor: 85, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 1', data: '11-04-2025 10:12' },
-    { valor: 91, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '11-04-2025 09:47' },
-    { valor: 88, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '10-04-2025 18:32' },
-    { valor: 93, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 2', data: '10-04-2025 15:14' },
-    { valor: 82, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '09-04-2025 12:05' },
-    { valor: 95, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '08-04-2025 14:23' },
-    { valor: 88, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 1', data: '07-04-2025 11:45' },
-    { valor: 91, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 3', data: '06-04-2025 13:09' },
-    { valor: 84, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 2', data: '06-04-2025 10:55' },
-    { valor: 92, unidade: '%', componente: 'RAM', nivel: 'Crítico', servidor: 'Servidor 1', data: '05-04-2025 08:30' },
-    { valor: 85, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 2', data: '04-04-2025 16:40' },
-    { valor: 83, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '03-04-2025 19:02' },
-    { valor: 94, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '02-04-2025 17:21' },
-    { valor: 92, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '01-04-2025 13:36' },
-    { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
+    { valor: 85, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 1', data: '11/04/2025 10:12:01' },
+    { valor: 91, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '11/04/2025 09:47:02' },
+    { valor: 88, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '10/04/2025 18:32:10' },
+    { valor: 93, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 2', data: '10/04/2025 15:14:04' },
+    { valor: 82, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '09/04/2025 12:05:02' },
+    { valor: 95, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '08/04/2025 14:23:03' },
+    { valor: 88, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 1', data: '07/04/2025 11:45:22' },
+    { valor: 91, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 3', data: '06/04/2025 13:09:11' },
+    { valor: 84, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 2', data: '06/04/2025 10:55:21' },
+    { valor: 92, unidade: '%', componente: 'RAM', nivel: 'Crítico', servidor: 'Servidor 1', data: '05/04/2025 08:30:14' },
+    { valor: 85, unidade: '%', componente: 'CPU', nivel: 'Atenção', servidor: 'Servidor 2', data: '04/04/2025 16:40:15' },
+    { valor: 83, unidade: '%', componente: 'RAM', nivel: 'Atenção', servidor: 'Servidor 3', data: '03/04/2025 19:02:12' },
+    { valor: 94, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '02/04/2025 17:21:12' },
+    { valor: 92, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '01/04/2025 13:36:11' },
+    { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31/03/2025 15:10:19' }
   ];
 
 
@@ -98,9 +108,9 @@
       bodyTabela.innerHTML += `
             <tr>
               <td>${alertas[i].componente}</td>
-            <td style="color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 80 ? '#eb9100' : 'black'};">${alertas[i].valor}</td>
+            <td style="font-weight: bold; color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 65 ? '#F29D12' : 'black'};">${alertas[i].valor}</td>
             <td>${alertas[i].unidade}</td>
-            <td style="color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 80 ? '#eb9100' : 'black'};">${(alertas[i].nivel)}</td>
+            <td style="font-weight: bold; color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 65 ? '#F29D12' : 'black'};">${(alertas[i].nivel)}</td>
             <td>${(alertas[i].servidor)}</td>
             <td>${(alertas[i].data)}</td>
             <td><input type="checkbox" id="visto" onclick="confirmarVisto()" /></td>
