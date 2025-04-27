@@ -1,9 +1,7 @@
 /* Simple Mobile Responsive Styles */
 @media screen and (max-width: 767px) {
     /* Main layout */
-    .barra-lateral {
-      display: none;
-    }
+
     .bgForm{
         width: 100vw;
         height: 100vh ;

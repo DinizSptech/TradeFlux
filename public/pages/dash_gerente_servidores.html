@@ -31,8 +31,11 @@
 <body onload="carregarMenuLateral(); carregarServidor();renderizarModalUsuario();">
   <div id="sistema_modais">
   </div>
+  <div class="navbar">
+    <i onclick="mudarIcone()" id="menu-bar">&#9776;</i> 
+</div>
   <main class="container-main" id="main_page">
-    <div class="bgForm" id="bg_formulario">
+    <!-- <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
             <div class="tituloForm">Cadastrar Servidores</div>
@@ -53,7 +56,7 @@
               <div class="erros" id="erros_cadastro_usuario"></div>
               <div class="erros" id="erros_cadastro_confirmsenha"></div>
             </div>
-          </div>
+          </div> -->
           <div class="bgForm" id="bg_formulario_edicao">
             <div class="formUsuario">
               <div class="tituloForm">Editar Servidor</div>
@@ -68,8 +71,6 @@
           <div class="buttonCadastrar">
             <button onclick="fecharModal('edicao')">Salvar</button>
           </div>
-          <!-- <div id="erros_cadastro_usuario"></div> -->
-          <!-- <div id="erros_cadastro_confirmsenha"></div> -->
         </div>
   </div>
     <div id="barralateral" class="barra-lateral">
@@ -78,13 +79,13 @@
       <div class="container-title">
         <p>Servidores</p>
       </div>
-      <div class="containerFiltro">
+      <!-- <div class="containerFiltro">
         <div class="container-btnCadastro">
           <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
             <i class="fa-solid fa-circle-plus"></i> Adicionar Servidor
           </button>
         </div>
-      </div>
+      </div> -->
       <div id="div_containerEsteiras" class="containerEsteiras">
         <table id="tabelaFuncionarios" class="tabelaDados">
           <thead>

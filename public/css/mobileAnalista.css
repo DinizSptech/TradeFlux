@@ -29,6 +29,10 @@
 .selectServer span{
     margin-left: 1vw;
 }
+
+.centralDonut{
+    font-size: 4.5vw;
+}
 .boxSelect{
     width: auto;
     min-width: auto;

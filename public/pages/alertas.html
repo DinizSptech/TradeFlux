@@ -15,59 +15,63 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cadastroUsuario.css">
-    <script src="../js/cadastroUsuario.js" defer></script>
-    <script src="../js/modais.js"></script>
-    <script src="../js/criacaoMenuLateral.js"></script>
+  <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
+  <link rel="stylesheet" href="../css/cadastroUsuario.css">
+  <link rel="stylesheet" href="../css/mobileGerente.css">
+  <script src="../js/cadastroUsuario.js" defer></script>
+  <script src="../js/modais.js"></script>
+  <script src="../js/criacaoMenuLateral.js"></script>
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
 <body onload="carregarMenuLateral('alertas'); carregarAlertas(); renderizarModalUsuario()">
   <div id="sistema_modais">
   </div>
-      <div id="barralateral" class="barra-lateral">
-        
-      </div>
-      
-      <main class="container-main" id="main_page">
-        <div class="mainContent">
+  <div class="navbar">
+    <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+  </div>
+  <div id="barralateral" class="barra-lateral">
 
-          <div class="container-title">
-            <p>Histórico de Alertas</p>
-          </div>
-          <div id="div_containerEsteiras" class="containerEsteiras">
-            
-            <table id="tabelaFuncionarios">
-              <thead>
-                <tr>
-                  <th>Componente</th>
-                  <th>Valor</th>
-                  <th>Unidade de Medida</th>
-                  <th>Nível</th>
-                  <th>Servidor</th>
-                  <th>Data e Hora</th>
-                  <th>Visto</th>
-                </tr>
-              </thead>
-              <tbody id="bodyTabela">
-                
-              </tbody>
-            </table>
+  </div>
+
+  <main class="container-main" id="main_page">
+    <div class="mainContent">
+
+      <div class="container-title">
+        <p>Histórico de Alertas</p>
+      </div>
+      <div id="div_containerEsteiras" class="containerEsteiras">
+
+        <table id="tabelaFuncionarios">
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Valor</th>
+              <th>Unidade de Medida</th>
+              <th>Nível</th>
+              <th>Servidor</th>
+              <th>Data e Hora</th>
+              <th>Visto</th>
+            </tr>
+          </thead>
+          <tbody id="bodyTabela">
+
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
+    </div>
   </main>
 </body>
 
 </html>
 <script>
-  
+
   var resultado = [
     {
       nome: "Tobias Boss",
       nomeFantasia: "B3"
-      
+
     }
   ]
   var alertas = [
@@ -86,12 +90,12 @@
     { valor: 94, unidade: '%', componente: 'CPU', nivel: 'Crítico', servidor: 'Servidor 3', data: '02-04-2025 17:21' },
     { valor: 92, unidade: '%', componente: 'DISCO', nivel: 'Crítico', servidor: 'Servidor 2', data: '01-04-2025 13:36' },
     { valor: 89, unidade: '%', componente: 'DISCO', nivel: 'Atenção', servidor: 'Servidor 1', data: '31-03-2025 15:10' }
-];
+  ];
 
 
-    function carregarAlertas(){
-        for (var i = 0; i < alertas.length; i++) {
-            bodyTabela.innerHTML += `
+  function carregarAlertas() {
+    for (var i = 0; i < alertas.length; i++) {
+      bodyTabela.innerHTML += `
             <tr>
               <td>${alertas[i].componente}</td>
             <td style="color: ${alertas[i].valor >= 90 ? '#e74c3c' : alertas[i].valor >= 80 ? '#eb9100' : 'black'};">${alertas[i].valor}</td>
@@ -102,7 +106,7 @@
             <td><input type="checkbox" id="visto" onclick="confirmarVisto()" /></td>
             </tr>
             `
-        }
-        
     }
+
+  }
 </script>
