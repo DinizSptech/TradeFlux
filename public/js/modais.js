@@ -40,6 +40,7 @@ function fecharModal(tipo) {
     bg_modal_perfil_completo.style.display = "none";
   }
 }
+
 function renderizarModalUsuario() {
   sistema_modais.innerHTML += `<div class="container_perfil" id="modal_perfil">
       <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
@@ -91,4 +92,18 @@ function renderizarModalUsuario() {
 
   nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
   cargo_usuario.innerHTML = sessionStorage.Cargo;
+
+  // Alterar a imagem do ícone de perfil, dependendo da persona que logou:
+
+  const cargo = sessionStorage.getItem("Cargo");
+
+  console.log(cargo);
+
+  if (cargo == "cientista") {
+    document.getElementById("rogerioCientista").style.display = "block";
+  } else if (cargo == "analista") {
+    document.getElementById("juliaAnalista").style.display = "block";
+  } else if (cargo == "administrador") {
+    document.getElementById("jenniferADM").style.display = "block";
+  }
 }

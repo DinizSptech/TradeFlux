@@ -1,44 +1,37 @@
-
 function toggleMenu() {
-
   if (window.innerWidth <= 768) {
-    const menu = document.querySelector('.barra-lateral');
-    menu.classList.toggle('open');
-    
+    const menu = document.querySelector(".barra-lateral");
+    menu.classList.toggle("open");
   }
-  window.addEventListener('resize', function() {
-    const menu = document.querySelector('.barra-lateral');
+  window.addEventListener("resize", function () {
+    const menu = document.querySelector(".barra-lateral");
     if (window.innerWidth > 768) {
       // Se for desktop, remove a classe 'open' (se existir)
-      menu.classList.remove('open');
+      menu.classList.remove("open");
     }
   });
-
 }
 
 function mudarIcone() {
-  const menuIcon = document.getElementById('menu-bar');
-  
-  if (menuIcon.innerHTML === '☰') {
-    menuIcon.innerHTML = '&times;'; 
+  const menuIcon = document.getElementById("menu-bar");
+
+  if (menuIcon.innerHTML === "☰") {
+    menuIcon.innerHTML = "&times;";
   } else {
-    menuIcon.innerHTML = '&#9776;';
+    menuIcon.innerHTML = "&#9776;";
   }
 }
 
-
 function carregarMenuLateral() {
-const cargo = sessionStorage.getItem("Cargo");
-const barralateral = document.getElementById("barralateral");
+  const cargo = sessionStorage.getItem("Cargo");
+  const barralateral = document.getElementById("barralateral");
 
+  const menuBar = document.getElementById("menu-bar");
+  menuBar.addEventListener("click", toggleMenu);
 
-const menuBar = document.getElementById("menu-bar");
-menuBar.addEventListener('click', toggleMenu);
-
-console.log(cargo);
-if (cargo == "administrador") {
-    barralateral.innerHTML = 
-    `          <div class="div-logo">
+  console.log(cargo);
+  if (cargo == "administrador") {
+    barralateral.innerHTML = `          <div class="div-logo">
         <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
         <span class="txtLogo">TRADEFLUX</span>
         </div>
@@ -86,8 +79,8 @@ if (cargo == "administrador") {
             <i class="fa-solid fa-door-open"></i>
              <span><a href="/pages/login.html">Sair</a></span>
         </div>
-    `
-} else if (cargo == "cientista") {
+    `;
+  } else if (cargo == "cientista") {
     barralateral.innerHTML = `
     <div class="div-logo">
     <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
@@ -116,10 +109,9 @@ if (cargo == "administrador") {
     <div class="option">
         <i class="fa-solid fa-door-open"></i>
        <span><a href="/pages/login.html">Sair</a></span>
-    </div>`
-} else if (cargo == "analista") {
-    barralateral.innerHTML = 
-    `
+    </div>`;
+  } else if (cargo == "analista") {
+    barralateral.innerHTML = `
     <div class="div-logo">
     <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil" >
     <span class="txtLogo">TRADEFLUX</span>
@@ -143,6 +135,6 @@ if (cargo == "administrador") {
         <i class="fa-solid fa-door-open"></i>
        <span><a href="/pages/login.html">Sair</a></span>
     </div>
-    `
-}
+    `;
+  }
 }
