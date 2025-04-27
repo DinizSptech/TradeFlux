@@ -122,7 +122,7 @@ hr {
     background-color: #000000c0;
 }
 
-#tabelaFuncionarios {
+.tabelaDados {
     width: 100%;
     border-collapse: collapse;
   }
@@ -132,7 +132,7 @@ hr {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Para rolagem suave em iOS */
   }
-#tabelaFuncionarios thead tr th td{
+  .tabelaDados thead tr th td{
     color: #FFFFFF;
   }
 
@@ -156,11 +156,11 @@ hr {
   th {
     background-color: #262B3C;
   }
-  #tabelaFuncionarios tbody tr:nth-child(odd) {
+  .tabelaDados tbody tr:nth-child(odd) {
     background-color: #2D3348;
 }
 
-#tabelaFuncionarios tbody tr:nth-child(even) {
+.tabelaDados tbody tr:nth-child(even) {
     background-color: #262B3C;
 }
 .tableIcons i{

@@ -1,0 +1,37 @@
+/* Simple Mobile Responsive Styles */
+@media screen and (max-width: 767px) {
+    
+    .tabelaDados tbody tr {
+      display: block;
+      margin-bottom: 1vh;
+      background-color: #272B3F;
+      border-radius: 8px;
+      padding: 3vh 4vw;
+    }
+    
+    .tabelaDados td {
+      display: flex;
+      padding: 1vh 0;
+      text-align: left;
+      align-items: center;
+      border: none;
+      position: relative;
+    }
+    
+    .tabelaDados td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      color: #8f94af;
+      display: inline-block;
+      width: 50%;
+    }
+    
+    .tableIcons {
+      display: inline-block;
+      text-align: center;
+      width: auto;
+      padding: 1vh 4vw;
+    }
+
+    
+  }

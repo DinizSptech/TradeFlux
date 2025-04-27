@@ -6,26 +6,28 @@
     <title>TradeFlux - Componentes</title>
     <link rel="stylesheet" href="../css/cadastroComponente.css" />
     <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
-    <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
+    <link rel="stylesheet" href="../css/dash_gerente_funcionarios.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css" />
     <link rel="stylesheet" href="../css/mobileGerente.css" />
+    <link rel="stylesheet" href="../css/mobileComponenteServidor.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
     />
     <link
-      rel="shortcut icon"
-      href="../assets/TRADEFLUX__2_cortado.png"
-      type="image/x-icon"
+    rel="shortcut icon"
+    href="../assets/TRADEFLUX__2_cortado.png"
+    type="image/x-icon"
     />
+    <script src="../js/mobileGerente.js"></script>
     <script src="../js/cadastroComponente.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/modais.js"></script>
@@ -121,7 +123,7 @@
           </div>
         </div>
         <div id="div_containerEsteiras" class="containerEsteiras">
-          <table id="tabelaFuncionarios">
+          <table id="tabelaFuncionarios" class="tabelaDados">
             <thead>
               <tr>
                 <th>Componente</th>
@@ -229,5 +231,8 @@
             </tr>
             `;
     }
+    
+    // Adicionar chamada para tornar a tabela responsiva após carregar os componentes
+    setTimeout(tornarTabelaResponsiva, 100);
   }
 </script>
