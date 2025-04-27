@@ -46,9 +46,9 @@ function renderizarModalUsuario() {
       <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
       <span class="barraVertical"></span>
       <div class="button_perfil" onclick="abrirModal('perfil')">
-      <img id="rogerioCientista" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
-      <img id="jenniferADM"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
-      <img id="juliaAnalista"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+      <img id="rogerioCientista" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="70"/>
+      <img id="jenniferADM"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="60"/>
+      <img id="juliaAnalista"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="55"/>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
     </div>
