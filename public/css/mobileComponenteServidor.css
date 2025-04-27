@@ -32,6 +32,9 @@
       width: auto;
       padding: 1vh 4vw;
     }
+    span{
+      font-size: 2vh;
+    }
 
     
   }
