@@ -2,7 +2,7 @@
     .container-main {
       height: auto;
       width: 100vw;
-      margin: 0;
+    
     }
   
     .mainContent {
@@ -13,14 +13,16 @@
   }
   
   @media(max-width: 768px) {
-    .barra-lateral {
+    /* .barra-lateral {
       display: none;
-    }
+    } */
   
     .container-main {
       height: auto;
       width: 100vw;
       margin: 0;
+      
+  
     }
     .container_perfil{
         display: none;
@@ -29,6 +31,7 @@
       margin: 0;
       height: auto;
       width: 100vw;
+      margin-top: 50px;
     }
     .cards{
         flex-direction: row;

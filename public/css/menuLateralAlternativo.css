@@ -1,12 +1,24 @@
-*{
+* {
     box-sizing: border-box;
     padding: 0;
     font-family: 'Inter', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: 0.2s;
 }
 
-body{
+body {
     margin: 0;
+}
+
+
+
+#menu-bar {
+    font-size: 3rem;
+    cursor: pointer;
+    color: #ffffff;
+    border-radius: .3rem;
+    padding: .5rem 1.5rem;
+    display: none;
+    z-index: 10;
 }
 
 .barra-lateral {
@@ -20,22 +32,30 @@ body{
     width: 20vw;
     text-align: center;
     height: 100vh;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
 }
-.barra-lateral .div-logo{
+
+.barra-lateral.open {
+    transform: translateX(0);
+}
+
+.barra-lateral .div-logo {
     align-self: center;
     display: flex;
     gap: 1vw;
-
 }
-.barra-lateral .imgLogo{
+
+.barra-lateral .imgLogo {
     height: 64px;
     width: 72px;
-    /* background-color: aqua; */
 }
-.barra-lateral .txtLogo{
+
+.barra-lateral .txtLogo {
     font-size: 1.4vw;
 }
-.barraHorizontal{
+
+.barraHorizontal {
     align-self: center;
     width: 4vw;
     border: solid #F0F0F0;
@@ -43,7 +63,6 @@ body{
     border-left-width: 0vh;
     border-right-width: 0vh;
     border-bottom-width: 0vh;
-
 }
 
 .selecionado {
@@ -54,19 +73,19 @@ body{
     color: #b4b4b4;
 }
 
-.barra-lateral a{
+.barra-lateral a {
     text-decoration: none;
     color: #F0F0F0;
     font-size: 1vw;
 }
 
-.barra-lateral .fa-solid{
+.barra-lateral .fa-solid {
     text-decoration: none;
     color: #F0F0F0;
     font-size: 1.5vw;
 }
 
-.barra-lateral a:hover{
+.barra-lateral a:hover {
     color: #b4b4b4;
 }
 
@@ -79,14 +98,15 @@ body{
     margin-top: 10px;
 }
 
-.option{
+.option {
     display: flex;
-    margin-left: 4vw;
-    width: 10vw;
+    margin-left: 1vw;
+    width: 15vw;
     align-items: center;
     gap: 1rem;
 }
-.option .svg_icons{
+
+.option .svg_icons {
     width: 3vw;
     height: 6vh;
 }
@@ -100,7 +120,7 @@ body{
 }
 
 .perfil-foto {
-    border-radius:100%;
+    border-radius: 100%;
     width: 100px;
     align-items: center;
 }
@@ -109,6 +129,101 @@ body{
     display: block;
     margin: 15px 0;
     padding: 1px;
-    text-align: left; 
+    text-align: left;   
     font-weight: 1000;
+}
+
+/* Media Queries */
+
+@media (max-width: 991px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (min-width: 769px) {
+    .barra-lateral {
+      transform: none !important; /* Remove qualquer transformação */
+    
+    }
+    
+    .navbar {       
+      display: none; /* Esconde o ícone de menu em desktop */
+    }
+  }
+  
+
+@media (max-width: 768px) {
+
+    .navbar{
+        display: block;
+        background-color:#23283A;
+        width: 100%;
+        height: 50px;
+        position: fixed;
+        padding: 0;
+        margin: 0;
+        z-index: 20;
+    }
+    #menu-bar {
+        display: block;
+        position:fixed;
+        top: 20;
+        left: 10px;
+    
+      
+      
+       
+    }
+
+    .barra-lateral {
+        width: 50vw; 
+        margin: 0;
+        margin-top: 0;
+        height: 100%;
+        justify-content: flex-start;
+        z-index: 9;
+       
+    }
+
+    .barra-lateral.open {
+        transform: translateX(0); /* Open menu */
+        
+    }
+
+    .barra-lateral .option {
+      
+        align-items:center;
+        margin-left: 0;
+        width: 100%;
+        
+       
+    }
+
+    .barra-lateral .option a {
+        font-size: 3.8vw;
+        
+    }
+
+    .barra-lateral .option i{
+        font-size: 3.8vw;
+    }
+
+    .div-logo{
+        flex-direction: column;
+        align-items: center;
+        padding-top: 35px;
+    }
+   
+    .barra-lateral .imgLogo {
+        height: 50px;
+        width: 58px;
+    }
+
+    .barra-lateral .txtLogo {
+        font-size: 3.8vw;
+    }
+
+    
+   
 }

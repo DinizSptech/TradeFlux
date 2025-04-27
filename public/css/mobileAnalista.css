@@ -15,15 +15,16 @@
 /* media queries 768px */
 
 @media(max-width: 768px) and (orientation: portrait){
-.barra-lateral{
+/* .barra-lateral{
     display: none;
-}
+} */
 .mainContent{
     margin: 0;
 }
 .selectServer{
     flex-direction: column;
     align-items: start;
+    margin-top: 50px;
 }
 .selectServer span{
     margin-left: 1vw;
