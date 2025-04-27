@@ -61,11 +61,6 @@ if (cargo == "administrador") {
         </div>
 
         <div class="option">
-            <i class="fa-solid fa-network-wired"></i>
-            <span><a href="./dash_gerente_datacenters.html">Data centers</a></span>
-        </div>
-
-        <div class="option">
             <i class="fa-solid fa-server"></i>
             <span><a href="./dash_gerente_servidores.html">Servidores</a></span>
         </div>
