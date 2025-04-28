@@ -70,7 +70,7 @@ function carregarMenuLateral() {
 
         <div class="option">
             <i class="fa-solid fa-headset"></i>
-            <span><a href="./atendimento.html">Suporte</a></span>
+            <span><a href="https://tradeflux.atlassian.net/servicedesk/customer/portal/1/user/login?destination=portal%2F1" target="_blank">Suporte</a></span>
         </div>
 
         <span class="barraHorizontal"></span>
@@ -99,10 +99,10 @@ function carregarMenuLateral() {
         <span><a href="./alertas.html">Alertas</a></span>
     </div>
 
-    <div class="option">
-        <i class="fa-solid fa-headset"></i>
-        <span><a onclick="sairParaJira()">Suporte</a></span>
-    </div>
+        <div class="option">
+            <i class="fa-solid fa-headset"></i>
+            <span><a href="https://tradeflux.atlassian.net/servicedesk/customer/portal/1/user/login?destination=portal%2F1" target="_blank">Suporte</a></span>
+        </div>
 
     <span class="barraHorizontal"></span>
 
@@ -124,10 +124,10 @@ function carregarMenuLateral() {
         <span><a href="./dashboard_analista.html">Dashboard Analista</a></span>
     </div>
 
-    <div class="option">
-        <i class="fa-solid fa-headset"></i>
-        <span><a onclick="sairParaJira()">Suporte</a></span>
-    </div>
+        <div class="option">
+            <i class="fa-solid fa-headset"></i>
+            <span><a href="https://tradeflux.atlassian.net/servicedesk/customer/portal/1/user/login?destination=portal%2F1" target="_blank">Suporte</a></span>
+        </div>
 
     <span class="barraHorizontal"></span>
 
