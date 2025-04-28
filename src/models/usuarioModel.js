@@ -8,7 +8,7 @@ function autenticar(email) {
     // cargo
   );
   var instrucaoSql = `
-        SELECT idUsuario, nome, senha, cargo FROM Usuario_Cliente WHERE email = '${email}';
+        SELECT idUsuario, nome, senha, cargo FROM usuario_cliente WHERE email = '${email}';
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -26,7 +26,7 @@ function cadastrar(nome, senha, email, cargo, ativo, data_center) {
   );
 
   let instrucaoSql = `
-        INSERT INTO Usuario_Cliente 
+        INSERT INTO usuario_cliente 
         (nome,email,senha,cargo,ativo,fkDataCenter) VALUES 
         ('${nome}', '${email}', '${senha}', '${cargo}','${ativo}','${data_center}');
     `;

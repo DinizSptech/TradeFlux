@@ -16,7 +16,7 @@ bdFrio="DROP DATABASE IF EXISTS tradefluxFrio;
 CREATE DATABASE tradefluxFrio;
 USE tradefluxFrio;
 
-CREATE TABLE IF NOT EXISTS Endereco (
+CREATE TABLE IF NOT EXISTS endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
     cep CHAR(8),
     logradouro VARCHAR(100),
@@ -27,37 +27,35 @@ CREATE TABLE IF NOT EXISTS Endereco (
     complemento VARCHAR(45)
 );
 
-INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES
+INSERT INTO endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES
 ('01310100', 'Praça Antonio Prado', 48, 'Centro', 'São Paulo', 'SP'),
 ('06543004', 'Rua Ricardo Prudente de Aquino', 85, 'Alphaville', 'Santana de Parnaíba', 'SP');
 
-CREATE TABLE IF NOT EXISTS Empresa_Cliente (
+CREATE TABLE IF NOT EXISTS empresa_cliente (
     idCliente INT AUTO_INCREMENT PRIMARY KEY,
     razao_social VARCHAR(100),
     cnpj CHAR(14) UNIQUE,
     telefone VARCHAR(12),
     fk_endereco INT,
-    FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
+    FOREIGN KEY (fk_endereco) REFERENCES endereco(idEndereco)
 );
 
-INSERT INTO Empresa_Cliente (razao_social, cnpj, telefone, fk_endereco) VALUES
+INSERT INTO empresa_cliente (razao_social, cnpj, telefone, fk_endereco) VALUES
 ('B3 Bolsa, Brasil, Balcão S.A.', '03365836000124', '1132121234', 1);
 
-CREATE TABLE IF NOT EXISTS Data_Center (
+CREATE TABLE IF NOT EXISTS data_center (
     idData_Center INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     fk_cliente INT,
     fk_endereco INT,
-    FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
-    FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
+    FOREIGN KEY (fk_cliente) REFERENCES empresa_cliente(idCliente),
+    FOREIGN KEY (fk_endereco) REFERENCES endereco(idEndereco)
 );
 
-SELECT * FROM Data_Center;
-
-INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES
+INSERT INTO data_center (nome, fk_cliente, fk_endereco) VALUES
 ('Data Center B3', 1, 2);
 
-CREATE TABLE IF NOT EXISTS Usuario_Cliente (
+CREATE TABLE IF NOT EXISTS usuario_cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     email VARCHAR(45) UNIQUE,
@@ -65,19 +63,19 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
     cargo VARCHAR(45),
     ativo TINYINT,
     fkDataCenter INT,
-    FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
+    FOREIGN KEY (fkDataCenter) REFERENCES data_center(idData_Center)
 );
 
-INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, fkDataCenter) VALUES 
+INSERT INTO usuario_cliente (nome, email, senha, cargo, ativo, fkDataCenter) VALUES 
 ('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, 1);
 
-CREATE TABLE IF NOT EXISTS Componente (
+CREATE TABLE IF NOT EXISTS componente (
     idComponente INT AUTO_INCREMENT PRIMARY KEY,
     nomeComponente VARCHAR(45),
     medida VARCHAR(45)
 );
 
-CREATE TABLE IF NOT EXISTS Servidor_Cliente (
+CREATE TABLE IF NOT EXISTS servidor_cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
     uuidServidor VARCHAR(45),
     sistemaOperacional VARCHAR(45),
@@ -85,26 +83,25 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     ramTotal VARCHAR(45),
     processadorInfo VARCHAR(60),
     fkDataCenter INT,
-    FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
+    FOREIGN KEY (fkDataCenter) REFERENCES data_center(idData_Center)
 );
 
-CREATE TABLE IF NOT EXISTS Parametro_Servidor (
+CREATE TABLE IF NOT EXISTS parametro_servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     limiar_alerta DOUBLE,
     fkServidor INT,
     fkComponente INT,
-    FOREIGN KEY (fkServidor) REFERENCES Servidor_Cliente(idServidor),
-    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
+    FOREIGN KEY (fkServidor) REFERENCES servidor_cliente(idServidor),
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
-
 
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
 CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
-GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
+GRANT INSERT,UPDATE ON tradefluxFrio.* TO 'user_insert_tradeflux'@'%'; 
 
 DROP USER IF EXISTS 'user_select_tradeflux'@'%';
 CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
-GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
+GRANT SELECT ON tradefluxFrio.* TO 'user_select_tradeflux'@'%';
 
 FLUSH PRIVILEGES;"
 
@@ -112,23 +109,23 @@ bdQuente="DROP DATABASE IF EXISTS tradefluxQuente;
 CREATE DATABASE tradefluxQuente;
 USE tradefluxQuente;
 
-CREATE TABLE IF NOT EXISTS Captura (
+CREATE TABLE IF NOT EXISTS captura (
     idCaptura INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
     medida VARCHAR(45),
     data DATETIME,
     alerta TINYINT,
-    fkParametro INT,
+    fkParametro INT
     -- FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
-select* from captura;
-CREATE TABLE IF NOT EXISTS Alerta (
+
+CREATE TABLE IF NOT EXISTS alerta (
     idAlerta INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
     medida VARCHAR(45),
     data DATETIME,
     criticidade TINYINT,
-    fkParametro INT,
+    fkParametro INT
     -- FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
 
@@ -136,9 +133,9 @@ CREATE TABLE IF NOT EXISTS alerta_visualizado (
     Usuario_Cliente_idUsuario INT,
     Alerta_idAlerta INT,
     confirmacao TINYINT,
-    PRIMARY KEY (Usuario_Cliente_idUsuario, Alerta_idAlerta),
-    FOREIGN KEY (Usuario_Cliente_idUsuario) REFERENCES Usuario_Cliente(idUsuario),
-    FOREIGN KEY (Alerta_idAlerta) REFERENCES Alerta(idAlerta)
+    PRIMARY KEY (Usuario_Cliente_idUsuario, Alerta_idAlerta)
+    -- FOREIGN KEY (Usuario_Cliente_idUsuario) REFERENCES Usuario_Cliente(idUsuario),
+    -- FOREIGN KEY (Alerta_idAlerta) REFERENCES Alerta(idAlerta)
 );
 
 DROP TRIGGER IF EXISTS gatilho_insert_alerta;
@@ -146,28 +143,28 @@ DROP TRIGGER IF EXISTS gatilho_insert_alerta;
 DELIMITER $$
 
 CREATE TRIGGER gatilho_insert_alerta
-AFTER INSERT ON Captura
+AFTER INSERT ON captura
 FOR EACH ROW
 BEGIN
     IF NEW.alerta = 1 OR NEW.alerta = 2 THEN
-        INSERT INTO Alerta (valor, medida, data, criticidade ,fkParametro)
+        INSERT INTO alerta (valor, medida, data, criticidade ,fkParametro)
         VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro);
     END IF;
 END$$
-DELIMITER;
+DELIMITER ;
 
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
 CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
-GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
+GRANT INSERT,UPDATE ON tradefluxQuente.* TO 'user_insert_tradeflux'@'%'; 
 
 DROP USER IF EXISTS 'user_select_tradeflux'@'%';
 CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
-GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
+GRANT SELECT ON tradefluxQuente.* TO 'user_select_tradeflux'@'%';
 
 FLUSH PRIVILEGES;"
 
-printf "%s\n" "$bdFrio" > bdFrio.sql
-printf "%s\n" "$bdQuente" > bdQuente.sql
+echo "$bdFrio" > bdFrio.sql
+echo "$bdQuente" > bdQuente.sql
   
 }
 
@@ -184,17 +181,22 @@ docker run -d -p 9642:3306 --name databaseQuente -e "MYSQL_ROOT_PASSWORD=urubu10
 echo "=== Verificando se foi criado corretamente: ==="
 docker ps
 
-echo "=== Pequeno tempo só para o Mysql iniciar: ==="
-sleep 60
+# echo "=== Pequeno tempo só para o Mysql iniciar: ==="
+# sleep 60
 
 criacaoBDs
+
+sudo docker start databaseFria
+sudo docker start databaseQuente
 
 echo "=== Enviando os BD para os respectivos Dockers: ==="
 docker cp bdFrio.sql databaseFria:/bdFrio.sql
 docker cp bdQuente.sql databaseQuente:/bdQuente.sql
 
 echo "=== Executando o sql nos respectivos Dockers: ==="
-docker exec -i databaseFria bash -c "mysql -uroot -p urubu100 < /bdFrio.sql"
-docker exec -i databaseQuente bash -c "mysql -uroot -p urubu100 < /bdQuente.sql"
+docker exec -i databaseFria bash -c "mysql -uroot -purubu100 < /bdFrio.sql"
+docker exec -i databaseQuente bash -c "mysql -uroot -purubu100 < /bdQuente.sql"
+
+# Quando vc coloca a senha no comando, vc precisa colocar a senha colada, se não, dá erro, tipo : -p arroz = Erro, -parroz = correto
 
 echo "=== Processo finalizado ==="

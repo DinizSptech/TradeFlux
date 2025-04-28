@@ -20,7 +20,7 @@ function listarDataCenters() {
   );
 
   let instrucaoSql = `
-        SELECT * FROM Data_Center;
+        SELECT * FROM data_center;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

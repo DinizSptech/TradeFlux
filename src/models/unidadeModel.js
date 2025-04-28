@@ -19,10 +19,10 @@ function cadastrar(nome, cep, estado, cidade, bairro, logradouro, numero, comple
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucaoSql = `
-        INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
+        INSERT INTO endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES 
         ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${cidade}', '${estado}');
 
-        INSERT INTO Data_Center (nome, fk_endereco, fk_cliente) VALUES
+        INSERT INTO data_center (nome, fk_endereco, fk_cliente) VALUES
         ('${nome}', LAST_INSERT_ID(), ${fkCliente});
     `;
 

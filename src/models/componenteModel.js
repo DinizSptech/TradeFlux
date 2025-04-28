@@ -9,7 +9,7 @@ function cadastrar(componente, limiar, servidor) {
   );
 
   let instrucaoSql = `
-        INSERT INTO Parametro_Servidor 
+        INSERT INTO parametro_servidor 
         (limiar_alerta, fkServidor, fkComponente) VALUES
         ('${limiar}', '${servidor}', ${componente});
     `;
@@ -24,7 +24,7 @@ function listarServidores() {
   );
 
   let instrucaoSql = `
-        SELECT * FROM Servidor_Cliente;
+        SELECT * FROM servidor_cliente;
 
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -37,10 +37,10 @@ function listarComponentes(servidor) {
   );
 
   let instrucaoSql = `
-        SELECT * FROM Componente;
+        SELECT * FROM componente;
 
         
-        SELECT * FROM Parametro_Servidor where fkServidor = ${servidor};
+        SELECT * FROM parametro_servidor where fkServidor = ${servidor};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

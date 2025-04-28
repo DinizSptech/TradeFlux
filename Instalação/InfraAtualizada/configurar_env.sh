@@ -129,6 +129,8 @@ done
 
 echo " === Limpeza concluída! Apenas os arquivos e diretórios essenciais foram mantidos. ==="
 
+echo " === Instalando os módulos necessários. ==="
+
 cd "$PROJETO"
 
 # Executar npm run dev

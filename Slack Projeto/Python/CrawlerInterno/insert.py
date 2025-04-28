@@ -1,8 +1,11 @@
 import database;
 from mysql.connector import Error 
 
-mydb = database.gerarMyDbInsert()
-cursor = mydb.cursor()
+mydbQuente = database.gerarMyDbInsertQuente()
+cursorQuente = mydbQuente.cursor()
+
+mydbFrio = database.gerarMyDbInsertFrio()
+cursorFrio = mydbFrio.cursor()
 
 def inserirData(valor, medida, dataHora, alerta, idParametro):
  try:
@@ -10,8 +13,8 @@ def inserirData(valor, medida, dataHora, alerta, idParametro):
     INSERT INTO captura (valor, medida, data, alerta, fkParametro) VALUES (%s, %s, %s, %s, %s)
     """
     valores = (valor, medida, dataHora, alerta, idParametro)
-    cursor.execute(query, valores)
-    mydb.commit()
+    cursorQuente.execute(query, valores)
+    mydbQuente.commit()
  except Error as err:
     print("Erro na hora de inserir dados no banco de dados:")
     print(f"Erro: {err.errno} {err.msg}\n")
@@ -21,12 +24,12 @@ def inserirData(valor, medida, dataHora, alerta, idParametro):
 def inserirMaquina(uuidServidor, SO , discoTotal, ramTotal, cpuInfo, idDataCenter):
     try:
      query = """
-            INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, discoTotal, ramTotal, processadorInfo, fkDataCenter)
+            INSERT INTO servidor_cliente (uuidServidor, sistemaOperacional, discoTotal, ramTotal, processadorInfo, fkDataCenter)
             VALUES (%s, %s, %s, %s, %s, %s)
             """
      valores = (uuidServidor, SO, discoTotal, ramTotal, cpuInfo, idDataCenter)
-     cursor.execute(query, valores)
-     mydb.commit()
+     cursorFrio.execute(query, valores)
+     mydbFrio.commit()
      print("Máquina inserida no bando de dados\n")
     except Error as err:
         print("Erro na hora de inserir máquina no banco de dados:")
