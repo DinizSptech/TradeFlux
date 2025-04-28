@@ -55,19 +55,11 @@ function renderizarModalUsuario() {
     <div class="container_tabela_notificacoes" id="tabela_notificacoes">
       <div class="wrapper">
 
-        <span>Alerta 1</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
-        <span>Alerta 2</span>
+        <span>Alerta Atenção - RAM - Servidor 1 - 11/04/2025 10:12:01</span>
+        <span>ALERTA CRÍTICO - CPU - Servidor 3 - 11/04/2025 09:47:02</span>
+        <span>Alerta Atenção - DISCO - Servidor 1 - 10/04/2025 18:32:10</span>
+        <span>ALERTA CRÍTICO - CPU - Servidor 2 - 10/04/2025 15:14:04</span>
+        <span>Alerta Atenção - RAM - Servidor 3 - 09/04/2025 12:05:02</span>
       </div>
     </div>
     <div class="container_perfil_opcoes" id="perfil_opcoes">
