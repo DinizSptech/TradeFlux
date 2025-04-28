@@ -1,0 +1,878 @@
+[
+  {
+    "data-hora": "2025-04-28 10:35:15",
+    "percentualCPU": 7.7,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 88.3,
+    "memoriaUsadaGB": 6.9,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.001344,
+    "velocidadeUploadMbps": 0.002904,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.68,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 11056,
+        "name": "Code.exe",
+        "cpu_percent": 7.15,
+        "memory_percent": 3.9
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 3.41,
+        "memory_percent": 2.76
+      },
+      {
+        "pid": 14212,
+        "name": "Code.exe",
+        "cpu_percent": 2.79,
+        "memory_percent": 0.79
+      },
+      {
+        "pid": 13820,
+        "name": "Code.exe",
+        "cpu_percent": 2.56,
+        "memory_percent": 1.81
+      },
+      {
+        "pid": 3780,
+        "name": "Code.exe",
+        "cpu_percent": 2.1,
+        "memory_percent": 0.51
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.97,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.55,
+        "memory_percent": 5.26
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 0.71
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.17
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:35:41",
+    "percentualCPU": 29.5,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 89.1,
+    "memoriaUsadaGB": 7.0,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.00692,
+    "velocidadeUploadMbps": 0.007552,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.22,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 11056,
+        "name": "Code.exe",
+        "cpu_percent": 2.16,
+        "memory_percent": 2.98
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 1.75,
+        "memory_percent": 2.99
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.75,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.49,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.34,
+        "memory_percent": 5.23
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 13896,
+        "name": "SearchApp.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 2.8
+      },
+      {
+        "pid": 14900,
+        "name": "Code.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 0.26
+      },
+      {
+        "pid": 6068,
+        "name": "servicehost.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 0.33
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:36:05",
+    "percentualCPU": 24.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 89.6,
+    "memoriaUsadaGB": 7.0,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.079688,
+    "velocidadeUploadMbps": 0.018912,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.32,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 1.64,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 5.31
+      },
+      {
+        "pid": 5288,
+        "name": "avgToolsSvc.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.43
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 1356,
+        "name": "svchost.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.22
+      },
+      {
+        "pid": 16328,
+        "name": "AVGUI.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.52
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 2.75
+      },
+      {
+        "pid": 4824,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 1.06
+      },
+      {
+        "pid": 16424,
+        "name": "jetbrains-toolbox.exe",
+        "cpu_percent": 0.14,
+        "memory_percent": 1.01
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:36:29",
+    "percentualCPU": 12.1,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 87.8,
+    "memoriaUsadaGB": 6.9,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.003392,
+    "velocidadeUploadMbps": 0.002016,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.07,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 5.21
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 4.62
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 0.76
+      },
+      {
+        "pid": 18900,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 1356,
+        "name": "svchost.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 0.21
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 2.7
+      },
+      {
+        "pid": 10200,
+        "name": "uihost.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 0.22
+      },
+      {
+        "pid": 15908,
+        "name": "Code.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.56
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:36:55",
+    "percentualCPU": 9.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 87.6,
+    "memoriaUsadaGB": 6.9,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.002672,
+    "velocidadeUploadMbps": 0.000432,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.65,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 2.48,
+        "memory_percent": 5.22
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 1.94,
+        "memory_percent": 2.66
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.79,
+        "memory_percent": 5.29
+      },
+      {
+        "pid": 772,
+        "name": "lsass.exe",
+        "cpu_percent": 0.56,
+        "memory_percent": 0.33
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 0.56,
+        "memory_percent": 2.63
+      },
+      {
+        "pid": 11168,
+        "name": "aswidsagent.exe",
+        "cpu_percent": 0.35,
+        "memory_percent": 0.74
+      },
+      {
+        "pid": 5656,
+        "name": "svchost.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 0.38
+      },
+      {
+        "pid": 4824,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 1.06
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.28,
+        "memory_percent": 0.17
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:37:21",
+    "percentualCPU": 27.7,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 88.6,
+    "memoriaUsadaGB": 7.0,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.005184,
+    "velocidadeUploadMbps": 0.001488,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.22,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 8.81,
+        "memory_percent": 5.35
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 0.95,
+        "memory_percent": 2.74
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 0.69,
+        "memory_percent": 2.63
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.53,
+        "memory_percent": 5.29
+      },
+      {
+        "pid": 21344,
+        "name": "Discord.exe",
+        "cpu_percent": 0.38,
+        "memory_percent": 1.61
+      },
+      {
+        "pid": 7692,
+        "name": "aswEngSrv.exe",
+        "cpu_percent": 0.33,
+        "memory_percent": 1.31
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.3,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.29,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 4824,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 1.05
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:37:47",
+    "percentualCPU": 18.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 88.4,
+    "memoriaUsadaGB": 6.9,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.00224,
+    "velocidadeUploadMbps": 0.006584,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.5,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 1184,
+        "name": "svchost.exe",
+        "cpu_percent": 2.06,
+        "memory_percent": 0.28
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.94,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 0.93,
+        "memory_percent": 2.65
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 0.5,
+        "memory_percent": 5.33
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 0.76
+      },
+      {
+        "pid": 4824,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.23,
+        "memory_percent": 1.05
+      },
+      {
+        "pid": 772,
+        "name": "lsass.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.33
+      },
+      {
+        "pid": 11168,
+        "name": "aswidsagent.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.74
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.11,
+        "memory_percent": 5.3
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:38:11",
+    "percentualCPU": 19.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 88.8,
+    "memoriaUsadaGB": 7.0,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.000896,
+    "velocidadeUploadMbps": 0.013912,
+    "processos": [
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 12.81,
+        "memory_percent": 6.26
+      },
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.39,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 8.94,
+        "memory_percent": 3.28
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 4.36,
+        "memory_percent": 2.63
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 3.06,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 2.3,
+        "memory_percent": 5.3
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 18900,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 3848,
+        "name": "svchost.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 0.19
+      },
+      {
+        "pid": 13512,
+        "name": "opera.exe",
+        "cpu_percent": 0.15,
+        "memory_percent": 3.05
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:38:38",
+    "percentualCPU": 33.0,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 90.1,
+    "memoriaUsadaGB": 7.1,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.002704,
+    "velocidadeUploadMbps": 0.006272,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.01,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 2.15,
+        "memory_percent": 2.53
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 1.95,
+        "memory_percent": 6.29
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 1.05,
+        "memory_percent": 2.44
+      },
+      {
+        "pid": 4824,
+        "name": "AVGSvc.exe",
+        "cpu_percent": 0.89,
+        "memory_percent": 1.05
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.35,
+        "memory_percent": 5.31
+      },
+      {
+        "pid": 11168,
+        "name": "aswidsagent.exe",
+        "cpu_percent": 0.33,
+        "memory_percent": 0.74
+      },
+      {
+        "pid": 7692,
+        "name": "aswEngSrv.exe",
+        "cpu_percent": 0.24,
+        "memory_percent": 1.31
+      },
+      {
+        "pid": 15908,
+        "name": "Code.exe",
+        "cpu_percent": 0.2,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 2920,
+        "name": "NVDisplay.Container.exe",
+        "cpu_percent": 0.16,
+        "memory_percent": 0.19
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:39:04",
+    "percentualCPU": 18.2,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 90.2,
+    "memoriaUsadaGB": 7.1,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.003312,
+    "velocidadeUploadMbps": 0.048016,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.66,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 8.06,
+        "memory_percent": 6.59
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 7.17,
+        "memory_percent": 3.66
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 4.88,
+        "memory_percent": 3.63
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 2.1,
+        "memory_percent": 5.32
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 1.45,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 772,
+        "name": "lsass.exe",
+        "cpu_percent": 0.46,
+        "memory_percent": 0.32
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.29,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.25,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 10200,
+        "name": "uihost.exe",
+        "cpu_percent": 0.19,
+        "memory_percent": 0.22
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:39:33",
+    "percentualCPU": 34.3,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 91.5,
+    "memoriaUsadaGB": 7.1,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.0362,
+    "velocidadeUploadMbps": 0.003008,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 9.97,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 7.66,
+        "memory_percent": 6.73
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 5.55,
+        "memory_percent": 2.85
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 5.03,
+        "memory_percent": 3.15
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 2.58,
+        "memory_percent": 5.3
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 2.54,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 6204,
+        "name": "scpbradserv.exe",
+        "cpu_percent": 0.39,
+        "memory_percent": 0.17
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.39,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 18900,
+        "name": "OverwolfHelper.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 0.25
+      },
+      {
+        "pid": 16424,
+        "name": "jetbrains-toolbox.exe",
+        "cpu_percent": 0.17,
+        "memory_percent": 1.01
+      }
+    ]
+  },
+  {
+    "data-hora": "2025-04-28 10:40:01",
+    "percentualCPU": 33.8,
+    "frequenciaCPU": 2.496,
+    "percentualRAM": 90.5,
+    "memoriaUsadaGB": 7.1,
+    "percentualDisco": 91.3,
+    "discoUsadoGB": 434.3,
+    "velocidadeDownloadMbps": 0.249632,
+    "velocidadeUploadMbps": 0.0,
+    "processos": [
+      {
+        "pid": 11048,
+        "name": "python3.13.exe",
+        "cpu_percent": 8.99,
+        "memory_percent": 0.58
+      },
+      {
+        "pid": 9676,
+        "name": "opera.exe",
+        "cpu_percent": 1.71,
+        "memory_percent": 6.65
+      },
+      {
+        "pid": 2260,
+        "name": "dwm.exe",
+        "cpu_percent": 1.4,
+        "memory_percent": 2.75
+      },
+      {
+        "pid": 10948,
+        "name": "opera.exe",
+        "cpu_percent": 0.44,
+        "memory_percent": 3.37
+      },
+      {
+        "pid": 10984,
+        "name": "Overwolf.exe",
+        "cpu_percent": 0.33,
+        "memory_percent": 0.75
+      },
+      {
+        "pid": 16424,
+        "name": "jetbrains-toolbox.exe",
+        "cpu_percent": 0.26,
+        "memory_percent": 1.01
+      },
+      {
+        "pid": 16924,
+        "name": "opera.exe",
+        "cpu_percent": 0.21,
+        "memory_percent": 5.29
+      },
+      {
+        "pid": 5080,
+        "name": "parsecd.exe",
+        "cpu_percent": 0.12,
+        "memory_percent": 0.62
+      },
+      {
+        "pid": 4,
+        "name": "System",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.02
+      },
+      {
+        "pid": 17508,
+        "name": "opera.exe",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.43
+      }
+    ]
+  }
+]

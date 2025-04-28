@@ -130,6 +130,7 @@ done
 echo " === Limpeza concluída! Apenas os arquivos e diretórios essenciais foram mantidos. ==="
 
 echo " === Instalando os módulos necessários. ==="
+npm i
 
 cd "$PROJETO"
 
