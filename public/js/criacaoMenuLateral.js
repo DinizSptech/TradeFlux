@@ -77,7 +77,7 @@ function carregarMenuLateral() {
 
         <div class="option">
             <i class="fa-solid fa-door-open"></i>
-             <span><a href="/pages/login.html">Sair</a></span>
+             <span onclick="sairParaLogin()"><a>Sair</a></span>
         </div>
     `;
   } else if (cargo == "cientista") {
@@ -108,7 +108,7 @@ function carregarMenuLateral() {
 
     <div class="option">
         <i class="fa-solid fa-door-open"></i>
-       <span><a href="/pages/login.html">Sair</a></span>
+       <span onclick="sairParaLogin()"><a>Sair</a></span>
     </div>`;
   } else if (cargo == "analista") {
     barralateral.innerHTML = `
@@ -133,7 +133,7 @@ function carregarMenuLateral() {
 
     <div class="option">
         <i class="fa-solid fa-door-open"></i>
-       <span><a href="/pages/login.html">Sair</a></span>
+       <span onclick="sairParaLogin()"><a>Sair</a></span>
     </div>
     `;
     
@@ -145,4 +145,9 @@ function carregarMenuLateral() {
   } else if (cargo == "administrador") {
     document.getElementById("jenniferADM2").style.display = "block";
   }
+}
+
+function sairParaLogin(){
+    sessionStorage.clear()
+    window.location.href = "/pages/login.html"
 }

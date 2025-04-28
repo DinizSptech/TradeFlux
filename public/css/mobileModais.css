@@ -42,7 +42,24 @@
 .wrapper span:hover {
   background-color: #464a56;
 }
-
+@keyframes aparecer{
+  from{
+    transform: translateY(-20px);
+    opacity: 0;
+  } to{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes desaparecer{
+  from{
+    transform: translateY(0px);
+    opacity: 1;
+  } to{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
 /* .container_tabela_notificacoes span:hover{
     background-color: #0aa3a9;
     cursor: pointer;

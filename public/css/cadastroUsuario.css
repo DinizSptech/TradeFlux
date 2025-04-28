@@ -31,24 +31,7 @@
   backdrop-filter: blur(5px);
   animation: aparecer 1s;
 }
-@keyframes aparecer{
-  from{
-    transform: translateY(-20px);
-    opacity: 0;
-  } to{
-    transform: translateY(0px);
-    opacity: 1;
-  }
-}
-@keyframes desaparecer{
-  from{
-    transform: translateY(0px);
-    opacity: 1;
-  } to{
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-}
+
 .formUsuario {
   display: flex;
   width: 30vw;
