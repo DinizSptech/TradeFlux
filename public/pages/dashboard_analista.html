@@ -115,321 +115,338 @@
             </div>
         </div>
     </main>
-    <script>
-        // Dados dos servidores
-        const servidores = [
-            {
-                "servidor": "Servidor 1",
-                "RAM": 75,
-                "Disco": 60,
-                "CPU": 85
-            },
-            {
-                "servidor": "Servidor 2",
-                "RAM": 40,
-                "Disco": 90,
-                "CPU": 55
-            },
-            {
-                "servidor": "Servidor 3",
-                "RAM": 65,
-                "Disco": 70,
-                "CPU": 80
-            }
-        ];
+</body>
+</html>
+<script>
+    const horasDetalhadas = [
+        "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+        "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"
+    ];
 
-        const charts = {
-            RAM: null,
-            Disco: null,
-            CPU: null,
-            Principal: null
-        };
+    function calcularMediaUltimos5Valores(vetor) {
+    const ultimos5Valores = vetor.slice(-5);  // Pega os últimos 5 valores do vetor
+    const soma = ultimos5Valores.reduce((acc, valor) => acc + valor, 0);  // Soma os valores
+    return soma / ultimos5Valores.length;  // Calcula a média
 
-        let servidorAtual = null;
-        
-        const historicoSimulado = {
-            CPU: [78, 80, 85, 88, 85, 83],
-            RAM: [73, 74, 75, 77, 76, 75],
-            Disco: [58, 59, 60, 62, 61, 60]
-        };
-        
-        const timestamps = ["16:05:10", "16:05:15", "16:05:20", "16:05:25", "16:05:30", "16:05:35"];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            carregarListaServidores();
-            selecionarServidor(0);
-        });
+}
+    const RAM_S1 =   [10, 12, 30, 75, 55, 65, 70, 75, 80, 85, 90, 92, 93, 95, 96, 92, 98, 99, 89, 70];
+    const CPU_S1 =   [5, 7, 20, 25, 55, 45, 55, 60, 65, 70, 75, 80, 85, 90, 92, 94, 96, 98, 90, 57];
+    const Disco_S1 = [65, 66, 67, 66, 65, 67, 66, 65, 66, 67, 65, 66, 67, 66, 65, 66, 65, 66, 65, 66];
 
-        function carregarListaServidores() {
-            const spawnpoint = document.getElementById('spawnpointServer');
-            spawnpoint.innerHTML = servidores.map((servidor, index) => 
-                `<span onclick="toggleServerList(); selecionarServidor(${index});">${servidor.servidor}</span>`
-            ).join('');
+    const RAM_S2 =   [8, 10, 40, 45, 48, 47, 45, 43, 40, 38, 35, 33, 30, 28, 26, 20, 15, 12, 10, 8];
+    const CPU_S2 =   [6, 8, 60, 65, 68, 67, 65, 63, 60, 58, 55, 53, 50, 48, 45, 40, 35, 30, 25, 20];
+    const Disco_S2 = [55, 56, 57, 56, 55, 57, 56, 55, 56, 57, 55, 56, 57, 56, 55, 56, 55, 56, 55, 56];
+
+    const RAM_S3 =   [5, 6, 30, 32, 35, 34, 32, 30, 28, 27, 25, 23, 20, 18, 17, 14, 12, 10, 8, 6];
+    const CPU_S3 =   [7, 9, 80, 85, 88, 87, 85, 83, 80, 78, 75, 73, 70, 68, 65, 60, 55, 50, 45, 40];
+    const Disco_S3 = [45, 46, 47, 46, 45, 47, 46, 45, 46, 47, 45, 46, 47, 46, 45, 46, 45, 46, 45, 46];
+
+
+
+
+    const mediaRAM_S1 = calcularMediaUltimos5Valores(RAM_S1);
+    const mediaCPU_S1 = calcularMediaUltimos5Valores(CPU_S1);
+    const mediaDisco_S1 = calcularMediaUltimos5Valores(Disco_S1);
+
+    const mediaRAM_S2 = calcularMediaUltimos5Valores(RAM_S2);
+    const mediaCPU_S2 = calcularMediaUltimos5Valores(CPU_S2);
+    const mediaDisco_S2 = calcularMediaUltimos5Valores(Disco_S2);
+
+    const mediaRAM_S3 = calcularMediaUltimos5Valores(RAM_S3);
+    const mediaCPU_S3 = calcularMediaUltimos5Valores(CPU_S3);
+    const mediaDisco_S3 = calcularMediaUltimos5Valores(Disco_S3);
+
+
+
+    const historicos = [
+        { RAM: RAM_S1, CPU: CPU_S1, Disco: Disco_S1 },
+        { RAM: RAM_S2, CPU: CPU_S2, Disco: Disco_S2 },
+        { RAM: RAM_S3, CPU: CPU_S3, Disco: Disco_S3 }
+    ];
+
+    const servidores = [
+        {
+            "servidor": "Servidor 1",
+            "RAM": mediaRAM_S1,
+            "Disco": mediaDisco_S1,
+            "CPU": mediaCPU_S1
+        },
+        {
+            "servidor": "Servidor 2",
+            "RAM": mediaRAM_S2,
+            "Disco": mediaDisco_S2,
+            "CPU": mediaCPU_S2
+        },
+        {
+            "servidor": "Servidor 3",
+            "RAM": mediaRAM_S3,
+            "Disco": mediaDisco_S3,
+            "CPU": mediaCPU_S3
         }
+    ];
 
-        function toggleServerList() {
-            const lista = document.getElementById('optionsServer');
-            if (lista.style.display === 'block') {
-                lista.style.display = 'none';
-            } else {
-                lista.style.display = 'block';
-            }
-        }
+    const charts = {
+        RAM: null,
+        Disco: null,
+        CPU: null,
+        Principal: null
+    };
 
-        function selecionarServidor(index) {
-            servidorAtual = servidores[index];
-            document.getElementById('nomeServer').textContent = servidorAtual.servidor;
-            
-            atualizarStatus('RAM', servidorAtual.RAM);
-            atualizarStatus('Disco', servidorAtual.Disco);
-            atualizarStatus('CPU', servidorAtual.CPU);
-            
-            atualizarGrafico('RAM', servidorAtual.RAM);
-            atualizarGrafico('Disco', servidorAtual.Disco);
-            atualizarGrafico('CPU', servidorAtual.CPU);
-            
-            atualizarGraficoPrincipal();
-        }
+    let servidorAtual = null;
+    let indexAtual = 0;
 
-        function atualizarStatus(componente, valor) {
-            const elementoStatus = document.getElementById(`${componente.toLowerCase()}Status`);
-            
-            if (valor > 80) {
-                elementoStatus.innerHTML = `
-                    <b style="color: #e74c3c;">Crítico!</b>
-                    <i class="fas fa-fire" style="color: #e74c3c;"></i>
-                `;
-            } else if (valor > 60) {
-                elementoStatus.innerHTML = `
-                    <b style="color: #f39c12;">Alerta!</b>
-                    <i class="fas fa-exclamation-triangle" style="color: #f39c12;"></i>
-                `;
-            } else {
-                elementoStatus.innerHTML = `
-                    <b style="color: #2ecc71;">Estável</b>
-                    <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
-                `;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarListaServidores();
+        selecionarServidor(0);
+    });
+
+    function carregarListaServidores() {
+        const spawnpoint = document.getElementById('spawnpointServer');
+        spawnpoint.innerHTML = servidores.map((servidor, index) =>
+            `<span onclick="toggleServerList(); selecionarServidor(${index});">${servidor.servidor}</span>`
+        ).join('');
+    }
+
+    function toggleServerList() {
+        const lista = document.getElementById('optionsServer');
+        lista.style.display = lista.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function selecionarServidor(index) {
+        servidorAtual = servidores[index];
+        indexAtual = index;
+        document.getElementById('nomeServer').textContent = servidorAtual.servidor;
+
+        atualizarStatus('RAM', servidorAtual.RAM);
+        atualizarStatus('Disco', servidorAtual.Disco);
+        atualizarStatus('CPU', servidorAtual.CPU);
+
+        atualizarGrafico('RAM', servidorAtual.RAM);
+        atualizarGrafico('Disco', servidorAtual.Disco);
+        atualizarGrafico('CPU', servidorAtual.CPU);
+
+        atualizarGraficoPrincipal();
+    }
+
+    function atualizarStatus(componente, valor) {
+        const elementoStatus = document.getElementById(`${componente.toLowerCase()}Status`);
+
+        if (valor > 80) {
+            elementoStatus.innerHTML = `<b style="color: #e74c3c;">Crítico!</b><i class="fas fa-fire" style="color: #e74c3c;"></i>`;
+        } else if (valor > 60) {
+            elementoStatus.innerHTML = `<b style="color: #f39c12;">Alerta!</b><i class="fas fa-exclamation-triangle" style="color: #f39c12;"></i>`;
+        } else {
+            elementoStatus.innerHTML = `<b style="color: #2ecc71;">Estável</b><i class="fas fa-check-circle" style="color: #2ecc71;"></i>`;
         }
+    }
 
     function atualizarGrafico(componente, valor) {
-    const canvas = document.getElementById(`grafico${componente}`);
-    const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById(`grafico${componente}`);
+        const ctx = canvas.getContext('2d');
 
-    let cor;
-    if (valor > 80) {
-        cor = '#e74c3c'; 
-    } else if (valor > 60) {
-        cor = '#f39c12'; 
-    } else {
-        cor = '#2ecc71'; 
-    }
-    document.getElementById(`central${componente}`).innerHTML = `<span style='color: ${cor}'>${valor}</span>`
+        let cor;
+        if (valor > 80) {
+            cor = '#e74c3c';
+        } else if (valor > 60) {
+            cor = '#f39c12';
+        } else {
+            cor = '#2ecc71';
+        }
 
+        document.getElementById(`central${componente}`).innerHTML = `<span style='color: ${cor}'>${valor}</span>`;
 
-    if (charts[componente]) {
-        charts[componente].destroy();
-    }
+        if (charts[componente]) {
+            charts[componente].destroy();
+        }
 
-    charts[componente] = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Usado', 'Disponível'],
-            datasets: [{
-                data: [valor, 100 - valor],
-                backgroundColor: [cor, '#24283e'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            cutout: '60%',
-            plugins: {
-                legend: {
-                    display: false
+        charts[componente] = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Usado', 'Disponível'],
+                datasets: [{
+                    data: [valor, 100 - valor],
+                    backgroundColor: [cor, '#24283e'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
+        });
+    }
+
+    function atualizarGraficoPrincipal() {
+        const canvas = document.getElementById('graficoPrincipal');
+        const ctx = canvas.getContext('2d');
+
+        if (charts.Principal) {
+            charts.Principal.destroy();
         }
-    });
-}
-        
-        function atualizarGraficoPrincipal() {
-            const canvas = document.getElementById('graficoPrincipal');
-            const ctx = canvas.getContext('2d');
-            
-            if (charts.Principal) {
-                charts.Principal.destroy();
-            }
-            
-            const componenteAtual = servidorAtual.RAM > 70 ? 'RAM' : (servidorAtual.CPU > 70 ? 'CPU' : 'Disco');
-            
-            charts.Principal = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: timestamps,
-                    datasets: [
-                        {
-                            label: 'CPU',
-                            data: historicoSimulado.CPU,
-                            borderColor: '#e74c3c',
-                            backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: true
+
+        const dados = historicos[indexAtual];
+
+        charts.Principal = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horasDetalhadas,
+                datasets: [
+                    {
+                        label: 'CPU',
+                        data: dados.CPU,
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'RAM',
+                        data: dados.RAM,
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Disco',
+                        data: dados.Disco,
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#f0f0f0'
                         },
-                        {
-                            label: 'RAM',
-                            data: historicoSimulado.RAM,
-                            borderColor: '#3498db',
-                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: true
-                        },
-                        {
-                            label: 'Disco',
-                            data: historicoSimulado.Disco,
-                            borderColor: '#2ecc71',
-                            backgroundColor: 'rgba(46, 204, 113, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                color: '#f0f0f0'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#f0f0f0'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
                         }
                     },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                color: '#f0f0f0',
-                                boxWidth: 12
-                            }
+                    x: {
+                        ticks: {
+                            color: '#f0f0f0'
                         },
-                        title: {
-                            display: true,
-                            text: `Histórico de Utilização - ${servidorAtual.servidor}`,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
                             color: '#f0f0f0',
-                            font: {
-                                size: 16
-                            }
+                            boxWidth: 12
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: `Histórico de Utilização - ${servidorAtual.servidor}`,
+                        color: '#f0f0f0',
+                        font: {
+                            size: 16
                         }
                     }
                 }
-            });
+            }
+        });
+    }
+
+    function expandirDash(componente) {
+        if (charts.Principal) {
+            charts.Principal.destroy();
         }
-        
-        function expandirDash(componente) {
-            if (charts.Principal) {
-                charts.Principal.destroy();
-            }
-            
-            const canvas = document.getElementById('graficoPrincipal');
-            const ctx = canvas.getContext('2d');
-            
-            const horasDetalhadas = [...Array(24).keys()].map(i => {
-                const now = new Date();
-                now.setHours(now.getHours() - (23 - i));
-                return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            });
-            
-            const valorBase = servidorAtual[componente];
-            const dadosDetalhados = horasDetalhadas.map((_, i) => {
-                return Math.max(0, Math.min(100, valorBase + (Math.random() * 20 - 10)));
-            });
-            
-            let corComponente;
-            switch(componente) {
-                case 'CPU': corComponente = '#e74c3c'; break;
-                case 'RAM': corComponente = '#3498db'; break;
-                case 'Disco': corComponente = '#2ecc71'; break;
-            }
-            
-            charts.Principal = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: horasDetalhadas,
-                    datasets: [
-                        {
-                            label: `${componente}`,
-                            data: dadosDetalhados,
-                            borderColor: corComponente,
-                            backgroundColor: `${corComponente}33`,
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                color: '#f0f0f0',
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
+
+        const canvas = document.getElementById('graficoPrincipal');
+        const ctx = canvas.getContext('2d');
+
+        const dadosDetalhados = historicos[indexAtual][componente];
+
+        let corComponente;
+        switch (componente) {
+            case 'CPU': corComponente = '#e74c3c'; break;
+            case 'RAM': corComponente = '#3498db'; break;
+            case 'Disco': corComponente = '#2ecc71'; break;
+        }
+
+        charts.Principal = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horasDetalhadas,
+                datasets: [
+                    {
+                        label: `${componente}`,
+                        data: dadosDetalhados,
+                        borderColor: corComponente,
+                        backgroundColor: `${corComponente}33`,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#f0f0f0',
+                            callback: function (value) {
+                                return value + '%';
                             }
                         },
-                        x: {
-                            ticks: {
-                                color: '#f0f0f0'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
                         }
                     },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                color: '#f0f0f0',
-                                boxWidth: 12
-                            }
+                    x: {
+                        ticks: {
+                            color: '#f0f0f0'
                         },
-                        title: {
-                            display: true,
-                            text: `Utilização Detalhada de ${componente} - ${servidorAtual.servidor}`,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
                             color: '#f0f0f0',
-                            font: {
-                                size: 16
-                            }
+                            boxWidth: 12
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: `Utilização Detalhada de ${componente} - ${servidorAtual.servidor}`,
+                        color: '#f0f0f0',
+                        font: {
+                            size: 16
                         }
                     }
                 }
-            });
-        }
-    </script>
-</body>
-
-</html>
+            }
+        });
+    }
+</script>
