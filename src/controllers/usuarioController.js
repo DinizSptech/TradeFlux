@@ -60,7 +60,7 @@ function autenticar(req, res) {
               email: resultadoAutenticar[0].email,
               senha: senha,
               cargo: resultadoAutenticar[0].cargo,
-              data_center: resultadoAutenticar[0].data_center
+              data_center: resultadoAutenticar[0].fkDataCenter
             });
           
           } else {

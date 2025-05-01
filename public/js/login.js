@@ -28,6 +28,7 @@ function entrar() {
           sessionStorage.NOME_USUARIO = json.nome;
           sessionStorage.ID_USUARIO = json.id;
           sessionStorage.Cargo = json.cargo;
+          sessionStorage.DataCenter = json.data_center;
           nivelConta = json.cargo;
 
           if (nivelConta == "administrador") {
