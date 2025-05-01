@@ -25,7 +25,37 @@ function listarDataCenters() {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
+function exibirServidores(dataCenter) {
+  console.log(
+    "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirServidores():",
+  );
+
+  let instrucaoSql = `
+  select sc.idServidor,
+    count(ps.idParametros_Servidor) as totalComponentes,
+    case 
+        when count(a.idAlerta) > 0 then 'Crítico'
+        else 'Estável'
+    end as statusServidor,
+  count(a2.idAlerta) as alertas_hoje
+  from Servidor_Cliente as sc
+  left join Parametro_Servidor ps 
+  on ps.fkServidor = sc.idServidor
+  left join Alerta a 
+    on a.fkParametro = ps.idParametros_Servidor 
+    and a.data >= NOW() - interval 2 hour
+  left join Alerta a2 
+    on a2.fkParametro = ps.idParametros_Servidor 
+    and date(a2.data) = CURDATE()
+  where sc.fkDataCenter = ${dataCenter}
+  group by sc.idServidor;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 module.exports = {
   cadastrar,
     listarDataCenters,
+    exibirServidores
 };

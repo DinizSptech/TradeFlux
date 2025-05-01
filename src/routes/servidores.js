@@ -11,4 +11,9 @@ router.get("/listarDataCenters", function (req, res) {
     servidorController.listarDataCenters(req, res);
 })
 
+
+router.get("/exibirServidores/:dataCenter", function (req, res) {
+    servidorController.exibirServidores(req, res);
+})
+
 module.exports = router;

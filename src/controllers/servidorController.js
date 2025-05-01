@@ -25,7 +25,18 @@ function listarDataCenters(req, res) {
     })
 }
 
+function exibirServidores(req, res) {
+    dataCenter = req.params.dataCenter
+      servidorModel.exibirServidores(dataCenter).then((resultado) => {
+          res.status(200).json(resultado);
+      }).catch(function(erro){
+          console.log(erro);
+          res.status(500).json(erro.sqlMessage);
+      })
+  }
+
 module.exports = {
   cadastrar,
     listarDataCenters,
+    exibirServidores
 };
