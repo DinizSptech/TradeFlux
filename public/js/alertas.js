@@ -65,3 +65,113 @@ function exibirAlertas() {
   });
 }
  
+function ordenarAlertasPorNivel() {
+  alertas.sort((a, b) => {
+    const niveis = { "Atenção": 1, "Crítico": 2 };
+    
+    return niveis[b.nivel] - niveis[a.nivel];
+  });
+
+  const bodyTabela = document.getElementById("bodyTabela");
+  bodyTabela.innerHTML = ""; 
+
+  alertas.forEach(alerta => {
+    const dataFormatada = new Date(alerta.dataHora).toLocaleString("pt-BR", {
+      timeZone: "America/Sao_Paulo"
+    });
+    
+    bodyTabela.innerHTML += `
+      <tr>
+        <td>${alerta.nome}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.valor}</td>
+        <td>${alerta.medida}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
+        <td>${alerta.servidor}</td>
+        <td>${dataFormatada}</td>
+        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+      </tr>
+    `;
+  });
+
+  ordenacaoAtual.innerHTML = "Por Nível";
+}
+
+function ordenarAlertasPorData() {
+  alertas.sort((a, b) => new Date(b.dataHora) - new Date(a.dataHora));
+
+  const bodyTabela = document.getElementById("bodyTabela");
+  bodyTabela.innerHTML = ""; 
+
+  alertas.forEach(alerta => {
+    const dataFormatada = new Date(alerta.dataHora).toLocaleString("pt-BR", {
+      timeZone: "America/Sao_Paulo"
+    });
+    
+    bodyTabela.innerHTML += `
+      <tr>
+        <td>${alerta.nome}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.valor}</td>
+        <td>${alerta.medida}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
+        <td>${alerta.servidor}</td>
+        <td>${dataFormatada}</td>
+        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+      </tr>
+    `;
+  });
+  ordenacaoAtual.innerHTML = "Mais Recentes";
+}
+
+function ordenarAlertasPorComponente() {
+  alertas.sort((a, b) => a.nome.localeCompare(b.nome));
+
+  const bodyTabela = document.getElementById("bodyTabela");
+  bodyTabela.innerHTML = ""; 
+
+  alertas.forEach(alerta => {
+    const dataFormatada = new Date(alerta.dataHora).toLocaleString("pt-BR", {
+      timeZone: "America/Sao_Paulo"
+    });
+    
+    bodyTabela.innerHTML += `
+      <tr>
+        <td>${alerta.nome}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.valor}</td>
+        <td>${alerta.medida}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
+        <td>${alerta.servidor}</td>
+        <td>${dataFormatada}</td>
+        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+      </tr>
+    `;
+  });
+  ordenacaoAtual.innerHTML = "Por Componente";
+}
+
+function ordenarAlertasPorServidor() {
+
+  alertas.sort((a, b) => a.servidor - b.servidor);
+
+  const bodyTabela = document.getElementById("bodyTabela");
+  bodyTabela.innerHTML = ""; 
+
+  alertas.forEach(alerta => {
+    const dataFormatada = new Date(alerta.dataHora).toLocaleString("pt-BR", {
+      timeZone: "America/Sao_Paulo"
+    });
+    
+    bodyTabela.innerHTML += `
+      <tr>
+        <td>${alerta.nome}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.valor}</td>
+        <td>${alerta.medida}</td>
+        <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
+        <td>${alerta.servidor}</td>
+        <td>${dataFormatada}</td>
+        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+      </tr>
+    `;
+  });
+  ordenacaoAtual.innerHTML = "Por Servidor";
+}
+

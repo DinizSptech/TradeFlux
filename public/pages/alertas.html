@@ -50,7 +50,10 @@
 
   <main class="container-main" id="main_page">
     <div class="mainContent">
-
+        <div>
+          <h3>Ordenação Atual:</h3>
+          <p id="ordenacaoAtual">Mais recentes</p>
+        </div>
       <div class="container-title">
         <p>Histórico de Alertas</p>
       </div>
@@ -59,12 +62,12 @@
         <table id="tabelaFuncionarios" class="tabelaDados">
           <thead>
             <tr>
-              <th>Componente</th>
+              <th onclick="ordenarAlertasPorComponente()">Componente</th>
               <th>Valor</th>
               <th>Unidade de Medida</th>
-              <th>Nível</th>
-              <th>Servidor</th>
-              <th>Data e Hora</th>
+              <th onclick="ordenarAlertasPorNivel()">Nível</th>
+              <th onclick="ordenarAlertasPorServidor()">Servidor</th>
+              <th onclick="ordenarAlertasPorData()">Data e Hora</th>
               <th>Visto</th>
             </tr>
           </thead>
