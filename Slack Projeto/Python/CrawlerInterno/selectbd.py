@@ -1,7 +1,7 @@
 import database
 from mysql.connector import Error 
 
-mydb = database.gerarMyDbSelect()
+mydb = database.gerarMyDbSelectLocal()
 cursor = mydb.cursor()
 
 def coletarMaquinasDisponiveis(uuidServidor):
