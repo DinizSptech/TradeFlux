@@ -24,6 +24,8 @@
     <script src="../js/cadastroUsuario.js" defer></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/mobileGerente.js"></script>
+    <script src="../js/servidores.js"></script>
+    <script src="../js/cadastroComponente.js"></script>
     
     <script src="../js/modais.js"></script>
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
@@ -45,20 +47,40 @@
       </div>
     </div>
 </div>
-  <main class="container-main" id="main_page">
+  <main class="container-main" id="main_page"  onclick="exibirServidorNoSelect()">
           <div class="bgForm" id="bg_formulario_edicao">
             <div class="formUsuario">
-              <div class="tituloForm">Editar Servidor</div>
-              <div class="input">
+                <i onclick="fecharModal('edicao')" class="fechar fa-solid fa-xmark"></i>
+              <div class="tituloForm2">Editar Servidor</div>
+              <div class="select-container3">
                 <span>Servidor:</span>
-                <input id="ipt_nome" type="text" />
+                <select id="select_servidor" name="" onchange="exibirCaracteristicas()">
+                  <option selected disabled value="#">Selecione uma opção</option>
+                </select>
               </div>
-              <div class="input">
-            <span>Quantidade de componentes:</span>
-            <input id="ipt_qtdComponentesEdicao" type="text" />
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="fecharModal('edicao')">Salvar</button>
+              <div class="caracteristicas_servidor">
+                <span id="ram_total"></span>
+                <span id="disco_total"></span>
+                <span id="cpu"></span>
+                <span id="so"></span>
+              </div>
+              <div class="select-container3">
+                <span>O que deseja editar?</span>
+                <select id="select_componente">
+                  <option selected disabled value="#">Selecione uma opção</option>
+                  <option value="sistemaOperacional">Sistema Operacional</option>
+                  <option value="discoTotal">Disco Total</option>
+                  <option value="ramTotal">RAM Total</option>
+                  <option value="processadorInfo">Processador</option>
+                </select>
+              </div>
+              <div class="input2 input">
+                <span>Novo valor:</span>
+                <input id="ipt_valorEdicao" />
+              </div>
+
+          <div class="buttonCadastrar2 buttonCadastrar">
+            <button onclick="editarServidor()">Salvar</button>
           </div>
         </div>
   </div>
@@ -88,116 +110,4 @@
 </body>
 
 </html>
-<script>
 
-    // var resultado = [
-    //     {
-    //         nome: "Tobias Boss",
-    //         nomeFantasia: "B3"
-
-    //     }
-    // ]
-    
-    // var servidor = [
-    //     {
-    //         idServidor: 1,
-    //         nome: "Servidor 1",
-    //         componentes: "4",
-    //         status: "Estável",
-    //         monitoramento: "Ativo",        
-    //     },
-
-    //     {
-    //         idServidor: 2,
-    //         nome: "Servidor 2",
-    //         componentes: "4",
-    //         status: "Estável",
-    //         monitoramento: "Ativo",        
-    //     },
-
-    //     {
-    //         idServidor: 3,
-    //         nome: "Servidor 3",
-    //         componentes: "4",
-    //         status: "Estável",
-    //         monitoramento: "Ativo",        
-    //     },
-    //     {
-    //         idServidor: 4,
-    //         nome: "Servidor 4",
-    //         componentes: "4",
-    //         status: "--",
-    //         monitoramento: "Inativo",        
-    //     },
-        
-    // ]
-
-    // function carregarServidor(){
-    //     for (var i = 0; i < servidor.length; i++) {
-    //         bodyTabela.innerHTML += `
-    //         <tr>
-    //         <td>${servidor[i].nome}</td>
-    //         <td>${servidor[i].componentes}</td>
-    //         <td style="color: ${servidor[i].status == 'Estável' ? '#2ecc71' : servidor[i].status == 'Perigo' ? '#f39c12' : '#e74c3c'};">${servidor[i].status}</td>
-    //         <td style="color: ${servidor[i].monitoramento == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${servidor[i].monitoramento}</td>
-    //         <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${servidor[i].idUsuario}, '${servidor[i].nome}', '${servidor[i].email}', '${servidor[i].senha}', '${servidor[i].cargo}', '${servidor[i].status}')" ></i></td>
-    //         <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${servidor[i].idUsuario})'></i></td>
-    //         </tr>
-    //         `
-    //     }
-        
-    // }
-
-    servidores = []
-    
-    function exibirServidores() {
-    const dataCenter = sessionStorage.DataCenter;
-
-  fetch(`/servidores/exibirServidores/${dataCenter}`, {
-    method: "GET"
-  })
-  .then(response => {
-    if (response.ok) {
-      response.json().then(json => {
-        console.log(json);
-
-        servidores = json.map(item => ({
-          
-          idServidor: item.idServidor,
-          totalComponentes: item.totalComponentes,
-          status: item.statusServidor,
-          alertas: item.alertas_hoje      
-      }));
-
-
-        const bodyTabela = document.getElementById("bodyTabela");
-        bodyTabela.innerHTML = ""; 
-      
-        servidores.forEach(servidor => {
-          bodyTabela.innerHTML += `
-            <tr>
-            <td> Servidor ${servidor.idServidor}</td>
-            <td>${servidor.totalComponentes}</td>
-            <td style="color: ${servidor.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${servidor.status}</td>
-            <td style="color: ${servidor.alertas == 0 ? '#2ecc71' : '#e74c3c'};">${servidor.alertas}</td>
-            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao');" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao');'></i></td>
-            </tr>
-            
-          `;
-
-
-        });
-
-      });
-    } else {
-      console.error('Erro ao obter alertas');
-    }
-  })
-  .catch(error => {
-    console.error("Erro na requisição:", error);
-  });
-}
- 
-
-</script>

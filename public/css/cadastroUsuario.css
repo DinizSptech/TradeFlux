@@ -146,6 +146,46 @@ select {
   background-color: #052f7d;
   transition: 0.5;
 }
+
+/* SERVIDORES!! */
+
+.tituloForm2 {
+  font-size: 2.4vw;
+  font-weight: bold;
+  padding: 1vw;
+}
+
+.input2 {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 10%;
+  padding: 1vw;
+}
+
+.select-container3 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 5%;
+  padding: 1vw;
+}
+
+.buttonCadastrar2 {
+  position: relative;
+  top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8%;
+  padding: 1vw;
+}
+
 /* 
 @media screen and (max-width: 1200px) {
   .container-menu {

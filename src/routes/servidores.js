@@ -16,4 +16,9 @@ router.get("/exibirServidores/:dataCenter", function (req, res) {
     servidorController.exibirServidores(req, res);
 })
 
+router.put("/editarServidor", function (req, res) {
+    servidorController.editarServidor(req, res);
+})
+
+
 module.exports = router;
