@@ -21,6 +21,7 @@ var unidadesRouter = require("./src/routes/unidades");
 var servidoresRouter = require("./src/routes/servidores");
 var dataCenterRouter = require("./src/routes/dataCenter");
 var componentesRouter = require("./src/routes/componentes");
+var alertasRouter = require("./src/routes/alertas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +36,7 @@ app.use("/unidades", unidadesRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/componentes", componentesRouter);
 app.use("/dataCenter", dataCenterRouter);
+app.use("/alertas", alertasRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`
