@@ -24,10 +24,22 @@ function mudarIcone() {
 
 function carregarMenuLateral() {
   const cargo = sessionStorage.getItem("Cargo");
+  const idUsuario = sessionStorage.getItem("ID_USUARIO");
   const barralateral = document.getElementById("barralateral");
 
   const menuBar = document.getElementById("menu-bar");
   menuBar.addEventListener("click", toggleMenu);
+
+  var opcaoDatacenters = ``;
+
+  if (idUsuario == "1" && cargo == "administrador") {
+    opcaoDatacenters = `
+        <div class="option">
+            <i class="fa-solid fa-network-wired"></i>
+            <span><a href="./dash_gerente_datacenters.html">Data Centers</a></span>
+        </div>
+    `
+  }
 
   console.log(cargo);
   if (cargo == "administrador") {
@@ -53,10 +65,7 @@ function carregarMenuLateral() {
             <span><a href="./alertas.html">Alertas</a></span>
         </div>
 
-         <div class="option">
-            <i class="fa-solid fa-network-wired"></i>
-            <span><a href="./dash_gerente_datacenters.html">Data Centers</a></span>
-        </div>
+         ${opcaoDatacenters}
 
         <div class="option">
             <i class="fa-solid fa-server"></i>

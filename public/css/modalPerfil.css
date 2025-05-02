@@ -212,3 +212,34 @@
     cursor: pointer;
     font-weight: 700;
 }
+.modal_datacenters{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    border-radius: 2vw;
+    
+}
+.opcao_datacenter{
+    padding: 2vw;
+    width: 24vw;
+    max-width: 24vw;
+    background-color: #45507a;
+    font-size: 1.2vw;
+    color: #F0F0F0;
+    font-weight: 800;
+    cursor: pointer;
+}
+.opcao_datacenter:hover{
+    padding: 2vw;
+    background-color: #3a4288;
+    font-weight: 800;
+    font-size: 1.3vw;
+}
+.selecionado{
+    background-color: #2e3552;
+}
+.selecionado:hover{
+    background-color: #232f60;
+
+}
