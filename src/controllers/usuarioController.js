@@ -1,32 +1,36 @@
 const e = require("express");
-const crypto = require('crypto');
+const crypto = require("crypto");
 
-const PEPPER = 'Tralalelo_tralala';
+const PEPPER = "Tralalelo_tralala";
 // Aqui você deve definir o valor da sua pimenta, que é uma string secreta e única para o seu sistema. Ela deve ser mantida em segredo e não deve ser armazenada no banco de dados.
 let usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
-  
+
   // Descomente para debugar caso algo dê errado:
   const testeSenha = "Jennifer123@";
-  const hashBDTesteConstrução = criarHashComPepper(testeSenha)
-  const hashErrado = "6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1";
+  const hashBDTesteConstrução = criarHashComPepper(testeSenha);
+  const hashErrado =
+    "6d2f4a8c1e5b7d9a3c6f2e8d1a5b7c9e:7f3a1d8e5c2b9f6a4d7e0c3b8a5f2d9c6b3e0a7d4f1c8b5a2e9f6d3c0b7a4f1";
   const testeValido = verificarSenhaComPepper(hashErrado, testeSenha);
-  const testeValido2 = verificarSenhaComPepper(hashBDTesteConstrução, testeSenha);
-  
-  console.log("")
-  console.log("")
-  console.log("Testes")
-  
+  const testeValido2 = verificarSenhaComPepper(
+    hashBDTesteConstrução,
+    testeSenha
+  );
+
+  console.log("");
+  console.log("");
+  console.log("Testes");
+
   console.log("Pimenta:", PEPPER);
-  console.log("Teste manual de verificação:", testeValido)
+  console.log("Teste manual de verificação:", testeValido);
   console.log("Teste manual de verificação:", testeValido2);
 
-  console.log("")
-  console.log("")
-  console.log("")
+  console.log("");
+  console.log("");
+  console.log("");
 
   senha = senha.trim();
 
@@ -35,14 +39,15 @@ function autenticar(req, res) {
   console.log("Senha gerada com hash:", senhaHash);
   console.log("Verificação bate:", verificarSenhaComPepper(senhaHash, senha));
 
-  console.log("Entrei autenticar")
+  console.log("Entrei autenticar");
 
   if (email == undefined) {
     res.status(400).send("Seu email está undefined!");
   } else if (senha == undefined) {
     res.status(400).send("Sua senha está indefinida!");
   } else {
-    usuarioModel.autenticar(email)
+    usuarioModel
+      .autenticar(email)
       .then(function (resultadoAutenticar) {
         console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
         console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
@@ -50,8 +55,8 @@ function autenticar(req, res) {
         if (resultadoAutenticar.length == 1) {
           console.log(resultadoAutenticar);
 
-          const senhaBD = resultadoAutenticar[0].senha
-          const valido = verificarSenhaComPepper(senhaBD, senha)
+          const senhaBD = resultadoAutenticar[0].senha;
+          const valido = verificarSenhaComPepper(senhaBD, senha);
 
           if (valido) {
             res.json({
@@ -60,13 +65,11 @@ function autenticar(req, res) {
               email: resultadoAutenticar[0].email,
               senha: senha,
               cargo: resultadoAutenticar[0].cargo,
-              data_center: resultadoAutenticar[0].fkDataCenter
+              data_center: resultadoAutenticar[0].fkDataCenter,
             });
-          
           } else {
             res.status(403).send("Hash");
           }
-
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
         } else {
@@ -101,14 +104,12 @@ function cadastrar(req, res) {
     res.status(400).send("Seu email está undefined!");
   } else if (cargo == undefined) {
     res.status(400).send("Seu cargo está undefined!");
-  }  else if (ativo == undefined) {
+  } else if (ativo == undefined) {
     res.status(400).send("Seu ativo está undefined!");
-  }  else if (data_center == undefined) {
+  } else if (data_center == undefined) {
     res.status(400).send("Sua empresa está undefined!");
-  }
-  else {
-
-    senhaHasheada = criarHashComPepper(senha)
+  } else {
+    senhaHasheada = criarHashComPepper(senha);
 
     usuarioModel
       .cadastrar(nome, senhaHasheada, email, cargo, ativo, data_center)
@@ -123,43 +124,68 @@ function cadastrar(req, res) {
 }
 
 function criarHashComPepper(senha) {
-
-  const salt = crypto.randomBytes(16).toString('hex');
+  const salt = crypto.randomBytes(16).toString("hex");
   // Aqui ele tá criando o "Sal", que vamos utilizar pra criar o Hash na const abaixo, pq dessa maneira, sempre será utilizado a String antes de converter, dando mais segurança
-  
-  const hash = crypto.scryptSync(senha + PEPPER, salt, 32).toString('hex');
-  console.log(hash)
-    // Aqui a gente basicamente cria o "Criptografia", pq entre aspas? Pq isso não é criptografia, basicamente, pelo Hash ser aleatório, a gente vai salvar o hash e dps vai comparar o hash salvo no BD que foi criado utilizando a nossa "pimenta" para ver se bate as duas
+
+  const hash = crypto.scryptSync(senha + PEPPER, salt, 32).toString("hex");
+  console.log(hash);
+  // Aqui a gente basicamente cria o "Criptografia", pq entre aspas? Pq isso não é criptografia, basicamente, pelo Hash ser aleatório, a gente vai salvar o hash e dps vai comparar o hash salvo no BD que foi criado utilizando a nossa "pimenta" para ver se bate as duas
 
   return `${salt}:${hash}`;
   // Retorna uma string, o : é só um divisor do sal com nosso Hash
-
 }
 
 function verificarSenhaComPepper(senhaArmazenada, senhaFornecida) {
-  
   console.log("Senha armazenada:", senhaArmazenada);
   console.log("Senha fornecida:", senhaFornecida);
 
-  const [salt, hash] = senhaArmazenada.split(':');
+  const [salt, hash] = senhaArmazenada.split(":");
   console.log("Salt recuperado:", salt);
   console.log("Hash original:", hash);
 
   // Ele sepata o Hash que tá lá no BD e separa para gente usar o Salt que ele tem pra criar o novo Hash e validar dps com a criação do Pepper para ver se fununcia
 
-  const hashVerificacao = crypto.scryptSync(senhaFornecida + PEPPER, salt, 32).toString('hex');
+  const hashVerificacao = crypto
+    .scryptSync(senhaFornecida + PEPPER, salt, 32)
+    .toString("hex");
   console.log("Hash gerado para verificação:", hashVerificacao);
-  console.log("Hash original e hash de verificação são iguais?", hash === hashVerificacao);
+  console.log(
+    "Hash original e hash de verificação são iguais?",
+    hash === hashVerificacao
+  );
 
-  // aqui criamos o novo Hash 
+  // aqui criamos o novo Hash
 
   return hash === hashVerificacao;
   // aqui retornamos true ou false, ou seja, a senha tá certa ou não
 }
 
+function exibir(req, res) {
+  let nome = req.body.nomeServer;
+  let email = req.body.emailServer;
+  let cargo = req.body.cargoServer;
+  let ativo = req.body.ativoServer;
+
+  usuarioModel
+    .exibir(nome, email, cargo, ativo)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum resultado encontrado!");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar as informações.", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   autenticar,
   cadastrar,
+  exibir,
 };
 
 // A senha segue o padrão Salt and Pepper:
