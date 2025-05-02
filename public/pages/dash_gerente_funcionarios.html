@@ -43,7 +43,7 @@
   </div>      
   </div>
   <main class="container-main" id="main_page">
-
+      <!-- Modal de cadastro -->
     <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class=" fechar fa-solid fa-xmark"></i> 
@@ -89,8 +89,10 @@
             <div class="erros" id="erros_cadastro_confirmsenha"></div>
           </div>
     </div>
+    <!-- Modal de edição -->
     <div class="bgForm" id="bg_formulario_edicao">
       <div class="formUsuario">
+        <i onclick="fecharModal('edicao')" class="fechar fa-solid fa-xmark"></i>
           <div class="tituloForm">Editar Usuario</div>
           <div class="input">
             <span>Usuario:</span>
@@ -133,7 +135,26 @@
           <div id="erros_cadastro_senha"></div>
           <div id="erros_cadastro_confirmsenha"></div>
         </div>
-  </div>
+      </div>
+
+         <!-- Modal de exclusão -->
+      <div class="bgForm" id="bg_formulario_exclusao" >
+        <div class="formUsuario">
+          <i onclick="fecharModal('exclusao')" class="fechar fa-solid fa-xmark"></i>
+            <div class="tituloForm">Excluir Usuário</div>
+              <span style="font-weight: bold; color: #ff6666; font-size: larger; margin-top: 15px; text-align: center;" class="input2">Você tem certeza que deseja excluir este usuário?</span>
+              <div class="botoesModalExcluir">
+            <div class="buttonCadastrar">
+              <button onclick="fecharModal('exclusao')">Cancelar</button>
+            </div>
+            <div class="buttonCadastrarRED buttonCadastrar">
+              <button onclick="excluir()">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+
     <div id="barralateral" class="barra-lateral">
 
     </div>
@@ -227,8 +248,8 @@
             <td>${(usuarios[i].cargo)}</td>
             <td style="color: ${(usuarios[i].status) == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${(usuarios[i].status)}</td>
             <td>${(usuarios[i].ultimoAcesso)}</td>
-            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${usuarios[i].idUsuario}, '${usuarios[i].nome}', '${usuarios[i].email}', '${usuarios[i].senha}', '${usuarios[i].cargo}', '${usuarios[i].status}')" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${usuarios[i].idUsuario})'></i></td>
+            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarUsuario()" ></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="abrirModal('exclusao'); deletarUsuario(${usuarios.idUsuario})"></i></td>
             </tr>
             `
         }

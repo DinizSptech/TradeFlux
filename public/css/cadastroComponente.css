@@ -163,3 +163,17 @@ select {
   background-color: #052f7d;
   transition: 0.5;
 }
+
+/* MODAL DE EXCLUIR */
+
+.botoesModalExcluir{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1vw;
+
+}
+
+.buttonCadastrarRED  button{
+  background-color: rgb(162, 0, 0);
+}

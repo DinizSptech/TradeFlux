@@ -122,6 +122,24 @@
           <div id="erros_cadastro_limiar"></div>
         </div>
       </div>
+          <!-- Modal de exclusão -->
+      <div class="bgForm" id="bg_formulario_exclusao" >
+        <div class="formUsuario">
+          <i onclick="fecharModal('exclusao')" class="fechar fa-solid fa-xmark"></i>
+            <div class="tituloForm">Excluir Componente</div>
+              <span style="font-weight: bold; color: #ff6666; font-size: larger; margin-top: 15px; text-align: center;" class="input2">Você tem certeza que deseja excluir este componente?</span>
+              <span id="servidorE"></span>
+              <div class="botoesModalExcluir">
+            <div class="buttonCadastrar">
+              <button onclick="fecharModal('exclusao')">Cancelar</button>
+            </div>
+            <div class="buttonCadastrarRED buttonCadastrar">
+              <button onclick="excluirServidor()">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
       <div id="barralateral" class="barra-lateral"></div>
 
       <div class="mainContent">
@@ -278,7 +296,7 @@
             <td>${componentes[i].servidor}</td>
 
             <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${componentes[i].idComponente}, '${componentes[i].nome}', '${componentes[i].medida}', '${componentes[i].limiar}', '${componentes[i].status}', '${componentes[i].alertas}')" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${componentes[i].idComponente})'></i></td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick="abrirModal('exclusao')"; deletar(${componentes[i].idComponente})'></i></td>
             </tr>
             `;
     }

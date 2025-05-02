@@ -53,6 +53,11 @@ function carregarMenuLateral() {
             <span><a href="./alertas.html">Alertas</a></span>
         </div>
 
+         <div class="option">
+            <i class="fa-solid fa-network-wired"></i>
+            <span><a href="./dash_gerente_datacenters.html">Data Centers</a></span>
+        </div>
+
         <div class="option">
             <i class="fa-solid fa-server"></i>
             <span><a href="./dash_gerente_servidores.html">Servidores</a></span>
