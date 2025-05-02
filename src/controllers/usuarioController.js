@@ -117,7 +117,7 @@ function cadastrar(req, res) {
         res.status(200).json(resultado);
         res.status(200).send("Usuario cadastrado com sucesso");
       })
-      .catch(function (erro) {
+      .catch((erro) => {
         res.status(500).json(erro.sqlMessage);
       });
   }
