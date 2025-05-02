@@ -193,19 +193,18 @@
 
 .opcao_datacenter{
   padding: 2vh;
-  width: 75vw;
-  max-width: 75vw;
+  width: 80vw;
+  max-width: 80vw;
   background-color: #45507a;
-  font-size: 5vw;
+  font-size: 4.5vw;
   color: #F0F0F0;
   font-weight: 500;
   cursor: pointer;
 }
 .opcao_datacenter:hover{
-  padding: 2vw;
+  padding: 2vh;
   background-color: #3a4288;
-  font-weight: 800;
-  font-size: 1.3vw;
+  font-size: 5vw;
 }
 .selecionado{
   background-color: #2e3552;
