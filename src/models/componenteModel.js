@@ -89,11 +89,23 @@ function excluir(componenteSelecionadoParaExcluir) {
   return database.executar(instrucaoSql);
 }
 
+function editarComponente(parametroComponente, valor) {
+  console.log(
+    "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarComponente():",
+  );
+
+  let instrucaoSql = `
+        UPDATE Parametro_Servidor SET limiar_alerta = ${valor} WHERE idParametros_Servidor = ${parametroComponente};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
     listarServidores,
     cadastrar,
     listarComponentes,
     exibirComponentes,
-    excluir
+    excluir,
+    editarComponente
 };

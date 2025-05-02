@@ -91,35 +91,24 @@
           <div class="erros" id="erros_cadastro_limiar"></div>
         </div>
       </div>
+      <!-- Modal de edição -->
       <div class="bgForm" id="bg_formulario_edicao">
         <div class="formUsuario">
+          <i onclick="fecharModal('edicao')" class="fechar fa-solid fa-xmark"></i>
           <div class="tituloForm">Editar Componente</div>
+          <span class="componenteEdicao" id="componenteEdicao"></span>
           <div class="input">
-            <span>Nome:</span>
-            <input id="ipt_nomeComponente2" type="text" />
+            <span>Novo limiar de alerta:</span>
+            <input id="ipt_limiarEdicao" type="number"/>
           </div>
-          <div class="input">
-            <div class="select-container">
-              <span>Medida</span>
-              <select id="select_medida2" name="">
-                <option selected disabled value="#">Selecione uma opção</option>
-                <option value="gb">GB</option>
-                <option value="pt">%</option>
-                <option value="bt">Bytes</option>
-              </select>
+          <div class="botoesModalExcluir">
+            <div class="buttonCadastrar">
+              <button onclick="fecharModal('edicao')">Cancelar</button>
+            </div>
+            <div class="buttonCadastrar">
+              <button onclick="editarComponente()">Editar</button>
             </div>
           </div>
-          <div class="input">
-            <span>Limiar de alerta:</span>
-            <input id="ipt_limiar2" />
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="fecharModal('edicao')">Salvar</button>
-          </div>
-          <div id="erros_cadastro_servidor"></div>
-          <div id="erros_cadastro_nome"></div>
-          <div id="erros_cadastro_medida"></div>
-          <div id="erros_cadastro_limiar"></div>
         </div>
       </div>
           <!-- Modal de exclusão -->
