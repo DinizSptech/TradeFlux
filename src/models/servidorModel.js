@@ -2,7 +2,7 @@ let database = require("../database/config");
 
 function cadastrar(dataCenter) {
     console.log(
-        "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
+        "ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
         dataCenter
     );
     
@@ -16,7 +16,7 @@ function cadastrar(dataCenter) {
 
 function listarDataCenters() {
   console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarDataCenters():",
+    "ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarDataCenters():",
   );
 
   let instrucaoSql = `
@@ -57,7 +57,7 @@ function exibirServidores(dataCenter) {
 
 function editarServidor(servidor, componente, valor) {
   console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarServidor():",
+    "ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarServidor():",
   );
 
   let instrucaoSql = `
@@ -66,9 +66,30 @@ function editarServidor(servidor, componente, valor) {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
+
+
+function excluir(servidorSelecionadoParaExcluir) {
+  console.log(
+    "ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function excluir():",
+  );
+
+  let instrucaoSql = `
+
+     DELETE A
+    FROM Alerta A
+    JOIN Parametro_Servidor P ON A.fkParametro = P.idParametros_Servidor
+    WHERE P.fkServidor = ${servidorSelecionadoParaExcluir};
+    DELETE from Parametro_Servidor where fkServidor = ${servidorSelecionadoParaExcluir};
+    DELETE FROM Servidor_Cliente where idServidor = ${servidorSelecionadoParaExcluir}
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 module.exports = {
   cadastrar,
     listarDataCenters,
     exibirServidores,
-    editarServidor
+    editarServidor,
+    excluir
 };

@@ -20,5 +20,9 @@ router.put("/editarServidor", function (req, res) {
     servidorController.editarServidor(req, res);
 })
 
+router.delete("/excluir/:servidorSelecionadoParaExcluir", function (req, res) {
+    servidorController.excluir(req, res);
+})
+
 
 module.exports = router;

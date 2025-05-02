@@ -1,4 +1,6 @@
 servidores = []
+let servidorSelecionadoParaExcluir = null;
+
     
 function exibirServidores() {
 const dataCenter = sessionStorage.DataCenter;
@@ -31,9 +33,8 @@ if (response.ok) {
         <td style="color: ${servidor.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${servidor.status}</td>
         <td style="color: ${servidor.alertas == 0 ? '#2ecc71' : '#e74c3c'};">${servidor.alertas}</td>
         <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao');" ></i></td>
-        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="abrirModal('exclusao');"></i></td>
-        </tr>
-        
+        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  data-id="${servidor.idServidor}" onclick="setServidorExcluir(this)"></i></td>
+        </tr>    
       `;
     });
 
@@ -76,7 +77,31 @@ function editarServidor() {
         });
     }
 
-    
-  
+   
+    function setServidorExcluir(element) {
+        servidorSelecionadoParaExcluir = element.dataset.id;
+        document.getElementById("servidorE").textContent = `Servidor ${servidorSelecionadoParaExcluir}` ;
+        abrirModal('exclusao');
+
+    }
+      
+    function excluirServidor() {
+        if (servidorSelecionadoParaExcluir) {
+          fetch(`/servidores/excluir/${servidorSelecionadoParaExcluir}`, {
+            method: 'DELETE'
+          })
+          .then(response => {
+            if (response.ok) {
+              alert("Servidor excluído com sucesso.");
+              exibirServidores();
+              fecharModal('exclusao');
+            } else {
+              alert("Erro ao excluir.");
+            }
+          });
+        }
+   
+   
+      }
 
 

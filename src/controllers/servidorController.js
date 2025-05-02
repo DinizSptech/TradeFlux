@@ -49,9 +49,21 @@ function editarServidor(req, res) {
     
 }
 
+
+function excluir(req, res) {
+    servidorSelecionadoParaExcluir = req.params.servidorSelecionadoParaExcluir
+      servidorModel.excluir(servidorSelecionadoParaExcluir).then((resultado) => {
+          res.status(200).json(resultado);
+      }).catch(function(erro){
+          console.log(erro);
+          res.status(500).json(erro.sqlMessage);
+      })
+  }
+
 module.exports = {
   cadastrar,
     listarDataCenters,
     exibirServidores,
-    editarServidor
+    editarServidor,
+    excluir
 };
