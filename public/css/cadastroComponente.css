@@ -60,6 +60,7 @@
   flex-direction: column;
   border-radius: 20px;
   border: solid 3px #3A3F58;
+  padding: 20px;
 }
 
 .fechar{
@@ -124,6 +125,7 @@
   flex-direction: column;
   /* align-items: center; */
   gap: 5%;
+
 }
 
 select {

@@ -49,8 +49,31 @@ function listarComponentes(req, res) {
     })
 }
 
+function exibirComponentes(req, res) {
+  dataCenter = req.params.dataCenter
+    componenteModel.exibirComponentes(dataCenter).then((resultado) => {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+
+function excluir(req, res) {
+    componenteSelecionadoParaExcluir = req.params.componenteSelecionadoParaExcluir
+      componenteModel.excluir(componenteSelecionadoParaExcluir).then((resultado) => {
+          res.status(200).json(resultado);
+      }).catch(function(erro){
+          console.log(erro);
+          res.status(500).json(erro.sqlMessage);
+      })
+  }
+
 module.exports = {
   cadastrar,
     listarServidores,
-    listarComponentes
+    listarComponentes,
+    exibirComponentes,
+    excluir 
 };

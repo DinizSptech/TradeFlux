@@ -5,8 +5,10 @@ var ram = [];
 var disco = [];
 var cpu = [];
 var so = [];
+let componentes = []
 
 let jaCarregouServidores = false;
+let componenteSelecionadoParaExcluir = null;
 
 function exibirServidorNoSelect() {
     if (jaCarregouServidores) return; // Se já carregou, sai fora
@@ -125,8 +127,6 @@ function exibirCaracteristicas() {
 let  servidorValidado, componenteValidado, limiarValidado;
 
 
-console.log(nome)
-
 function validarServidor(servidor) {
   servidorValidado = true;
 
@@ -205,18 +205,90 @@ function cadastrar() {
 }
 
 
+// função de exibir os componentes na tabela
+function exibirComponentes() {
+  const dataCenter = sessionStorage.DataCenter;
 
-function abrirModal(tipo) {
-    if (tipo == "cadastro") {
-        bg_formulario.style.display = "flex";
-    } else {
-        bg_formulario_edicao.style.display = "flex";
-    }
+  fetch(`/componentes/exibirComponentes/${dataCenter}`, {
+    method: "GET"
+  })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(json => {
+          console.log(json);
+
+          componentes = json.map(item => {
+            let nomeFormatado = item.nomeComponente;
+
+            if (nomeFormatado === "Ram_Usada" || nomeFormatado === "Ram_Percentual") {
+              nomeFormatado = "RAM";
+            } else if (nomeFormatado === "Disco_Usado" || nomeFormatado === "Disco_Percentual") {
+              nomeFormatado = "Disco";
+            } else if (nomeFormatado === "Cpu_Percentual" || nomeFormatado === "Cpu_Frequencia") {
+              nomeFormatado = "CPU";
+            }
+    
+            return {
+              nome: nomeFormatado,
+              medida: item.medida,
+              limiar: item.limiar_alerta,
+              status: item.statusComponente,
+              servidor: item.fkServidor,
+              parametroID: item.idParametros_Servidor
+            };
+          });
+
+
+          const bodyTabela = document.getElementById("bodyTabela");
+          bodyTabela.innerHTML = "";
+
+          componentes.forEach(componente => {
+            bodyTabela.innerHTML += `
+        <tr>
+        <td> ${componente.nome}</td>
+        <td>${componente.medida}</td>
+        <td>${componente.limiar}</td>
+        <td style="color: ${componente.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${componente.status}</td>
+        <td>${componente.servidor}</td>
+        <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao');" ></i></td>
+        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="pegarParametros(${componente.servidor}, '${componente.nome}', ${componente.parametroID}, '${componente.medida}')"></i></td>
+        </tr>    
+      `;
+          });
+
+        });
+      } else {
+        console.error('Erro ao obter servidores');
+      }
+    })
+    .catch(error => {
+      console.error("Erro na requisição:", error);
+    });
 }
-function fecharModal(tipo) {
-    if (tipo == "cadastro") {
-        bg_formulario.style.display = "none";
-    } else {
-        bg_formulario_edicao.style.display = "none";
-    }
+
+
+
+function pegarParametros(servidor, nome, parametroID, medida) {
+  document.getElementById("componenteE").textContent = `${nome} ${medida} - Servidor ${servidor}`
+  componenteSelecionadoParaExcluir = parametroID
+  abrirModal('exclusao')
+}
+
+function excluirComponente() {
+  if (componenteSelecionadoParaExcluir) {
+    fetch(`/componentes/excluir/${componenteSelecionadoParaExcluir}`, {
+      method: 'DELETE'
+    })
+      .then(response => {
+        if (response.ok) {
+          alert("Componente excluído com sucesso.");
+          exibirComponentes();
+          fecharModal('exclusao');
+        } else {
+          alert("Erro ao excluir.");
+        }
+      });
+  }
+
+
 }

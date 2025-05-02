@@ -15,4 +15,12 @@ router.get("/listarComponentes/:servidor", function (req, res) {
     componenteController.listarComponentes(req, res);
 })
 
+router.get("/exibirComponentes/:dataCenter", function (req, res) {
+    componenteController.exibirComponentes(req, res);
+})
+
+router.delete("/excluir/:componenteSelecionadoParaExcluir", function (req, res) {
+    componenteController.excluir(req, res);
+})
+
 module.exports = router;
