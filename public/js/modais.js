@@ -5,7 +5,10 @@ function abrirModal(tipo) {
     bg_formulario.style.display = "flex";
   } else if (tipo == "edicao") {
     bg_formulario_edicao.style.display = "flex";
-  } else if (tipo == "perfil" && status_perfil == "fechado") {
+  } else if (tipo == 'exclusao'){
+    bg_formulario_exclusao.style.display = "flex";
+  }
+   else if (tipo == "perfil" && status_perfil == "fechado") {
     status_perfil = "aberto";
     perfil_opcoes.style.display = "flex";
     status_alerta = "fechado";
@@ -36,7 +39,10 @@ function fecharModal(tipo) {
     bg_formulario.style.display = "none";
   } else if (tipo == "edicao") {
     bg_formulario_edicao.style.display = "none";
-  } else if (tipo == "perfil_completo") {
+  } else if (tipo == "exclusao") {
+    bg_formulario_exclusao.style.display = "none";
+  }
+   else if (tipo == "perfil_completo") {
     bg_modal_perfil_completo.style.display = "none";
   }
 }

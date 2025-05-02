@@ -31,7 +31,7 @@ if (response.ok) {
         <td style="color: ${servidor.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${servidor.status}</td>
         <td style="color: ${servidor.alertas == 0 ? '#2ecc71' : '#e74c3c'};">${servidor.alertas}</td>
         <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao');" ></i></td>
-        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao');'></i></td>
+        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="abrirModal('exclusao');"></i></td>
         </tr>
         
       `;
@@ -75,6 +75,8 @@ function editarServidor() {
             }
         });
     }
+
+    
   
 
 
