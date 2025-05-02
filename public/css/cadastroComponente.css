@@ -166,6 +166,12 @@ select {
   transition: 0.5;
 }
 
+/* Modal de edição */
+.componenteEdicao{
+  padding: 3vh;
+  font-size: 3vh;
+}
+
 /* MODAL DE EXCLUIR */
 
 .botoesModalExcluir{

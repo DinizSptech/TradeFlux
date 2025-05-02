@@ -23,4 +23,8 @@ router.delete("/excluir/:componenteSelecionadoParaExcluir", function (req, res) 
     componenteController.excluir(req, res);
 })
 
+router.put("/editarComponente", function (req, res) {
+    componenteController.editarComponente(req, res);
+})
+
 module.exports = router;

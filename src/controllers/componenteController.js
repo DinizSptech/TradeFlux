@@ -70,10 +70,23 @@ function excluir(req, res) {
       })
   }
 
+  function editarComponente(req, res) {
+    var parametroComponente = req.body.parametroComponenteServer;
+    var valor = req.body.valorServer;
+        componenteModel.editarComponente(parametroComponente, valor).then((resultado) => {
+            res.status(200).json(resultado);
+        }).catch(function(erro){
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        })
+    
+}
+
 module.exports = {
   cadastrar,
     listarServidores,
     listarComponentes,
     exibirComponentes,
-    excluir 
+    excluir,
+    editarComponente
 };
