@@ -15,13 +15,13 @@ var HOST_APP = process.env.APP_HOST || "0.0.0.0";
 
 var app = express();
 
-var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios");
-var unidadesRouter = require("./src/routes/unidades");
-var servidoresRouter = require("./src/routes/servidores");
-var dataCenterRouter = require("./src/routes/dataCenter");
-var componentesRouter = require("./src/routes/componentes");
-var alertasRouter = require("./src/routes/alertas");
+const indexRouter = require("./src/routes/index");
+const usuarioRouter = require("./src/routes/usuarios");
+const unidadesRouter = require("./src/routes/unidades");
+const servidoresRouter = require("./src/routes/servidores");
+const dataCenterRouter = require("./src/routes/dataCenter");
+const componentesRouter = require("./src/routes/componentes");
+const alertasRouter = require("./src/routes/alertas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +31,6 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-// app.use("/empresas", empresasRouter);
 app.use("/unidades", unidadesRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/componentes", componentesRouter);

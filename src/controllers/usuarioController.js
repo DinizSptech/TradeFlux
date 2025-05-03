@@ -161,10 +161,10 @@ function verificarSenhaComPepper(senhaArmazenada, senhaFornecida) {
 }
 
 function exibir(req, res) {
-  let nome = req.body.nomeServer;
-  let email = req.body.emailServer;
-  let cargo = req.body.cargoServer;
-  let ativo = req.body.ativoServer;
+  let nome = req.query.nome;
+  let email = req.query.email;
+  let cargo = req.query.cargo;
+  let ativo = req.query.ativo;
 
   usuarioModel
     .exibir(nome, email, cargo, ativo)
