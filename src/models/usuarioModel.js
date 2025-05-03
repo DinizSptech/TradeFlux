@@ -34,10 +34,10 @@ function cadastrar(nome, senha, email, cargo, ativo, data_center) {
   return database.executar(instrucaoSql);
 }
 
-function exibir(nome, email, cargo, ativo) {
-  console.log(nome, email, cargo, ativo);
+function exibir(nome, email, cargo, ativo, acesso) {
+  console.log(nome, email, cargo, ativo, acesso);
 
-  let instrucaoSql = `SELECT nome,email,cargo,ativo from usuario_cliente`;
+  let instrucaoSql = `SELECT nome,email,cargo,ativo,acesso from usuario_cliente`;
   console.log(instrucaoSql);
   return database.executar(instrucaoSql);
 }

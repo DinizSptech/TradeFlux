@@ -6,13 +6,19 @@ function exibir() {
         const email_atual = respostajson[i].email;
         const cargo_atual = respostajson[i].cargo;
         const ativo_atual = respostajson[i].ativo;
+        const acesso_atual = respostajson[i].acesso;
 
         bodyTabela.innerHTML += `
                     <tr>
                     <td>${nome_atual}</td>
                     <td>${email_atual}</td>
                     <td>${cargo_atual}</td>
-                    <td>${ativo_atual}</td>
+                    <td>${ativo_atual == 1 ? "Ativo" : "Inativo"}</td>
+                    <td>${acesso_atual}</td>
+                    <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarUsuario()" ></i></td>
+                    <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" 
+                    onclick="abrirModal('exclusao'); 
+                    deletarUsuario(${respostajson.idUsuario})"></i></td>
                     </tr>`;
       }
     });

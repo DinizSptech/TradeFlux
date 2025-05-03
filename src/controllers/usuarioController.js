@@ -165,9 +165,10 @@ function exibir(req, res) {
   let email = req.query.email;
   let cargo = req.query.cargo;
   let ativo = req.query.ativo;
+  let acesso = req.query.acesso;
 
   usuarioModel
-    .exibir(nome, email, cargo, ativo)
+    .exibir(nome, email, cargo, ativo, acesso)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
