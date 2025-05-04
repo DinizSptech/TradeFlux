@@ -87,6 +87,25 @@ function autenticar(req, res) {
   }
 }
 
+function atualizarAcesso(req, res) {
+  const idUsuario = req.params.idUsuario;
+
+  usuarioModel
+    .atualizarAcesso(idUsuario)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum resultado encontrado!");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar as informações.", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   let nome = req.body.nomeServer;
@@ -185,6 +204,7 @@ function exibir(req, res) {
 
 module.exports = {
   autenticar,
+  atualizarAcesso,
   cadastrar,
   exibir,
 };

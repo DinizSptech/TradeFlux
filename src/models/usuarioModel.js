@@ -14,6 +14,14 @@ function autenticar(email) {
   return database.executar(instrucaoSql);
 }
 
+// Funcao pra atualizar a hora do último acesso do usuario quando ele fizer login. O curtime() pega a hora atual:
+function atualizarAcesso(email) {
+  let instrucaoSql = `update usuario_cliente
+    set acesso = curtime()
+    where idUsuario = 1;`;
+  return database.executar(instrucaoSql);
+}
+
 function cadastrar(nome, senha, email, cargo, ativo, data_center) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
@@ -44,6 +52,7 @@ function exibir(nome, email, cargo, ativo, acesso) {
 
 module.exports = {
   autenticar,
+  atualizarAcesso,
   cadastrar,
   exibir,
 };

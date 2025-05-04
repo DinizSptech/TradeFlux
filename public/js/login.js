@@ -24,18 +24,13 @@ function entrar() {
     .then(function (resposta) {
       if (resposta.ok) {
         resposta.json().then((json) => {
-          sessionStorage.EMAIL_USUARIO = json.email;
-          sessionStorage.NOME_USUARIO = json.nome;
-          sessionStorage.ID_USUARIO = json.id;
-          sessionStorage.Cargo = json.cargo;
-          sessionStorage.DataCenter = json.data_center;
           nivelConta = json.cargo;
 
           if (nivelConta == "administrador") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`
             );
-            window.location.href = "./alertas.html";
+            window.location.href = "./dash_gerente_funcionarios.html";
           } else if (nivelConta == "analista") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta analista!...`
@@ -60,50 +55,66 @@ function entrar() {
     .catch(function (erro) {
       console.log(erro);
     });
+}
 
-  return false;
+function atualizarAcesso() {
+  fetch("/usuarios/atualizarAcesso/:idUsuario", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        console.warn("Problema na resposta");
+        return;
+      }
+      return res.json();
+    })
+    .then((resjson) => {
+      console.log("Deu bom");
+    })
+    .catch((erro) => {
+      console.warn(erro);
+    });
 }
 
 function sumirMensagem() {
   cardErro.style.display = "none";
 }
 
-function entrarSemBD() {
-  var emailVar = IPTemail.value;
-  var senhaVar = IPTsenha.value;
-  var cargo = "";
+// function entrarSemBD() {
+//   var emailVar = IPTemail.value;
+//   var senhaVar = IPTsenha.value;
+//   var cargo = "";
 
-  if (!emailVar || !senhaVar) {
-    divERROR.innerHTML = "Preencha todos os campos!";
-    divERROR.style.display = "block";
-    return false;
-  } else if (
-    emailVar == "julia.analista@b3.com.br" &&
-    senhaVar == "Senha@123"
-  ) {
-    cargo = "analista";
-    sessionStorage.setItem("Cargo", cargo);
-    window.location.href = "./dashboard_analista.html";
-  } else if (
-    emailVar == "rogerio.cientista@b3.com.br" &&
-    senhaVar == "Senha@123"
-  ) {
-    cargo = "cientista";
-    sessionStorage.setItem("Cargo", cargo);
-    window.location.href = "./dashboard_Cientista.html";
-  } else if (
-    emailVar == "jennifer.admin@b3.com.br" &&
-    senhaVar == "Senha@123"
-  ) {
-    cargo = "administrador";
-    sessionStorage.setItem("Cargo", cargo);
-    window.location.href = "./dash_gerente_servidores.html";
-  }
+//   if (!emailVar || !senhaVar) {
+//     divERROR.innerHTML = "Preencha todos os campos!";
+//     divERROR.style.display = "block";
+//     return false;
+//   } else if (
+//     emailVar == "julia.analista@b3.com.br" &&
+//     senhaVar == "Senha@123"
+//   ) {
+//     cargo = "analista";
+//     sessionStorage.setItem("Cargo", cargo);
+//     window.location.href = "./dashboard_analista.html";
+//   } else if (
+//     emailVar == "rogerio.cientista@b3.com.br" &&
+//     senhaVar == "Senha@123"
+//   ) {
+//     cargo = "cientista";
+//     sessionStorage.setItem("Cargo", cargo);
+//     window.location.href = "./dashboard_Cientista.html";
+//   } else if (
+//     emailVar == "jennifer.admin@b3.com.br" &&
+//     senhaVar == "Senha@123"
+//   ) {
+//     cargo = "administrador";
+//     sessionStorage.setItem("Cargo", cargo);
+//     window.location.href = "./dash_gerente_servidores.html";
+//   }
 
-  console.log("FORM LOGIN: ", emailVar);
-  console.log("FORM SENHA: ", senhaVar);
-}
-
-function sumirMensagem() {
-  cardErro.style.display = "none";
-}
+//   console.log("FORM LOGIN: ", emailVar);
+//   console.log("FORM SENHA: ", senhaVar);
+// }
