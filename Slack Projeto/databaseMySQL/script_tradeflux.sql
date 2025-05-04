@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS Usuario_Cliente (
 );
 
 INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, acesso, fkDataCenter) VALUES 
-('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1);
+('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
+('Victor Santos', 'victor.santos@b3.com.br', 'Senha123@','cientista','0',curtime(),'1');
 
 CREATE TABLE IF NOT EXISTS Componente (
     idComponente INT AUTO_INCREMENT PRIMARY KEY,
@@ -171,6 +172,29 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 -- (80.0, 1, 5),
 -- (200.0, 1, 6);
 
--- select * from servidor_cliente;
--- select * from captura;
--- select * from alerta;
+-- View para ver o status do Data Center
+-- create view vw_statusDataCenter as
+-- select alerta from captura as c
+-- join parametro_servidor as p
+-- on c.fkParametro = p.idParametros_Servidor
+-- join servidor_cliente as s
+-- on p.fkServidor = s.idServidor
+-- join data_center as dc
+-- on s.fkDataCenter = dc.idData_Center;
+
+-- View final para a dashboard gerente Data Center (é o JSON)
+-- create view vw_dashDataCenter as
+-- select
+-- (select idData_Center from data_center) as idDataCenter,
+-- (select nome from data_center) as nomeDataCenter,
+-- (select * from vw_servidoresCadastrados) as servidoresCadastrados,
+-- (select * from vw_statusDataCenter) as statusDataCenter;
+
+-- select * from vw_dashDataCenter;
+-- drop view vw_dashDataCenter;
+
+
+
+
+
+

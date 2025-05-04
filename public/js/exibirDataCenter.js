@@ -1,12 +1,28 @@
 function exibirDataCenters() {
   fetch("/dataCenter/exibir").then((res) => {
     res.json().then((resjson) => {
-      for (let i = 0; i < resjson.length; i++) {
-        const nomeDC_atual = resjson[i].nome;
+      console.log(resjson);
 
-        bodyTabela.innerHTML += `
-        <tr>
-        <td>${nomeDC_atual}</td>
+      for (let i = 0; i < resjson.length; i++) {
+        const id_atual = resjson[i].idDataCenter;
+        const nome_atual = resjson[i].nomeDataCenter;
+        const servidorCadastrado_atual = resjson[i].servidoresCadastrados;
+        const status_atual = resjson[i].statusDataCenter;
+
+        bodyTabela.innerHTML += `<tr>
+            <td>
+             ${nome_atual}
+            </td>
+            <td>
+             ${servidorCadastrado_atual}
+            </td>
+            <td>
+            ${status_atual == 1 ? "Perigo" : "Estável"}
+            </td>
+            <td>
+            "Ativo"
+            </td>
+            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${id_atual})'></i></td>
         </tr>`;
       }
     });
