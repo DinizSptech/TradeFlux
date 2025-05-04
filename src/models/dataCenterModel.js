@@ -1,6 +1,15 @@
 var database = require("../database/config");
 
-function cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complemento) {
+function cadastrar(
+  nome,
+  logradouro,
+  bairro,
+  cidade,
+  uf,
+  numero,
+  cep,
+  complemento
+) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
@@ -10,7 +19,7 @@ function cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complement
     uf,
     numero,
     cep,
-    complemento,
+    complemento
   );
 
   let instrucaoSql = `
@@ -24,6 +33,18 @@ function cadastrar(nome, logradouro, bairro, cidade, uf, numero, cep, complement
   return database.executar(instrucaoSql);
 }
 
+function exibir(nome) {
+  console.log("Nome Data Center:" + nome);
+
+  let instrucaoSql = `
+  SELECT * from vw_dashDataCenter`;
+
+  console.log(instrucaoSql);
+
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   cadastrar,
+  exibir,
 };

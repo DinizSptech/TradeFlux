@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css" />
-    <link rel="stylesheet" href="../css/mobileGerente.css">
+    <link rel="stylesheet" href="../css/mobileGerente.css" />
     <!-- <script src="../script/sessao.js"></script> -->
     <link rel="stylesheet" href="../css/cadastroUsuario_copy.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -18,28 +21,35 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="../assets/TRADEFLUX__2_cortado.png"
+      type="image/x-icon"
+    />
     <script src="../js/cadastroDataCenter.js"></script>
+    <script src="../js/exibirDataCenter.js"></script>
     <script src="../js/criacaoMenuLateral.js"></script>
     <script src="../js/modais.js"></script>
-    
+
     <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
   </head>
 
-  <body onload="renderizarModalUsuario(); carregarMenuLateral(); carregarDataCenters()">
-    <div id="sistema_modais">
-    </div>
+  <body
+    onload="renderizarModalUsuario(); carregarMenuLateral(); exibirDataCenters()"
+  >
+    <div id="sistema_modais"></div>
     <div class="navbar">
-      <i onclick="mudarIcone()" id="menu-bar">&#9776;</i> 
-  </div>
+      <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+    </div>
     <main class="container-main" id="main_page">
-      
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario" id="div_formulario">
-          <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
+          <i
+            onclick="fecharModal('cadastro')"
+            class="fechar fa-solid fa-xmark"
+          ></i>
           <div class="tituloForm">Cadastrar Data Centers</div>
           <div id="div_form_parte1">
-
             <div class="input">
               <span>Nome:</span>
               <input id="ipt_nome" type="text" />
@@ -53,52 +63,49 @@
               <button onclick="adicionarServidorParte1()" id="botaoCadastro">
                 Verificar CEP
               </button>
+            </div>
           </div>
-          </div>
-        
-        <div id="div_form_parte2">
-          <div id="form_colunas">
 
-            <div id="coluna1_form">
-              
-              <div class="input">
-                <span>Logradouro:</span>
-                <input id="ipt_logradouro" type="text" />
+          <div id="div_form_parte2">
+            <div id="form_colunas">
+              <div id="coluna1_form">
+                <div class="input">
+                  <span>Logradouro:</span>
+                  <input id="ipt_logradouro" type="text" />
+                </div>
+                <div class="input">
+                  <span>Bairro:</span>
+                  <input id="ipt_bairro" type="text" />
+                </div>
+                <div class="input">
+                  <span>Cidade:</span>
+                  <input id="ipt_cidade" type="text" />
+                </div>
               </div>
-              <div class="input">
-                <span>Bairro:</span>
-                <input id="ipt_bairro" type="text" />
-              </div>
-              <div class="input">
-                <span>Cidade:</span>
-                <input id="ipt_cidade" type="text" />
+              <div id="coluna2_form">
+                <div class="input">
+                  <span>UF:</span>
+                  <input id="ipt_uf" type="text" />
+                </div>
+                <div class="input">
+                  <span>Numero:</span>
+                  <input id="ipt_numero" type="text" />
+                </div>
+                <div class="input">
+                  <span>Complemento:</span>
+                  <input id="ipt_complemento" type="text" />
+                </div>
               </div>
             </div>
-            <div id="coluna2_form">
-              
-              <div class="input">
-                <span>UF:</span>
-                <input id="ipt_uf" type="text" />
-              </div>
-            <div class="input">
-              <span>Numero:</span>
-              <input id="ipt_numero" type="text" />
+            <div class="buttonCadastrar">
+              <button onclick="adicionarServidorParte2()" id="botaoCadastro2">
+                Salvar DataCenter
+              </button>
             </div>
-            <div class="input">
-              <span>Complemento:</span>
-              <input id="ipt_complemento" type="text" />
-            </div>
+            <!-- Deixar o Segundo invisível -->
           </div>
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="adicionarServidorParte2()" id="botaoCadastro2">
-              Salvar DataCenter
-            </button>
-          </div>
-          <!-- Deixar o Segundo invisível -->
         </div>
       </div>
-    </div>
       <div class="bgForm" id="bg_formulario_edicao">
         <div class="formUsuario">
           <div class="tituloForm">Editar Servidor</div>
@@ -124,7 +131,11 @@
         </div>
         <div class="containerFiltro">
           <div class="container-btnCadastro">
-            <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')">
+            <button
+              id="btnCadastro"
+              class="btn-cadastro"
+              onclick="abrirModal('cadastro')"
+            >
               <i class="fa-solid fa-circle-plus"></i> Adicionar Data Center
             </button>
           </div>
@@ -148,60 +159,3 @@
     </main>
   </body>
 </html>
-<script>
-  // var resultado = [
-  //   {
-  //     nome: "Tobias Boss",
-  //     nomeFantasia: "B3",
-  //   },
-  // ];
-
-  var dataCenters = [
-    {
-      idDataCenter: 1,
-      nome: "Data_Center1",
-      Servidores: "2",
-      status: "Estável",
-      monitoramento: "Ativo",
-    },
-
-    {
-      idDataCenter: 2,
-      nome: "Data_Center2",
-      Servidores: "3",
-      status: "Perigo",
-      monitoramento: "Inativo",
-    },
-
-    {
-      idDataCenter: 3,
-      nome: "Data_Center3",
-      Servidores: "1",
-      status: "Estável",
-      monitoramento: "Inativo",
-    },
-
-    {
-      idDataCenter: 4,
-      nome: "Data_Center4",
-      Servidores: "2",
-      status: "Crítico",
-      monitoramento: "Ativo",
-    },
-  ];
-
-  function carregarDataCenters() {
-    for (var i = 0; i < dataCenters.length; i++) {
-      bodyTabela.innerHTML += `
-            <tr>
-            <td>${dataCenters[i].nome}</td>
-            <td>${dataCenters[i].Servidores}</td>
-            <td style="color: ${dataCenters[i].status == 'Estável' ? '#2ecc71' : dataCenters[i].status == 'Perigo' ? '#f39c12' : '#e74c3c'};">${dataCenters[i].status}</td>
-            <td style="color: ${dataCenters[i].monitoramento == 'Ativo' ? '#2ecc71' : '#e74c3c'};">${dataCenters[i].monitoramento}</td>
-            <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${dataCenters[i].idUsuario}, '${dataCenters[i].nome}', '${dataCenters[i].email}', '${dataCenters[i].senha}', '${dataCenters[i].cargo}', '${dataCenters[i].status}')" ></i></td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${dataCenters[i].idUsuario})'></i></td>
-            </tr>
-            `;
-    }
-  }
-</script>

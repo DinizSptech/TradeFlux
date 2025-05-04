@@ -15,7 +15,8 @@ function autenticar(email) {
 }
 
 // Funcao pra atualizar a hora do último acesso do usuario quando ele fizer login. O curtime() pega a hora atual:
-function atualizarAcesso(email) {
+// "Não finalizada ainda."
+function atualizarAcesso() {
   let instrucaoSql = `update usuario_cliente
     set acesso = curtime()
     where idUsuario = 1;`;
