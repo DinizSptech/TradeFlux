@@ -1,5 +1,5 @@
 let cep;
-let nome;
+let nome = "";
 let uf;
 let cidade;
 let bairro;

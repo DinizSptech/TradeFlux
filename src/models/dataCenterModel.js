@@ -33,11 +33,17 @@ function cadastrar(
   return database.executar(instrucaoSql);
 }
 
-function exibir(nome) {
-  console.log("Nome Data Center:" + nome);
-
+function exibir() {
   let instrucaoSql = `
   SELECT * from vw_dashDataCenter`;
+
+  console.log(instrucaoSql);
+
+  return database.executar(instrucaoSql);
+}
+
+function deletar(idDataCenter) {
+  let instrucaoSql = `DELETE FROM data_center WHERE idData_Center = ${idDataCenter}`;
 
   console.log(instrucaoSql);
 
@@ -47,4 +53,5 @@ function exibir(nome) {
 module.exports = {
   cadastrar,
   exibir,
+  deletar,
 };

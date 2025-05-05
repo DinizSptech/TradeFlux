@@ -46,7 +46,7 @@ function cadastrar(nome, senha, email, cargo, ativo, data_center) {
 function exibir(nome, email, cargo, ativo, acesso) {
   console.log(nome, email, cargo, ativo, acesso);
 
-  let instrucaoSql = `SELECT nome,email,cargo,ativo,acesso from usuario_cliente`;
+  let instrucaoSql = `SELECT * FROM vw_dashUsuarios`;
   console.log(instrucaoSql);
   return database.executar(instrucaoSql);
 }

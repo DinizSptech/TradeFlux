@@ -1,7 +1,6 @@
 var dataCenterModel = require("../models/dataCenterModel");
 
 function cadastrar(req, res) {
-  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   let nome = req.body.nomeServer;
   let logradouro = req.body.logradouroServer;
   let bairro = req.body.bairroServer;
@@ -57,7 +56,27 @@ function exibir(req, res) {
     });
 }
 
+function deletar(req, res) {
+  const idDataCenter = req.params.idDataCenter;
+
+  dataCenterModel
+    .deletar(idDataCenter)
+    .then((resultado) => {
+      if (resultado.length == 0) {
+        res.status(204).send("Nenhum resultado encontrado!");
+        return;
+      }
+      res.status(200).json(resultado);
+    })
+    .catch((erro) => {
+      console.warn(erro);
+      console.warn("Houve um erro ao buscar as informações.", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrar,
   exibir,
+  deletar,
 };

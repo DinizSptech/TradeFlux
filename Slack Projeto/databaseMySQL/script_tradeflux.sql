@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS Captura (
     FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
 );
 select* from captura;
+
 CREATE TABLE IF NOT EXISTS Alerta (
     idAlerta INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
@@ -172,29 +173,67 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 -- (80.0, 1, 5),
 -- (200.0, 1, 6);
 
--- View para ver o status do Data Center
--- create view vw_statusDataCenter as
--- select alerta from captura as c
--- join parametro_servidor as p
--- on c.fkParametro = p.idParametros_Servidor
--- join servidor_cliente as s
--- on p.fkServidor = s.idServidor
--- join data_center as dc
--- on s.fkDataCenter = dc.idData_Center;
+-- INSERTS:
+
+INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, discoTotal, ramTotal, processadorInfo, fkDataCenter) VALUES
+('uuid01', 'Linux', '500GB', '16GB', 'Intel Xeon', 1);
+
+INSERT INTO Componente (nomeComponente, medida) VALUES
+('CPU', '%');
+
+INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES
+(80.0, 1, 1);
+
+INSERT INTO Captura (valor, medida, data, alerta, fkParametro) VALUES
+(40.0, '%', null, 0, 1),
+(75.0, '%', null, 1, 1);
+
+
+-- CONSTRAINTS:
+
+alter table servidor_cliente
+add constraint fk_servidor_dataCenter
+foreign key (fkDataCenter) references data_center(idData_Center)
+on delete set null;
+
+alter table usuario_cliente
+add constraint fk_usuario_dataCenter
+foreign key (fkDataCenter) references data_center(idData_Center)
+on delete set null;
+
+alter table parametro_servidor
+add constraint fk_parametro_servidor
+foreign key (fkServidor) references servidor_cliente(idServidor)
+on delete set null;
+
+alter table captura
+add constraint fk_captura_parametro
+foreign key (fkParametro) references parametro_servidor(idParametros_Servidor)
+on delete set null;
+
+-- VIEWS:
 
 -- View final para a dashboard gerente Data Center (é o JSON)
--- create view vw_dashDataCenter as
--- select
--- (select idData_Center from data_center) as idDataCenter,
--- (select nome from data_center) as nomeDataCenter,
--- (select * from vw_servidoresCadastrados) as servidoresCadastrados,
--- (select * from vw_statusDataCenter) as statusDataCenter;
+create or replace view vw_dashDataCenter as
+select 
+  dc.idData_Center as idDataCenter,
+  dc.nome as nomeDataCenter,
+  count(distinct s.idServidor) as servidoresCadastrados,
+	MAX(c.alerta) as statusDataCenter
+from data_center as dc
+join servidor_cliente as s 
+  on s.fkDataCenter = dc.idData_Center
+join parametro_servidor as p
+  on p.fkServidor = s.idServidor
+join captura as c
+  on c.fkParametro = p.idParametros_Servidor
+group by dc.idData_Center, dc.nome;
 
--- select * from vw_dashDataCenter;
--- drop view vw_dashDataCenter;
+-- View final para a dashboard gerente Usuários (é o JSON)
+create or replace view vw_dashUsuarios as
+select u.nome,u.email,u.cargo,u.ativo,u.acesso from usuario_cliente as u
+join data_center as dc
+on u.fkDataCenter = dc.idData_Center;
 
-
-
-
-
-
+select * from vw_dashDataCenter;
+select * from vw_dashUsuarios;

@@ -4,7 +4,7 @@ function exibirDataCenters() {
       console.log(resjson);
 
       for (let i = 0; i < resjson.length; i++) {
-        const id_atual = resjson[i].idDataCenter;
+        const id_atual = resjson[i].idData_Center;
         const nome_atual = resjson[i].nomeDataCenter;
         const servidorCadastrado_atual = resjson[i].servidoresCadastrados;
         const status_atual = resjson[i].statusDataCenter;
@@ -22,7 +22,6 @@ function exibirDataCenters() {
             <td>
             "Ativo"
             </td>
-            <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${id_atual})'></i></td>
         </tr>`;
       }
     });

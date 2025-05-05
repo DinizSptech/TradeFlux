@@ -11,4 +11,8 @@ router.get("/exibir", function (req, res) {
   datacenterController.exibir(req, res);
 });
 
+router.delete("/deletar/:idDataCenter", function (req, res) {
+  datacenterController.deletar(req, res);
+});
+
 module.exports = router;
