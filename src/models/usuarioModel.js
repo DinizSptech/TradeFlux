@@ -51,9 +51,16 @@ function exibir(nome, email, cargo, ativo, acesso) {
   return database.executar(instrucaoSql);
 }
 
+function deletar(idUsuario) {
+  let instrucaoSql = `DELETE FROM usuario_cliente WHERE idUsuario = ${idUsuario}`;
+  console.log(instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   autenticar,
   atualizarAcesso,
   cadastrar,
   exibir,
+  deletar,
 };

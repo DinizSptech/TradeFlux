@@ -19,4 +19,8 @@ router.get("/exibir", function (req, res) {
   usuarioController.exibir(req, res);
 });
 
+router.delete("/deletar/:idUsuario", function (req, res) {
+  usuarioController.deletar(req, res);
+});
+
 module.exports = router;

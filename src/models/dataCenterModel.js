@@ -44,9 +44,7 @@ function exibir() {
 
 function deletar(idDataCenter) {
   let instrucaoSql = `DELETE FROM data_center WHERE idData_Center = ${idDataCenter}`;
-
   console.log(instrucaoSql);
-
   return database.executar(instrucaoSql);
 }
 

@@ -202,11 +202,31 @@ function exibir(req, res) {
     });
 }
 
+function deletar(req, res) {
+  const idUsuario = req.params.idUsuario;
+
+  usuarioModel
+    .deletar(idUsuario)
+    .then((resultado) => {
+      if (resultado.length == 0) {
+        res.status(204).send("Nenhum resultado encontrado!");
+        return;
+      }
+      res.status(200).json(resultado);
+    })
+    .catch((erro) => {
+      console.warn(erro);
+      console.warn("Houve um erro ao buscar as informações.", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   autenticar,
   atualizarAcesso,
   cadastrar,
   exibir,
+  deletar,
 };
 
 // A senha segue o padrão Salt and Pepper:
