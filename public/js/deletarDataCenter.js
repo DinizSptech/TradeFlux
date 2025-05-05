@@ -9,6 +9,13 @@ function deletar(idDataCenter) {
         console.warn("Erro na resposta");
         return;
       }
+
+      let linha = document.getElementById(`linha-${idDataCenter}`);
+
+      if (linha) {
+        linha.remove();
+      }
+
       return res.json();
     })
     .then((resjson) => {
