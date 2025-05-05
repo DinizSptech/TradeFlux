@@ -1,0 +1,3 @@
+Dentro daqui são os dados vindo do monitoramento interno dentro de cada pasta pra ETL saber de qual Servidor é qual pra subir numa pasta específica do Servidor
+
+(Colocar dps pra caso a ETL 1 não ache a pasta do servidor, ele cria automaticamente)
