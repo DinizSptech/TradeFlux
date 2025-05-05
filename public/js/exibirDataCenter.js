@@ -3,8 +3,10 @@ function exibirDataCenters() {
     res.json().then((resjson) => {
       console.log(resjson);
 
+      bodyTabela.innerHTML = "";
+
       for (let i = 0; i < resjson.length; i++) {
-        const id_atual = resjson[i].idData_Center;
+        const id_atual = resjson[i].idDataCenter;
         const nome_atual = resjson[i].nomeDataCenter;
         const servidorCadastrado_atual = resjson[i].servidoresCadastrados;
         const status_atual = resjson[i].statusDataCenter;
@@ -21,6 +23,10 @@ function exibirDataCenters() {
             </td>
             <td>
             "Ativo"
+            </td>
+            <td class = 'tableIcons deletarUser'>
+            <i class="fa-solid fa-trash"
+            onclick="deletar(${id_atual})"></i>
             </td>
         </tr>`;
       }
@@ -48,7 +54,9 @@ function exibirDataCenters() {
 //             }, '${dataCenters[i].nome}', '${dataCenters[i].email}', '${
 //       dataCenters[i].senha
 //     }', '${dataCenters[i].cargo}', '${dataCenters[i].status}')" ></i></td>
-//             <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick='abrirModal('edicao'); deletar(${
+//             <td class='tableIcons deletarUser'>
+// <i class="fa-solid fa-trash"
+// onclick='abrirModal('edicao'); deletar(${
 //               dataCenters[i].idUsuario
 //             })'></i></td>
 //             </tr>
