@@ -22,7 +22,8 @@ function exibir() {
                     <td>${acesso_atual}</td>
                     <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarUsuario()" ></i></td>
                     <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" 
-                    onclick="deletar${id_atual})"></i></td>
+                    onclick="deletar(${id_atual})"></i>
+                      </td>
                     </tr>`;
       }
     });
