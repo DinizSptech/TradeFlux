@@ -1,7 +1,7 @@
-node_modules/
+Site/node_modules/
 package-lock.json
-.env.dev
-.env
+Site/.env.dev
+Site/.env
 APIpython\database.py
 .vscode
 Instalação/Terraform (Automação AWS)/.Terraform/

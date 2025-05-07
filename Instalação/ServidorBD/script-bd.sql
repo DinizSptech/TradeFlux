@@ -1,1 +1,0 @@
--- Adicione aqui dps o script oficial

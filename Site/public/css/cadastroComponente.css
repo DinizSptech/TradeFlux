@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url(components.css);
+
+.bgForm {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 80vw;
+  margin-left: 20vw;
+  background-color: #07142c98;
+  backdrop-filter: blur(5px);
+  animation: aparecer 1s;
+}
+.bgFormEditar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 80vw;
+  margin-left: 20vw;
+  background-color: #07142c98;
+  backdrop-filter: blur(5px);
+  animation: aparecer 1s;
+}
+@keyframes aparecer{
+  from{
+    transform: translateY(-20px);
+    opacity: 0;
+  } to{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes desaparecer{
+  from{
+    transform: translateY(0px);
+    opacity: 1;
+  } to{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+.formUsuario {
+  display: flex;
+  width: 30vw;
+  height: auto;
+  background-color: #262B3C;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+  flex-direction: column;
+  border-radius: 20px;
+  border: solid 3px #3A3F58;
+  padding: 20px;
+}
+
+.fechar{
+  color: #fff;
+  align-self: flex-end;
+  margin-right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.fechar:hover{
+  color: red;
+}
+
+.areaInputs{
+  display: flex;
+  width: auto;
+  height: auto;
+  margin-top: 2vh;
+  flex-direction: column;
+  gap: 2vh;
+}
+.erros{
+  display: none;
+}
+
+.tituloForm {
+  font-size: 2.4vw;
+  font-weight: bold;
+}
+
+.input {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 10%;
+}
+
+.input input {
+  width: auto;
+  border: none;
+  border-radius: 10px;
+  height: 40%;
+  font-size: 20px;
+  padding: 1vh;
+  border: #3A3F58 3px solid;
+  background-color: #494f78;
+  color: #FFF
+}
+
+.input span {
+  width: 100%;
+  font-size: 1.3vw;
+}
+
+.select-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 5%;
+
+}
+
+select {
+  border: #3A3F58 3px solid;
+  width: 100%;
+  height: 6vh;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background: #494f78;
+  color: #fff
+}
+
+.buttonCadastrar {
+  position: relative;
+  top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8%;
+}
+
+.buttonCadastrar button {
+  height: auto;
+  width: auto;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 1vw 3vh;
+  border: none;
+  background-color: #008573;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.buttonCadastrar button:hover {
+  background-color: #052f7d;
+  transition: 0.5;
+}
+
+/* Modal de edição */
+.componenteEdicao{
+  padding: 3vh;
+  font-size: 3vh;
+}
+
+/* MODAL DE EXCLUIR */
+
+.botoesModalExcluir{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1vw;
+
+}
+
+.buttonCadastrarRED  button{
+  background-color: rgb(162, 0, 0);
+}
