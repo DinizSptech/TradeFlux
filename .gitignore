@@ -2,8 +2,10 @@ node_modules/
 package-lock.json
 Site/.env.dev
 Site/.env
+SlackProjeto/API-Node/.env
+SlackProjeto/API-Node/node_modules/
 APIpython\database.py
 .vscode
-Instalação/Terraform (Automação AWS)/.Terraform/
-Instalação/Terraform (Automação AWS)/.terraform.lock.hcl
-Instalação/Terraform (Automação AWS/terraform.tfstate.backup
+InstalarInfra/Terraform (Automação AWS)/.Terraform/
+InstalarInfra/Terraform (Automação AWS)/.terraform.lock.hcl
+InstalarInfra/Terraform (Automação AWS)/terraform.tfstate.backup

@@ -1,7 +1,5 @@
 var alertaModel = require("../models/alertaModel");
 
-
-
 function exibirAlertas(req, res) {
   dataCenter = req.params.dataCenter
     alertaModel.exibirAlertas(dataCenter).then((resultado) => {

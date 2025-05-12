@@ -5,7 +5,6 @@ function cadastrar(req, res) {
     let componente = req.body.componenteServer;
     let limiar = req.body.limiarServer;
     let servidor = req.body.servidorServer;
-  
 
      if (componente == undefined) {
       res.status(400).send("Seu componente está undefined!");
@@ -38,7 +37,6 @@ function listarServidores(req, res) {
     })
 }
 
-
 function listarComponentes(req, res) {
   servidor = req.params.servidor
     componenteModel.listarComponentes(servidor).then((resultado) => {
@@ -58,7 +56,6 @@ function exibirComponentes(req, res) {
         res.status(500).json(erro.sqlMessage);
     })
 }
-
 
 function excluir(req, res) {
     componenteSelecionadoParaExcluir = req.params.componenteSelecionadoParaExcluir

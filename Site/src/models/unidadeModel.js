@@ -15,7 +15,6 @@ function cadastrar(nome, cep, estado, cidade, bairro, logradouro, numero, comple
     fkCliente
   );
 
-
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucaoSql = `

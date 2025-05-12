@@ -13,7 +13,6 @@ function cadastrar(dataCenter) {
     return database.executar(instrucaoSql, [dataCenter]);
 }
 
-
 function listarDataCenters() {
   console.log(
     "ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarDataCenters():",
@@ -66,8 +65,6 @@ function editarServidor(servidor, componente, valor) {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
-
-
 
 function excluir(servidorSelecionadoParaExcluir) {
   console.log(

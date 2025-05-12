@@ -1,0 +1,18 @@
+Exemplo env:
+
+[default] ; default profile - Serve para dizer que esse é o serviço que sempre utilizará, dá pra criar mais usuários, por exemplo metendo um [Robert]
+aws_access_key_id = <DEFAULT_ACCESS_KEY_ID>
+aws_secret_access_key = <DEFAULT_SECRET_ACCESS_KEY>
+
+AMBIENTE_PROCESSO=producao
+
+# Configurações de conexão com o banco de dados
+DB_HOST=localhost
+DB_DATABASE='tradeflux'
+DB_USER=''
+DB_PASSWORD=''
+DB_PORT=
+
+# Configurações do servidor de aplicação
+APP_PORT=8080
+APP_HOST=localhost

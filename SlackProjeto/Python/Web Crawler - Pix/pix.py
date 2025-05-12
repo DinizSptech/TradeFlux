@@ -6,11 +6,7 @@ import tempfile
 
 import os
 
-import json
-
 import boto3
-
- 
 
 def lambda_handler(event, context):
 
@@ -19,8 +15,6 @@ def lambda_handler(event, context):
     try:
 
         resultado = requests.get(url)
-
-        
 
         # Verifica se a requisição foi bem-sucedida
 
@@ -34,8 +28,6 @@ def lambda_handler(event, context):
 
         transacoes = dados['value']
 
-        
-
         # Gero o arquivo json
 
         nome_arquivo = os.path.join(tempfile.gettempdir(), 'dados.json')
@@ -43,8 +35,6 @@ def lambda_handler(event, context):
         with open(nome_arquivo, mode='wt') as f:
 
             json.dump(transacoes, f)
-
-           
 
         # Upload para o s3
 
@@ -60,19 +50,13 @@ def lambda_handler(event, context):
 
         )
 
-        
-
         return transacoes
-
-    
 
     except requests.exceptions.RequestException as e:
 
         print(f"Erro na requisição: {e}")
 
         return None
-
-    
 
     except json.JSONDecodeError as e:
 
@@ -81,6 +65,3 @@ def lambda_handler(event, context):
         print(f"Resposta completa da API: {resultado.text}")
 
         return None
-
- 
-
