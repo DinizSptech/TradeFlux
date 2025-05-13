@@ -1,0 +1,101 @@
+* {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1B1F2B;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  margin: 0;
+}
+
+.central{
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cardHeader h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.expandButton {
+  background-color: transparent;
+  color: #00e1d3;
+  border: 1px solid #00e1d3;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.4s all
+}
+
+.expandButton:hover {
+  background-color: #00e1d3;
+  color: #0d1117;
+}
+
+.tabelaMonitoramento {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabelaMonitoramento thead {
+  background-color: #21262d;
+}
+
+.tabelaMonitoramento th,
+.tabelaMonitoramento td {
+  border: 1px solid #30363d;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.tabelaMonitoramento th {
+  color: #00e1d3;
+  font-weight: 600;
+}
+
+.tabelaMonitoramento tbody tr.selected:hover{
+  transition: all 0.4s;
+}
+
+.tabelaMonitoramento tbody tr:hover {
+  background-color: #2a313a;
+}
+
+.titleTable{
+  cursor: pointer;
+  transition: all 0.4s;
+  &:hover{
+    background-color: #00e1d3;
+    color: #0d1117;
+  }
+}
+
+tr.selected {
+  color: rgb(145, 248, 217);
+}
