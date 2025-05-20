@@ -99,7 +99,7 @@ FLUSH PRIVILEGES;
 
 -- Fim frio
 
-CREATE TABLE IF NOT EXISTS Captura (
+CREATE TABLE IF NOT EXISTS captura (
     idCaptura INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
     medida VARCHAR(45),
@@ -184,10 +184,9 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES
 (80.0, 1, 1);
 
-INSERT INTO Captura (valor, medida, data, alerta, fkParametro) VALUES
+INSERT INTO captura (valor, medida, data, alerta, fkParametro) VALUES
 (40.0, '%', null, 0, 1),
 (75.0, '%', null, 1, 1);
-
 
 -- CONSTRAINTS:
 

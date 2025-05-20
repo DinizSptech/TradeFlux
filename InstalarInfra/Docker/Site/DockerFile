@@ -1,12 +1,19 @@
 FROM node:lts-bookworm AS dependencies
 WORKDIR /
-COPY ../../../Site/package.json .
+COPY package.json .
 RUN npm install
-
 
 FROM node:lts-alpine3.20 AS deploy
 WORKDIR /
 COPY --from=dependencies ./node_modules ./node_modules
-COPY ../../../Site .
+COPY . .
 EXPOSE 3333
 CMD [ "node", "app.js" ]
+
+# Para buildar e subir, use os seguintes comandos:
+# 
+# docker build -f InstalarInfra/Docker/Site/Dockerfile -t (Aqui cê coloca o nome que vc quer) Site
+#
+# Isso na pasta raiz, ou seja, fora do InstalarInfra
+# Pq? pq o Docker só aceita contexto de onde ele "tá", ou seja não pode voltar e afins, só fazer dentro do seu contexto, "Mas pq vc não coloca junto e facilita a vida de todo mundo?"
+# Simplesmente por organização

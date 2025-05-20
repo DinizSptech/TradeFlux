@@ -1,0 +1,18 @@
+services:
+  site:
+    image: robert1730/nodedockerwebdataviz:1.1
+    ports:
+      - "8080:8080"
+    networks:
+      - rede-compose
+    depends_on:
+      - db
+  db:
+    image: robert1730/bddocker:1.1
+    ports:
+      - "1730:3306"
+    networks:
+      - rede-compose
+networks:
+  rede-compose:
+    driver: bridge
