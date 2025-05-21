@@ -1,5 +1,5 @@
 
-# <img src="public\assets\TRADEFLUX__2_cortado.png" width="95"> <h1> TradeFlux </h1>
+# <img src="Site\public\assets\TRADEFLUX__2_cortado.png" width="95"> <h1> TradeFlux </h1>
 
 ## Sistema de monitoramento de servidores da bolsa de valores
 
