@@ -4,7 +4,9 @@ DROP DATABASE IF EXISTS tradeflux;
 CREATE DATABASE tradeflux;
 USE tradeflux;
 
-CREATE TABLE IF NOT EXISTS Endereco (
+-- UPDATE mysql.user set Host='%' WHERE User='root' AND Host='localhost';
+
+CREATE TABLE IF NOT EXISTS endereco (
     idEndereco INT AUTO_INCREMENT PRIMARY KEY,
     cep CHAR(8),
     logradouro VARCHAR(100),
@@ -15,59 +17,59 @@ CREATE TABLE IF NOT EXISTS Endereco (
     complemento VARCHAR(45)
 );
 
-INSERT INTO Endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES
+INSERT INTO endereco (cep, logradouro, numero, bairro, cidade, uf) VALUES
 ('01310100', 'Praça Antonio Prado', 48, 'Centro', 'São Paulo', 'SP'),
 ('06543004', 'Rua Ricardo Prudente de Aquino', 85, 'Alphaville', 'Santana de Parnaíba', 'SP');
 
-CREATE TABLE IF NOT EXISTS Empresa_Cliente (
+CREATE TABLE IF NOT EXISTS empresa_cliente (
     idCliente INT AUTO_INCREMENT PRIMARY KEY,
     razao_social VARCHAR(100),
     cnpj CHAR(14) UNIQUE,
     telefone VARCHAR(12),
     fk_endereco INT,
-    FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
+    FOREIGN KEY (fk_endereco) REFERENCES endereco(idEndereco)
 );
 
-INSERT INTO Empresa_Cliente (razao_social, cnpj, telefone, fk_endereco) VALUES
+INSERT INTO empresa_cliente (razao_social, cnpj, telefone, fk_endereco) VALUES
 ('B3 Bolsa, Brasil, Balcão S.A.', '03365836000124', '1132121234', 1);
 
-CREATE TABLE IF NOT EXISTS Data_Center (
+CREATE TABLE IF NOT EXISTS data_center (
     idData_Center INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     fk_cliente INT,
     fk_endereco INT,
-    FOREIGN KEY (fk_cliente) REFERENCES Empresa_Cliente(idCliente),
-    FOREIGN KEY (fk_endereco) REFERENCES Endereco(idEndereco)
+    FOREIGN KEY (fk_cliente) REFERENCES empresa_cliente(idCliente),
+    FOREIGN KEY (fk_endereco) REFERENCES endereco(idEndereco)
 );
 
-SELECT * FROM Data_Center;
+SELECT * FROM data_center;
 
-INSERT INTO Data_Center (nome, fk_cliente, fk_endereco) VALUES
+INSERT INTO data_center (nome, fk_cliente, fk_endereco) VALUES
 ('Data Center B3', 1, 2);
 
-CREATE TABLE IF NOT EXISTS Usuario_Cliente (
+CREATE TABLE IF NOT EXISTS usuario_cliente (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45),
     email VARCHAR(45) UNIQUE,
-    senha VARCHAR(200),
+    senha VARCHAR(200), 
     cargo VARCHAR(45),
     ativo TINYINT,
     acesso TIME,
     fkDataCenter INT,
-    FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
+    FOREIGN KEY (fkDataCenter) REFERENCES data_center(idData_Center)
 );
 
-INSERT INTO Usuario_Cliente (nome, email, senha, cargo, ativo, acesso, fkDataCenter) VALUES 
+INSERT INTO usuario_cliente (nome, email, senha, cargo, ativo, acesso, fkDataCenter) VALUES 
 ('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
 ('Victor Santos', 'victor.santos@b3.com.br', 'Senha123@','cientista','0',curtime(),'1');
 
-CREATE TABLE IF NOT EXISTS Componente (
+CREATE TABLE IF NOT EXISTS componente (
     idComponente INT AUTO_INCREMENT PRIMARY KEY,
     nomeComponente VARCHAR(45),
     medida VARCHAR(45)
 );
 
-CREATE TABLE IF NOT EXISTS Servidor_Cliente (
+CREATE TABLE IF NOT EXISTS servidor_cliente (
     idServidor INT AUTO_INCREMENT PRIMARY KEY,
     uuidServidor VARCHAR(45),
     sistemaOperacional VARCHAR(45),
@@ -75,49 +77,49 @@ CREATE TABLE IF NOT EXISTS Servidor_Cliente (
     ramTotal VARCHAR(45),
     processadorInfo VARCHAR(60),
     fkDataCenter INT,
-    FOREIGN KEY (fkDataCenter) REFERENCES Data_Center(idData_Center)
+    FOREIGN KEY (fkDataCenter) REFERENCES data_center(idData_Center)
 );
 
-CREATE TABLE IF NOT EXISTS Parametro_Servidor (
+CREATE TABLE IF NOT EXISTS parametro_servidor (
     idParametros_Servidor INT AUTO_INCREMENT PRIMARY KEY,
     limiar_alerta DOUBLE,
     fkServidor INT,
     fkComponente INT,
-    FOREIGN KEY (fkServidor) REFERENCES Servidor_Cliente(idServidor),
-    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
+    FOREIGN KEY (fkServidor) REFERENCES servidor_cliente(idServidor),
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );  
 
 -- DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
--- CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
+-- CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED BY 'tradeflux_insert';
 -- GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
 
 -- DROP USER IF EXISTS 'user_select_tradeflux'@'%';
--- CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
+-- CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED BY 'tradeflux_select';
 -- GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
 
-FLUSH PRIVILEGES;
+-- FLUSH PRIVILEGES;
 
 -- Fim frio
 
-CREATE TABLE IF NOT EXISTS captura (
-    idCaptura INT AUTO_INCREMENT PRIMARY KEY,
-    valor DOUBLE,
-    medida VARCHAR(45),
-    data DATETIME,
-    alerta TINYINT,
-    fkParametro INT,
-    FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
-);
-select* from captura;
+-- CREATE TABLE IF NOT EXISTS captura (
+--     idCaptura INT AUTO_INCREMENT PRIMARY KEY,
+--     valor DOUBLE,
+--     medida VARCHAR(45),
+--     data DATETIME,
+--     alerta TINYINT,
+--     fkParametro INT,
+--     FOREIGN KEY (fkParametro) REFERENCES parametro_servidor(idParametros_Servidor)
+-- );
+-- select* from captura;
 
-CREATE TABLE IF NOT EXISTS Alerta (
+CREATE TABLE IF NOT EXISTS alerta (
     idAlerta INT AUTO_INCREMENT PRIMARY KEY,
     valor DOUBLE,
     medida VARCHAR(45),
     data DATETIME,
     criticidade TINYINT,
     fkParametro INT,
-    FOREIGN KEY (fkParametro) REFERENCES Parametro_Servidor(idParametros_Servidor)
+    FOREIGN KEY (fkParametro) REFERENCES parametro_servidor(idParametros_Servidor)
 );
 
 CREATE TABLE IF NOT EXISTS alerta_visualizado (
@@ -125,38 +127,41 @@ CREATE TABLE IF NOT EXISTS alerta_visualizado (
     Alerta_idAlerta INT,
     confirmacao TINYINT,
     PRIMARY KEY (Usuario_Cliente_idUsuario, Alerta_idAlerta),
-    FOREIGN KEY (Usuario_Cliente_idUsuario) REFERENCES Usuario_Cliente(idUsuario),
-    FOREIGN KEY (Alerta_idAlerta) REFERENCES Alerta(idAlerta)
+    FOREIGN KEY (Usuario_Cliente_idUsuario) REFERENCES usuario_cliente(idUsuario),
+    FOREIGN KEY (Alerta_idAlerta) REFERENCES alerta(idAlerta)
 );
 
-DROP TRIGGER IF EXISTS gatilho_insert_alerta;
+-- DROP TRIGGER IF EXISTS gatilho_insert_alerta;
 
-DELIMITER $$
+-- DELIMITER $$
 
-/*
-CREATE TRIGGER gatilho_insert_alerta
-AFTER INSERT ON Captura
-FOR EACH ROW
-BEGIN
-    IF NEW.alerta = 1 OR NEW.alerta = 2 THEN
-        INSERT INTO Alerta (valor, medida, data, criticidade ,fkParametro)
-        VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro);
-    END IF;
-END$$
-DELIMITER;
-*/
+
+-- CREATE TRIGGER gatilho_insert_alerta
+-- AFTER INSERT ON captura
+-- FOR EACH ROW
+-- BEGIN
+--     IF NEW.alerta = 1 OR NEW.alerta = 2 THEN
+--         INSERT INTO alerta (valor, medida, data, criticidade ,fkParametro)
+--         VALUES (NEW.valor, NEW.medida, NEW.data, NEW.alerta, NEW.fkParametro);
+--     END IF;
+-- END$$
+-- DELIMITER;
+
 DROP USER IF EXISTS 'user_insert_tradeflux'@'%';
-CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_insert';
+CREATE USER 'user_insert_tradeflux'@'%' IDENTIFIED BY 'tradeflux_insert';
 GRANT INSERT,UPDATE ON tradeflux.* TO 'user_insert_tradeflux'@'%'; 
 
 DROP USER IF EXISTS 'user_select_tradeflux'@'%';
-CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED WITH mysql_native_password BY 'tradeflux_select';
+CREATE USER 'user_select_tradeflux'@'%' IDENTIFIED BY 'tradeflux_select';
 GRANT SELECT ON tradeflux.* TO 'user_select_tradeflux'@'%';
 
 FLUSH PRIVILEGES;
-
-#deixar componentes chumbados
-INSERT INTO Componente (nomeComponente, medida) VALUES 
+INSERT INTO servidor_cliente VALUES
+(default, "A2B7C7A0-8F1E-44E2-9F53-TESTE1", "Linux", 1000.0, 64.0, "AMD Ryzen 9", 1),
+(default, "B4C9D1B3-3F2A-48B5-9F72-TESTE2", "Windowns", 2000.0, 32.0, "Intel Xeon Gold", 1
+);
+-- deixar componentes chumbados
+INSERT INTO componente (nomeComponente, medida) VALUES 
 ('Cpu_Percentual', '%'), 
 ('Cpu_Frequencia',  'GHz'),
 ('Ram_Percentual', '%'),
@@ -164,75 +169,16 @@ INSERT INTO Componente (nomeComponente, medida) VALUES
 ('Disco_Percentual', '%'),
 ('Disco_Usado', 'GB');
 
-#precisa inserir isso apos a api cadastrar o servidor
--- INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
--- (80.0, 1, 1), 
--- (2.30, 1, 2),
--- (80.0, 1, 3),
--- (6.0, 1, 4),
--- (80.0, 1, 5),
--- (200.0, 1, 6);
+-- precisa inserir isso após a api cadastrar o servidor
+INSERT INTO parametro_servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
+(80.0, 1, 1), 
+(2.30, 1, 2),
+(80.0, 1, 3),
+(6.0, 1, 4),
+(80.0, 1, 5),
+(200.0, 1, 6);
 
--- INSERTS:
-
-INSERT INTO Servidor_Cliente (uuidServidor, sistemaOperacional, discoTotal, ramTotal, processadorInfo, fkDataCenter) VALUES
-('uuid01', 'Linux', '500GB', '16GB', 'Intel Xeon', 1);
-
-INSERT INTO Componente (nomeComponente, medida) VALUES
-('CPU', '%');
-
-INSERT INTO Parametro_Servidor (limiar_alerta, fkServidor, fkComponente) VALUES
-(80.0, 1, 1);
-
-INSERT INTO captura (valor, medida, data, alerta, fkParametro) VALUES
-(40.0, '%', null, 0, 1),
-(75.0, '%', null, 1, 1);
-
--- CONSTRAINTS:
-
-alter table servidor_cliente
-add constraint fk_servidor_dataCenter
-foreign key (fkDataCenter) references data_center(idData_Center)
-on delete set null;
-
-alter table usuario_cliente
-add constraint fk_usuario_dataCenter
-foreign key (fkDataCenter) references data_center(idData_Center)
-on delete set null;
-
-alter table parametro_servidor
-add constraint fk_parametro_servidor
-foreign key (fkServidor) references servidor_cliente(idServidor)
-on delete set null;
-
-alter table captura
-add constraint fk_captura_parametro
-foreign key (fkParametro) references parametro_servidor(idParametros_Servidor)
-on delete set null;
-
--- VIEWS:
-
--- View final para a dashboard gerente Data Center (é o JSON)
-create or replace view vw_dashDataCenter as
-select 
-  dc.idData_Center as idDataCenter,
-  dc.nome as nomeDataCenter,
-  count(distinct s.idServidor) as servidoresCadastrados,
-	MAX(c.alerta) as statusDataCenter
-from data_center as dc
-join servidor_cliente as s 
-  on s.fkDataCenter = dc.idData_Center
-join parametro_servidor as p
-  on p.fkServidor = s.idServidor
-join captura as c
-  on c.fkParametro = p.idParametros_Servidor
-group by dc.idData_Center, dc.nome;
-
--- View final para a dashboard gerente Usuários (é o JSON)
 create or replace view vw_dashUsuarios as
 select u.nome,u.email,u.cargo,u.ativo,u.acesso from usuario_cliente as u
 join data_center as dc
 on u.fkDataCenter = dc.idData_Center;
-
-select * from vw_dashDataCenter;
-select * from vw_dashUsuarios;
