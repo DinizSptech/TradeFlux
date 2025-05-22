@@ -1,162 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TradeFlux - Data Centers</title>
-    <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
-    <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
-    <link rel="stylesheet" href="../css/modalPerfil.css" />
-    <link rel="stylesheet" href="../css/mobileGerente.css" />
-    <!-- <script src="../script/sessao.js"></script> -->
-    <link rel="stylesheet" href="../css/cadastroUsuario_copy.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="shortcut icon"
-      href="../assets/TRADEFLUX__2_cortado.png"
-      type="image/x-icon"
-    />
-    <script src="../js/cadastroDataCenter.js"></script>
-    <script src="../js/exibirDataCenter.js"></script>
-    <script src="../js/deletarDataCenter.js"></script>
-    <script src="../js/criacaoMenuLateral.js"></script>
-    <script src="../js/modais.js"></script>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Alertas</title>
+    <link rel="stylesheet" href="../css/admDatacenter.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
-  </head>
+    <script src="../js/admDatacenterjs.js"></script>
+</head>
+<body>
+    <div id="painel-controle" class="dashboard">
+        <!-- Cabeçalho com métricas principais -->
+        <div id="secao-metricas" class="header-metrics">
+            <div id="cartao-alertas" class="metric-card alert-card">
+                <h3>Alertas fora do tempo ideal de resolução</h3>
+                <div class="metric-value danger">6</div>
+                <a href="#" class="legend-link">ver legenda</a>
+            </div>
+            
+            <div id="cartao-tempo" class="metric-card time-card">
+                <h3>Tempo médio de resolução de alertas</h3>
+                <div class="metric-value warning">00:07:00</div>
+                <a href="#" class="legend-link">ver legenda</a>
+            </div>
+            
+            <div id="cartao-filtro" class="metric-card filter-card">
+                <h3>Selecione intervalo de tempo:</h3>
+                <select id="seletor-tempo" class="time-selector">
+                    <option>últimas 24 horas</option>
+                    <option selected>últimos 7 dias</option>
+                    <option>últimos 30 dias</option>
+                </select>
+            </div>
+        </div>
 
-  <body
-    onload="renderizarModalUsuario(); carregarMenuLateral(); exibirDataCenters()"
-  >
-    <div id="sistema_modais"></div>
-    <div class="navbar">
-      <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        <!-- Seção de tabelas -->
+        <div id="secao-tabelas" class="tables-section">
+            <div id="container-top-alertas" class="table-container">
+                <h2>Top 5 Alertas com maior atraso na resolução</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-alertas" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Data-hora</th>
+                                <th>Temp. de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data Center 1</td>
+                                <td>14/05/2025 - 14:30</td>
+                                <td class="danger">00:10:21</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 1</td>
+                                <td>21/05/2025 - 10:32</td>
+                                <td class="danger">00:08:22</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 2</td>
+                                <td>01/05/2025 - 07:30</td>
+                                <td class="danger">00:07:54</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 3</td>
+                                <td>21/05/2025 - 14:56</td>
+                                <td class="warning">00:06:02</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 2</td>
+                                <td>22/05/2025 - 12:10</td>
+                                <td class="warning">00:05:40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="container-top-datacenters" class="table-container">
+                <h2>Top 3 Data Centers com maior média de tempo de resolução dos alertas</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-datacenters" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Temp. de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data Center 1</td>
+                                <td class="danger">00:08:05</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 3</td>
+                                <td class="warning">00:06:23</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 2</td>
+                                <td class="warning">00:05:32</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de gráficos -->
+        <div id="secao-graficos" class="charts-section">
+            <div id="container-grafico" class="chart-container">
+                <h2>Alertas Resolvidos com Atraso e Total de Alertas por Data Center</h2>
+                <div id="grafico"></div>
+            <div id="tabela-resumo" class="summary-table">
+                <div class="table-wrapper">
+                  <h2>Top 3 Data Centers com maior média de tempo de resolução dos alertas</h2>
+                    <table id="tabela-resumo-alertas" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Alertas atrasados/Alertas totais</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data Center 1</td>
+                                <td class="danger">6 de 8</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 3</td>
+                                <td class="warning">4 de 8</td>
+                            </tr>
+                            <tr>
+                                <td>Data Center 2</td>
+                                <td class="success">2 de 8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+  
+            
+        </div>
+      </div>
     </div>
-    <main class="container-main" id="main_page">
-      <div class="bgForm" id="bg_formulario">
-        <div class="formUsuario" id="div_formulario">
-          <i
-            onclick="fecharModal('cadastro')"
-            class="fechar fa-solid fa-xmark"
-          ></i>
-          <div class="tituloForm">Cadastrar Data Centers</div>
-          <div id="div_form_parte1">
-            <div class="input">
-              <span>Nome:</span>
-              <input id="ipt_nome" type="text" />
-            </div>
-            <div class="input">
-              <span>CEP:</span>
-              <input id="ipt_cep" type="text" />
-            </div>
-            <div id="erros_cadastro_usuario"></div>
-            <div class="buttonCadastrar">
-              <button onclick="adicionarServidorParte1()" id="botaoCadastro">
-                Verificar CEP
-              </button>
-            </div>
-          </div>
-
-          <div id="div_form_parte2">
-            <div id="form_colunas">
-              <div id="coluna1_form">
-                <div class="input">
-                  <span>Logradouro:</span>
-                  <input id="ipt_logradouro" type="text" />
-                </div>
-                <div class="input">
-                  <span>Bairro:</span>
-                  <input id="ipt_bairro" type="text" />
-                </div>
-                <div class="input">
-                  <span>Cidade:</span>
-                  <input id="ipt_cidade" type="text" />
-                </div>
-              </div>
-              <div id="coluna2_form">
-                <div class="input">
-                  <span>UF:</span>
-                  <input id="ipt_uf" type="text" />
-                </div>
-                <div class="input">
-                  <span>Numero:</span>
-                  <input id="ipt_numero" type="text" />
-                </div>
-                <div class="input">
-                  <span>Complemento:</span>
-                  <input id="ipt_complemento" type="text" />
-                </div>
-              </div>
-            </div>
-            <div class="buttonCadastrar">
-              <button onclick="adicionarServidorParte2()" id="botaoCadastro2">
-                Salvar DataCenter
-              </button>
-            </div>
-            <!-- Deixar o Segundo invisível -->
-          </div>
-        </div>
-      </div>
-      <div class="bgForm" id="bg_formulario_edicao">
-        <div class="formUsuario">
-          <div class="tituloForm">Editar Servidor</div>
-          <div class="input">
-            <span>Servidor:</span>
-            <input id="ipt_nome" type="text" />
-          </div>
-          <div class="input">
-            <span>Quantidade de componentes:</span>
-            <input id="ipt_qtdComponentesEdicao" type="text" />
-          </div>
-          <div class="buttonCadastrar">
-            <button onclick="fecharModal('edicao')">Salvar</button>
-          </div>
-          <!-- <div id="erros_cadastro_usuario"></div> -->
-          <!-- <div id="erros_cadastro_confirmsenha"></div> -->
-        </div>
-      </div>
-      <div id="barralateral" class="barra-lateral"></div>
-      <div class="mainContent">
-        <div class="container-title">
-          <h1>Data Centers</h1>
-        </div>
-        <div class="containerFiltro">
-          <div class="container-btnCadastro">
-            <button
-              id="btnCadastro"
-              class="btn-cadastro"
-              onclick="abrirModal('cadastro')"
-            >
-              <i class="fa-solid fa-circle-plus"></i> Adicionar Data Center
-            </button>
-          </div>
-        </div>
-        <div id="div_containerEsteiras" class="containerEsteiras">
-          <table id="tabelaFuncionarios">
-            <thead>
-              <tr>
-                <th>Data Center</th>
-                <th>Servidores Cadastrados</th>
-                <th>Status</th>
-                <th>Monitoramento</th>
-                <!-- <th class='tableIcons'>Editar</th> -->
-                <!-- <th class='tableIcons'>Excluir</th> -->
-              </tr>
-            </thead>
-            <tbody id="bodyTabela"></tbody>
-          </table>
-        </div>
-      </div>
-    </main>
-  </body>
+</body>
 </html>
