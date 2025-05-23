@@ -27,6 +27,7 @@ def coletarIdDoComponente(nomeComponente):
 def selecionarComponentes():
     query = "SELECT nomeComponente FROM componente;"
     cursor.execute(query)
+    print(componentes)
     componentes = cursor.fetchall()
     return [componente[0] for componente in componentes]
 
@@ -37,6 +38,17 @@ def coletarIdDoParametro(idComponente):
     if idParametro is None:
         return None  
     return int(idParametro[0])
+
+def coletarParametroServidor(idServidor):
+   query = f"SELECT * FROM parametro_servidor WHERE fkServidor = '{idServidor}'"
+   cursor.execute(query)
+   parametros = cursor.fetchall()
+   print(parametros)
+   if len(parametros) == 0:
+    query = f"SELECT * FROM parametro_servidor WHERE fkServidor = '0'"
+    cursor.execute(query)
+    parametros = cursor.fetchall()
+   return parametros
 
 def coletarLimiarPorComponente(idComponente):
     query = "SELECT limiar_alerta FROM parametro_servidor WHERE fkComponente = %s"

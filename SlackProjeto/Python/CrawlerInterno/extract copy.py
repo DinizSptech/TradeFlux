@@ -100,6 +100,7 @@ def coletarVelocidadeUpload():
 def coletaLocal(idServidor):
     contador = 0
     listaJson = []
+    selectbd.coletarParametroServidor(idServidor)
     
     while True:
         momento = datetime.now()
@@ -108,48 +109,7 @@ def coletaLocal(idServidor):
         print(f"Repetição: {contador}")
         print(f"Servidor: {idServidor}")
 
-        CPUPercentual = coletarCPUPercentual()
-        print(f"Uso da CPU: {CPUPercentual}%")
-        CPUFreq = coletarCPUFreqGhz()
-        print(f"Frequência da CPU: {CPUFreq} GHz")
-        RamPercentual = coletarRamPercentual()
-        print(f"Uso da RAM: {RamPercentual}%")
-        MemoriaUsadaGB = coletarMemoriaUsadaGB()
-        print(f"Memória usada: {MemoriaUsadaGB} GB")
-        DiscoPercentual = coletarDiscoPercentual()
-        print(f"Uso do Disco: {DiscoPercentual}%")
-        DiscoUsadoGB = coletarDiscoUsadoGB()
-        print(f"Disco usado: {DiscoUsadoGB} GB")
-        print(f"Velocidade de download: {coletarVelocidadeDownload()} Mbps")
-        print(f"Velocidade de upload: {coletarVelocidadeUpload()} Mbps")
-
-        print(f"Data-hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("-----------------------------------\n\n")
-
-        momento = datetime.now()
-
-        jsonDados = {
-        "data-hora": momento.strftime("%Y-%m-%d %H:%M:%S")
-        }
-
-        jsonDados["percentualCPU"] = CPUPercentual
-        jsonDados["frequenciaCPU"] = CPUFreq
-        jsonDados["percentualRAM"] = RamPercentual
-        jsonDados["memoriaUsadaGB"] = MemoriaUsadaGB
-        jsonDados["percentualDisco"] = DiscoPercentual
-        jsonDados["discoUsadoGB"] = DiscoUsadoGB
-        jsonDados["velocidadeDownloadMbps"] = coletarVelocidadeDownload()
-        jsonDados["velocidadeUploadMbps"] = coletarVelocidadeUpload()
-        jsonDados["processos"] = coletarProcessos()
-        listaJson.append(jsonDados)
         if contador == 12:
-            print("Criando arquivo JSON...")
-            nomeArq = momento.strftime("%y-%m-%d_%H-%M") + f"_{idServidor}" + ".json"
-            with open(nomeArq, "w", encoding="utf-8") as arquivo:
-                json.dump(listaJson, arquivo, ensure_ascii=False, indent=2)
-                print("Enviando para o bucket...")
-                s3.upload(nomeArq)
-                os.remove(nomeArq)
             listaJson = []
             contador = 0
         time.sleep(5)

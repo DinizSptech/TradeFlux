@@ -12,10 +12,35 @@ body {
   margin: 0;
 }
 
+.container-main {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.mainContent {
+  width: 100%;
+    display: flex;
+    padding: 20px;
+    margin-left: 20vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
 .central{
-  justify-content: center;
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
   height: 100vh;
+  
+  width: 100%;
+}
+
+.section{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
   width: 100%;
 }
 
@@ -23,8 +48,10 @@ body {
   background-color: #161b22;
   border: 1px solid #30363d;
   border-radius: 8px;
+  width: 70%;
   padding: 20px;
   max-width: 1000px;
+  margin: 20px;
   margin: auto;
 }
 
@@ -88,6 +115,7 @@ body {
 }
 
 .titleTable{
+  
   cursor: pointer;
   transition: all 0.4s;
   &:hover{

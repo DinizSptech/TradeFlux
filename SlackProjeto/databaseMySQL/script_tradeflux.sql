@@ -85,7 +85,6 @@ CREATE TABLE IF NOT EXISTS parametro_servidor (
     limiar_alerta DOUBLE,
     fkServidor INT,
     fkComponente INT,
-    FOREIGN KEY (fkServidor) REFERENCES servidor_cliente(idServidor),
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );  
 
@@ -167,7 +166,9 @@ INSERT INTO componente (nomeComponente, medida) VALUES
 ('Ram_Percentual', '%'),
 ('Ram_Usada', 'GB'),
 ('Disco_Percentual', '%'),
-('Disco_Usado', 'GB');
+('Disco_Usado', 'GB'),
+('Velocidade Download','KB/s'),
+('Velocidade Upload','KB/s');
 
 -- precisa inserir isso após a api cadastrar o servidor
 INSERT INTO parametro_servidor (limiar_alerta, fkServidor, fkComponente) VALUES 
@@ -176,7 +177,12 @@ INSERT INTO parametro_servidor (limiar_alerta, fkServidor, fkComponente) VALUES
 (80.0, 1, 3),
 (6.0, 1, 4),
 (80.0, 1, 5),
-(200.0, 1, 6);
+(200.0, 1, 6),
+(80.0, 0, 1),
+(80.0, 0, 3),
+(80.0, 0, 5),
+(100, 0, 7),
+(100, 0, 8);
 
 create or replace view vw_dashUsuarios as
 select u.nome,u.email,u.cargo,u.ativo,u.acesso from usuario_cliente as u

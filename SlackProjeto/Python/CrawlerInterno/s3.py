@@ -1,5 +1,4 @@
 import boto3
-import os 
 
 def upload(nomeArq):
     nomeBucket = 's3-raw-lab-04242028'
@@ -13,7 +12,6 @@ def upload(nomeArq):
     try:
         session.upload_file(nomeArq, nomeBucket, nomeArq)
         print(f"Arquivo '{nomeArq}' enviado para o bucket '{nomeBucket}' com sucesso!")
-        os.remove(nomeArq)
         return True  
     except Exception as erro:
         print(f"Erro ao fazer upload para o S3: {erro}")

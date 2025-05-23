@@ -161,7 +161,8 @@ var cores = {
   'estavel old': '#132A2D'
 }
 
-
+criticos = 0
+moderados = 0
 
 function compararData(d1, d2){
   let dias1 = Number(d1[0] + d1[1])
