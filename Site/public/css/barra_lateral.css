@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: 0.3s ease;
+}
+
+body {
+    margin: 0;
+    background-color: #1b1f2b;
+}
+
+#menu-bar {
+    font-size: 3rem;
+    cursor: pointer;
+    color: #ffffff;
+    border-radius: .3rem;
+    padding: .5rem 1.5rem;
+    display: none;
+    z-index: 10;
+}
+
+.barra-lateral {
+    position: fixed;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #23283A;
+    color: #F0F0F0;
+    padding: 2vh 1vw;
+    width: 5vw;
+    text-align: center;
+    /* justify-content: center; */
+    height: 100vh;
+    transition: width 0.3s ease-in-out;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+.barra-lateral:hover {
+    width: 18vw;
+    padding: 2vh;
+}
+
+.barra-lateral .div-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3vh;
+    white-space: nowrap;
+}
+
+.barra-lateral .imgLogo {
+    height: 6vh;
+    width: 3vw;
+    margin-bottom: 1vh;
+}
+
+.barra-lateral .txtLogo {
+    font-size: 1.3vw;
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.barra-lateral:hover .txtLogo {
+    opacity: 1;
+}
+
+.barraHorizontal {
+    width: 3vw;
+    border: solid #F0F0F0;
+    border-top-width: 0.1vh;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    margin: 2vh auto;
+    transition: width 0.3s ease;
+}
+
+.barra-lateral:hover .barraHorizontal {
+    width: 60%;
+}
+
+.selecionado {
+    color: #b4b4b4;
+}
+
+.selecionado span a {
+    color: #b4b4b4;
+}
+
+.barra-lateral a {
+    text-decoration: none;
+    color: #F0F0F0;
+    font-size: 1vw;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.barra-lateral .fa-solid {
+    text-decoration: none;
+    color: #F0F0F0;
+    font-size: 1.2vw;
+    min-width: 1.2vw;
+}
+
+.barra-lateral a:hover {
+    color: #b4b4b4;
+}
+
+.option i:hover {
+    color: #b4b4b4;
+}
+
+.barra-lateral h4 {
+    margin-bottom: 3vh;
+    margin-top: 2vh;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    margin-bottom: 2vh;
+    padding: 1.5vh 0.5vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.option span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.barra-lateral:hover .option span {
+    opacity: 1;
+}
+
+.option::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 6vw;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    padding: 1vh 1vw;
+    border-radius: 0.5vw;
+    font-size: 0.8vw;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.option:hover::after {
+    opacity: 1;
+}
+
+.barra-lateral:hover .option::after {
+    opacity: 0;
+}
+
+.perfil-foto {
+    border-radius: 100%;
+    width: 8vw;
+    align-items: center;
+}
+
+main {
+    margin-left: 5vw;
+    transition: margin-left 0.3s ease;
+    padding: 2vh;
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (min-width: 769px) {
+    .barra-lateral {
+        transform: none !important;
+    }
+    
+    .navbar {       
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar{
+        display: flex;
+        background-color:#23283A;
+        width: 100%;
+        height: 8vh;
+        position: fixed;
+        padding: 0;
+        margin: 0;
+        z-index: 20;
+    }
+
+    #menu-bar {
+        display: flex;
+        position: fixed;
+        top: 2vh;
+        left: 2vw;
+    }
+
+    .barra-lateral {
+        width: 50vw; 
+        margin: 0;
+        margin-top: 0;
+        height: 100%;
+        justify-content: flex-start;
+        z-index: 9;
+        transform: translateX(-100%);
+        padding: 3vh;
+    }
+
+    .barra-lateral.open {
+        transform: translateX(0);
+    }
+
+    .barra-lateral .txtLogo {
+        opacity: 1;
+        font-size: 4vw;
+    }
+
+    .barra-lateral .option span {
+        opacity: 1;
+    }
+
+    .barra-lateral .option {
+        align-items: center;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .barra-lateral .option a {
+        font-size: 4vw;
+    }
+
+    .barra-lateral .option i{
+        font-size: 4vw;
+    }
+
+    .div-logo{
+        flex-direction: column;
+        align-items: center;
+        padding-top: 6vh;
+    }
+   
+    .barra-lateral .imgLogo {
+        height: 8vh;
+        width: 12vw;
+    }
+
+    .barra-lateral .txtLogo {
+        font-size: 4vw;
+    }
+
+    .barra-lateral .barraHorizontal {
+        width: 80%;
+    }
+
+    /* Remove tooltip no mobile */
+    .option::after {
+        display: none;
+    }
+
+    /* Remove margem do main no mobile */
+    main {
+        margin-left: 0;
+        margin-top: 8vh;
+    }
+}

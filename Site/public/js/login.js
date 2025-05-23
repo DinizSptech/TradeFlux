@@ -25,7 +25,12 @@ function entrar() {
       if (resposta.ok) {
         resposta.json().then((json) => {
           nivelConta = json.cargo;
-
+          console.log("Estarei enviando valores para sessionStorage")
+          sessionStorage.setItem("EMAIL_USUARIO", json.email);
+          sessionStorage.setItem("NOME_USUARIO", json.nome);
+          sessionStorage.setItem("ID_USUARIO", json.cargo);
+          sessionStorage.setItem("Cargo", json.id);
+          sessionStorage.setItem("DataCenter", json.data_center);
           if (nivelConta == "administrador") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`
