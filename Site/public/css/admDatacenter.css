@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -6,206 +5,228 @@
 }
 
 body {
-    background-color: #04002a;
+    background-color: #0a0a3a;
     color: #ffffff;
     font-family: Arial, sans-serif;
-    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 #painel-controle {
-    max-width: 95vw;
-    margin: 0 auto;     
-    padding: 2vh;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-/* Seção de métricas principais */
 #secao-metricas {
     display: flex;
-    gap: 2vw;
-    margin-bottom: 3vh;
-    height: 6vw;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    height: 20%;
 }
 
 .metric-card {
-    background-color: #0e0e3f;
-    border: 0.1vh solid #333;
-    border-radius: 0.5vh;
-    padding: 2vh;
+    background-color: #333333;
+    border: 0.05rem solid #333;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
     flex: 1;
+    min-width: 180px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .metric-card h3 {
-    font-size: 2.8vh;
-    margin-bottom: 1vh;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
     font-weight: normal;
 }
 
 .metric-value {
-    font-size: 7vh;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin: 1vh 0;
+    margin: 0.3rem 0;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .legend-link {
     color: #ffffff;
     text-decoration: underline;
-    font-size: 2.4vh;
+    font-size: 0.8rem;
+    cursor: pointer;
 }
 
 #seletor-tempo {
-    background-color: #3f3f8d;
+    background-color: #252531;
     color: #ffffff;
-    border: 0.1vh solid #ffffff;
-    padding: 1vh;
+    border: 0.05rem solid #ffffff;
+    padding: 0.3rem;
     width: 100%;
-    margin-top: 1vh;
+    font-size: 0.8rem;
 }
 
 #secao-tabelas {
     display: flex;
-    gap: 2vw;
-    margin-bottom: 3vh;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    height: 38%; /* Adjusted to 38% to compensate for the 2% increase in #secao-graficos */
 }
 
 .table-container {
     flex: 1;
-    background-color: #0e0e3f;
-    border: 0.1vh solid #333;
-    border-radius: 0.5vh;
-    padding: 2vh;
-}   
+    background-color: #333333;
+    border: 0.05rem solid #333;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
 
 .table-container h2 {
-    font-size: 2vh;
-    margin-bottom: 1vh;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
     font-weight: normal;
+}
+
+.table-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2A2A5A;
+    background-color: #494958;
+    font-size: 0.8rem;
 }
 
 .data-table th {
-    background-color: #18186a;
-    padding: 1vh;
+    background-color: #252531;
+    padding: 0.3rem;
     text-align: left;
-    border: 0.1vh solid #ffffff;
+    border: 0.05rem solid #ffffff;
     font-weight: bold;
 }
 
 .data-table td {
-    padding: 1vh;
-    border: 0.1vh solid #666;
+    padding: 0.3rem;
+    border: 0.05rem solid #666;
 }
 
 .data-table tbody tr:nth-child(even) {
-    background-color: #1f1f4f;
+    background-color: #363644;
 }
 
-/* Estados de cor */
 .danger {
-    color: #ff0000;
+    color: #cc0000;
 }
 
 .warning {
-    color: #ffff00;
+    color: #ffd700;
 }
 
 .success {
-    color: #00ff00;
+    color: #00cc00;
 }
 
-/* Seção de gráficos */
 #secao-graficos {
     display: flex;
-    gap: 2vw;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    height: 42%; /* Increased from 40% to 42% to accommodate sidebar labels */
 }
 
-
-#container-grafico {
+.grafico-container {
     flex: 1;
-    width: 100%;
-    max-width: 100%;
-    flex-direction:row;
-    background-color: #0e0e3f;
-    border: 0.1vh solid #333;
-    border-radius: 0.5vh;
-    padding: 2vh;
-    box-sizing: border-box;
-    overflow: hidden; /* Evita cortes ao redimensionar */
+    background-color: #333333;
+    border: 0.05rem solid #333;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grafico-container h2 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
 }
 
 #grafico {
+    flex-grow: 1;
     width: 100%;
-    min-height: 300px; /* Ajuste conforme necessário */
 }
 
-
-#container-grafico h2 {
-    font-size: 2vh;
-    margin-bottom: 2vh;
-    font-weight: normal;
-}
-
-#grafico-barras {
-    margin-bottom: 2vh;
-}
-
-.bar {
-    height: 2.5vh;
-    display: inline-block;
-}
-
-.total-bar {
-    background-color: #00ff00;
-}
-
-.delayed-bar {
-    background-color: #ff0000;
-}
-
-.bar::after {
-    content: attr(data-value);
-    margin-left: 0.5vw;
-    font-size: 1.4vh;
-    color: #ffffff;
-}
-
-#legenda-grafico {
+.tabela-resumo-container {
+    flex: 1;
+    background-color: #333333;
+    border: 0.05rem solid #333;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    min-width: 280px;
     display: flex;
-    gap: 3vw;
-    margin-top: 2vh;
-    border-top: 0.1vh solid #666;
-    padding-top: 1vh;
+    flex-direction: column;
 }
 
-/* Responsividade básica */
+.tabela-resumo-container h2 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.summary-table {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.summary-table .table-wrapper {
+    flex-grow: 1;
+}
+
 @media (max-width: 768px) {
-    #secao-metricas {
-        flex-direction: column;
-        gap: 2vh;
+    #painel-controle {
+        padding: 0.3rem;
     }
-    
-    #secao-tabelas {
-        flex-direction: column;
-        gap: 2vh;
-    }
-    
+
+    #secao-metricas,
+    #secao-tabelas,
     #secao-graficos {
         flex-direction: column;
-        gap: 2vh;
+        gap: 0.3rem;
+        height: auto;
     }
-    
-    .chart-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5vh;
+
+    .metric-card,
+    .table-container,
+    .grafico-container,
+    .tabela-resumo-container {
+        min-width: 100%;
     }
-    
-    .chart-label {
-        width: auto;
+
+    .metric-card h3 {
+        font-size: 0.8rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .data-table {
+        font-size: 0.7rem;
+    }
+
+    .table-container h2,
+    .grafico-container h2,
+    .tabela-resumo-container h2 {
+        font-size: 0.9rem;
     }
 }
