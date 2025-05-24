@@ -35,7 +35,7 @@ function entrar() {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`
             );
-            window.location.href = "./dash_gerente_funcionarios.html";
+            window.location.href = "./dash_adm_alertas.html";
           } else if (nivelConta == "analista") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta analista!...`

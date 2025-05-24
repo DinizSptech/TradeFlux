@@ -3,10 +3,15 @@ document.addEventListener("DOMContentLoaded", function() {
         chart: {
             type: 'bar',
             height: '100%',
+            background: '#363D56',
             parentHeightOffset: 0,
             toolbar: { show: false },
-            animations: { enabled: false }
+            animations: { enabled: false },
         },
+        theme: {
+      mode: 'dark'
+    },
+
         plotOptions: {
             bar: {
                 borderRadius: 4,
@@ -29,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         legend: {
             position: 'top',
             labels: { colors: '#fff' }
+            
         },
         colors: ['#00cc00', '#cc0000'],
         grid: {
