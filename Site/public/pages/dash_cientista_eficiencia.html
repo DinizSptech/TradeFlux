@@ -1,38 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="../css/dash.css"> -->
-    <link rel="stylesheet" href="../css/barra_lateral.css">
-    <script src="../js/barra_lateral.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <link rel="stylesheet" href="../css/dash_cientista_eficiencia.css">
+  <link rel="stylesheet" href="../css/barra_lateral.css">
+  <script src="../js/barra_lateral.js" defer></script>
 </head>
-<body onload="carregarMenuLateral()">
-    <div class="navbar">
+
+<body onload="carregarMenuLateral(); carregarServidores()">
+  <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
     <div class="container_perfil_menu" id="modal_perfil">
       <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
       <span class="barraVertical"></span>
       <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
-      <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
-      <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
-      <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+        <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;"
+          src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80" />
+        <img class="imgPerfil" id="jenniferADM2" style="display: none; border-radius: 50%;"
+          src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80" />
+        <img class="imgPerfil" id="juliaAnalista2" style="display: none; border-radius: 50%;"
+          src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80" />
         <i class="fa-solid fa-chevron-down"></i>
       </div>
     </div>
   </div>
-    <div id="barralateral" class="barra-lateral">
+  <div id="barralateral" class="barra-lateral"></div>
+  <main>
+    <div class="main">
+      <div class="kpis">
+        <div class="periodo">
+          <button id="7dias" class="botaoTempo"> 7 dias </button>
+          <button id="30dias" class="botaoTempo"> 30 dias </button>
+          <button id="6meses" class="botaoTempo"> 6 meses </button>
+        </div>
+        <div class="kpi">
+          <span class="textKpi">Média de ociosidade por servidor</span>
+          <span id="mediaOciosidade" class="metricaKpi"> 2d 4h</span>
+          <div id="indicadorKpi1" class="indicador">Ideal</div>
+        </div>
+        <div class="kpi">
+          <span class="textKpi">Componente mais ocioso</span>
+          <span id="componenteOciosidade" class="metricaKpi"></span>
+          <div id="indicadorKpi2" class="indicador"></div>
+        </div>
+        <div class="kpi">
+          <span class="textKpi">Servidores com 50% ou mais de ociosidade</span>
+          <span id="50ouMaisOciosidade" class="metricaKpi"></span>
+          <div id="indicadorKpi3" class="indicador"></div>
+        </div>
+      </div>
+      <div class="content1">
+      <div class="tabela">
+        <span class="titulo">5 servidores mais ociosos</span>
+       <table id="tabelaOcioso" class="tabelaDados">
+            <thead>
+              <!-- <tr>
+                <th>Servidor</th>
+                <th>Tempo de ociosidade</th>
+              </tr> -->
+            </thead>
+            <tbody id="bodyTabela"></tbody>
+          </table>
+          </div>
+                <div class="grafico3">
+            <span class="titulo">Desempenho dos componentes em horas </span>
+            <div id="chart3"></div>
+          </div>
+      
+        </div>
+        <div class="content2">
+           <div class="grafico2">
+            <span class="titulo">Média percentual de desempenho </span>
+            <div id="chart2"></div>
+          </div>
+         <div class="grafico1">
+            <span class="titulo">Percentual de ociosidade ao longo do tempo</span>
+            <div id="chart"></div>
+          </div>
+        </div>
+      </div>
+       
+      <!-- Modal de servidor -->
+
+      <div class="modal">
+        
+      </div>
 
     </div>
-    <main>
-
-    </main>
+  </main>
 </body>
+
 </html>
+
+
+
+<script>
+
+  // tabela de servidores
+  var servidores = [
+    {
+     servidor: "Servidor 4",
+     tempo: "25d 6h"
+    },
+
+     {
+     servidor: "Servidor 6",
+     tempo: "22d 6h"
+    },
+
+     {
+     servidor: "Servidor 7",
+     tempo: "18d 6h"
+    },
+
+     {
+     servidor: "Servidor 1",
+     tempo: "14d 6h"
+    },
+
+     {
+     servidor: "Servidor 9",
+     tempo: "7d 3h"
+    },
+    
+  ];
+
+
+
+    //grafico 1
+  var ociosidadeTempoValores = [45, 52, 38, 45, 19, 23, 2]
+  var ociosidadeTempo =  ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan"]
+
+  // grafico 2
+  var ociosidadePercentual = [60, 27, 13]
+
+  // grafico 3
+  var estavelComponentes = [44, 55, 57]
+  var ociosoComponentes = [76, 85, 101]
+  var alertaComponentes = [35, 41, 36]
+
+
+  function carregarServidores() {
+    for (var i = 0; i < servidores.length; i++) {
+      let status = servidores[i].status;
+
+      // let classeStatus = "";
+      // if (status === "Estável") {
+      //   classeStatus = "status-ok";
+      // } else if (status === "Em risco") {
+      //   classeStatus = "status-alerta";
+      // } else if (status === "Crítico") {
+      //   classeStatus = "status-critico";
+      // }
+
+      bodyTabela.innerHTML += `
+            <tr>
+            <td>${servidores[i].servidor}</td>
+            <td>${servidores[i].tempo} <i class="fa-solid fa-circle-info"></i></td>
+             `;
+    }
+
+  }
+
+var options = {
+  chart: {
+    type: "area",
+    width: '100%',   // 100% do div grafico1
+    height: '100%',
+    foreColor: '#ffffff',  // cor do texto clara
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false
+      }
+    }
+  },
+  colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+  dataLabels: {
+    enabled: false
+  },
+  series: [
+    {
+      name: "Series 1",
+      data: ociosidadeTempoValores
+    }
+  ],
+  fill: {
+    type: "gradient",
+   
+  },
+  xaxis: {
+    categories: ociosidadeTempo,
+    labels: {
+      style: {
+        colors: '#ffffff' // texto dos rótulos do eixo x
+      }
+    }
+  },
+  yaxis: {
+    labels: {
+      style: {
+        colors: '#ffffff' // texto dos rótulos do eixo y
+      }
+    }
+  },
+  grid: {
+    borderColor: '#444' // cor discreta para a grade
+  },
+  tooltip: {
+    enabled: true,
+    theme: 'dark' // tooltip escura
+  }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+
+      var options2 = {
+        series: ociosidadePercentual,
+        labels: ['Estável', 'Ocisoso', 'Alerta'],
+        chart: {
+          width: '100%',
+           height: '100%',
+          type: 'pie',
+          background: 'transparent',
+          foreColor: '#000000', // cor do texto
+          
+        },
+        colors: ['#00B276', '#FFB133', '#FF4A4D'], // cores personalizadas dos pedaços
+        tooltip: {
+          theme: 'dark' // tooltip escura
+        },
+         dataLabels: {
+        enabled: true,
+        style: {
+        colors: ['#242d4a'],// muda a cor da % sobre as fatias
+        fontSize: '12px'
+        },
+          dropShadow: {
+    enabled: false  // REMOVE a sombra
+  }
+  },
+        legend: {
+          labels: {
+            colors: '#ffffff' // cor da legenda
+          }
+        },
+        stroke: {
+          show: false
+                },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      };
+
+
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+        chart2.render();
+
+
+
+
+        var options3 = {
+          series: [{
+          name: 'Estável',
+          data: estavelComponentes
+        }, {
+          name: 'Ocioso',
+          data: ociosoComponentes
+        }, {
+          name: 'Alerta',
+          data: alertaComponentes
+        }],
+          colors: ['#00B276', '#FFB133', '#FF4A4D'],
+          chart: {
+          type: 'bar',
+          height: 350,
+          foreColor: '#fff',
+            width: '100%',
+           height: '100%'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            borderRadius: 3,
+            borderRadiusApplication: 'end'
+          },
+        },
+       
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['CPU', 'RAM', 'DISCO'],
+        },
+        yaxis: {
+          title: {
+            text: 'Horas'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+         theme: 'dark'
+        }
+        };
+
+        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+        chart3.render();
+      
+
+
+</script>
