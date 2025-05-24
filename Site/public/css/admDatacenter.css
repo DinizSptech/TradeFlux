@@ -4,229 +4,231 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
 body {
-    background-color: #0a0a3a;
+    background-color: #1B1E2B;
     color: #ffffff;
     font-family: Arial, sans-serif;
-    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-#painel-controle {
+.botoes-filtro {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.botao-filtro {
+    background-color: #252531;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.botao-filtro:hover {
+    background-color: #363D56;
+    border-color: #555;
+}
+
+.botao-filtro:active {
+    transform: scale(0.98);
+}
+
+.botao-filtro.ativo {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .botoes-filtro {
+        flex-direction: column;
+    }
+    
+    .botao-filtro {
+        width: 100%;
+    }
+}
+
+.navbar {
+    height: 4rem;
+    position: fixed;
     width: 100%;
-    height: 100%;
-    padding: 0.5rem;
+    z-index: 1000;
+}
+
+.barra-lateral {
+    width: 5rem;
+    height: 100vh;
+    position: fixed;
+    top: 4rem;
+}
+
+#painel-controle {
+    width: calc(100vw - 5rem);
+    margin-left: 4rem;
+    padding: 1rem;
+    min-height: calc(100vh - 4rem);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 #secao-metricas {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    height: 20%;
 }
 
 .metric-card {
-    background-color: #333333;
-    border: 0.05rem solid #333;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-    flex: 1;
-    min-width: 180px;
-    text-align: center;
+    background-color: #363D56;
+    border: 1px solid #333;
+    border-radius: 1rem;
+    padding: 1rem;
+    flex: 1 1 200px;
+    min-width: 200px;
+    max-width: 300px;
+    height: 120px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-
-.metric-card h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.3rem;
-    font-weight: normal;
+    justify-content: space-between;
+    text-align: center;
 }
 
 .metric-value {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
-    margin: 0.3rem 0;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.legend-link {
-    color: #ffffff;
-    text-decoration: underline;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-
-#seletor-tempo {
-    background-color: #252531;
-    color: #ffffff;
-    border: 0.05rem solid #ffffff;
-    padding: 0.3rem;
-    width: 100%;
-    font-size: 0.8rem;
 }
 
 #secao-tabelas {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    height: 38%; /* Adjusted to 38% to compensate for the 2% increase in #secao-graficos */
 }
 
 .table-container {
-    flex: 1;
-    background-color: #333333;
-    border: 0.05rem solid #333;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-    min-width: 280px;
+    flex: 1 1 300px;
+    background-color: #363D56;
+    border-radius: 1rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
 }
 
-.table-container h2 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-    font-weight: normal;
-}
-
 .table-wrapper {
+    overflow-y: auto;
     flex-grow: 1;
-    overflow: hidden;
 }
 
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #494958;
-    font-size: 0.8rem;
+    background-color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.data-table th, .data-table td {
+    padding: 0.5rem;
+    border: 1px solid #000;
+    text-align: center;
+    color: #000;
 }
 
 .data-table th {
     background-color: #252531;
-    padding: 0.3rem;
-    text-align: left;
-    border: 0.05rem solid #ffffff;
-    font-weight: bold;
+    color: #fff;
 }
 
-.data-table td {
-    padding: 0.3rem;
-    border: 0.05rem solid #666;
-}
-
-.data-table tbody tr:nth-child(even) {
-    background-color: #363644;
-}
-
-.danger {
-    color: #cc0000;
-}
-
-.warning {
-    color: #ffd700;
-}
-
-.success {
-    color: #00cc00;
+.data-table tr:nth-child(even) {
+    background-color: #fff;
 }
 
 #secao-graficos {
+    flex: 1;
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    height: 42%; /* Increased from 40% to 42% to accommodate sidebar labels */
 }
 
 .grafico-container {
     flex: 1;
-    background-color: #333333;
-    border: 0.05rem solid #333;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-    min-width: 280px;
+    background-color: #363D56;
+    border-radius: 1rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-}
-
-.grafico-container h2 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
 }
 
 #grafico {
     flex-grow: 1;
     width: 100%;
+    min-height: 300px;
 }
 
-.tabela-resumo-container {
-    flex: 1;
-    background-color: #333333;
-    border: 0.05rem solid #333;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-}
-
-.tabela-resumo-container h2 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-}
-
-.summary-table {
-    flex-grow: 1;
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 2000;
 }
 
-.summary-table .table-wrapper {
-    flex-grow: 1;
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 1rem;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 0.5rem;
+    color: #000;
+}
+
+@media (max-width: 1024px) {
+    #painel-controle {
+        width: calc(100vw - 4rem);
+        margin-left: 4rem;
+    }
+    .metric-card {
+        height: 110px;
+    }
 }
 
 @media (max-width: 768px) {
-    #painel-controle {
-        padding: 0.3rem;
+    .navbar {
+        height: 3.5rem;
     }
-
-    #secao-metricas,
-    #secao-tabelas,
-    #secao-graficos {
-        flex-direction: column;
-        gap: 0.3rem;
+    .barra-lateral {
+        width: 100%;
         height: auto;
+        top: 3.5rem;
     }
-
-    .metric-card,
-    .table-container,
-    .grafico-container,
-    .tabela-resumo-container {
+    #painel-controle {
+        width: 100vw;
+        margin-left: 0;
+        margin-top: 7rem;
+        min-height: calc(100vh - 7rem);
+    }
+    #secao-metricas, #secao-tabelas {
+        flex-direction: column;
+    }
+    .metric-card, .table-container {
         min-width: 100%;
+        max-width: 100%;
     }
-
-    .metric-card h3 {
-        font-size: 0.8rem;
-    }
-
-    .metric-value {
-        font-size: 1.5rem;
-    }
-
-    .data-table {
-        font-size: 0.7rem;
-    }
-
-    .table-container h2,
-    .grafico-container h2,
-    .tabela-resumo-container h2 {
-        font-size: 0.9rem;
+    .grafico-container {
+        min-height: 250px;
     }
 }

@@ -1,89 +1,40 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     var options = {
         chart: {
             type: 'bar',
             height: '100%',
-            width: '100%',
-            toolbar: {
-                show: false
-            },
-            foreColor: '#ffff',
-            fontSize: '30px',
-        },
-        responsive: [{
-            breakpoint: 768,
-            options: {
-                chart: {
-                    height: '100%'
-                },
-                legend: {
-                    position: 'bottom',
-                    fontSize: '8px'
-                },
-                dataLabels: {
-                    style: {
-                        fontSize: '6px'
-                    }
-                },
-                xaxis: {
-                    labels: {
-                        style: {
-                            fontSize: '8px'
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            fontSize: '8px'
-                        }
-                    }
-                }
-            }
-        }],
-        series: [
-            {
-                name: 'Alertas Atrasados',
-                data: [6, 4, 2]
-            },
-            {
-                name: 'Alertas Totais',
-                data: [8, 8, 8]
-            }
-        ],
-        xaxis: {
-            categories: ['Data Center 1', 'Data Center 3', 'Data Center 2'],
-            labels: {
-                style: {
-                    fontSize: '15px'
-                }
-            }
-        },
-        yaxis: {
-            labels: {
-                style: {
-                    fontSize: '15px'
-                }
-            }
+            parentHeightOffset: 0,
+            toolbar: { show: false },
+            animations: { enabled: false }
         },
         plotOptions: {
             bar: {
-                horizontal: false,
-                columnWidth: '50%',
-                endingShape: 'rounded'
+                borderRadius: 4,
+                columnWidth: '45%',
             }
         },
-        dataLabels: {
-            enabled: true,
-            style: {
-                fontSize: '13px'
-            }
+        dataLabels: { enabled: true },
+        series: [
+            { name: 'Alertas Totais', data: [8, 8, 8] },
+            { name: 'Alertas Atrasados', data: [6, 4, 2] }
+        ],
+        xaxis: {
+            categories: ['Data Center 1', 'Data Center 3', 'Data Center 2'],
+            labels: { style: { colors: '#fff' } }
+        },
+        yaxis: {
+            labels: { style: { colors: '#fff' } },
+            forceNiceScale: true
         },
         legend: {
             position: 'top',
-            fontSize: '15px'
+            labels: { colors: '#fff' }
         },
-        colors: ['#cc0000', '#00cc00']
+        colors: ['#00cc00', '#cc0000'],
+        grid: {
+            padding: { top: 20, right: 20, bottom: 0, left: 20 },
+            borderColor: 'rgba(255, 255, 255, 0.1)'
+        }
     };
 
     var chart = new ApexCharts(document.querySelector("#grafico"), options);

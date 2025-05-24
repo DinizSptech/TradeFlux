@@ -1,38 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="../css/dash.css"> -->
+    <title>Dashboard de Alertas</title>
+    <link rel="stylesheet" href="../css/admDatacenter.css">
     <link rel="stylesheet" href="../css/barra_lateral.css">
     <script src="../js/barra_lateral.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../js/admDatacenterjs.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body onload="carregarMenuLateral()">
     <div class="navbar">
-    <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
-    <div class="container_perfil_menu" id="modal_perfil">
-      <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
-      <span class="barraVertical"></span>
-      <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
-      <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
-      <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
-      <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        <div class="container_perfil_menu" id="modal_perfil">
+            <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
+            <span class="barraVertical"></span>
+            <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
+                <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
+                <img class="imgPerfil" id="jenniferADM2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
+                <img class="imgPerfil" id="juliaAnalista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
     </div>
-  </div>
-    <div id="barralateral" class="barra-lateral">
+    <div id="barralateral" class="barra-lateral"></div>
+    
+    <div id="painel-controle" class="dashboard">
+        <div id="secao-metricas" class="header-metrics">
+            <div id="cartao-filtro" class="metric-card filter-card">
+                <div class="botoes-filtro">
+                    <button class="botao-filtro">Últimas 24 horas</button>
+                    <button class="botao-filtro">Últimos 7 dias</button>
+                    <button class="botao-filtro">Últimos 30 dias</button>
+                </div>
+                <h3>Selecione intervalo de tempo</h3>
+            </div>
+            <div id="cartao-alertas" class="metric-card alert-card">
+                <div class="metric-value danger">6</div>
+                <h3>Alertas fora do tempo ideal de resolução</h3>
+            </div>
+            <div id="cartao-tempo" class="metric-card time-card">
+                <div class="metric-value warning">00:07:00</div>
+                <h3>Tempo médio de resolução em todos Data Centers</h3>
+            </div>
+        </div>
 
+        <div id="modal-alerta" class="modal">
+            <div>
+                <button class="botao-fechar" onclick="abrirFecharLegendaAlertas()">X</button>
+            </div>
+            <div id="modal-content" class="modal-content">  
+                Ideal: <b style="color: green;">0</b>
+                <br>
+                Tolerável: <b style="color: yellow;">1 á 3</b>
+                <br>
+                Crítico: <b style="color: red;">4 ou mais</b>
+            </div>
+        </div>
+
+        <div id="modal-tempo" class="modal">
+            <div>
+                <button class="botao-fechar" onclick="abrirFecharLegendaTempo()">X</button>
+            </div>
+            <div id="modal-content" class="modal-content">  
+                Ideal: <b style="color: green;">menos de 00:05:00</b>
+                <br>
+                Tolerável: <b style="color: yellow;">de 00:05:00 á 00:06:00</b>
+                <br>
+                Crítico: <b style="color: red;">mais de 00:06:00</b>
+            </div>
+        </div>
+
+        <div id="secao-tabelas" class="tables-section">
+            <div id="container-top-alertas" class="table-container">
+                <h2>Top 5 Alertas com maior atraso na resolução</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-alertas" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Data-hora</th>
+                                <th>Temp. de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>dados</td><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td><td>dados</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="container-top-datacenters" class="table-container">
+                <h2>Top 3 Data Centers com maior média de tempo de resolução dos alertas</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-datacenters" class="data-table">
+                        <thead>
+                            <tr><th>Data Center</th><th>Temp. de Resolução</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td></tr>
+                            <tr><td>dados</td><td>dados</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="secao-graficos" class="charts-section">
+            <div id="grafico-container" class="grafico-container">
+                <h2>Top 3 Data Centers com maior número de atrasos</h2>
+                <div id="grafico" class="grafico"></div>
+            </div>
+        </div>
     </div>
-    <main>
-
-    </main>
 </body>
 </html>
