@@ -32,9 +32,12 @@ body{
     font-weight: bold;
 }
 
+.periodo button.ativo{
+    background-color: #6f7db0;
+}
+
 .botaoTempo:hover{
     background-color: #6f7db0;
-    font-size: 17px;
     cursor: pointer;
 }
 
@@ -149,4 +152,98 @@ td {
     border-radius: 1vw;
     width: 58vw;
      max-height: 25vw;
+}
+
+
+.modal{
+    flex-direction: column;
+    height: 35vw;
+    width: 60vw;
+    background-color: #23283A;
+    z-index: 100;
+    border-radius: 1vw;
+    border: solid 2px #898989;
+    position: absolute;
+    left: 22vw;
+    top: 5vw;
+     animation: fadeIn 0.5s both;
+}
+
+.linha1Modal{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1vw;
+}
+
+.fa-xmark{
+    font-size: 3vh;
+}
+
+.fa-xmark:hover{
+    color: #ff0000;
+    cursor: pointer;
+}
+
+
+.servidorETempo{
+    display: flex;
+    justify-content: space-between;
+      padding-left: 1vw;
+      padding-right: 1vw;
+    font-weight: bold;
+    color: #cccccc;
+}
+
+.contentModal{
+    display: flex;
+}
+
+.kpisModal{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 28vw;
+    padding-left: 1vw;
+}
+
+.graficosModal{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+.grafico4{
+    display: flex;
+    flex-direction: column;
+    height: 10vw;
+    width: 43vw;
+    
+}
+
+.grafico5{
+    display: flex;
+    flex-direction: column;
+    height: 12vw;
+    width: 43vw;
+    
+}
+
+.tituloModal{
+    font-size: 3vh;
+    padding-left: 1vw;
+    font-weight: bolder;
+    color: #cccccc;
+}
+
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* preto com transparência */
+  display: none;
+  z-index: 99; /* abaixo do modal */
 }

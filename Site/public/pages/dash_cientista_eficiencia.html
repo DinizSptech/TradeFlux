@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Dashboard Efeciência</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <link rel="stylesheet" href="../css/dash_cientista_eficiencia.css">
   <link rel="stylesheet" href="../css/barra_lateral.css">
   <script src="../js/barra_lateral.js" defer></script>
@@ -36,12 +36,61 @@
   </div>
   <div id="barralateral" class="barra-lateral"></div>
   <main>
+
+     <!-- Modal de servidor -->
+
+     <div id="backdrop" class="backdrop"></div>
+
+    <div class="modal" id="modalServidor" style="display: none;">
+      <div class="linha1Modal">
+        <span class="titulo" id="servidorModal" style="color: white;"></span>
+        <i onclick="fecharModal()" class="fa-solid fa-xmark"></i>
+      </div>
+      <div class="servidorETempo">
+        <span id="infoServidorModal"></span>
+        <div class="periodo" style="display: flex; flex-direction: row; justify-content: space-between; width: 30%;">
+          <button onclick="ativarBotao(this)" id="7dias" class="botaoTempo"> 7 dias </button>
+          <button onclick="ativarBotao(this)" id="30dias" class="botaoTempo"> 30 dias </button>
+          <button onclick="ativarBotao(this)" id="6meses" class="botaoTempo"> 6 meses </button>
+        </div>
+      </div>
+      <div class="contentModal">
+        <div class="kpisModal">
+          <div class="kpi" style="width: 15vw;">
+            <span class="textKpi">Tempo em alerta:</span>
+            <span id="tempoAlerta" class="metricaKpi"> 2d 4h</span>
+            <div id="indicadorKpi1" class="indicador">Ideal</div>
+          </div>
+          <div class="kpi" style="width: 15vw;">
+            <span class="textKpi">Tempo ocioso:</span>
+            <span id="tempoOcioso" class="metricaKpi"></span>
+            <div id="indicadorKpi2" class="indicador"></div>
+          </div>
+          <div class="kpi" style="width: 15vw;">
+            <span class="textKpi">Tempo estável:</span>
+            <span id="tempoEstavel" class="metricaKpi"></span>
+            <div id="indicadorKpi3" class="indicador"></div>
+          </div>
+        </div>
+        <div class="graficosModal">
+          <div class="grafico4">
+            <span class="tituloModal">Percentual de ociosidade ao longo do tempo</span>
+            <div id="chart4"></div>
+          </div>
+          <div class="grafico5">
+            <span class="tituloModal">Desempenho dos componentes em horas</span>
+            <div id="chart5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="main">
       <div class="kpis">
         <div class="periodo">
-          <button id="7dias" class="botaoTempo"> 7 dias </button>
-          <button id="30dias" class="botaoTempo"> 30 dias </button>
-          <button id="6meses" class="botaoTempo"> 6 meses </button>
+          <button onclick="ativarBotao(this)" id="7dias" class="botaoTempo"> 7 dias </button>
+          <button onclick="ativarBotao(this)" id="30dias" class="botaoTempo"> 30 dias </button>
+          <button onclick="ativarBotao(this)" id="6meses" class="botaoTempo"> 6 meses </button>
         </div>
         <div class="kpi">
           <span class="textKpi">Média de ociosidade por servidor</span>
@@ -60,9 +109,9 @@
         </div>
       </div>
       <div class="content1">
-      <div class="tabela">
-        <span class="titulo">5 servidores mais ociosos</span>
-       <table id="tabelaOcioso" class="tabelaDados">
+        <div class="tabela">
+          <span class="titulo">5 servidores mais ociosos</span>
+          <table id="tabelaOcioso" class="tabelaDados">
             <thead>
               <!-- <tr>
                 <th>Servidor</th>
@@ -71,32 +120,26 @@
             </thead>
             <tbody id="bodyTabela"></tbody>
           </table>
-          </div>
-                <div class="grafico3">
-            <span class="titulo">Desempenho dos componentes em horas </span>
-            <div id="chart3"></div>
-          </div>
-      
         </div>
-        <div class="content2">
-           <div class="grafico2">
-            <span class="titulo">Média percentual de desempenho </span>
-            <div id="chart2"></div>
-          </div>
-         <div class="grafico1">
-            <span class="titulo">Percentual de ociosidade ao longo do tempo</span>
-            <div id="chart"></div>
-          </div>
+        <div class="grafico3">
+          <span class="titulo">Desempenho dos componentes em horas </span>
+          <div id="chart3"></div>
+        </div>
+
+      </div>
+      <div class="content2">
+        <div class="grafico2">
+          <span class="titulo">Média percentual de desempenho </span>
+          <div id="chart2"></div>
+        </div>
+        <div class="grafico1">
+          <span class="titulo">Percentual de ociosidade ao longo do tempo</span>
+          <div id="chart"></div>
         </div>
       </div>
-       
-      <!-- Modal de servidor -->
-
-      <div class="modal">
-        
-      </div>
-
     </div>
+
+   
   </main>
 </body>
 
@@ -106,40 +149,48 @@
 
 <script>
 
+  function ativarBotao(botaoClicado) {
+  const botoes = document.querySelectorAll('.periodo button');
+  botoes.forEach(botao => botao.classList.remove('ativo')); 
+  botaoClicado.classList.add('ativo'); 
+}
+
+
+
   // tabela de servidores
   var servidores = [
     {
-     servidor: "Servidor 4",
-     tempo: "25d 6h"
+      servidor: "Servidor 4",
+      tempo: "25d 6h"
     },
 
-     {
-     servidor: "Servidor 6",
-     tempo: "22d 6h"
+    {
+      servidor: "Servidor 6",
+      tempo: "22d 6h"
     },
 
-     {
-     servidor: "Servidor 7",
-     tempo: "18d 6h"
+    {
+      servidor: "Servidor 7",
+      tempo: "18d 6h"
     },
 
-     {
-     servidor: "Servidor 1",
-     tempo: "14d 6h"
+    {
+      servidor: "Servidor 1",
+      tempo: "14d 6h"
     },
 
-     {
-     servidor: "Servidor 9",
-     tempo: "7d 3h"
+    {
+      servidor: "Servidor 9",
+      tempo: "7d 3h"
     },
-    
+
   ];
 
 
 
-    //grafico 1
+  //grafico 1
   var ociosidadeTempoValores = [45, 52, 38, 45, 19, 23, 2]
-  var ociosidadeTempo =  ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan"]
+  var ociosidadeTempo = ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan"]
 
   // grafico 2
   var ociosidadePercentual = [60, 27, 13]
@@ -148,6 +199,14 @@
   var estavelComponentes = [44, 55, 57]
   var ociosoComponentes = [76, 85, 101]
   var alertaComponentes = [35, 41, 36]
+
+  
+  var infoServidorModalT = "Procesador: i5 - RAM total: 32GB  - Disco Total: 500GB"
+
+ 
+  infoServidorModal.innerHTML += infoServidorModalT
+
+
 
 
   function carregarServidores() {
@@ -166,177 +225,311 @@
       bodyTabela.innerHTML += `
             <tr>
             <td>${servidores[i].servidor}</td>
-            <td>${servidores[i].tempo} <i class="fa-solid fa-circle-info"></i></td>
+            <td>${servidores[i].tempo} <i onclick="abrirModalServidor('${servidores[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
              `;
     }
 
   }
+function abrirModalServidor(servidor) {
+  servidorModal.innerHTML = servidor
+  const modalServidor = document.getElementById('modalServidor'); // ou outro seletor
+  modalServidor.style.display = "flex";
+   document.getElementById('backdrop').style.display = 'block';
 
-var options = {
-  chart: {
-    type: "area",
-    width: '100%',   // 100% do div grafico1
-    height: '100%',
-    foreColor: '#ffffff',  // cor do texto clara
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false
-      }
-    }
-  },
-  colors: ['#FFB133'], // cor da linha (e do preenchimento também)
-  dataLabels: {
-    enabled: false
-  },
-  series: [
-    {
-      name: "Series 1",
-      data: ociosidadeTempoValores
-    }
-  ],
-  fill: {
-    type: "gradient",
-   
-  },
-  xaxis: {
-    categories: ociosidadeTempo,
-    labels: {
-      style: {
-        colors: '#ffffff' // texto dos rótulos do eixo x
-      }
-    }
-  },
-  yaxis: {
-    labels: {
-      style: {
-        colors: '#ffffff' // texto dos rótulos do eixo y
-      }
-    }
-  },
-  grid: {
-    borderColor: '#444' // cor discreta para a grade
-  },
-  tooltip: {
-    enabled: true,
-    theme: 'dark' // tooltip escura
-  }
-};
+}
 
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-chart.render();
+function fecharModal() {
+  document.getElementById('modalServidor').style.display = 'none';
+  document.getElementById('backdrop').style.display = 'none';
+}
 
-      var options2 = {
-        series: ociosidadePercentual,
-        labels: ['Estável', 'Ocisoso', 'Alerta'],
-        chart: {
-          width: '100%',
-           height: '100%',
-          type: 'pie',
-          background: 'transparent',
-          foreColor: '#000000', // cor do texto
-          
-        },
-        colors: ['#00B276', '#FFB133', '#FF4A4D'], // cores personalizadas dos pedaços
-        tooltip: {
-          theme: 'dark' // tooltip escura
-        },
-         dataLabels: {
-        enabled: true,
+document.getElementById('backdrop').addEventListener('click', fecharModal);
+
+
+  var options = {
+    chart: {
+      type: "area",
+      width: '100%',   // 100% do div grafico1
+      height: '100%',
+      foreColor: '#ffffff',  // cor do texto clara
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      }
+    },
+    colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+    dataLabels: {
+      enabled: false
+    },
+    series: [
+      {
+        name: "Series 1",
+        data: ociosidadeTempoValores
+      }
+    ],
+    fill: {
+      type: "gradient",
+
+    },
+    xaxis: {
+      categories: ociosidadeTempo,
+      labels: {
         style: {
+          colors: '#ffffff' // texto dos rótulos do eixo x
+        }
+      }
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#ffffff' // texto dos rótulos do eixo y
+        }
+      }
+    },
+    grid: {
+      borderColor: '#444' // cor discreta para a grade
+    },
+    tooltip: {
+      enabled: true,
+      theme: 'dark' // tooltip escura
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart"), options);
+  chart.render();
+
+  var options2 = {
+    series: ociosidadePercentual,
+    labels: ['Estável', 'Ocisoso', 'Alerta'],
+    chart: {
+      width: '100%',
+      height: '100%',
+      type: 'pie',
+      background: 'transparent',
+      foreColor: '#000000', // cor do texto
+
+    },
+    colors: ['#00B276', '#FFB133', '#FF4A4D'], // cores personalizadas dos pedaços
+    tooltip: {
+      theme: 'dark' // tooltip escura
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
         colors: ['#242d4a'],// muda a cor da % sobre as fatias
         fontSize: '12px'
+      },
+      dropShadow: {
+        enabled: false  // REMOVE a sombra
+      }
+    },
+    legend: {
+      labels: {
+        colors: '#ffffff' // cor da legenda
+      }
+    },
+    stroke: {
+      show: false
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
         },
-          dropShadow: {
-    enabled: false  // REMOVE a sombra
-  }
-  },
         legend: {
-          labels: {
-            colors: '#ffffff' // cor da legenda
-          }
-        },
-        stroke: {
-          show: false
-                },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-      };
-
-
-        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
-        chart2.render();
-
-
-
-
-        var options3 = {
-          series: [{
-          name: 'Estável',
-          data: estavelComponentes
-        }, {
-          name: 'Ocioso',
-          data: ociosoComponentes
-        }, {
-          name: 'Alerta',
-          data: alertaComponentes
-        }],
-          colors: ['#00B276', '#FFB133', '#FF4A4D'],
-          chart: {
-          type: 'bar',
-          height: 350,
-          foreColor: '#fff',
-            width: '100%',
-           height: '100%'
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: '55%',
-            borderRadius: 3,
-            borderRadiusApplication: 'end'
-          },
-        },
-       
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ['transparent']
-        },
-        xaxis: {
-          categories: ['CPU', 'RAM', 'DISCO'],
-        },
-        yaxis: {
-          title: {
-            text: 'Horas'
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        tooltip: {
-         theme: 'dark'
+          position: 'bottom'
         }
-        };
+      }
+    }]
+  };
 
-        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
-        chart3.render();
-      
+
+  var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+  chart2.render();
+
+
+
+
+  var options3 = {
+    series: [{
+      name: 'Estável',
+      data: estavelComponentes
+    }, {
+      name: 'Ocioso',
+      data: ociosoComponentes
+    }, {
+      name: 'Alerta',
+      data: alertaComponentes
+    }],
+    colors: ['#00B276', '#FFB133', '#FF4A4D'],
+    chart: {
+      type: 'bar',
+      height: 350,
+      foreColor: '#fff',
+      width: '100%',
+      height: '100%'
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '55%',
+        borderRadius: 0,
+        borderRadiusApplication: 'end'
+      },
+    },
+
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: ['CPU', 'RAM', 'DISCO'],
+    },
+    yaxis: {
+      title: {
+        text: 'Horas'
+      }
+    },
+    fill: {
+      opacity: 1
+    },
+    tooltip: {
+      theme: 'dark'
+    }
+  };
+
+  var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+  chart3.render();
+
+
+
+
+  // Graficos modal
+
+  var options4 = {
+    chart: {
+      type: "area",
+      width: '100%',   // 100% do div grafico1
+      height: '100%',
+      foreColor: '#ffffff',  // cor do texto clara
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      }
+    },
+    colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+    dataLabels: {
+      enabled: false
+    },
+    series: [
+      {
+        name: "Series 1",
+        data: ociosidadeTempoValores
+      }
+    ],
+    fill: {
+      type: "gradient",
+
+    },
+    xaxis: {
+      categories: ociosidadeTempo,
+      labels: {
+        style: {
+          colors: '#ffffff' // texto dos rótulos do eixo x
+        }
+      }
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#ffffff' // texto dos rótulos do eixo y
+        }
+      }
+    },
+    grid: {
+      borderColor: '#444' // cor discreta para a grade
+    },
+    tooltip: {
+      enabled: true,
+      theme: 'dark' // tooltip escura
+    }
+  };
+
+  var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+  chart4.render();
+
+
+  var options5 = {
+    series: [{
+      name: 'Estável',
+      data: estavelComponentes
+    }, {
+      name: 'Ocioso',
+      data: ociosoComponentes
+    }, {
+      name: 'Alerta',
+      data: alertaComponentes
+    }],
+    colors: ['#00B276', '#FFB133', '#FF4A4D'],
+    chart: {
+      type: 'bar',
+      height: 350,
+      foreColor: '#fff',
+      width: '100%',
+      height: '100%'
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '55%',
+        borderRadius: 0,
+        borderRadiusApplication: 'end'
+      },
+    },
+
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: ['CPU', 'RAM', 'DISCO'],
+    },
+    yaxis: {
+      title: {
+        text: 'Horas'
+      }
+    },
+    fill: {
+      opacity: 1
+    },
+    tooltip: {
+      theme: 'dark'
+    }
+  };
+
+  var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+  chart5.render();
+
+
 
 
 </script>
