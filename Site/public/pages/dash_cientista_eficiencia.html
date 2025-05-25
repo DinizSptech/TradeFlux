@@ -59,17 +59,17 @@
           <div class="kpi" style="width: 15vw;">
             <span class="textKpi">Tempo em alerta:</span>
             <span id="tempoAlerta" class="metricaKpi"> 2d 4h</span>
-            <div id="indicadorKpi1" class="indicador">Ideal</div>
+            <div id="indicadorKpi1Modal" class="indicador">Ideal</div>
           </div>
           <div class="kpi" style="width: 15vw;">
             <span class="textKpi">Tempo ocioso:</span>
             <span id="tempoOcioso" class="metricaKpi"></span>
-            <div id="indicadorKpi2" class="indicador"></div>
+            <div id="indicadorKpi2Modal" class="indicador"></div>
           </div>
           <div class="kpi" style="width: 15vw;">
             <span class="textKpi">Tempo estável:</span>
             <span id="tempoEstavel" class="metricaKpi"></span>
-            <div id="indicadorKpi3" class="indicador"></div>
+            <div id="indicadorKpi3Modal" class="indicador"></div>
           </div>
         </div>
         <div class="graficosModal">
@@ -88,14 +88,14 @@
     <div class="main">
       <div class="kpis">
         <div class="periodo">
-          <button onclick="ativarBotao(this)" id="7dias" class="botaoTempo"> 7 dias </button>
-          <button onclick="ativarBotao(this)" id="30dias" class="botaoTempo"> 30 dias </button>
-          <button onclick="ativarBotao(this)" id="6meses" class="botaoTempo"> 6 meses </button>
+          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral()" id="7dias" class="botaoTempo"> 7 dias </button>
+          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral()" id="30dias" class="botaoTempo"> 30 dias </button>
+          <button onclick="ativarBotao(this, '6meses'); kpi1_geral(); kpi2_geral()" id="6meses" class="botaoTempo"> 6 meses </button>
         </div>
         <div class="kpi">
           <span class="textKpi">Média de ociosidade por servidor</span>
-          <span id="mediaOciosidade" class="metricaKpi"> 2d 4h</span>
-          <div id="indicadorKpi1" class="indicador">Ideal</div>
+          <span id="mediaOciosidade" class="metricaKpi"></span>
+          <div id="indicadorKpi1"></div>
         </div>
         <div class="kpi">
           <span class="textKpi">Componente mais ocioso</span>
@@ -104,7 +104,7 @@
         </div>
         <div class="kpi">
           <span class="textKpi">Servidores com 50% ou mais de ociosidade</span>
-          <span id="50ouMaisOciosidade" class="metricaKpi"></span>
+          <span id="50ouMaisOciosidade" class="metricaKpi">12</span>
           <div id="indicadorKpi3" class="indicador"></div>
         </div>
       </div>
@@ -129,7 +129,7 @@
       </div>
       <div class="content2">
         <div class="grafico2">
-          <span class="titulo">Média percentual de desempenho </span>
+          <span class="titulo">Distribuição do tempo de desempenho do datacenter</span>
           <div id="chart2"></div>
         </div>
         <div class="grafico1">
@@ -149,10 +149,11 @@
 
 <script>
 
-  function ativarBotao(botaoClicado) {
+  function ativarBotao(botaoClicado, tempo) {
   const botoes = document.querySelectorAll('.periodo button');
   botoes.forEach(botao => botao.classList.remove('ativo')); 
   botaoClicado.classList.add('ativo'); 
+  sessionStorage.setItem("botaoTempo", tempo); 
 }
 
 
@@ -160,36 +161,203 @@
   // tabela de servidores
   var servidores = [
     {
-      servidor: "Servidor 4",
-      tempo: "25d 6h"
+      servidor: "4",
+      tempo: "25d 6h",
+      percentualAcima: 48
     },
 
     {
-      servidor: "Servidor 6",
-      tempo: "22d 6h"
+      servidor: "6",
+      tempo: "22d 6h",
+      percentualAcima: 41
     },
 
     {
-      servidor: "Servidor 7",
-      tempo: "18d 6h"
+      servidor: "7",
+      tempo: "18d 6h",
+      percentualAcima: 35
     },
 
     {
-      servidor: "Servidor 1",
-      tempo: "14d 6h"
+      servidor: "1",
+      tempo: "14d 6h",
+      percentualAcima: 32
     },
 
     {
-      servidor: "Servidor 9",
-      tempo: "7d 3h"
+      servidor: "9",
+      tempo: "7d 3h",
+      percentualAcima: 16
     },
 
   ];
 
+// mediaOciosidade
+// componenteOciosidade
+// 50ouMaisOciosidade
+
+mediaOciosidadeServidor = [32, 151, 257]
+
+
+mediaOciosidadeComponente = [
+  {cpu: 28,
+   ram: 18, 
+   disco: 25
+   },
+  {cpu: 38,
+   ram: 12, 
+   disco: 29
+   },
+  {cpu: 25,
+   ram: 8, 
+   disco: 32
+   },
+  ]
+
+ociosidade50 = [27, 18, 12]
+
+  function kpi1_geral(){
+    tempo = sessionStorage.botaoTempo
+    let indicador1 = document.getElementById("indicadorKpi1");
+    let indicador3 = document.getElementById("indicadorKpi3");
+
+    minKpi1 = 7 * 24 * 0.1
+    maxKpi1 = 7 * 24 * 0.15
+    minKpi2 = 30 * 24 * 0.1
+    maxKpi2 = 30 * 24 * 0.15
+    minKpi3 = 180 * 24 * 0.1
+    maxKpi3 = 180 * 24 * 0.15
+
+
+    if(tempo == '7dias'){
+      kpi1 = mediaOciosidadeServidor[0]
+
+      if(kpi1 < minKpi1){
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(minKpi1 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+      } else if (kpi1 > maxKpi1) {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi1).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      } else {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ideal")
+          indicadorKpi1.innerHTML = `Ideal`
+      }
+    } else if (tempo == '30dias'){
+
+        kpi1 = mediaOciosidadeServidor[1]
+      
+        if(kpi1 < minKpi2){
+           mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(minKpi2 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        } else if (kpi1 > maxKpi2) {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi2).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      } else {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ideal")
+          indicadorKpi1.innerHTML = `Ideal`
+      }
+    }
+
+    else { 
+
+        kpi1 = mediaOciosidadeServidor[2]
+      
+        if(kpi1 < minKpi3){
+           mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(minKpi3 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        } else if (kpi1 > maxKpi3) {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ruim")
+          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi3).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      } else {
+          mediaOciosidade.innerHTML = `${kpi1}h`;
+          indicador1.classList.add("indicador-ideal")
+          indicadorKpi1.innerHTML = `Ideal`
+      }
+    }
+
+
+
+}
+
+  function kpi2_geral(){
+     tempo = sessionStorage.botaoTempo
+
+     var componentes = []
+     var media = []
+     var percentual = []
+
+    let indicador2 = document.getElementById("indicadorKpi2");
+
+    for (let i = 0; i < mediaOciosidadeComponente.length; i++) {
+    const dados = mediaOciosidadeComponente[i];
+
+  const cpu = dados.cpu;
+  const ram = dados.ram;
+  const disco = dados.disco;
+
+  let maiorComponente = 'CPU';
+  let maiorValor = cpu;
+
+  if (ram > maiorValor) {
+    maiorComponente = 'RAM';
+    maiorValor = ram;
+  }
+  if (disco > maiorValor) {
+    maiorComponente = 'DISCO';
+    maiorValor = disco;
+  }
+
+  let somaOutros = 0;
+  if (maiorComponente === 'CPU') {
+    somaOutros = ram + disco;
+  } else if (maiorComponente === 'RAM') {
+    somaOutros = cpu + disco;
+  } else {
+    somaOutros = cpu + ram;
+  }
+
+  const mediaOutros = somaOutros / 2;
+
+  const percentualAcima = ((maiorValor - mediaOutros) / mediaOutros) * 100;
+      
+    
+
+   componentes.push(maiorComponente)
+   media.push(mediaOutros)
+   percentual.push(percentualAcima)
+
+}
+
+   if(tempo == '7dias'){
+    componenteOciosidade.innerHTML = componentes[0]
+    indicador2.classList.add('indicador-ruim')
+    indicadorKpi2.innerHTML = `${percentual[0].toFixed(1)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
+   } else if (tempo == '30dias'){
+    componenteOciosidade.innerHTML = componentes[1]
+    indicador2.classList.add('indicador-ruim')
+    indicadorKpi2.innerHTML = `${percentual[1].toFixed(1)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
+   } else {
+    componenteOciosidade.innerHTML = componentes[2]
+    indicador2.classList.add('indicador-ruim')
+    indicadorKpi2.innerHTML = `${percentual[1].toFixed(2)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
+   }
+
+  }
+
 
 
   //grafico 1
-  var ociosidadeTempoValores = [45, 52, 38, 45, 19, 23, 2]
+  var ociosidadeTempoCPU = [100, 52, 38, 45, 19, 23, 2]
+  var ociosidadeTempoDisco = [10, 52, 38, 4, 9, 3, 20]
+  var ociosidadeTempoRAM = [1, 2, 38, 45, 91, 28, 20]
   var ociosidadeTempo = ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan"]
 
   // grafico 2
@@ -201,9 +369,9 @@
   var alertaComponentes = [35, 41, 36]
 
   
-  var infoServidorModalT = "Procesador: i5 - RAM total: 32GB  - Disco Total: 500GB"
 
- 
+
+  var infoServidorModalT = "Procesador: i5 - RAM total: 32GB  - Disco Total: 500GB"
   infoServidorModal.innerHTML += infoServidorModalT
 
 
@@ -211,27 +379,22 @@
 
   function carregarServidores() {
     for (var i = 0; i < servidores.length; i++) {
-      let status = servidores[i].status;
+      let status = servidores[i].percentualAcima;
 
-      // let classeStatus = "";
-      // if (status === "Estável") {
-      //   classeStatus = "status-ok";
-      // } else if (status === "Em risco") {
-      //   classeStatus = "status-alerta";
-      // } else if (status === "Crítico") {
-      //   classeStatus = "status-critico";
-      // }
+
 
       bodyTabela.innerHTML += `
             <tr>
-            <td>${servidores[i].servidor}</td>
-            <td>${servidores[i].tempo} <i onclick="abrirModalServidor('${servidores[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
+            <td> Servidor ${servidores[i].servidor}</td>
+            <td>${servidores[i].tempo}</td>
+            
+            <td> <i onclick="abrirModalServidor('${servidores[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
              `;
     }
 
   }
-function abrirModalServidor(servidor) {
-  servidorModal.innerHTML = servidor
+  function abrirModalServidor(servidor) {
+  servidorModal.innerHTML = `Servidor ${servidor}`
   const modalServidor = document.getElementById('modalServidor'); // ou outro seletor
   modalServidor.style.display = "flex";
    document.getElementById('backdrop').style.display = 'block';
@@ -248,7 +411,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
 
   var options = {
     chart: {
-      type: "area",
+      type: "line",
       width: '100%',   // 100% do div grafico1
       height: '100%',
       foreColor: '#ffffff',  // cor do texto clara
@@ -265,18 +428,26 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
         }
       }
     },
-    colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+    // colors: ['#FFB133', '#FFFFFF', '#FF0000'], // cor da linha (e do preenchimento também)
     dataLabels: {
       enabled: false
     },
     series: [
       {
-        name: "Series 1",
-        data: ociosidadeTempoValores
+        name: "CPU",
+        data: ociosidadeTempoCPU
+      },
+      {
+        name: "Disco",
+        data: ociosidadeTempoDisco
+      },
+      {
+        name: "RAM",
+        data: ociosidadeTempoRAM
       }
     ],
     fill: {
-      type: "gradient",
+      type: "solid",
 
     },
     xaxis: {
@@ -295,7 +466,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
       }
     },
     grid: {
-      borderColor: '#444' // cor discreta para a grade
+      borderColor: '#cccccc ' // cor discreta para a grade
     },
     tooltip: {
       enabled: true,
@@ -311,7 +482,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
     labels: ['Estável', 'Ocisoso', 'Alerta'],
     chart: {
       width: '100%',
-      height: '100%',
+      height: '85%',
       type: 'pie',
       background: 'transparent',
       foreColor: '#000000', // cor do texto
@@ -418,7 +589,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
 
   var options4 = {
     chart: {
-      type: "area",
+      type: "line",
       width: '100%',   // 100% do div grafico1
       height: '100%',
       foreColor: '#ffffff',  // cor do texto clara
@@ -446,7 +617,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
       }
     ],
     fill: {
-      type: "gradient",
+      type: "solid",
 
     },
     xaxis: {
@@ -465,7 +636,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
       }
     },
     grid: {
-      borderColor: '#444' // cor discreta para a grade
+      borderColor: '#cccccc' // cor discreta para a grade
     },
     tooltip: {
       enabled: true,
