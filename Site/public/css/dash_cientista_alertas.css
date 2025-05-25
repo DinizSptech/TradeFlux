@@ -1,0 +1,204 @@
+main{
+    color: #e9ecef;
+    display: flex;
+    gap: 1vw;
+}
+.div_kpis{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    max-width: 18vw;
+}
+.kpi_total{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #313255;
+    height: 20vh;
+    width: 18vw;
+    border-radius: 2vh;
+}
+.tituloKPI{
+    padding: 1vh 1vw;
+    display: flex;
+    font-weight: 700;
+    text-align: center;
+}
+.qtd_total{
+    font-size: 6vh;
+    font-weight: 700;
+}
+.painelPrincipal{
+    max-width: 32vw;
+    /* background-color: brown; */
+    margin: 0;
+}
+
+.cabecalho {
+            text-align: center;
+            margin-bottom: 2.5vh;
+        }
+        
+        .tituloPrincipal {
+            font-size: 3vh;
+            margin-bottom: 1vh;
+        }
+        
+        .painelGrafico {
+            background-color: #2d3250;
+            border-radius: 0.8vh;
+            padding: 1vh 1vw;
+            box-shadow: 0 0.4vh 1vh rgba(0, 0, 0, 0.3);
+            margin-bottom: 2vh;
+        }
+
+        .menuAbasTipo {
+            display: flex;
+            justify-content: center;
+            gap: 1vw;
+            margin-top: 2vh;
+            margin-bottom: 2vh;
+        }
+        
+        .botaoTipoAlerta {
+            padding: 1vh 2vw;
+            background-color: #424769;
+            color: #e9ecef;
+            font-size: 2vh;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.4vh;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .botaoTipoAlerta:hover {
+            background-color: #5c5f9c;
+        }
+        
+        .botaoTipoAlerta.ativo {
+            background-color: #4361ee;
+        }
+        
+        .cabecalhoDiasSemana {
+            display: flex;
+            margin-bottom: 0.5vh;
+        }
+        
+        .nomeDiaSemana {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            padding: 0.5vh 0;
+            font-size: 2vh;
+        }
+        
+        #calendarioAlertas {
+            padding: 1vh 0;
+            width: 100%;
+        }
+        
+        .linhaCalendario {
+            display: flex;
+            margin-bottom: 0.5vh;
+            width: 100%;
+        }
+        
+        .celulaCalendario {
+            flex: 1;
+            height: 9vh;
+            width: 4.5vw;
+            border: 0.3vh solid #4d5061;
+            position: relative;
+            border-radius: 0.3vh;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 3vh;
+            box-sizing: border-box;
+        }
+        
+        .numeroDiaCelula {
+            position: absolute;
+            top: 0.2vh;
+            left: 0.5vh;
+            font-size: 1.6vh;
+            color: #000;
+        }
+        
+
+        .secaoLegenda {
+            margin-top: 0vh;
+            text-align: center;
+        }
+        
+        .tituloLegenda {
+            margin-block-start: 0;
+            font-size: 3vh;
+            margin-bottom: 1vh;
+        }
+        
+        .itensLegendaGrupo {
+            display: flex;
+            justify-content: center;
+            gap: 1vw;
+            flex-wrap: wrap;
+            margin-top: 1vh;
+        }
+        
+        .itemLegenda {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8vh;
+        }
+        
+        .corLegenda {
+            width: 2vh;
+            height: 2vh;
+            margin-right: 0.8vw;
+            border-radius: 0.3vh;
+        }
+
+        /* Tooltip estilizado */
+        .balaoInfoDia {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 0.4vh;
+            padding: 1vh;
+            box-shadow: 0 0.3vh 0.8vh rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            z-index: 100;
+            min-width: 10vw;
+            display: none;
+        }
+        
+        .tituloBalaoInfo {
+            font-weight: bold;
+            margin-bottom: 0.5vh;
+            font-size: 2vh;
+        }
+        
+        .conteudoBalaoInfo {
+            font-size: 1.5vh;
+            line-height: 1.4;
+        }
+        
+        .itemAlertaBalao {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3vh;
+        }
+        
+        .rotuloAlertaBalao {
+            margin-right: 1vw;
+        }
+
+        .div2{
+            height: 20vh;
+            width: 20vw;
+            background-color: aqua;
+        }

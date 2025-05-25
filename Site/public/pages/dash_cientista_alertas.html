@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link
+    <!-- <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="../css/dash.css"> -->
+    
+    <!-- IMPORT JS E CSS DOS GRÁFICOS DA DASH -->
+    <link rel="stylesheet" href="../css/dash_cientista_alertas.css">
+    <script src="../js/dash_cientista_alertas.js" defer></script>
+
+    <!-- IMPORT BARRA LATERAL -->
     <link rel="stylesheet" href="../css/barra_lateral.css">
     <script src="../js/barra_lateral.js" defer></script>
 </head>
@@ -31,8 +36,104 @@
     <div id="barralateral" class="barra-lateral">
 
     </div>
-    <main>
-
+    <main class="sessao_principal">
+      <div class="div_kpis">
+        <div class="kpi_total">
+          <span class="tituloKPI">Total de alertas de atenção nos últimos 30 dias:</span>
+          <span class="qtd_total">30</span>
+          <span></span>
+        </div>
+        <div class="kpi_total">
+          <span class="tituloKPI">Total de alertas críticos nos últimos 30 dias:</span>
+          <span class="qtd_total">30</span>
+        </div>
+      </div>
+      <div class="painelPrincipal">
+        <header class="cabecalho">
+            <h1 class="tituloPrincipal">Alertas nos últimos 30 dias</h1>
+        </header>
+        
+        <div class="painelGrafico">
+            <div class="menuAbasTipo">
+                <button id="abaAlertasAtencao" class="botaoTipoAlerta ativo">Alertas de Atenção</button>
+                <button id="abaAlertasCriticos" class="botaoTipoAlerta">Alertas Críticos</button>
+            </div>
+            
+            <div id="painelCalendario">
+                <div class="cabecalhoDiasSemana">
+                    <div class="nomeDiaSemana">Dom</div>
+                    <div class="nomeDiaSemana">Seg</div>
+                    <div class="nomeDiaSemana">Ter</div>
+                    <div class="nomeDiaSemana">Qua</div>
+                    <div class="nomeDiaSemana">Qui</div>
+                    <div class="nomeDiaSemana">Sex</div>
+                    <div class="nomeDiaSemana">Sáb</div>
+                </div>
+                <div id="calendarioAlertas"></div>
+            </div>
+            
+            <div class="secaoLegenda">
+                <h3 class="tituloLegenda">Legenda</h3>
+                
+                <div id="legendaAlertasAtencao" class="itensLegendaGrupo">
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #91cc75;"></div>
+                        <span>0 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ffe066;"></div>
+                        <span>1-2 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ffc145;"></div>
+                        <span>3-5 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ffa10a;"></div>
+                        <span>6+ alertas</span>
+                    </div>
+                </div>
+                
+                <div id="legendaAlertasCriticos" class="itensLegendaGrupo" style="display: none;">
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #91cc75;"></div>
+                        <span>0 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ff9e80;"></div>
+                        <span>1-2 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ff6e40;"></div>
+                        <span>3-5 alertas</span>
+                    </div>
+                    <div class="itemLegenda">
+                        <div class="corLegenda" style="background-color: #ff3d00;"></div>
+                        <span>6+ alertas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="balaoInfoAlertas" class="balaoInfoDia">
+            <div class="tituloBalaoInfo">Data: 01/05/2025</div>
+            <div class="conteudoBalaoInfo">
+                <div class="itemAlertaBalao">
+                    <span class="rotuloAlertaBalao">Alertas de Atenção:</span>
+                    <span class="valorAlertaBalao">3</span>
+                </div>
+                <div class="itemAlertaBalao">
+                    <span class="rotuloAlertaBalao">Alertas Críticos:</span>
+                    <span class="valorAlertaBalao">2</span>
+                </div>
+                <div class="itemAlertaBalao">
+                    <span class="rotuloAlertaBalao">Total:</span>
+                    <span class="valorAlertaBalao">5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div2"></div>
     </main>
 </body>
 </html>
