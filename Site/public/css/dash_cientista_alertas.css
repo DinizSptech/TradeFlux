@@ -6,31 +6,143 @@ main{
 .div_kpis{
     display: flex;
     flex-direction: column;
+    margin-top: 8vh;
     gap: 2vh;
     max-width: 18vw;
 }
 .kpi_total{
     display: flex;
     align-items: center;
+    padding: 1vh 1vw;
     justify-content: center;
     flex-direction: column;
     background-color: #313255;
-    height: 20vh;
+    height: 15vh;
     width: 18vw;
     border-radius: 2vh;
 }
 .tituloKPI{
-    padding: 1vh 1vw;
+    font-size: 2vh;
     display: flex;
     font-weight: 700;
     text-align: center;
 }
 .qtd_total{
-    font-size: 6vh;
+    font-size: 4vh;
     font-weight: 700;
 }
+.pctg_aumento{
+    font-size: 2vh;
+}
+.server-status-widget {
+            background: #31364C;
+            border-radius: 1.5vh;
+            padding: 1vh 1vw;
+            width: 20vw;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .server-status-title {
+            color: white;
+            font-size: 2.5vh;
+            font-weight: 700;
+            padding: 0 1vw;
+            text-align: center;
+            margin-bottom: 1vh;
+            line-height: 1.3;
+        }
+
+        .server-status-table {
+            width: 100%;
+            border-radius: 3vh;
+            /* border-collapse: separate; */
+            border-spacing: 0;
+            /* flex: 1; */
+        }
+
+        .server-status-header {
+            color: white;
+            font-size: 2vh;
+            font-weight: 700;
+            text-transform: uppercase;
+            /* letter-spacing: 0.05vw; */
+            padding: 2.5vh 1vw 2.5vh 0;
+            background: #1D2746;
+            text-align: center;
+        }
+
+        .server-status-header:last-child {
+            text-align: right;
+        }
+
+        .server-status-row {
+            background: #31364C;
+            height: auto;
+        }
+
+        .server-status-row + .server-status-row {
+            border-top: 0.3vh solid #1D2746;
+        }
+
+        .server-status-cell {
+            padding: 2.5vh 1vw;
+            vertical-align: middle;
+        }
+
+        .server-status-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2vw;
+        }
+
+        .server-status-icon {
+            width: 2.2vh;
+            height: 2.2vh;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2vh;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .server-status-critical .server-status-icon {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .server-status-warning .server-status-icon {
+            background: #f1c40f;
+            color: white;
+        }
+
+        .server-status-stable .server-status-icon {
+            background: #3498db;
+            color: white;
+        }
+
+        .server-status-text {
+            color: white;
+            font-size: 2vh;
+            font-weight: 700;
+            text-transform: uppercase;
+            /* letter-spacing: 0.03vw; */
+        }
+
+        .server-status-percentage {
+            color: white;
+            font-size: 2.5vh;
+            font-weight: 700;
+            text-align: center;
+        }
+        .server-status-attention{
+            background-color: #1D2746;
+        }
 .painelPrincipal{
-    max-width: 32vw;
+    max-width: 33vw;
     /* background-color: brown; */
     margin: 0;
 }
@@ -197,8 +309,35 @@ main{
             margin-right: 1vw;
         }
 
-        .div2{
-            height: 20vh;
-            width: 20vw;
-            background-color: aqua;
+.container_graficos_alertas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4vh;
+  margin-bottom: 12vh;
+  width: 100%;
+}
+
+        h2 {
+            color: #FFFFFF;
+            margin-bottom: 20px;
         }
+
+        .container_grafico {
+            width: 38vw;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #grafico_alertas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #grafico_servidores {
+            width: 100%;
+            height: 100%;
+        }
+

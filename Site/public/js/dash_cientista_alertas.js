@@ -238,3 +238,77 @@
             const balaoInfo = document.getElementById('balaoInfoAlertas');
             balaoInfo.style.display = 'none';
         }
+
+
+        var opcoes_grafico = {
+            chart: {
+                type: 'bar',
+                background: 'transparent',
+                height: "100%",
+                width: "100%"
+            },
+            colors: ['#f4e027', '#f42e27'],
+            title: {
+                text: "Proporção dos componentes nos alertas dos últimos 30 dias",
+                align: 'center',
+                style: {
+                    color: '#FFFFFF',
+                    fontSize: '16px'
+                }
+            },
+            series: [
+                { name: 'Alertas em Atenção', data: [5, 2, 1, 7, 9] },
+                { name: 'Alertas Críticos', data: [7, 5, 9, 2, 1] }
+            ],
+            xaxis: {
+                categories: ['CPU(%)', 'RAM(%)', 'DISCO(%)', 'Upload na rede', 'Download na rede'],
+                labels: {
+                    style: { colors: '#FFFFFF' }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: { colors: '#FFFFFF' }
+                }
+            }
+        };
+
+        var grafico_alertas = new ApexCharts(document.querySelector("#grafico_alertas"), opcoes_grafico);
+        grafico_alertas.render();
+
+        var opcoes_servidores = {
+            chart: {
+                type: 'bar',
+                background: 'transparent',
+                height: "100%",
+                width: "100%"
+            },
+            colors: ['#F4A027'], // Cor laranja do gráfico
+            title: {
+                text: "5 Servidores com Mais Alertas Críticos nos Últimos 30 Dias",
+                align: 'center',
+                style: {
+                    color: '#FFFFFF',
+                    fontSize: '16px'
+                }
+            },
+            series: [
+                { name: 'Alertas Críticos', data: [5, 2, 1, 7, 9] }
+            ],
+            xaxis: {
+                categories: ['Servidor A', 'Servidor B', 'Servidor C', 'Servidor D', 'Servidor E'],
+                labels: {
+                    style: { colors: '#FFFFFF' }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: { colors: '#FFFFFF' }
+                }
+            }
+        };
+
+        var grafico_servidores = new ApexCharts(document.getElementById("grafico_servidores"), opcoes_servidores);
+        grafico_servidores.render();
+
+

@@ -14,6 +14,7 @@
     <!-- IMPORT JS E CSS DOS GRÁFICOS DA DASH -->
     <link rel="stylesheet" href="../css/dash_cientista_alertas.css">
     <script src="../js/dash_cientista_alertas.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <!-- IMPORT BARRA LATERAL -->
     <link rel="stylesheet" href="../css/barra_lateral.css">
@@ -41,12 +42,53 @@
         <div class="kpi_total">
           <span class="tituloKPI">Total de alertas de atenção nos últimos 30 dias:</span>
           <span class="qtd_total">30</span>
+          <span class="pctg_aumento">Texto de observaçaõ em %</span>
           <span></span>
         </div>
         <div class="kpi_total">
           <span class="tituloKPI">Total de alertas críticos nos últimos 30 dias:</span>
           <span class="qtd_total">30</span>
+          <span class="pctg_aumento">Texto de observaçaõ em %</span>
         </div>
+        <h3 class="server-status-title">Status dos servidores nos últimos 30 dias:</h3>
+        
+        <table class="server-status-table">
+            <thead>
+                <tr>
+                    <th class="server-status-header">STATUS</th>
+                    <th class="server-status-header">(% SERVIDORES)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="server-status-row server-status-critical">
+                    <td class="server-status-cell">
+                        <div class="server-status-item">
+                            <div class="server-status-icon">!</div>
+                            <span class="server-status-text">CRÍTICO</span>
+                        </div>
+                    </td>
+                    <td class="server-status-cell server-status-percentage">5%</td>
+                </tr>
+                <tr class="server-status-row server-status-warning">
+                    <td class="server-status-cell server-status-attention">
+                        <div class="server-status-item">
+                            <div class="server-status-icon">!</div>
+                            <span class="server-status-text">ATENÇÃO</span>
+                        </div>
+                    </td>
+                    <td class="server-status-cell server-status-percentage server-status-attention">20%</td>
+                </tr>
+                <tr class="server-status-row server-status-stable">
+                    <td class="server-status-cell">
+                        <div class="server-status-item">
+                            <div class="server-status-icon">✓</div>
+                            <span class="server-status-text">ESTÁVEL</span>
+                        </div>
+                    </td>
+                    <td class="server-status-cell server-status-percentage">75%</td>
+                </tr>
+            </tbody>
+        </table>
       </div>
       <div class="painelPrincipal">
         <header class="cabecalho">
@@ -133,7 +175,15 @@
             </div>
         </div>
     </div>
-    <div class="div2"></div>
+    <div class="container_graficos_alertas">
+      <div class="container_grafico">
+          <div id="grafico_servidores"></div>
+      </div>
+    <div class="container_grafico">
+        <div id="grafico_alertas"></div>
+    </div>
+
+    </div>
     </main>
 </body>
 </html>
