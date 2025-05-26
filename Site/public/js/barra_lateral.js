@@ -22,29 +22,32 @@ function mudarIcone() {
 }
 
 function carregarMenuLateral() {
-    const cargo = "cientista";
-    const idUsuario = 1;
-    const barralateral = document.getElementById("barralateral");
+  const cargo = "cientista";
+  const idUsuario = 1;
+  const barralateral = document.getElementById("barralateral");
 
-    const menuBar = document.getElementById("menu-bar");
+  const menuBar = document.getElementById("menu-bar");
+
+  if (menuBar) {
     menuBar.addEventListener("click", toggleMenu);
+  }
 
-    var opcaoDatacenters = ``;
+  var opcaoDatacenters = ``;
 
-    if (idUsuario == "1" && cargo == "administrador") {
-        opcaoDatacenters = `
+  if (idUsuario == "1" && cargo == "administrador") {
+    opcaoDatacenters = `
         <a href="../pages/dash_gerente_datacenters.html">
             <div class="option" data-tooltip="Data Centers">
                 <i class="fa-solid fa-network-wired"></i>
                 <span>Data Centers</span>
             </div>
         </a>
-        `
-    }
+        `;
+  }
 
-    console.log(cargo);
-    if (cargo == "administrador") {
-        barralateral.innerHTML = `
+  console.log(cargo);
+  if (cargo == "administrador") {
+    barralateral.innerHTML = `
             <div class="div-logo">
                 <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil">
                 <span class="txtLogo">TRADEFLUX</span>
@@ -103,8 +106,8 @@ function carregarMenuLateral() {
                 <span ><a>Sair</a></span>
             </div>
         `;
-    } else if (cargo == "cientista") {
-        barralateral.innerHTML = `
+  } else if (cargo == "cientista") {
+    barralateral.innerHTML = `
             <div class="div-logo">
                 <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil">
                 <span class="txtLogo">TRADEFLUX</span>
@@ -139,8 +142,8 @@ function carregarMenuLateral() {
                 <span onclick="sairParaLogin()"><a>Sair</a></span>
             </div>
         `;
-    } else if (cargo == "analista") {
-        barralateral.innerHTML = `
+  } else if (cargo == "analista") {
+    barralateral.innerHTML = `
             <div class="div-logo">
                 <img class="imgLogo" src="../assets/TRADEFLUX__2_cortado.png" class="perfil-foto" alt="foto de perfil">
                 <span class="txtLogo">TRADEFLUX</span>
@@ -165,18 +168,18 @@ function carregarMenuLateral() {
                 <span onclick="sairParaLogin()"><a>Sair</a></span>
             </div>
         `;
-    }
+  }
 
-    if (cargo == "cientista") {
-        document.getElementById("rogerioCientista2").style.display = "block";
-    } else if (cargo == "analista") {
-        document.getElementById("juliaAnalista2").style.display = "block";
-    } else if (cargo == "administrador") {
-        document.getElementById("jenniferADM2").style.display = "block";
-    }
+  if (cargo == "cientista") {
+    document.getElementById("rogerioCientista2").style.display = "block";
+  } else if (cargo == "analista") {
+    document.getElementById("juliaAnalista2").style.display = "block";
+  } else if (cargo == "administrador") {
+    document.getElementById("jenniferADM2").style.display = "block";
+  }
 }
 
-function sairParaLogin(){
-    sessionStorage.clear()
-    window.location.href = "/pages/login.html"
+function sairParaLogin() {
+  sessionStorage.clear();
+  window.location.href = "/pages/login.html";
 }
