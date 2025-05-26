@@ -1,4 +1,5 @@
 node_modules/
+Site/node_modules
 package-lock.json
 Site/.env.dev
 Site/.env
