@@ -57,7 +57,7 @@ body {
     .botoes-filtro {
         flex-direction: column;
     }
-    
+
     .botao-filtro {
         width: 100%;
     }
@@ -106,7 +106,7 @@ body {
     min-width: 200px;
     max-width: 350px;
     height: 10rem;
-    width: 8rem;
+    width: 8rem; /* Esta propriedade 'width' é redundante se flex-basis já estiver definida */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -121,7 +121,7 @@ body {
 }
 
 .metric-value.warning {
-    background-color: rgba(255, 115, 115, 0.7);
+    background-color: rgba(255, 115, 115, 0.7); /* Nota: geralmente warning é amarelo/laranja, e danger é vermelho */
 }
 
 .metric-value.danger {
@@ -154,7 +154,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border-radius: 1vw;
+    border-radius: 1vw; /* Nota: border-radius em % ou vw pode não ter o efeito esperado em todos os casos de bordas colapsadas */
     border: 4px solid #d3d7e3;
     font-size: 0.9rem;
 }
@@ -182,6 +182,8 @@ body {
 #secao-graficos {
     flex: 1;
     display: flex;
+    /* Ajuste aqui para permitir que o gráfico preencha o espaço */
+    min-height: 350px; /* Garante que a seção de gráficos tenha uma altura mínima para o gráfico */
 }
 
 .grafico-container {
@@ -192,14 +194,19 @@ body {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    height: 16rem;
+    /* REMOVER ESTA PROPRIEDADE: height: 16rem; */
+    /* Deixe o container flexível para crescer com o conteúdo */
+    /* OU, se quiser uma altura mínima, use min-height */
+    min-height: 380px; /* Ajuste este valor para acomodar o título e o gráfico */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #grafico {
     flex-grow: 1;
     width: 100%;
-    min-height: 300px;
+    /* REMOVER ESTA PROPRIEDADE: min-height: 300px; */
+    /* Deixe o ApexCharts gerenciar a altura, ou use height: 100% */
+    height: 100%; /* Permite que o #grafico ocupe toda a altura disponível do .grafico-container */
 }
 
 .modal {
@@ -256,6 +263,7 @@ body {
         max-width: 100%;
     }
     .grafico-container {
-        min-height: 250px;
+        /* Ajuste para telas menores se necessário, mas a remoção do height fixo já ajuda */
+        min-height: 350px; /* Pode precisar de ajuste fino */
     }
 }
