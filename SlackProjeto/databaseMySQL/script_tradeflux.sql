@@ -81,7 +81,7 @@ create table if not exists usuario_cliente (
 
 insert into usuario_cliente (nome, email, senha, cargo, ativo, acesso, fk_data_center) values 
 ('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
-('Rogerio Silva', 'rogerio.silva@b3.com.br', 'ceacd3494dcbcaa54598c1e8b0f246b8:6d251bfe3dee67a85688c6dd4c04fec5173569fc70ae9bb19e9695d1b4e54414', 'cientista', 1, curtime(), 1).
+('Rogerio Silva', 'rogerio.silva@b3.com.br', 'ceacd3494dcbcaa54598c1e8b0f246b8:6d251bfe3dee67a85688c6dd4c04fec5173569fc70ae9bb19e9695d1b4e54414', 'cientista', 1, curtime(), 1),
 ('Julia Silva', 'julia.silva@b3.com.br', 'f70a684b86123806da7898cd2a1905a0:3ec35de932ddcc19c8f6c38be3f29a5fdec8f6b8b9a486b150d17d6382a39645', 'analista', 1, curtime(), 1);
 
 create table if not exists componente (
