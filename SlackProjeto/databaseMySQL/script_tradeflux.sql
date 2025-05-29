@@ -161,7 +161,6 @@ create table if not exists alerta (
 );
 
 -- testes de alertas
-select * from parametro_servidor;
 insert into alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) values
 (85.0, '%', now() - interval 1 day, now() - interval 1 day + interval floor(2 + rand() * 9) minute, 1),
 (90.5, '%', now() - interval 2 day, now() - interval 2 day + interval floor(2 + rand() * 9) minute, 2),
@@ -191,8 +190,6 @@ insert into alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) va
 (81.5, '%', now() - interval 3 day, now() - interval 3 day + interval floor(2 + rand() * 9) minute, 26),
 (89.0, '%', now() - interval 6 day, now() - interval 6 day + interval floor(2 + rand() * 9) minute, 27),
 (93.5, '%', now() - interval 9 day, now() - interval 9 day + interval floor(2 + rand() * 9) minute, 27);
-select count(*) as total_alertas from alerta;
-select * from alerta;
 
 -- views --
 
