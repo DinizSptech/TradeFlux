@@ -11,7 +11,7 @@ grant select on tradeflux.* to 'user_select_tradeflux'@'%';
 -- update mysql.user set host='%' where user='root' and host='localhost';
 flush privileges;
 
---drop database if exists tradeflux;
+drop database if exists tradeflux;
 create database if not exists tradeflux;
 use tradeflux;
 
@@ -41,7 +41,7 @@ create table if not exists empresa_cliente (
 );
 insert into empresa_cliente (razao_social, cnpj, telefone, fk_endereco) values
 ('b3 bolsa, brasil, balcão s.a.', '03365836000124', '1132121234', 1);
-
+select * from empresa_cliente;
 create table if not exists data_center (
     iddata_center int auto_increment primary key,
     nome varchar(45),
@@ -346,7 +346,7 @@ where data_center in (
     join servidor_cliente s on p.fk_servidor = s.idservidor
     join data_center dc on s.fk_data_center = dc.iddata_center
     where a.medida = '%' and a.data_gerado >= now() - interval 30 day
-    group by dc.nom
+    group by dc.nome
 )
 order by total_alertas desc;
 
