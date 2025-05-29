@@ -195,6 +195,8 @@ dadosSelecionado = []
 
 var jaGerado = false 
 var selecionado
+
+
 function carregarServidoresTabela(copiaDados){
   const tabela = document.getElementById('spawnpointTabela')
 if(jaGerado){
@@ -204,10 +206,13 @@ if (selected) {
   console.log(selecionado)
 }
 }
-
+  let limite = copiaDados.length
+  if (limite > 10){
+    limite = 10
+  }
   tabela.innerHTML = ''
   var addHTML = ''
-  for (let i = 0; i < copiaDados.length; i++) {
+  for (let i = 0; i < limite; i++) {
     const servidorAtual = copiaDados[i];
     var ultimo = (servidorAtual.dados.length - 1)
     var classe = ''

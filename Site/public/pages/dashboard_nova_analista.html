@@ -55,7 +55,7 @@
 <div class="section-head">
   <div class="card">
     <div class="cardHeader">
-      <h2>Monitoramento em tempo real dos servidores</h2>
+      <h2>Monitoramento em tempo real dos 10 servidores mais críticos</h2>
 
       <button class="expandButton" onclick="expandirServidor()">Expandir servidor</button>
 
@@ -108,6 +108,30 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
 
+// variaveis estéticas
+ var stroke =  {
+    curve: "smooth",
+    width: 5,
+    lineCap: "butt"
+  }
+
+  var marcadores = {
+    size: 0,
+    hover: {
+      size: 0
+    }
+  }
+
+  var toolbar = {
+      show: true,
+      offsetX: 20,
+      offsetY: 7
+    }
+
+    var altura = '300'
+    var largura = '432'
+    var velocidade = 200
+// CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
 window.Apex = {
   chart: {
     foreColor: "#2b2b2b",
@@ -151,17 +175,17 @@ window.Apex = {
   }
 };
 
-var optionsLine = {
+var optionsLineFisico = {
   chart: {
-    height: 300,
-    width: 432,
+    height: altura,
+    width: largura,
     type: "line",
     stacked: false,
     animations: {
       enabled: true,
       easing: "linear",
       dynamicAnimation: {
-        speed: 1000
+        speed: velocidade
       }
     },
     dropShadow: {
@@ -185,9 +209,7 @@ var optionsLine = {
 
       }
     },
-    toolbar: {
-      show: false
-    },
+    toolbar: toolbar,
     zoom: {
       enabled: false
     }
@@ -195,22 +217,8 @@ var optionsLine = {
   dataLabels: {
     enabled: false
   },
-  stroke: {
-    curve: "straight",
-    width: 5
-  },
-  grid: {
-    padding: {
-      left: 0,
-      right: 0
-    }
-  },
-  markers: {
-    size: 0,
-    hover: {
-      size: 0
-    }
-  },
+  stroke: stroke,
+  markers: marcadores,
   series: [
     {
       name: "CPU",
@@ -241,8 +249,9 @@ var optionsLine = {
   title: {
     text: "Componentes",
     align: "left",
+    offsetY: -8,
     style: {
-      fontSize: "12px"
+      fontSize: "30px"
     }
   },
   subtitle: {
@@ -263,13 +272,13 @@ var optionsLine = {
     },
     position: "top",
     offsetY: -35,
-    offsetX: 70
+    offsetX: 0
   }
 };
 
 var chartLineFisico = new ApexCharts(
   document.querySelector("#linechart-fisico"),
-  optionsLine
+  optionsLineFisico
 );
 chartLineFisico.render();
 
@@ -300,6 +309,7 @@ window.setInterval(function () {
 }, 3000);
 
 
+// CONFIGURA O GRÁFICO DE LINHAS DE REDE
 window.Apex = {
   chart: {
     foreColor: "#2b2b2b",
@@ -343,17 +353,17 @@ window.Apex = {
   }
 };
 
-var optionsLine = {
+var optionsLineRede = {
   chart: {
-    height: 300,
-    width: 432,
+    height: altura,
+    width: largura,
     type: "line",
     stacked: false,
     animations: {
       enabled: true,
       easing: "linear",
       dynamicAnimation: {
-        speed: 1000
+        speed: velocidade
       }
     },
     dropShadow: {
@@ -375,9 +385,7 @@ var optionsLine = {
 
       }
     },
-    toolbar: {
-      show: false
-    },
+    toolbar: toolbar,
     zoom: {
       enabled: false
     }
@@ -385,22 +393,8 @@ var optionsLine = {
   dataLabels: {
     enabled: false
   },
-  stroke: {
-    curve: "straight",
-    width: 5
-  },
-  grid: {
-    padding: {
-      left: 0,
-      right: 0
-    }
-  },
-  markers: {
-    size: 0,
-    hover: {
-      size: 0
-    }
-  },
+  stroke: stroke,
+  markers: marcadores,
   series: [
     {
       name: "Upload",
@@ -422,10 +416,12 @@ var optionsLine = {
     range: 2700000
   },
   title: {
-    text: "Componentes",
+    text: "Velocidade de rede",
     align: "left",
+    offsetY: -5,
     style: {
-      fontSize: "12px"
+      fontSize: "28px",
+      textWrap: true
     }
   },
   subtitle: {
@@ -446,13 +442,13 @@ var optionsLine = {
     },
     position: "top",
     offsetY: -35,
-    offsetX: 70
+    offsetX: 0
   }
 };
 
 var chartLineRede = new ApexCharts(
   document.querySelector("#linechart-rede"),
-  optionsLine
+  optionsLineRede
 );
 chartLineRede.render();
 
