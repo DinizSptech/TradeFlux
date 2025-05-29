@@ -141,7 +141,7 @@ td {
     background-color: #ffffff;
     border-radius: 1vw;
     border: 1px solid #cfd4e0;
-    height: 26vw;
+    max-height: 26vw;
 }
 
 .content2 {

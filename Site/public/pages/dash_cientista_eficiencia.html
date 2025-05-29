@@ -12,12 +12,12 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <link rel="stylesheet" href="../css/dash_cientista_eficiencia.css">
+  <link rel="stylesheet" href="../css/dash_cientista_eficiencia_claro.css">
   <link rel="stylesheet" href="../css/barra_lateral.css">
   <script src="../js/barra_lateral.js" defer></script>
 </head>
 
-<body onload="carregarMenuLateral(); carregarServidores()">
+<body onload="carregarMenuLateral(); carregarServidores(); kpi1_geral(); kpi2_geral()">
   <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
     <div class="container_perfil_menu" id="modal_perfil">
@@ -43,7 +43,7 @@
 
     <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
-        <span class="titulo" id="servidorModal" style="color: white;"></span>
+        <span class="titulo" id="servidorModal" style="color: #2b2b2b;"></span>
         <i onclick="fecharModal()" class="fa-solid fa-xmark"></i>
       </div>
       <div class="servidorETempo">
@@ -149,6 +149,7 @@
 
 <script>
 
+
   function ativarBotao(botaoClicado, tempo) {
   const botoes = document.querySelectorAll('.periodo button');
   botoes.forEach(botao => botao.classList.remove('ativo')); 
@@ -222,7 +223,7 @@ ociosidade50 = [27, 18, 12]
     let indicador3 = document.getElementById("indicadorKpi3");
 
     minKpi1 = 7 * 24 * 0.1
-    maxKpi1 = 7 * 24 * 0.15
+    maxKpi1 = 7 * 24 * 0.12
     minKpi2 = 30 * 24 * 0.1
     maxKpi2 = 30 * 24 * 0.15
     minKpi3 = 180 * 24 * 0.1
@@ -414,7 +415,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
       type: "line",
       width: '100%',   // 100% do div grafico1
       height: '100%',
-      foreColor: '#ffffff',  // cor do texto clara
+      foreColor: '#2b2b2b',  // cor do texto clara
       toolbar: {
         show: true,
         tools: {
@@ -454,14 +455,14 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
       categories: ociosidadeTempo,
       labels: {
         style: {
-          colors: '#ffffff' // texto dos rótulos do eixo x
+          colors: '#2b2b2b' // texto dos rótulos do eixo x
         }
       }
     },
     yaxis: {
       labels: {
         style: {
-          colors: '#ffffff' // texto dos rótulos do eixo y
+          colors: '#2b2b2b' // texto dos rótulos do eixo y
         }
       }
     },
@@ -504,7 +505,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
     },
     legend: {
       labels: {
-        colors: '#ffffff' // cor da legenda
+        colors: '#2b2b2b' // cor da legenda
       }
     },
     stroke: {
@@ -545,7 +546,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
     chart: {
       type: 'bar',
       height: 350,
-      foreColor: '#fff',
+      foreColor: '#2b2b2b',
       width: '100%',
       height: '100%'
     },

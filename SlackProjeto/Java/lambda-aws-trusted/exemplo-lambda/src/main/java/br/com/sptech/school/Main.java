@@ -18,7 +18,7 @@ public class Main implements RequestHandler<S3Event, String> {
     private final AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
 
     // Bucket de destino para o CSV gerado
-    private static final String DESTINATION_BUCKET = "bucket-trusted-tradeflux";
+    private static final String DESTINATION_BUCKET = "bucket-trusted-teste125";
 
     @Override
     public String handleRequest(S3Event s3Event, Context context) {
@@ -47,8 +47,11 @@ public class Main implements RequestHandler<S3Event, String> {
             metadata.setContentLength(csvBytes.length);
             metadata.setContentType("text/csv");
 
-            // Envio do CSV para o bucket de destino
-            s3Client.putObject(DESTINATION_BUCKET, sourceKey.replace(".json", ".csv"), csvInputStream, metadata);
+            String fileName = sourceKey.substring(sourceKey.lastIndexOf('/') + 1); // extrai só o nome do arquivo
+            String destinationKey = "servidoresTeste/" + fileName.replace(".json", ".csv");
+
+            s3Client.putObject(DESTINATION_BUCKET, destinationKey, csvInputStream, metadata);
+
 
             return "Sucesso no processamento";
         } catch (Exception e) {

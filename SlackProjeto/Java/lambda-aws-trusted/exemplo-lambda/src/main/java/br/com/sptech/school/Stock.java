@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Stock {
 
-    @JsonProperty("data-hora")
+    @JsonProperty("servidor")
+    private String servidor;
+
+    @JsonProperty("data_hora")
     private String dataHora;
 
     @JsonProperty("percentualCPU")
@@ -33,7 +36,18 @@ public class Stock {
     @JsonProperty("velocidadeUploadMbps")
     private double velocidadeUploadMbps;
 
+
     // Getters e setters
+
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
+    }
+
     public String getDataHora() {
         return dataHora;
     }
