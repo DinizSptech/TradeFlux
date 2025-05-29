@@ -42,7 +42,14 @@ const alertasDoDatabase = [
     { id: 39, data: '2025-05-09', valor: 94.7, medida: 'Disco', criticidade: 1 },
     { id: 40, data: '2025-05-10', valor: 89.5, medida: 'CPU', criticidade: 0 },
     { id: 41, data: '2025-05-10', valor: 96.3, medida: 'Rede', criticidade: 1 },
-    { id: 42, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 }
+    { id: 42, data: '2025-05-10', valor: 96.3, medida: 'Rede', criticidade: 1 },
+    { id: 43, data: '2025-05-10', valor: 96.3, medida: 'Rede', criticidade: 1 },
+    { id: 44, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 45, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 46, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 47, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 48, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 49, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 }
 ];
 
 // Função para processar os dados do banco
