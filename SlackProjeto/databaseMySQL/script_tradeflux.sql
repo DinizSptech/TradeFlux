@@ -25,6 +25,7 @@ create table if not exists endereco (
     uf char(2),
     complemento varchar(45)
 );
+
 insert into endereco (cep, logradouro, numero, bairro, cidade, uf) values
 ('01310100', 'praça antonio prado', 48, 'centro', 'são paulo', 'sp'),
 ('06543004', 'rua ricardo prudente de aquino', 85, 'alphaville', 'santana de parnaíba', 'sp'),
@@ -39,9 +40,12 @@ create table if not exists empresa_cliente (
     fk_endereco int,
     foreign key (fk_endereco) references endereco(idendereco)
 );
+
 insert into empresa_cliente (razao_social, cnpj, telefone, fk_endereco) values
 ('b3 bolsa, brasil, balcão s.a.', '03365836000124', '1132121234', 1);
+
 select * from empresa_cliente;
+
 create table if not exists data_center (
     iddata_center int auto_increment primary key,
     nome varchar(45),
@@ -50,6 +54,7 @@ create table if not exists data_center (
     foreign key (fk_cliente) references empresa_cliente(idcliente),
     foreign key (fk_endereco) references endereco(idendereco)
 );
+
 insert into data_center (nome, fk_cliente, fk_endereco) values
 ('data center 1', 1, 2),
 ('data center 2', 1, 3),
@@ -66,14 +71,25 @@ create table if not exists usuario_cliente (
     fk_data_center int,
     foreign key (fk_data_center) references data_center(iddata_center)
 );
+
+-- create table if not exits cargo (
+--     idcarho int auto_increment primary key,
+--     nome varchar(45),
+--     nvlAcesso TINYINT
+
+-- );
+
 insert into usuario_cliente (nome, email, senha, cargo, ativo, acesso, fk_data_center) values 
-('jennifer silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1);
+('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
+('Rogerio Silva', 'rogerio.silva@b3.com.br', 'ceacd3494dcbcaa54598c1e8b0f246b8:6d251bfe3dee67a85688c6dd4c04fec5173569fc70ae9bb19e9695d1b4e54414', 'cientista', 1, curtime(), 1).
+('Julia Silva', 'julia.silva@b3.com.br', 'f70a684b86123806da7898cd2a1905a0:3ec35de932ddcc19c8f6c38be3f29a5fdec8f6b8b9a486b150d17d6382a39645', 'analista', 1, curtime(), 1);
 
 create table if not exists componente (
     idcomponente int auto_increment primary key,
     nomecomponente varchar(45),
     medida varchar(45)
 );
+
 insert into componente (nomecomponente, medida) values 
 ('cpu_percentual', '%'), 
 ('cpu_frequencia',  'ghz'),
@@ -94,6 +110,7 @@ create table if not exists servidor_cliente (
     fk_data_center int,
     foreign key (fk_data_center) references data_center(iddata_center)
 );
+
 insert into servidor_cliente (uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo, fk_data_center) values
 ('uuid-dc1-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
@@ -112,6 +129,7 @@ create table if not exists parametro_servidor (
     fk_componente int,
     foreign key (fk_componente) references componente(idcomponente)
 );
+
 insert into parametro_servidor (limiar_alerta, fk_servidor, fk_componente) values 
 (80.0, 1, 1),
 (80.0, 1, 3),
