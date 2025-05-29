@@ -8,6 +8,7 @@ import insert
 import selectbd
 import s3
 import os
+import requests
 
 from datetime import datetime
 
@@ -110,8 +111,7 @@ def coletaLocal(idServidor):
         print(f"Servidor: {idServidor}")
 
         if contador == 12:
-            listaJson = []
-            contador = 0
+            listaJson = [] 
         time.sleep(5)
 
 # Coleta de Informações do Sistema

@@ -10,8 +10,7 @@ let dadosServidores = [
         'criticidade': 0,
         'download': 1204.58,
         'upload': 342.17,
-        'tempoAtivo': '03:12:45',
-        'processos' : []
+        'tempoAtivo': '03:12:45'
       }
     ]
   },
@@ -156,7 +155,7 @@ let dadosServidores = [
 let cores = {
   'critico': '#ff1900',
   'alerta': '#ffa617',
-  'estavel': '#09bb26',
+  'estavel': '#0de631',
   'critico old': '#0a4146',
   'alerta old': '#09373b',
   'estavel old': '#132A2D'
@@ -198,9 +197,9 @@ var selecionado
 function carregarServidoresTabela(copiaDados){
   const tabela = document.getElementById('spawnpointTabela')
 if(jaGerado){
-  const selected = tabela.querySelector('.selected')
+  const selected = tabela.querySelector('.selected').querySelector('td')
 if (selected) {
-  selecionado = selected.querySelector('td').innerText
+  selecionado = selected.innerText
   console.log(selecionado)
 }
 }
@@ -218,19 +217,21 @@ if(selecionado == undefined){
 }
     addHTML += `
     <tr class="row ${classe}">
-    <td class='col-server' style='border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
-    <td style='color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
-    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempoAtivo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempoAtivo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempoAtivo}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].download <= 1200 ? cores['critico'] : servidorAtual.dados[ultimo].download <= 1500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].download}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].upload <= 400 ? cores['critico'] : servidorAtual.dados[ultimo].upload <= 500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].upload}</td>
+    <td >${servidorAtual.servidor}</td>
+    <td style='background-color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico old'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
+    <td style='background-color: ${compararData(servidorAtual.dados[ultimo].tempoAtivo, '07:00:00') >= 1 ? cores['critico old'] : (compararData(servidorAtual.dados[ultimo].tempoAtivo, '05:00:00')) >= 1 ? cores['alerta old'] : cores['estavel old'] }; color: ${compararData(servidorAtual.dados[ultimo].tempoAtivo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempoAtivo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempoAtivo}</td>
+            <td style='background-color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico old'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
+            <td style='background-color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico old'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
+            <td style='background-color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico old'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
+            <td style='background-color: ${servidorAtual.dados[ultimo].download <= 1200 ? cores['critico old'] : servidorAtual.dados[ultimo].download <= 1500 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].download <= 1200 ? cores['critico'] : servidorAtual.dados[ultimo].download <= 1500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].download}</td>
+            <td style='background-color: ${servidorAtual.dados[ultimo].upload <= 400 ? cores['critico old'] : servidorAtual.dados[ultimo].upload <= 500 ? cores['alerta old'] : cores['estavel old']} ;color: ${servidorAtual.dados[ultimo].upload <= 400 ? cores['critico'] : servidorAtual.dados[ultimo].upload <= 500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].upload}</td>
           </tr>
     `
   }
   tabela.innerHTML = addHTML
   document.querySelectorAll('tr').forEach((linha)=> {
+  
+    
     const linhas = tabela.querySelectorAll('tr');
     linhas.forEach((linha) => {
     linha.addEventListener('click', () => {
@@ -312,7 +313,7 @@ function ordenarTabela(escolhido){
         xmlns="http://www.w3.org/2000/svg">
         <path
         d="M9.78825 12.5399L0.3417 3.09327C-0.1139 2.63767 -0.1139 1.89903 0.3417 1.44348L1.44349 0.341688C1.89831 -0.113133 2.63545 -0.114009 3.09134 0.339744L10.6132 7.82634L18.135 0.339744C18.5909 -0.114009 19.328 -0.113133 19.7828 0.341688L20.8846 1.44348C21.3402 1.89908 21.3402 2.63772 20.8846 3.09327L11.4381 12.5399C10.9825 12.9954 10.2439 12.9954 9.78825 12.5399Z"
-        fill="#272727" />
+        fill="#F0F0F0" />
         </svg>`
       }
       })
@@ -339,19 +340,268 @@ function expandirServidor(){
 
 }
 
+
+window.Apex = {
+  chart: {
+    foreColor: "#fff",
+    toolbar: {
+      show: false
+    }
+  },
+  colors: ["#FCCF31", "#17ead9", "#f02fc2"],
+  stroke: {
+    width: 3
+  },
+  dataLabels: {
+    enabled: false
+  },
+  grid: {
+    borderColor: "#40475D"
+  },
+  xaxis: {
+    axisTicks: {
+      color: "#333"
+    },
+    axisBorder: {
+      color: "#333"
+    }
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      gradientToColors: ["#F55555", "#6078ea", "#6094ea"]
+    }
+  },
+  tooltip: {
+    theme: "dark"
+  },
+  yaxis: {
+    decimalsInFloat: 2,
+    opposite: true,
+    labels: {
+      offsetX: -10
+    }
+  }
+};
+
+var trigoStrength = 3;
+var iteration = 11;
+
 function getRandom() {
-  return Math.ceil(Math.random() * 100) 
+  var i = iteration;
+  return (
+    (Math.sin(i / trigoStrength) * (i / trigoStrength) +
+      i / trigoStrength +
+      1) *
+    (trigoStrength * 2)
+  );
 }
 
+function getRangeRandom(yrange) {
+  return Math.floor(Math.random() * (yrange.max - yrange.min)) + yrange.min;
+}
 
-function generateMinuteWiseTimeSeries(baseval, count) {
+function generateMinuteWiseTimeSeries(baseval, count, yrange) {
   var i = 0;
   var series = [];
   while (i < count) {
     var x = baseval;
-    series.push([x, getRandom()]);
+    var y =
+      (Math.sin(i / trigoStrength) * (i / trigoStrength) +
+        i / trigoStrength +
+        1) *
+      (trigoStrength * 2);
+
+    series.push([x, y]);
     baseval += 300000;
     i++;
   }
   return series;
 }
+
+function getNewData(baseval, yrange) {
+  var newTime = baseval + 300000;
+  return {
+    x: newTime,
+    y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
+  };
+}
+
+var optionsLine = {
+  chart: {
+    height: 350,
+    type: "line",
+    stacked: true,
+    animations: {
+      enabled: true,
+      easing: "linear",
+      dynamicAnimation: {
+        speed: 1000
+      }
+    },
+    dropShadow: {
+      enabled: true,
+      opacity: 0.3,
+      blur: 5,
+      left: -7,
+      top: 22
+    },
+    events: {
+      animationEnd: function (chartCtx) {
+        const newData1 = chartCtx.w.config.series[0].data.slice();
+        newData1.shift();
+        const newData2 = chartCtx.w.config.series[1].data.slice();
+        newData2.shift();
+        const newData3 = chartCtx.w.config.series[2].data.slice();
+        newData3.shift();
+        window.setTimeout(function () {
+          chartCtx.updateOptions(
+            {
+              series: [
+                {
+                  data: newData1
+                },
+                {
+                  data: newData2
+                },
+                {
+                  data: newData3
+                }
+              ],
+              subtitle: {
+                text: "Percentual"
+              }
+            },
+            false,
+            false
+          );
+        }, 300);
+      }
+    },
+    toolbar: {
+      show: false
+    },
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: "straight",
+    width: 5
+  },
+  grid: {
+    padding: {
+      left: 0,
+      right: 0
+    }
+  },
+  markers: {
+    size: 0,
+    hover: {
+      size: 0
+    }
+  },
+  series: [
+    {
+      name: "CPU",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12,
+        {
+          min: 30,
+          max: 100
+        }
+      )
+    },
+    {
+      name: "RAM",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12,
+        {
+          min: 30,
+          max: 100
+        }
+      )
+    },
+    {
+      name: "Disco",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12,
+        {
+          min: 30,
+          max: 100
+        }
+      )
+    }
+  ],
+  xaxis: {
+    type: "datetime",
+    range: 2700000
+  },
+  title: {
+    text: "Processes",
+    align: "left",
+    style: {
+      fontSize: "12px"
+    }
+  },
+  subtitle: {
+    text: "Percentual",
+    floating: true,
+    align: "right",
+    offsetY: 0,
+    style: {
+      fontSize: "22px"
+    }
+  },
+  legend: {
+    show: true,
+    floating: true,
+    horizontalAlign: "left",
+    onItemClick: {
+      toggleDataSeries: false
+    },
+    position: "top",
+    offsetY: -33,
+    offsetX: 60
+  }
+};
+
+var chartLine = new ApexCharts(
+  document.querySelector("#linechart"),
+  optionsLine
+);
+chartLine.render();
+
+window.setInterval(function () {
+  iteration++;
+
+  /* Importante */
+  chartLine.updateSeries([
+    {
+      data: [
+        ...chartLine.w.config.series[0].data,
+        [chartLine.w.globals.maxX + 300000, getRandom()]
+      ]
+    },
+    {
+      data: [
+        ...chartLine.w.config.series[1].data,
+        [chartLine.w.globals.maxX + 300000, getRandom()]
+      ]
+    },
+    {
+      data: [
+        ...chartLine.w.config.series[2].data,
+        [chartLine.w.globals.maxX + 300000, getRandom()]
+      ]
+    }
+  ]);
+
+}, 3000);
+

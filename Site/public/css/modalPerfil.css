@@ -125,10 +125,10 @@
     font-size: 1.5vw;
   }
 .button_perfil:hover .fa-solid{
-    color: #a1fff2;
+    color: #008f7c;
 }
 .container_perfil .fa-bell:hover{
-    color: #a1fff2;
+    color: #008f7c;
     cursor: pointer;
     z-index: 1;
 }
