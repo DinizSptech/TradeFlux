@@ -13,6 +13,36 @@ function atualizarCorAlerta(valor) {
     }
 }
 
+function tempoParaSegundos(tempo) {
+    if (!tempo) return 0;
+    
+    const partes = tempo.split(':');
+    if (partes.length !== 3) return 0;
+    
+    const horas = parseInt(partes[0]) || 0;
+    const minutos = parseInt(partes[1]) || 0;
+    const segundos = parseInt(partes[2]) || 0;
+    
+    return (horas * 3600) + (minutos * 60) + segundos;
+}
+
+function atualizarCorTempoResolucao(tempo) {
+    const elem = document.getElementById("valor-medio-resolucao");
+    if (!elem || !tempo) return;
+    
+    const segundos = tempoParaSegundos(tempo);
+    const cincoMinutos = 5 * 60; // 300 segundos
+    const seisMinutos = 6 * 60;  // 360 segundos
+    
+    if (segundos > seisMinutos) {
+        elem.style.color = "red";
+    } else if (segundos > cincoMinutos) {
+        elem.style.color = "orange";
+    } else {
+        elem.style.color = "";
+    }
+}
+
 function fazerRequisicao(url, callback) {
     fetch(url, { method: "GET" })
         .then(response => {
@@ -28,12 +58,15 @@ function fazerRequisicao(url, callback) {
 function obterDadosPeriodo(periodo) {
     // Atualiza KPIs
     fazerRequisicao(`/adm/alertas/${periodo}`, json => {
-        document.getElementById("valor-alertas").innerHTML = json[0].total_alertas;
-        atualizarCorAlerta(parseInt(json[0].qtd_alertas, 10));
+        const total = json[0]?.total_alertas || 0;
+        document.getElementById("valor-alertas").innerHTML = total;
+        atualizarCorAlerta(parseInt(total, 10));
     });
 
     fazerRequisicao(`/adm/tempo-medio/${periodo}`, json => {
-        document.getElementById("valor-medio-resolucao").innerHTML = json[0][`tempo_medio`];
+        const tempoMedio = json[0]?.tempo_medio || "0";
+        document.getElementById("valor-medio-resolucao").innerHTML = tempoMedio;
+        atualizarCorTempoResolucao(tempoMedio);
     });
 
     // Atualiza tabelas
@@ -102,13 +135,30 @@ function atualizarTabelaDatacenters(json) {
     });
 }
 
-// Função para criar/atualizar o gráfico
+// Função para criar/atualizar o gráfico (MODIFICADA)
 function atualizarGraficoBarrasDuplas(dadosTotais, dadosAtrasados) {
-    const datacenters = dadosTotais.map(item => item.data_center);
-    const totalAlertas = dadosTotais.map(item => item.total_alertas);
-    const alertasAtrasados = datacenters.map(dc => {
-        const encontrado = dadosAtrasados.find(item => item.data_center === dc);
-        return encontrado ? encontrado.alertasatrasados : 0;
+    // Filtra apenas data centers com alertas atrasados > 0
+    const dcsComAtrasos = dadosAtrasados
+        .filter(item => item.alertas_atrasados > 0)
+        .map(item => item.data_center);
+
+    // Se não houver data centers com atrasos
+    if (dcsComAtrasos.length === 0) {
+        limparGrafico();
+        document.getElementById("grafico").innerHTML = 
+            "<p class='text-center'>Nenhum data center com alertas atrasados no período</p>";
+        return;
+    }
+
+    // Prepara dados apenas para DCs com atrasos
+    const totalAlertas = dcsComAtrasos.map(dc => {
+        const item = dadosTotais.find(i => i.data_center === dc);
+        return item ? item.total_alertas : 0;
+    });
+
+    const alertasAtrasados = dcsComAtrasos.map(dc => {
+        const item = dadosAtrasados.find(i => i.data_center === dc);
+        return item ? item.alertas_atrasados : 0;
     });
 
     const options = {
@@ -136,7 +186,7 @@ function atualizarGraficoBarrasDuplas(dadosTotais, dadosAtrasados) {
             colors: ['transparent']
         },
         xaxis: {
-            categories: datacenters,
+            categories: dcsComAtrasos,
             title: { text: 'Data Centers' },
             labels: { style: { fontSize: '12px' } }
         },
@@ -176,7 +226,7 @@ function atualizarGraficoBarrasDuplas(dadosTotais, dadosAtrasados) {
 
     if (graficoInstance) {
         graficoInstance.updateOptions({
-            xaxis: { categories: datacenters }
+            xaxis: { categories: dcsComAtrasos }
         });
         graficoInstance.updateSeries(options.series);
     } else {
