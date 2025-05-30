@@ -40,7 +40,7 @@ def cadastrar_servidor(id_datacenter, uuidservidor, sistemaoperacional, discotot
     resposta = requests.post(f"{API_URL}/cadastrar_servidor", json=payload)
     return resposta.json()
 
-def enviar_alerta(fkparametro, valor, medida, data, criticidade):
+def enviar_alerta(fkparametro, valor, medida, data, criticidade, nomeservidor, nomecomponente):
     payload = {
         "valor": valor,
         "medida": medida,
@@ -60,22 +60,20 @@ def enviar_dados(dados):
 def verificar_e_enviar_alertas(dados_capturados, parametros_servidor):
     dados_momento = dados_capturados['dados'][0]
     data_atual = dados_momento['Momento']
+    nome_servidor = dados_capturados['servidor'] 
     
     mapeamento_componentes = {
-        'cpu': 1,
-        'ram': 3, 
-        'disco': 5,
-        'download': 7,
-        'upload': 8
+        'cpu': {'id': 1, 'nome': 'cpu_percentual'},
+        'ram': {'id': 3, 'nome': 'ram_percentual'}, 
+        'disco': {'id': 5, 'nome': 'disco_percentual'},
     }
     
     for componente, valor in [('cpu', dados_momento['cpu']), 
                              ('ram', dados_momento['ram']), 
-                             ('disco', dados_momento['disco']),
-                             ('download', dados_momento['download']),
-                             ('upload', dados_momento['upload'])]:
+                             ('disco', dados_momento['disco'])]:
         
-        id_componente = mapeamento_componentes[componente]
+        id_componente = mapeamento_componentes[componente]['id']
+        nome_componente = mapeamento_componentes[componente]['nome']
         
         param_encontrado = None
         for param in parametros_servidor.get('parametros', []):
@@ -95,4 +93,4 @@ def verificar_e_enviar_alertas(dados_capturados, parametros_servidor):
                 criticidade = 1
             
             if criticidade:
-                enviar_alerta(fk_parametro, valor, '%', data_atual, criticidade)
+                enviar_alerta(fk_parametro, valor, '%', data_atual, criticidade, nome_servidor, nome_componente)

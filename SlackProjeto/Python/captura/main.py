@@ -19,7 +19,6 @@ def main():
         uuidServidor = info['UUID da Placa Mãe']
         print("Procurando no Banco de dados uma máquina com a UUID: ", uuidServidor)
         
-        # Verifica se servidor existe
         idServidor = comunicacao.buscar_servidor(uuidServidor)
         
         if idServidor == None:
@@ -37,34 +36,28 @@ def main():
             print("Armazenamento total: ", discoTotal)
             print("Modelo do processador: ", cpuInfo)
         
-        # Obtém parâmetros do servidor após cadastro/verificação
         dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
         
         if "erro" not in dados_parametros:
             id_servidor_final = dados_parametros.get("idservidor", idServidor)
             print(f"Iniciando monitoramento do servidor ID: {id_servidor_final}")
             
-            # Loop principal de monitoramento
             while True:
                 try:
-                    # Coleta dados do sistema
                     dados_capturados = crawler.coletar_dados(id_datacenter, id_servidor_final)
                     
-                    # Envia dados em tempo real
                     comunicacao.enviar_dados(dados_capturados)
                     
-                    # Verifica e envia alertas
                     comunicacao.verificar_e_enviar_alertas(dados_capturados, dados_parametros)
                     
-                    # Aguarda antes da próxima coleta
-                    time.sleep(5)
+                    time.sleep(1)
                     
                 except KeyboardInterrupt:
                     print("\nMonitoramento interrompido pelo usuário.")
                     break
                 except Exception as e:
                     print(f"Erro na coleta: {e}")
-                    time.sleep(10)
+                    time.sleep(2)
         else:
             print("Erro ao obter parâmetros do servidor.")
             

@@ -49,7 +49,19 @@ const alertasDoDatabase = [
     { id: 46, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
     { id: 47, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
     { id: 48, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
-    { id: 49, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 }
+    { id: 49, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 1 },
+    { id: 50, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 51, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 52, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 53, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 54, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 55, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 56, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 57, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 58, data: '2025-05-11', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 59, data: '2025-05-13', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 60, data: '2025-05-13', valor: 75.8, medida: 'CPU', criticidade: 0 },
+    { id: 61, data: '2025-05-13', valor: 75.8, medida: 'CPU', criticidade: 0 }
 ];
 
 // Função para processar os dados do banco
