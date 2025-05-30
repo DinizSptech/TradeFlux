@@ -42,7 +42,7 @@ def enviar_alerta(fkparametro, valor, medida, data, criticidade, nomeservidor, n
     return resposta.json()
 
 def enviar_dados(dados):
-    resposta = requests.post(f"{API_URL}/tempo_real", json=dados)
+    resposta = requests.post(f"{API_URL}/monitoria", json=dados)
     return resposta.json()
 
 def verificar_e_enviar_alertas(dados_capturados, parametros_servidor):

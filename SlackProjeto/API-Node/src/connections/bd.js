@@ -1,18 +1,27 @@
 const mysql = require("mysql2");
 
-const mySqlConfig = {
+const mySqlSelect = {
     host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
+    database: process.env.DB_DATABASE_SELECT,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    password: process.env.DB_PASSWORD_SELECT,
     port: process.env.DB_PORT,
     multipleStatements: true
 };
 
-function executar(instrucao) {
+const mySqlInsert = {
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    user: process.env.DB_USER_INSERT,
+    password: process.env.DB_PASSWORD_INSERT,
+    port: process.env.DB_PORT,
+    multipleStatements: true
+}
+
+function executarSelect(instrucao) {
 
     return new Promise(function (resolve, reject) {
-        var conexao = mysql.createConnection(mySqlConfig);
+        var conexao = mysql.createConnection(mySqlSelect);
         conexao.connect();
         conexao.query(instrucao, function (erro, resultados) {
             conexao.end();
@@ -23,11 +32,31 @@ function executar(instrucao) {
             resolve(resultados);
         });
         conexao.on('error', function (erro) {
-            return ("ERRO NO MySQL SERVER: ", erro.sqlMessage);
+            return ("ERRO NO SELECT DO MySQL SERVER: ", erro.sqlMessage);
+        });
+    });
+}
+
+function executarInsert(instrucao) {
+
+    return new Promise(function (resolve, reject) {
+        var conexao = mysql.createConnection(mySqlInsert);
+        conexao.connect();
+        conexao.query(instrucao, function (erro, resultados) {
+            conexao.end();
+            if (erro) {
+                reject(erro);
+            }
+            console.log(resultados);
+            resolve(resultados);
+        });
+        conexao.on('error', function (erro) {
+            return ("ERRO NO INSERT DO MySQL SERVER: ", erro.sqlMessage);
         });
     });
 }
 
 module.exports = {
-    executar
+    executarSelect,
+    executarInsert
 };

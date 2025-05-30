@@ -9,10 +9,15 @@ AMBIENTE_PROCESSO=producao
 # Configurações de conexão com o banco de dados
 DB_HOST=localhost
 DB_DATABASE='tradeflux'
-DB_USER=''
-DB_PASSWORD=''
-DB_PORT=
+DB_PORT=3307
+
+DB_USER_INSERT='user_insert_tradeflux'
+DB_PASSWORD_INSERT='tradeflux_insert'
+
+DB_USER_SELECT='user_select_tradeflux'
+DB_PASSWORD_SELECT='tradeflux_select'
 
 # Configurações do servidor de aplicação
-APP_PORT=8080
+APP_PORT=3000
 APP_HOST=localhost
+
