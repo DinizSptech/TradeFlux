@@ -158,7 +158,13 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 (70.0, 80.0, 8, 5),
 (70.0, 80.0, 9, 1),
 (70.0, 80.0, 9, 3),
-(70.0, 80.0, 9, 5);
+(70.0, 80.0, 9, 5),
+(80.0, 60.0,NULL, 1),
+(80.0, 60.0, NULL, 3),
+(80.0, 60.0, NULL, 5),
+(1500,1000,NULL,7),
+(300,500,NULL,8);
+
 
 create table if not exists captura (
     idcaptura int auto_increment primary key,
