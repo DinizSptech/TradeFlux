@@ -115,17 +115,9 @@ body {
 }
 
 .metric-value {
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: bold;
-    color: #666666;
-}
-
-.metric-value.warning {
-    background-color: rgba(255, 115, 115, 0.7); /* Nota: geralmente warning é amarelo/laranja, e danger é vermelho */
-}
-
-.metric-value.danger {
-    background-color: rgba(255, 115, 115, 0.7);
+    color: #66AA66;
 }
 
 #secao-tabelas {
@@ -163,12 +155,15 @@ body {
     padding: 0.5rem;
     border: 1px solid #d3d7e3;
     text-align: center;
-    color: #2b2b2b;
+    color: #000000;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .data-table th {
     background-color: #f0f0f0;
-    color: #2b2b2b;
+    color: #000000;
+    font-size: 1.3rem;
 }
 
 .data-table tr:nth-child(even) {

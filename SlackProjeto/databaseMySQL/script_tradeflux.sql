@@ -160,6 +160,20 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 (70.0, 80.0, 9, 3),
 (70.0, 80.0, 9, 5);
 
+--diniz
+INSERT INTO parametro_servidor (limiar_alerta, fk_servidor, fk_componente) VALUES 
+(80.0, 1, 1), 
+(2.30, 1, 2),
+(80.0, 1, 3),
+(6.0, 1, 4),
+(80.0, 1, 5),
+(80.0, NULL, 1),
+(2.30, NULL, 2),
+(80.0, NULL, 3),
+(6.0, NULL, 4),
+(, NULL, 5),
+(200.0, NULL, 6);
+
 create table if not exists captura (
     idcaptura int auto_increment primary key,
     valor double,
@@ -180,35 +194,35 @@ create table if not exists alerta (
 );
 
 -- testes de alertas
-insert into alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) values
-(85.0, '%', now() - interval 1 day, now() - interval 1 day + interval floor(2 + rand() * 9) minute, 1),
-(90.5, '%', now() - interval 2 day, now() - interval 2 day + interval floor(2 + rand() * 9) minute, 2),
-(95.0, '%', now() - interval 3 day, now() - interval 3 day + interval floor(2 + rand() * 9) minute, 3),
-(82.3, '%', now() - interval 4 day, now() - interval 4 day + interval floor(2 + rand() * 9) minute, 4),
-(88.7, '%', now() - interval 5 day, now() - interval 5 day + interval floor(2 + rand() * 9) minute, 5),
-(93.2, '%', now() - interval 6 day, now() - interval 6 day + interval floor(2 + rand() * 9) minute, 6),
-(87.5, '%', now() - interval 7 day, now() - interval 7 day + interval floor(2 + rand() * 9) minute, 7),
-(91.0, '%', now() - interval 8 day, now() - interval 8 day + interval floor(2 + rand() * 9) minute, 8),
-(96.5, '%', now() - interval 9 day, now() - interval 9 day + interval floor(2 + rand() * 9) minute, 9),
-(89.2, '%', now() - interval 10 day, now() - interval 10 day + interval floor(2 + rand() * 9) minute, 10),
-(94.0, '%', now() - interval 11 day, now() - interval 11 day + interval floor(2 + rand() * 9) minute, 11),
-(97.8, '%', now() - interval 12 day, now() - interval 12 day + interval floor(2 + rand() * 9) minute, 12),
-(86.3, '%', now() - interval 13 day, now() - interval 13 day + interval floor(2 + rand() * 9) minute, 13),
-(92.5, '%', now() - interval 15 day, now() - interval 15 day + interval floor(2 + rand() * 9) minute, 14),
-(98.2, '%', now() - interval 20 day, now() - interval 20 day + interval floor(2 + rand() * 9) minute, 15),
-(90.0, '%', now() - interval 25 day, now() - interval 25 day + interval floor(2 + rand() * 9) minute, 16),
-(83.7, '%', now() - interval 12 hour, now() - interval 12 hour + interval floor(2 + rand() * 9) minute, 17),
-(88.9, '%', now() - interval 8 hour, now() - interval 8 hour + interval floor(2 + rand() * 9) minute, 18),
-(94.5, '%', now() - interval 6 hour, now() - interval 6 hour + interval floor(2 + rand() * 9) minute, 19),
-(84.2, '%', now() - interval 2 day, now() - interval 2 day + interval floor(2 + rand() * 9) minute, 20),
-(89.6, '%', now() - interval 3 day, now() - interval 3 day + interval floor(2 + rand() * 9) minute, 21),
-(95.1, '%', now() - interval 4 day, now() - interval 4 day + interval floor(2 + rand() * 9) minute, 22),
-(85.8, '%', now() - interval 10 day, now() - interval 10 day + interval floor(2 + rand() * 9) minute, 23),
-(91.3, '%', now() - interval 15 day, now() - interval 15 day + interval floor(2 + rand() * 9) minute, 24),
-(96.7, '%', now() - interval 20 day, now() - interval 20 day + interval floor(2 + rand() * 9) minute, 25),
-(81.5, '%', now() - interval 3 day, now() - interval 3 day + interval floor(2 + rand() * 9) minute, 26),
-(89.0, '%', now() - interval 6 day, now() - interval 6 day + interval floor(2 + rand() * 9) minute, 27),
-(93.5, '%', now() - interval 9 day, now() - interval 9 day + interval floor(2 + rand() * 9) minute, 27);
+INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) VALUES
+(85.0, '%', NOW() - INTERVAL 1 DAY, NOW() - INTERVAL 1 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 1),
+(90.5, '%', NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 2),
+(95.0, '%', NOW() - INTERVAL 3 DAY, NOW() - INTERVAL 3 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 3),
+(82.3, '%', NOW() - INTERVAL 4 DAY, NOW() - INTERVAL 4 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 4),
+(88.7, '%', NOW() - INTERVAL 5 DAY, NOW() - INTERVAL 5 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 5),
+(93.2, '%', NOW() - INTERVAL 6 DAY, NOW() - INTERVAL 6 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 6),
+(87.5, '%', NOW() - INTERVAL 7 DAY, NOW() - INTERVAL 7 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 7),
+(91.0, '%', NOW() - INTERVAL 8 DAY, NOW() - INTERVAL 8 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 8),
+(96.5, '%', NOW() - INTERVAL 9 DAY, NOW() - INTERVAL 9 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 9),
+(89.2, '%', NOW() - INTERVAL 10 DAY, NOW() - INTERVAL 10 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 10),
+(94.0, '%', NOW() - INTERVAL 11 DAY, NOW() - INTERVAL 11 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 11),
+(97.8, '%', NOW() - INTERVAL 12 DAY, NOW() - INTERVAL 12 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 12),
+(86.3, '%', NOW() - INTERVAL 13 DAY, NOW() - INTERVAL 13 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 13),
+(92.5, '%', NOW() - INTERVAL 15 DAY, NOW() - INTERVAL 15 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 14),
+(98.2, '%', NOW() - INTERVAL 20 DAY, NOW() - INTERVAL 20 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 15),
+(90.0, '%', NOW() - INTERVAL 25 DAY, NOW() - INTERVAL 25 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 16),
+(83.7, '%', NOW() - INTERVAL 12 HOUR, NOW() - INTERVAL 12 HOUR + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 17),
+(88.9, '%', NOW() - INTERVAL 8 HOUR, NOW() - INTERVAL 8 HOUR + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 18),
+(94.5, '%', NOW() - INTERVAL 6 HOUR, NOW() - INTERVAL 6 HOUR + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 19),
+(84.2, '%', NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 20),
+(89.6, '%', NOW() - INTERVAL 3 DAY, NOW() - INTERVAL 3 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 21),
+(95.1, '%', NOW() - INTERVAL 4 DAY, NOW() - INTERVAL 4 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 22),
+(85.8, '%', NOW() - INTERVAL 10 DAY, NOW() - INTERVAL 10 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 23),
+(91.3, '%', NOW() - INTERVAL 15 DAY, NOW() - INTERVAL 15 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 24),
+(96.7, '%', NOW() - INTERVAL 20 DAY, NOW() - INTERVAL 20 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 25),
+(81.5, '%', NOW() - INTERVAL 3 DAY, NOW() - INTERVAL 3 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 26),
+(89.0, '%', NOW() - INTERVAL 6 DAY, NOW() - INTERVAL 6 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 1),
+(93.5, '%', NOW() - INTERVAL 9 DAY, NOW() - INTERVAL 9 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 1);
 
 -- views --
 
@@ -217,228 +231,247 @@ select u.nome, u.email, u.cargo, u.ativo, u.acesso
 from usuario_cliente u
 join data_center dc on u.fk_data_center = dc.iddata_center;
 
-create or replace view vw_alertas_simples as
-select
-    dc.nome as 'data center',
-    date_format(a.data_gerado, '%d/%m/%y %h:%i:%s') as 'data-hora',
-    time_format(sec_to_time(timestampdiff(second, a.data_gerado, a.data_resolvido)), '%h:%i:%s') as 'tempo de resolução'
-from alerta a
-join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-join servidor_cliente s on p.fk_servidor = s.idservidor
-join data_center dc on s.fk_data_center = dc.iddata_center
-where a.medida = '%'
-order by a.data_gerado desc
-limit 5;
+  -- 1. Rotas - Alertas KPI (Quantidade total de alertas)
+-- View para alertas nas últimas 24 horas
+CREATE OR REPLACE VIEW vw_qtd_alertas_24h AS
+SELECT COUNT(*) AS total_alertas
+FROM alerta
+WHERE data_gerado >= NOW() - INTERVAL 24 HOUR;
 
--- últimas 24 horas
-select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 24 hour
-order by `tempo de resolução` desc;
-
--- últimos 7 dias
-select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 7 day
-order by `tempo de resolução` desc;
-
--- últimos 30 dias
-select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 30 day
-order by `tempo de resolução` desc;
-
--- total alertas acima de 5 minutos - kpi
--- 24 horas
-select count(*) from alerta
-where timestampdiff(minute, data_gerado, data_resolvido) > 5
-and data_gerado >= now() - interval 24 hour;
-
--- 7 dias
-select count(*) from alerta
-where timestampdiff(minute, data_gerado, data_resolvido) > 5
-and data_gerado >= now() - interval 7 day;
-
--- 30 dias
-select count(*) from alerta
-where timestampdiff(minute, data_gerado, data_resolvido) > 5
-and data_gerado >= now() - interval 30 day;
-
--- view tempo médio de resolução por data center
-create or replace view vw_resolucao_medio_datacenter as
-select
-    dc.nome as data_center,
-    time_format(sec_to_time(avg(timestampdiff(second, a.data_gerado, a.data_resolvido))), '%h:%i:%s') as tempo_medio_resolucao
-from alerta a
-join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-join servidor_cliente s on p.fk_servidor = s.idservidor
-join data_center dc on s.fk_data_center = dc.iddata_center
-where a.medida = '%'
-group by dc.nome
-order by tempo_medio_resolucao desc
-limit 3;
-
--- últimas 24 horas
-select * from vw_resolucao_medio_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 24 hour
-    group by dc.nome
-)
-order by tempo_medio_resolucao desc;
-
--- últimos 7 dias
-select * from vw_resolucao_medio_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 7 day
-    group by dc.nome
-)
-order by tempo_medio_resolucao desc;
-
--- últimos 30 dias
-select * from vw_resolucao_medio_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 30 day
-    group by dc.nome
-)
-order by tempo_medio_resolucao desc;
-
--- view total de alertas por data center
-create or replace view vw_total_alertas_datacenter as
-select
-    dc.nome as data_center,
-    count(a.idalerta) as total_alertas
-from alerta a
-join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-join servidor_cliente s on p.fk_servidor = s.idservidor
-join data_center dc on s.fk_data_center = dc.iddata_center
-where a.medida = '%'
-group by dc.nome
-order by total_alertas desc;
-
--- últimas 24 horas
-select * from vw_total_alertas_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 24 hour
-    group by dc.nome
-)
-order by total_alertas desc;
-
--- últimos 7 dias
-select * from vw_total_alertas_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 7 day
-    group by dc.nome
-)
-order by total_alertas desc;
-
--- últimos 30 dias
-select * from vw_total_alertas_datacenter
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 30 day
-    group by dc.nome
-)
-order by total_alertas desc;
-
--- view alertas acima de 5min
-create or replace view vw_alertas_acima_5min as
-select
-    dc.nome as data_center,
-    count(a.idalerta) as total_alertas_acima_5min
-from alerta a
-join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-join servidor_cliente s on p.fk_servidor = s.idservidor
-join data_center dc on s.fk_data_center = dc.iddata_center
-where a.medida = '%' and timestampdiff(minute, a.data_gerado, a.data_resolvido) > 5
-group by dc.nome
-order by total_alertas_acima_5min desc;
-
--- últimas 24 horas
-select * from vw_alertas_acima_5min
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 24 hour
-    group by dc.nome
-)
-order by total_alertas_acima_5min desc;
-
--- últimos 7 dias
-select * from vw_alertas_acima_5min
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 7 day
-    group by dc.nome
-)
-order by total_alertas_acima_5min desc;
-
--- últimos 30 dias
-select * from vw_alertas_acima_5min
-where data_center in (
-    select dc.nome
-    from alerta a
-    join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
-    join servidor_cliente s on p.fk_servidor = s.idservidor
-    join data_center dc on s.fk_data_center = dc.iddata_center
-    where a.medida = '%' and a.data_gerado >= now() - interval 30 day
-    group by dc.nome
-)
-order by total_alertas_acima_5min desc;
+-- View para alertas nos últimos 7 dias
+CREATE OR REPLACE VIEW vw_qtd_alertas_7d AS
+SELECT COUNT(*) AS total_alertas
+FROM alerta
+WHERE data_gerado >= NOW() - INTERVAL 7 DAY;
 
 
--- ultimas 24 horas
-select 
-    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
- as tempo_medio_24h
-from alerta
-where data_resolvido is not null
-  and data_gerado >= now() - interval 24 hour;
+-- View para alertas nos últimos 30 dias
+CREATE OR REPLACE VIEW vw_qtd_alertas_30d AS
+SELECT COUNT(*) AS total_alertas
+FROM alerta
+WHERE data_gerado >= NOW() - INTERVAL 30 DAY;
 
--- ultimos 7 dias
-select 
-    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
- as tempo_medio_7d
-from alerta
-where data_resolvido is not null
-  and data_gerado >= now() - interval 7 day;
+-- 2. Rotas - Tempo médio geral
+-- View para tempo médio nas últimas 24 horas
+CREATE OR REPLACE VIEW vw_tempo_medio_24h AS
+SELECT 
+    SEC_TO_TIME(FLOOR(AVG(TIMESTAMPDIFF(SECOND, data_gerado, data_resolvido)))) AS tempo_medio
+FROM alerta
+WHERE data_resolvido IS NOT NULL
+AND data_gerado >= NOW() - INTERVAL 24 HOUR;
+select * from vw_tempo_medio_24h;
+-- View para tempo médio nos últimos 7 dias
+CREATE OR REPLACE VIEW vw_tempo_medio_7d AS
+SELECT 
+    SEC_TO_TIME(FLOOR(AVG(TIMESTAMPDIFF(SECOND, data_gerado, data_resolvido)))) AS tempo_medio
+FROM alerta
+WHERE data_resolvido IS NOT NULL
+AND data_gerado >= NOW() - INTERVAL 7 DAY;
 
--- ultimos 30 dias
-select 
-    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
- as tempo_medio_30d
-from alerta
-where data_resolvido is not null
-  and data_gerado >= now() - interval 30 day;
+-- View para tempo médio nos últimos 30 dias
+CREATE OR REPLACE VIEW vw_tempo_medio_30d AS
+SELECT 
+    SEC_TO_TIME(FLOOR(AVG(TIMESTAMPDIFF(SECOND, data_gerado, data_resolvido)))) AS tempo_medio
+FROM alerta
+WHERE data_resolvido IS NOT NULL
+AND data_gerado >= NOW() - INTERVAL 30 DAY;
+
+
+-- 3. Rotas - Top 5 alertas com maior atraso
+-- View para top 5 alertas com maior atraso (24h)
+CREATE OR REPLACE VIEW vw_top5_alertas_atraso_24h AS
+SELECT
+    dc.nome AS data_center,
+    DATE_FORMAT(a.data_gerado, '%d/%m/%Y %H:%i:%s') AS data_hora,
+    TIME_FORMAT(SEC_TO_TIME(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)), '%H:%i:%s') AS tempo_resolucao
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+ORDER BY TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido) DESC
+LIMIT 5;
+
+-- View para top 5 alertas com maior atraso (7d)
+CREATE OR REPLACE VIEW vw_top5_alertas_atraso_7d AS
+SELECT
+    dc.nome AS data_center,
+    DATE_FORMAT(a.data_gerado, '%d/%m/%Y %H:%i:%s') AS data_hora,
+    TIME_FORMAT(SEC_TO_TIME(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)), '%H:%i:%s') AS tempo_resolucao
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+ORDER BY TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido) DESC
+LIMIT 5;
+
+-- View para top 5 alertas com maior atraso (30d)
+CREATE OR REPLACE VIEW vw_top5_alertas_atraso_30d AS
+SELECT
+    dc.nome AS data_center,
+    DATE_FORMAT(a.data_gerado, '%d/%m/%Y %H:%i:%s') AS data_hora,
+    TIME_FORMAT(SEC_TO_TIME(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)), '%H:%i:%s') AS tempo_resolucao
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+ORDER BY TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido) DESC
+LIMIT 5;
+
+
+-- 4. Rotas - Data Centers com maior tempo de resolução
+-- View para tempo médio por data center (24h)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_24h AS
+SELECT
+    dc.nome AS data_center,
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+GROUP BY dc.nome
+ORDER BY tempo_medio DESC;
+
+-- View para tempo médio por data center (7d)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_7d AS
+SELECT
+    dc.nome AS data_center,
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio DESC;
+
+-- View para tempo médio por data center (30d)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_30d AS
+SELECT
+    dc.nome AS data_center,
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio DESC;
+
+
+-- 5. Rotas - Data Centers total de alertas
+-- View para total de alertas por data center (24h)
+CREATE OR REPLACE VIEW vw_datacenter_total_alertas_24h AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS total_alertas
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+GROUP BY dc.nome
+ORDER BY total_alertas DESC;
+
+-- View para total de alertas por data center (7d)
+CREATE OR REPLACE VIEW vw_datacenter_total_alertas_7d AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS total_alertas
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+GROUP BY dc.nome
+ORDER BY total_alertas DESC;
+
+-- View para total de alertas por data center (30d)
+CREATE OR REPLACE VIEW vw_datacenter_total_alertas_30d AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS total_alertas
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY dc.nome
+ORDER BY total_alertas DESC;
+
+
+-- 6. Rotas - Data Centers alertas atrasados
+-- View para alertas atrasados por data center (24h)
+CREATE OR REPLACE VIEW vw_datacenter_alertas_atrasados_24h AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS alertas_atrasados
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+GROUP BY dc.nome
+ORDER BY alertas_atrasados DESC;
+
+-- View para alertas atrasados por data center (7d)
+CREATE OR REPLACE VIEW vw_datacenter_alertas_atrasados_7d AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS alertas_atrasados
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+GROUP BY dc.nome
+ORDER BY alertas_atrasados DESC;
+
+-- View para alertas atrasados por data center (30d)
+CREATE OR REPLACE VIEW vw_datacenter_alertas_atrasados_30d AS
+SELECT
+    dc.nome AS data_center,
+    COUNT(a.idalerta) AS alertas_atrasados
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+GROUP BY dc.nome
+ORDER BY alertas_atrasados DESC;
+
+-- 1. Rotas - Alertas KPI
+SELECT * FROM vw_qtd_alertas_24h;
+SELECT * FROM vw_qtd_alertas_7d;
+SELECT * FROM vw_qtd_alertas_30d;
+
+-- 2. Rotas - Tempo médio geral
+SELECT * FROM vw_tempo_medio_24h;
+SELECT * FROM vw_tempo_medio_7d;
+SELECT * FROM vw_tempo_medio_30d;
+
+-- 3. Rotas - Top 5 alertas com maior atraso
+SELECT * FROM vw_top5_alertas_atraso_24h;
+SELECT * FROM vw_top5_alertas_atraso_7d;
+SELECT * FROM vw_top5_alertas_atraso_30d;
+
+-- 4. Rotas - Data Centers com maior tempo de resolução
+SELECT * FROM vw_datacenter_media_resolucao_24h;
+SELECT * FROM vw_datacenter_media_resolucao_7d;
+SELECT * FROM vw_datacenter_media_resolucao_30d;
+
+-- 5. Rotas - Data Centers total de alertas
+SELECT * FROM vw_datacenter_total_alertas_24h;
+SELECT * FROM vw_datacenter_total_alertas_7d;
+SELECT * FROM vw_datacenter_total_alertas_30d;
+
+-- 6. Rotas - Data Centers alertas atrasados
+SELECT * FROM vw_datacenter_alertas_atrasados_24h;
+SELECT * FROM vw_datacenter_alertas_atrasados_7d;
+SELECT * FROM vw_datacenter_alertas_atrasados_30d;

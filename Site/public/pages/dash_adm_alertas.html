@@ -11,7 +11,7 @@
     <script src="../js/barra_lateral.js" defer></script>
     <script src="../js/admDatacenter.js" defer></script>
 </head>
-<body onload="carregarMenuLateral()">
+<body onload="carregarMenuLateral(); obterValores24h()">
     <div class="navbar">
         <i onclick="mudarIcone()" id="menu-bar">☰</i>
         <div class="container_perfil_menu" id="modal_perfil">
@@ -31,14 +31,16 @@
         <div id="secao-metricas" class="header-metrics">
             <div id="cartao-filtro" class="metric-card filter-card">
                 <div class="botoes-filtro">
-                    <button onclick="obterMaioresAlertas24h()" class="botao-filtro active">Últimas 24 horas</button>
-                    <button onclick="obterMaioresAlertas7d()" class="botao-filtro">Últimos 7 dias</button>
-                    <button onclick="obterMaioresAlertas30d()" class="botao-filtro">Últimos 30 dias</button>
+                    <div class="botoes-filtro">
+                        <button class="botao-filtro" onclick="obterValores24h()">Últimas 24h</button>
+                        <button class="botao-filtro" onclick="obterValores7d()">Últimos 7 dias</button>
+                        <button class="botao-filtro" onclick="obterValores30d()">Últimos 30 dias</button>
+                    </div>
                 </div>
                 <h3>Selecione intervalo de tempo</h3>
             </div>
             <div id="cartao-alertas" class="metric-card alert-card">
-                <div id="valor-alertas" class="metric-value danger">0</div>
+                <div id="valor-alertas" class="metric-value danger">Carregando...</div>
                 <h3>Alertas fora do tempo ideal de resolução</h3>
             </div>
             <div id="cartao-tempo" class="metric-card time-card">
@@ -80,7 +82,6 @@
                 </div>
             </div>
         </div>
-
         <div id="secao-graficos" class="charts-section">
             <div id="grafico-container" class="grafico-container">
                 <h2>Top 3 Data Centers com maior número de atrasos</h2>
