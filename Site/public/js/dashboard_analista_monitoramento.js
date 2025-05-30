@@ -360,3 +360,367 @@ function generateMinuteWiseTimeSeries(baseval, count) {
   }
   return series;
 }
+
+
+// variaveis estéticas
+ var stroke =  {
+    curve: "smooth",
+    width: 5,
+    lineCap: "butt"
+  }
+
+  var marcadores = {
+    size: 0,
+    hover: {
+      size: 0
+    }
+  }
+
+  var toolbar = {
+      show: true,
+      offsetX: 20,
+      offsetY: 7
+    }
+
+    var altura = '300'
+    var largura = '432'
+    var velocidade = 200
+// CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
+window.Apex = {
+  chart: {
+    foreColor: "#2b2b2b",
+    toolbar: {
+      show: false
+    }
+  },
+  colors: ["#FCCF31", "#17ead9", "#f02fc2"],
+  stroke: {
+    width: 3
+  },
+  dataLabels: {
+    enabled: false
+  },
+  grid: {
+    borderColor: "#40475D"
+  },
+  xaxis: {
+    axisTicks: {
+      color: "#333"
+    },
+    axisBorder: {
+      color: "#333"
+    }
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      gradientToColors: ["#F55555", "#6078ea", "#6094ea"]
+    }
+  },
+  tooltip: {
+    theme: "dark"
+  },
+  yaxis: {
+    decimalsInFloat: 2,
+    opposite: true,
+    labels: {
+      offsetX: -10
+    }
+  }
+};
+
+var optionsLineFisico = {
+  chart: {
+    height: altura,
+    width: largura,
+    type: "line",
+    stacked: false,
+    animations: {
+      enabled: true,
+      easing: "linear",
+      dynamicAnimation: {
+        speed: velocidade
+      }
+    },
+    dropShadow: {
+      enabled: true,
+      opacity: 0.3,
+      blur: 5,
+      left: -7,
+      top: 22
+    },
+    events: {
+      animationEnd: function (chartCtx) {
+
+        // Cria os dados novos?
+        const newData1 = chartCtx.w.config.series[0].data.slice();
+        newData1.shift();
+        const newData2 = chartCtx.w.config.series[1].data.slice();
+        newData2.shift();
+        const newData3 = chartCtx.w.config.series[2].data.slice();
+        newData3.shift();
+        console.log(chartCtx)
+
+      }
+    },
+    toolbar: toolbar,
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: stroke,
+  markers: marcadores,
+  series: [
+    {
+      name: "CPU",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12
+      )
+    },
+    {
+      name: "RAM",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12
+      )
+    },
+    {
+      name: "Disco",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12
+      )
+    }
+  ],
+  xaxis: {
+    type: "datetime",
+    range: 2700000
+  },
+  title: {
+    text: "Componentes",
+    align: "left",
+    offsetY: -8,
+    style: {
+      fontSize: "30px"
+    }
+  },
+  subtitle: {
+    text: "Percentual",
+    floating: true,
+    align: "right",
+    offsetY: 0,
+    style: {
+      fontSize: "22px"
+    }
+  },
+  legend: {
+    show: true,
+    floating: true,
+    horizontalAlign: "left",
+    onItemClick: {
+      toggleDataSeries: false
+    },
+    position: "top",
+    offsetY: -35,
+    offsetX: 0
+  }
+};
+
+const chartLineFisico = new ApexCharts(
+  document.querySelector("#linechart-fisico"),
+  optionsLineFisico
+);
+chartLineFisico.render();
+
+window.setInterval(function () {
+  /* Importante */
+  chartLineFisico.updateSeries([
+    {
+      data: [
+        ...chartLineFisico.w.config.series[0].data,
+        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
+      ]
+    },
+    {
+      data: [
+        ...chartLineFisico.w.config.series[1].data,
+        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
+      ]
+    },
+    {
+      data: [
+        ...chartLineFisico.w.config.series[2].data,
+        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
+      ]
+    }
+  ]);
+
+}, 3000);
+
+
+// CONFIGURA O GRÁFICO DE LINHAS DE REDE
+window.Apex = {
+  chart: {
+    foreColor: "#2b2b2b",
+    toolbar: {
+      show: false
+    }
+  },
+  colors: ["#2160D5", "#8233C2"],
+  stroke: {
+    width: 3
+  },
+  dataLabels: {
+    enabled: false
+  },
+  grid: {
+    borderColor: "#40475D"
+  },
+  xaxis: {
+    axisTicks: {
+      color: "#333"
+    },
+    axisBorder: {
+      color: "#333"
+    }
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      gradientToColors: ["#F55555", "#6078ea"]
+    }
+  },
+  tooltip: {
+    theme: "dark"
+  },
+  yaxis: {
+    decimalsInFloat: 2,
+    opposite: true,
+    labels: {
+      offsetX: -10
+    }
+  }
+};
+
+var optionsLineRede = {
+  chart: {
+    height: altura,
+    width: largura,
+    type: "line",
+    stacked: false,
+    animations: {
+      enabled: true,
+      easing: "linear",
+      dynamicAnimation: {
+        speed: velocidade
+      }
+    },
+    dropShadow: {
+      enabled: true,
+      opacity: 0.3,
+      blur: 5,
+      left: -7,
+      top: 22
+    },
+    events: {
+      animationEnd: function (chartCtx) {
+
+        // Cria os dados novos?
+        const newData1 = chartCtx.w.config.series[0].data.slice();
+        newData1.shift();
+        const newData2 = chartCtx.w.config.series[1].data.slice();
+        newData2.shift();
+        console.log(chartCtx)
+
+      }
+    },
+    toolbar: toolbar,
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: stroke,
+  markers: marcadores,
+  series: [
+    {
+      name: "Upload",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12
+      )
+    },
+    {
+      name: "Download",
+      data: generateMinuteWiseTimeSeries(
+        new Date("12/12/2016 00:20:00").getTime(),
+        12
+      )
+    }
+  ],
+  xaxis: {
+    type: "datetime",
+    range: 2700000
+  },
+  title: {
+    text: "Velocidade de rede",
+    align: "left",
+    offsetY: -5,
+    style: {
+      fontSize: "28px",
+      textWrap: true
+    }
+  },
+  subtitle: {
+    text: "Percentual",
+    floating: true,
+    align: "right",
+    offsetY: 0,
+    style: {
+      fontSize: "22px"
+    }
+  },
+  legend: {
+    show: true,
+    floating: true,
+    horizontalAlign: "left",
+    onItemClick: {
+      toggleDataSeries: false
+    },
+    position: "top",
+    offsetY: -35,
+    offsetX: 0
+  }
+};
+
+const chartLineRede = new ApexCharts(
+  document.querySelector("#linechart-rede"),
+  optionsLineRede
+);
+chartLineRede.render();
+
+window.setInterval(function () {
+
+  /* Importante */
+  chartLineRede.updateSeries([
+    {
+      data: [
+        ...chartLineRede.w.config.series[0].data,
+        [chartLineRede.w.globals.maxX + 300000, getRandom()]
+      ]
+    },
+    {
+      data: [
+        ...chartLineRede.w.config.series[1].data,
+        [chartLineRede.w.globals.maxX + 300000, getRandom()]
+      ]
+    }
+  ]);
+
+}, 3000);

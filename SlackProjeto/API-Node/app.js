@@ -13,11 +13,11 @@ app.use((request, response, next) =>{
     next()
 })
 
-const monitoriaRouter = require("./src/routes/monitoriaAoVivo.routes")
+const monitoriaRouter = require("./src/routes/index.routes")
 const bdRouter = require("./src/routes/bdMYSQL.routes")
 const bucketRouter = require("./src/routes/bucket.routes")
 
-app.use("/mysql", bdRouter)
+app.use("/", bdRouter)
 app.use("/bucket", bucketRouter)
 app.use("/monitoria", monitoriaRouter)
 

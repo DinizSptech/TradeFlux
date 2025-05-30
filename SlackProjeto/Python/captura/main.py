@@ -15,10 +15,13 @@ def main():
     if opcao == 1:
         info = crawler.coletar_informacoes()
         print(info)
-        # time.sleep(10)
+        
         uuidServidor = info['UUID da Placa Mãe']
-        print("Procurando no Bando de dados uma maquina com a UUID: ", uuidServidor)
+        print("Procurando no Banco de dados uma máquina com a UUID: ", uuidServidor)
+        
+        # Verifica se servidor existe
         idServidor = comunicacao.buscar_servidor(uuidServidor)
+        
         if idServidor == None:
             print("Máquina não encontrada no banco de dados.")
             print("Cadastrando máquina...")
@@ -26,64 +29,48 @@ def main():
             cpuInfo = info["Modelo do Processador"]
             ramTotal = info["RAM Máxima"]
             discoTotal = info["Armazenamento Máximo"]
+            
             comunicacao.cadastrar_servidor(id_datacenter, uuidServidor, SO_maq, discoTotal, ramTotal, cpuInfo)
-            # insert.inserirMaquina(uuidServidor , SO, discoTotal, ramTotal, cpuInfo, idDataCenter)
             print("Dados inseridos:")
             print("Sistema operacional: ", SO_maq)
             print("RAM total: ", ramTotal)
             print("Armazenamento total: ", discoTotal)
             print("Modelo do processador: ", cpuInfo)
-            dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor);
-            dados_capturados = crawler.coletar_dados(id_datacenter, dados_parametros["idservidor"])
-            while(True):
-                capturas_enviadas = comunicacao.enviar_dados(dados_capturados)
+        
+        # Obtém parâmetros do servidor após cadastro/verificação
+        dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
+        
+        if "erro" not in dados_parametros:
+            id_servidor_final = dados_parametros.get("idservidor", idServidor)
+            print(f"Iniciando monitoramento do servidor ID: {id_servidor_final}")
+            
+            # Loop principal de monitoramento
+            while True:
+                try:
+                    # Coleta dados do sistema
+                    dados_capturados = crawler.coletar_dados(id_datacenter, id_servidor_final)
+                    
+                    # Envia dados em tempo real
+                    comunicacao.enviar_dados(dados_capturados)
+                    
+                    # Verifica e envia alertas
+                    comunicacao.verificar_e_enviar_alertas(dados_capturados, dados_parametros)
+                    
+                    # Aguarda antes da próxima coleta
+                    time.sleep(5)
+                    
+                except KeyboardInterrupt:
+                    print("\nMonitoramento interrompido pelo usuário.")
+                    break
+                except Exception as e:
+                    print(f"Erro na coleta: {e}")
+                    time.sleep(10)
         else:
-            dados_capturados = crawler.coletar_dados(id_datacenter, dados_parametros["idservidor"])
-            while(True):
-                capturas_enviadas = comunicacao.enviar_dados(dados_capturados)
+            print("Erro ao obter parâmetros do servidor.")
             
     elif opcao == 2:
         print("Saindo...")
         exit()
-    # print("Escolha uma opção:\n1 - Cadastrar essa máquina no banco de dados\n2 - Coletar dados dessa máquina\n3 - Sair")
-    # opcao = int(input("Digite a opção desejada: ")) 
 
-    # if opcao == 1:
-    #     info = crawler.coletar_informacoes()
-    #     uuidServidor = info['UUID da Placa Mãe']
-    #     print("Procurando no Bando de dados uma maquina com a UUID: ", uuidServidor)
-    #     idServidor = comunicacao.buscar_servidor(uuidServidor)
-
-    #     if idServidor == None:
-    #         print("Máquina não encontrada no banco de dados.")
-    #         print("Cadastrando máquina...")
-    #         SO = info["Sistema Operacional"]
-    #         ramTotal = info["RAM Máxima"]
-    #         discoTotal = info["Armazenamento Máximo"]
-    #         cpuInfo = info["Modelo do Processador"]
-    #         comunicacao.cadastrar_servidor()
-    #         # insert.inserirMaquina(uuidServidor , SO, discoTotal, ramTotal, cpuInfo, idDataCenter)
-    #         print("Dados inseridos:")
-    #         print("Sistema operacional: ", SO)
-    #         print("RAM total: ", ramTotal)
-    #         print("Armazenamento total: ", discoTotal)
-    #         print("Modelo do processador: ", cpuInfo)
-    #     else:
-    #         print("Máquina já registrada no banco")
-    #         print("ID da máquina: ", idServidor)
-    #         print("Deseja realizar a captura de dados com a nossos parametros padrões? \n1 - SIM | 2 - NÃO")
-    #         option = int(input())
-    #         if option == 1:
-    #             coletarDados(idServidor)
-    #         else:
-    #             print("Saindo...")
-    #             exit()
-
-    # elif opcao == 2:   
-    #     dadoscapturados = crawler.coletar_dados(1,2)
-
-    #     print(dadoscapturados)
-    # elif opcao == 3:
-    #     print("Saindo...")
-    #     exit()
-main()
+if __name__ == "__main__":
+    main()
