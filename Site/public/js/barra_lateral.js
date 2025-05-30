@@ -22,7 +22,7 @@ function mudarIcone() {
 }
 
 function carregarMenuLateral() {
-  const cargo = "cientista";
+  const cargo = sessionStorage.getItem("Cargo");
   const idUsuario = 1;
   const barralateral = document.getElementById("barralateral");
 

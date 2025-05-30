@@ -28,9 +28,9 @@ function entrar() {
           console.log("Estarei enviando valores para sessionStorage")
           sessionStorage.setItem("EMAIL_USUARIO", json.email);
           sessionStorage.setItem("NOME_USUARIO", json.nome);
-          sessionStorage.setItem("ID_USUARIO", json.cargo);
-          sessionStorage.setItem("Cargo", json.id);
-          sessionStorage.setItem("DataCenter", json.data_center);
+          sessionStorage.setItem("Cargo", json.cargo);
+          sessionStorage.setItem("ID_USUARIO", json.idusuario);
+          sessionStorage.setItem("DataCenter", json.fk_data_center);
           if (nivelConta == "administrador") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`
@@ -40,12 +40,12 @@ function entrar() {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta analista!...`
             );
-            window.location.href = "./dashboard_analista.html";
+            window.location.href = "./dash_analista_monitoramento.html";
           } else if (nivelConta == "cientista") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta Cientista de Dados!...`
             );
-            window.location.href = "./dashboard_Cientista.html";
+            window.location.href = "./dash_cientista_alertas.html";
           }
         });
       } else {
