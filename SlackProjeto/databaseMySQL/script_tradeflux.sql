@@ -165,29 +165,6 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 (1500,1000,NULL,7),
 (300,500,NULL,8);
 
---diniz
-INSERT INTO parametro_servidor (limiar_alerta, fk_servidor, fk_componente) VALUES 
-(80.0, 1, 1), 
-(2.30, 1, 2),
-(80.0, 1, 3),
-(6.0, 1, 4),
-(80.0, 1, 5),
-(80.0, NULL, 1),
-(2.30, NULL, 2),
-(80.0, NULL, 3),
-(6.0, NULL, 4),
-(, NULL, 5),
-(200.0, NULL, 6);
-
-create table if not exists captura (
-    idcaptura int auto_increment primary key,
-    valor double,
-    medida varchar(45),
-    data_gerado datetime,
-    fk_parametro int,
-    foreign key (fk_parametro) references parametro_servidor(idparametros_servidor)
-);
-
 create table if not exists alerta (
     idalerta int auto_increment primary key,
     valor double,
@@ -226,8 +203,8 @@ INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) VA
 (91.3, '%', NOW() - INTERVAL 15 DAY, NOW() - INTERVAL 15 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 24),
 (96.7, '%', NOW() - INTERVAL 20 DAY, NOW() - INTERVAL 20 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 25),
 (81.5, '%', NOW() - INTERVAL 3 DAY, NOW() - INTERVAL 3 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 26),
-(89.0, '%', NOW() - INTERVAL 6 DAY, NOW() - INTERVAL 6 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 1),
-(93.5, '%', NOW() - INTERVAL 9 DAY, NOW() - INTERVAL 9 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 1);
+(89.0, '%', NOW() - INTERVAL 6 DAY, NOW() - INTERVAL 6 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 2),
+(93.5, '%', NOW() - INTERVAL 9 DAY, NOW() - INTERVAL 9 DAY + INTERVAL FLOOR(5 + RAND() * 3) MINUTE, 2);
 
 -- views --
 
@@ -451,32 +428,32 @@ AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
--- 1. Rotas - Alertas KPI
-SELECT * FROM vw_qtd_alertas_24h;
-SELECT * FROM vw_qtd_alertas_7d;
-SELECT * FROM vw_qtd_alertas_30d;
+-- -- 1. Rotas - Alertas KPI
+-- SELECT * FROM vw_qtd_alertas_24h;
+-- SELECT * FROM vw_qtd_alertas_7d;
+-- SELECT * FROM vw_qtd_alertas_30d;
 
--- 2. Rotas - Tempo médio geral
-SELECT * FROM vw_tempo_medio_24h;
-SELECT * FROM vw_tempo_medio_7d;
-SELECT * FROM vw_tempo_medio_30d;
+-- -- 2. Rotas - Tempo médio geral
+-- SELECT * FROM vw_tempo_medio_24h;
+-- SELECT * FROM vw_tempo_medio_7d;
+-- SELECT * FROM vw_tempo_medio_30d;
 
--- 3. Rotas - Top 5 alertas com maior atraso
-SELECT * FROM vw_top5_alertas_atraso_24h;
-SELECT * FROM vw_top5_alertas_atraso_7d;
-SELECT * FROM vw_top5_alertas_atraso_30d;
+-- -- 3. Rotas - Top 5 alertas com maior atraso
+-- SELECT * FROM vw_top5_alertas_atraso_24h;
+-- SELECT * FROM vw_top5_alertas_atraso_7d;
+-- SELECT * FROM vw_top5_alertas_atraso_30d;
 
--- 4. Rotas - Data Centers com maior tempo de resolução
-SELECT * FROM vw_datacenter_media_resolucao_24h;
-SELECT * FROM vw_datacenter_media_resolucao_7d;
-SELECT * FROM vw_datacenter_media_resolucao_30d;
+-- -- 4. Rotas - Data Centers com maior tempo de resolução
+-- SELECT * FROM vw_datacenter_media_resolucao_24h;
+-- SELECT * FROM vw_datacenter_media_resolucao_7d;
+-- SELECT * FROM vw_datacenter_media_resolucao_30d;
 
--- 5. Rotas - Data Centers total de alertas
-SELECT * FROM vw_datacenter_total_alertas_24h;
-SELECT * FROM vw_datacenter_total_alertas_7d;
-SELECT * FROM vw_datacenter_total_alertas_30d;
+-- -- 5. Rotas - Data Centers total de alertas
+-- SELECT * FROM vw_datacenter_total_alertas_24h;
+-- SELECT * FROM vw_datacenter_total_alertas_7d;
+-- SELECT * FROM vw_datacenter_total_alertas_30d;
 
--- 6. Rotas - Data Centers alertas atrasados
-SELECT * FROM vw_datacenter_alertas_atrasados_24h;
-SELECT * FROM vw_datacenter_alertas_atrasados_7d;
-SELECT * FROM vw_datacenter_alertas_atrasados_30d;
+-- -- 6. Rotas - Data Centers alertas atrasados
+-- SELECT * FROM vw_datacenter_alertas_atrasados_24h;
+-- SELECT * FROM vw_datacenter_alertas_atrasados_7d;
+-- SELECT * FROM vw_datacenter_alertas_atrasados_30d;
