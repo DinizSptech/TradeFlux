@@ -36,6 +36,7 @@ def main():
             print("Armazenamento total: ", discoTotal)
             print("Modelo do processador: ", cpuInfo)
         
+        contador = 1
         dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
         
         if "erro" not in dados_parametros:
@@ -44,12 +45,16 @@ def main():
             
             while True:
                 try:
+                    if contador == 0 or contador == 300:
+                        dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
+                        if contador == 300:
+                            contador = 0
+                    
                     dados_capturados = crawler.coletar_dados(id_datacenter, id_servidor_final)
-                    
                     comunicacao.enviar_dados(dados_capturados)
-                    
                     comunicacao.verificar_e_enviar_alertas(dados_capturados, dados_parametros)
                     
+                    contador += 1
                     time.sleep(1)
                     
                 except KeyboardInterrupt:
