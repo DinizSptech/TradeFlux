@@ -22,6 +22,7 @@ const servidoresRouter = require("./src/routes/servidores");
 const dataCenterRouter = require("./src/routes/dataCenter");
 const componentesRouter = require("./src/routes/componentes");
 const alertasRouter = require("./src/routes/alertas");
+const admRouter = require("./src/routes/adm");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ app.use("/servidores", servidoresRouter);
 app.use("/componentes", componentesRouter);
 app.use("/dataCenter", dataCenterRouter);
 app.use("/alertas", alertasRouter);
+app.use("/adm", admRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`
