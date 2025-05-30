@@ -8,7 +8,7 @@ function autenticar(email) {
     // cargo
   );
   var instrucaoSql = `
-        SELECT idUsuario, nome, senha, cargo, fkDataCenter FROM usuario_cliente WHERE email = '${email}';
+        SELECT idusuario, nome, senha, cargo, fk_data_center FROM usuario_cliente WHERE email = '${email}';
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
