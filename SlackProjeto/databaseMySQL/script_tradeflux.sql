@@ -75,14 +75,14 @@ create table if not exists usuario_cliente (
 -- create table if not exits cargo (
 --     idcarho int auto_increment primary key,
 --     nome varchar(45),
---     nvlAcesso TINYINT
+--     nvlacesso tinyint
 
 -- );
 
 insert into usuario_cliente (nome, email, senha, cargo, ativo, acesso, fk_data_center) values 
-('Jennifer Silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
-('Rogerio Silva', 'rogerio.silva@b3.com.br', 'ceacd3494dcbcaa54598c1e8b0f246b8:6d251bfe3dee67a85688c6dd4c04fec5173569fc70ae9bb19e9695d1b4e54414', 'cientista', 1, curtime(), 1),
-('Julia Silva', 'julia.silva@b3.com.br', 'f70a684b86123806da7898cd2a1905a0:3ec35de932ddcc19c8f6c38be3f29a5fdec8f6b8b9a486b150d17d6382a39645', 'analista', 1, curtime(), 1);
+('jennifer silva', 'jennifer.silva@b3.com.br', 'c89f6b6d56d9ce4c81489ea96082757a:14fb486a60bb1652636764bd4d3d36315fbc6d377cb0165e54aa80d7fea87e7a', 'administrador', 1, curtime(), 1),
+('rogerio silva', 'rogerio.silva@b3.com.br', 'ceacd3494dcbcaa54598c1e8b0f246b8:6d251bfe3dee67a85688c6dd4c04fec5173569fc70ae9bb19e9695d1b4e54414', 'cientista', 1, curtime(), 1),
+('julia silva', 'julia.silva@b3.com.br', 'f70a684b86123806da7898cd2a1905a0:3ec35de932ddcc19c8f6c38be3f29a5fdec8f6b8b9a486b150d17d6382a39645', 'analista', 1, curtime(), 1);
 
 create table if not exists componente (
     idcomponente int auto_increment primary key,
@@ -220,8 +220,8 @@ join data_center dc on u.fk_data_center = dc.iddata_center;
 create or replace view vw_alertas_simples as
 select
     dc.nome as 'data center',
-    date_format(a.data_gerado, '%d/%m/%Y %H:%i:%s') as 'data-hora',
-    time_format(sec_to_time(timestampdiff(second, a.data_gerado, a.data_resolvido)), '%H:%i:%s') as 'tempo de resolução'
+    date_format(a.data_gerado, '%d/%m/%y %h:%i:%s') as 'data-hora',
+    time_format(sec_to_time(timestampdiff(second, a.data_gerado, a.data_resolvido)), '%h:%i:%s') as 'tempo de resolução'
 from alerta a
 join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
 join servidor_cliente s on p.fk_servidor = s.idservidor
@@ -232,17 +232,17 @@ limit 5;
 
 -- últimas 24 horas
 select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%Y %H:%i:%s') >= now() - interval 24 hour
+where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 24 hour
 order by `tempo de resolução` desc;
 
 -- últimos 7 dias
 select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%Y %H:%i:%s') >= now() - interval 7 day
+where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 7 day
 order by `tempo de resolução` desc;
 
 -- últimos 30 dias
 select * from vw_alertas_simples
-where str_to_date(`data-hora`, '%d/%m/%Y %H:%i:%s') >= now() - interval 30 day
+where str_to_date(`data-hora`, '%d/%m/%y %h:%i:%s') >= now() - interval 30 day
 order by `tempo de resolução` desc;
 
 -- total alertas acima de 5 minutos - kpi
@@ -265,7 +265,7 @@ and data_gerado >= now() - interval 30 day;
 create or replace view vw_resolucao_medio_datacenter as
 select
     dc.nome as data_center,
-    time_format(sec_to_time(avg(timestampdiff(second, a.data_gerado, a.data_resolvido))), '%H:%i:%s') as tempo_medio_resolucao
+    time_format(sec_to_time(avg(timestampdiff(second, a.data_gerado, a.data_resolvido))), '%h:%i:%s') as tempo_medio_resolucao
 from alerta a
 join parametro_servidor p on a.fk_parametro = p.idparametros_servidor
 join servidor_cliente s on p.fk_servidor = s.idservidor
@@ -417,3 +417,28 @@ where data_center in (
     group by dc.nome
 )
 order by total_alertas_acima_5min desc;
+
+
+-- ultimas 24 horas
+select 
+    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
+ as tempo_medio_24h
+from alerta
+where data_resolvido is not null
+  and data_gerado >= now() - interval 24 hour;
+
+-- ultimos 7 dias
+select 
+    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
+ as tempo_medio_7d
+from alerta
+where data_resolvido is not null
+  and data_gerado >= now() - interval 7 day;
+
+-- ultimos 30 dias
+select 
+    sec_to_time(floor(avg(timestampdiff(second, data_gerado, data_resolvido))))
+ as tempo_medio_30d
+from alerta
+where data_resolvido is not null
+  and data_gerado >= now() - interval 30 day;
