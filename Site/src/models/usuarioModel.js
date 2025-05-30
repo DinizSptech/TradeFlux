@@ -19,7 +19,7 @@ function autenticar(email) {
 function atualizarAcesso() {
   let instrucaoSql = `update usuario_cliente
     set acesso = curtime()
-    where idUsuario = 1;`;
+    where idusuario = 1;`;
   return database.executar(instrucaoSql);
 }
 
@@ -46,13 +46,13 @@ function cadastrar(nome, senha, email, cargo, ativo, data_center) {
 function exibir(nome, email, cargo, ativo, acesso) {
   console.log(nome, email, cargo, ativo, acesso);
 
-  let instrucaoSql = `SELECT * FROM vw_dashUsuarios`;
+  let instrucaoSql = `SELECT * FROM vw_dashusuarios`;
   console.log(instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function deletar(idUsuario) {
-  let instrucaoSql = `DELETE FROM usuario_cliente WHERE idUsuario = ${idUsuario}`;
+  let instrucaoSql = `DELETE FROM usuario_cliente WHERE idusuario = ${idUsuario}`;
   console.log(instrucaoSql);
   return database.executar(instrucaoSql);
 }

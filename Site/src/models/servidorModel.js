@@ -7,7 +7,7 @@ function cadastrar(dataCenter) {
     );
     
     let instrucaoSql = `
-            INSERT INTO servidor_cliente (idServidor, fk_data_center) VALUES(default, ${dataCenter});
+            INSERT INTO servidor_cliente (idservidor, fk_data_center) VALUES(default, ${dataCenter});
         `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql, [dataCenter]);
@@ -31,18 +31,18 @@ function exibirServidores(dataCenter) {
   );
 
   let instrucaoSql = `
-  select sc.idServidor,
-    count(ps.idParametros_Servidor) as totalComponentes,
+  select sc.idservidor,
+    count(ps.idparametros_servidor) as totalComponentes,
     case 
         when count(a.idAlerta) > 0 then 'Crítico'
         else 'Estável'
     end as statusServidor,
-  count(a2.idAlerta) as alertas_hoje
-  from Servidor_Cliente as sc
-  left join Parametro_Servidor ps 
-  on ps.fkServidor = sc.idServidor
-  left join Alerta a 
-    on a.fkParametro = ps.idParametros_Servidor 
+  count(a2.idalerta) as alertas_hoje
+  from servidor_cliente as sc
+  left join parametro_servidor ps 
+  on ps.fkservidor = sc.idservidor
+  left join alerta a 
+    on a.fkparametro = ps.idparametros_servidor 
     and a.data >= NOW() - interval 2 hour
   left join Alerta a2 
     on a2.fkParametro = ps.idParametros_Servidor 
