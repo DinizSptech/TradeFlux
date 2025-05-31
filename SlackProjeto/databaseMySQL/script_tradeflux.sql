@@ -167,6 +167,7 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 
 create table if not exists alerta (
     idalerta int auto_increment primary key,
+    idjira varchar(20),
     valor double,
     medida varchar(45),
     data_gerado datetime,
@@ -174,52 +175,6 @@ create table if not exists alerta (
     fk_parametro int,
     foreign key (fk_parametro) references parametro_servidor(idparametros_servidor)
 );
-
--- testes de alertas
-
--- INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, fk_parametro) VALUES
--- (75.2, '%', '2025-05-31 08:15:23', '2025-05-31 08:17:45', 1),
--- (76.8, '%', '2025-05-30 10:22:12', '2025-05-30 10:24:33', 1),
--- (77.5, '%', '2025-05-29 14:38:47', '2025-05-29 14:40:58', 1),
--- (78.1, '%', '2025-05-28 09:12:34', '2025-05-28 09:14:56', 2),
--- (79.3, '%', '2025-05-27 13:45:21', '2025-05-27 13:47:42', 2),
--- (80.5, '%', '2025-05-26 16:23:45', '2025-05-26 16:29:57', 3),
--- (81.7, '%', '2025-05-25 11:34:12', '2025-05-25 11:36:34', 4),
--- (82.3, '%', '2025-05-24 08:45:23', '2025-05-24 08:50:45', 4),
--- (83.6, '%', '2025-05-23 12:12:34', '2025-05-23 12:14:56', 5),
--- (84.2, '%', '2025-05-22 15:23:45', '2025-05-22 15:25:57', 5),
--- (85.4, '%', '2025-05-21 09:34:56', '2025-05-21 09:40:18', 6),
--- (86.7, '%', '2025-05-20 14:45:12', '2025-05-20 14:47:34', 6),
--- (87.2, '%', '2025-05-19 10:12:34', '2025-05-19 10:14:56', 7),
--- (88.5, '%', '2025-05-18 13:23:45', '2025-05-18 13:31:57', 7),
--- (89.1, '%', '2025-05-17 16:34:56', '2025-05-17 16:37:18', 8),
--- (90.3, '%', '2025-05-16 11:45:12', '2025-05-16 11:55:34', 8),
--- (91.6, '%', '2025-05-15 14:56:23', '2025-05-15 14:58:45', 9),
--- (92.1, '%', '2025-05-14 09:15:34', '2025-05-14 09:25:45', 9),
--- (93.4, '%', '2025-05-13 11:22:53', '2025-05-13 11:25:12', 10),
--- (94.7, '%', '2025-05-12 14:38:29', '2025-05-12 14:48:47', 10),
--- (95.2, '%', '2025-05-11 16:45:18', '2025-05-11 16:55:28', 11),
--- (96.5, '%', '2025-05-10 08:12:37', '2025-05-10 08:22:49', 11),
--- (97.8, '%', '2025-05-09 10:23:45', '2025-05-09 10:33:57', 12),
--- (98.1, '%', '2025-05-08 13:34:56', '2025-05-08 13:44:08', 12),
--- (81.3, '%', '2025-05-07 15:45:12', '2025-05-07 15:55:24', 19),
--- (82.6, '%', '2025-05-06 09:56:23', '2025-05-06 10:06:35', 19),
--- (83.9, '%', '2025-05-05 12:07:34', '2025-05-05 12:17:46', 20),
--- (84.2, '%', '2025-05-04 14:18:45', '2025-05-04 14:28:57', 20),
--- (85.5, '%', '2025-05-03 16:29:56', '2025-05-03 16:39:08', 21),
--- (86.8, '%', '2025-05-02 10:41:12', '2025-05-02 10:51:24', 21),
--- (87.1, '%', '2025-05-01 12:52:23', '2025-05-01 13:02:35', 22),
--- (88.4, '%', '2025-04-30 15:03:34', '2025-04-30 15:13:46', 22),
--- (89.7, '%', '2025-04-29 17:14:45', '2025-04-29 17:24:57', 23),
--- (90.0, '%', '2025-04-28 09:25:56', '2025-04-28 09:35:08', 23),
--- (91.3, '%', '2025-04-27 11:36:12', '2025-04-27 11:46:24', 24),
--- (92.6, '%', '2025-04-26 13:47:23', '2025-04-26 13:57:35', 24),
--- (93.9, '%', '2025-04-25 16:58:34', '2025-04-25 17:08:46', 25),
--- (94.2, '%', '2025-04-24 10:09:45', '2025-04-24 10:19:57', 25),
--- (95.5, '%', '2025-04-23 12:20:56', '2025-04-23 12:30:08', 26),
--- (96.8, '%', '2025-04-22 14:31:12', '2025-04-22 14:41:24', 26),
--- (97.1, '%', '2025-04-21 16:42:23', '2025-04-21 16:52:35', 27),
--- (98.4, '%', '2025-04-20 09:53:34', '2025-04-20 10:03:46', 27);
 
 -- testes de alertas
 
@@ -470,32 +425,32 @@ AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
--- -- 1. Rotas - Alertas KPI
-SELECT * FROM vw_qtd_alertas_24h;
-SELECT * FROM vw_qtd_alertas_7d;
-SELECT * FROM vw_qtd_alertas_30d;
+-- -- -- 1. Rotas - Alertas KPI
+-- SELECT * FROM vw_qtd_alertas_24h;
+-- SELECT * FROM vw_qtd_alertas_7d;
+-- SELECT * FROM vw_qtd_alertas_30d;
 
--- 2. Rotas - Tempo médio geral
-SELECT * FROM vw_tempo_medio_24h;
-SELECT * FROM vw_tempo_medio_7d;
-SELECT * FROM vw_tempo_medio_30d;
+-- -- 2. Rotas - Tempo médio geral
+-- SELECT * FROM vw_tempo_medio_24h;
+-- SELECT * FROM vw_tempo_medio_7d;
+-- SELECT * FROM vw_tempo_medio_30d;
 
--- 3. Rotas - Top 5 alertas com maior atraso
-SELECT * FROM vw_top5_alertas_atraso_24h;
-SELECT * FROM vw_top5_alertas_atraso_7d;
-SELECT * FROM vw_top5_alertas_atraso_30d;
+-- -- 3. Rotas - Top 5 alertas com maior atraso
+-- SELECT * FROM vw_top5_alertas_atraso_24h;
+-- SELECT * FROM vw_top5_alertas_atraso_7d;
+-- SELECT * FROM vw_top5_alertas_atraso_30d;
 
--- 4. Rotas - Data Centers com maior tempo de resolução
-SELECT * FROM vw_datacenter_media_resolucao_24h;
-SELECT * FROM vw_datacenter_media_resolucao_7d;
-SELECT * FROM vw_datacenter_media_resolucao_30d;
+-- -- 4. Rotas - Data Centers com maior tempo de resolução
+-- SELECT * FROM vw_datacenter_media_resolucao_24h;
+-- SELECT * FROM vw_datacenter_media_resolucao_7d;
+-- SELECT * FROM vw_datacenter_media_resolucao_30d;
 
--- 5. Rotas - Data Centers total de alertas
-SELECT * FROM vw_datacenter_total_alertas_24h;
-SELECT * FROM vw_datacenter_total_alertas_7d;
-SELECT * FROM vw_datacenter_total_alertas_30d;
+-- -- 5. Rotas - Data Centers total de alertas
+-- SELECT * FROM vw_datacenter_total_alertas_24h;
+-- SELECT * FROM vw_datacenter_total_alertas_7d;
+-- SELECT * FROM vw_datacenter_total_alertas_30d;
 
--- 6. Rotas - Data Centers alertas atrasados
-SELECT * FROM vw_datacenter_alertas_atrasados_24h;
-SELECT * FROM vw_datacenter_alertas_atrasados_7d;
-SELECT * FROM vw_datacenter_alertas_atrasados_30d;
+-- -- 6. Rotas - Data Centers alertas atrasados
+-- SELECT * FROM vw_datacenter_alertas_atrasados_24h;
+-- SELECT * FROM vw_datacenter_alertas_atrasados_7d;
+-- SELECT * FROM vw_datacenter_alertas_atrasados_30d;
