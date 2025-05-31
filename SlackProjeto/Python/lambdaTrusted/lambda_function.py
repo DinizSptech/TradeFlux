@@ -83,7 +83,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial + timedelta(days=15 * i)
             
             filtro = len(df_6_meses[
-                (df_6_meses['CPU Percentual'] <= 5) &
+                (df_6_meses['CPU Percentual'] <= 20) &
                 (df_6_meses['RAM Percentual'] <= 25) &
                 (df_6_meses['Disco Percentual'] <= 25) &
                 (df_6_meses['Data Hora'] == data_alvo)
@@ -101,7 +101,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial2 + timedelta(days=5 * i)
             
             filtro = len(df_30_dias[
-                (df_30_dias['CPU Percentual'] <= 5) &
+                (df_30_dias['CPU Percentual'] <= 20) &
                 (df_30_dias['RAM Percentual'] <= 25) &
                 (df_30_dias['Disco Percentual'] <= 25) &
                 (df_30_dias['Data Hora'] == data_alvo)
@@ -116,7 +116,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial3 + timedelta(days=1 * i)
             
             filtro = len(df_7_dias[
-                (df_7_dias['CPU Percentual'] <= 5) &
+                (df_7_dias['CPU Percentual'] <= 20) &
                 (df_7_dias['RAM Percentual'] <= 25) &
                 (df_7_dias['Disco Percentual'] <= 25) &
                 (df_7_dias['Data Hora'] == data_alvo)
@@ -156,6 +156,23 @@ def lambda_handler(event, context):
         ramOcioso7dias = (df_7_dias['RAM Percentual'] <= 25).sum()
         discoOcioso7dias = (df_7_dias['Disco Percentual'] <= 25).sum()
 
+        
+        # 3 MESES
+        cpuEstavel3meses = ((df_6_meses['CPU Percentual'] >= 5) & (df_6_meses['CPU Percentual'] <= 80)).sum()
+        ramEstavel3meses = ((df_6_meses['RAM Percentual'] >= 25) & (df_6_meses['RAM Percentual'] <= 80)).sum()
+        discoEstavel3meses = ((df_6_meses['Disco Percentual'] >= 25) & (df_6_meses['Disco Percentual'] <= 80)).sum()
+
+        # 30 DIAS
+        cpuEstavel30dias = ((df_30_dias['CPU Percentual'] >= 5) & (df_30_dias['CPU Percentual'] <= 80)).sum()
+        ramEstavel30dias = ((df_30_dias['RAM Percentual'] >= 25) & (df_30_dias['RAM Percentual'] <= 80)).sum()
+        discoEstavel30dias = ((df_30_dias['Disco Percentual'] >= 25) & (df_30_dias['Disco Percentual'] <= 80)).sum()
+
+        # 7 DIAS
+        cpuEstavel7dias = ((df_7_dias['CPU Percentual'] >= 5) & (df_7_dias['CPU Percentual'] <= 80)).sum()
+        ramEstavel7dias = ((df_7_dias['RAM Percentual'] >= 25) & (df_7_dias['RAM Percentual'] <= 80)).sum()
+        discoEstavel7dias = ((df_7_dias['Disco Percentual'] >= 25) & (df_7_dias['Disco Percentual'] <= 80)).sum()
+
+
         ociosidade6meses = []
 
         ociosidade6meses = [
@@ -179,6 +196,32 @@ def lambda_handler(event, context):
             int(ramOcioso7dias),
             int(discoOcioso7dias)
         ]
+
+        
+        estabilidade3meses = []
+
+        estabilidade3meses = [
+            int(cpuEstavel3meses),
+            int(ramEstavel3meses),
+            int(discoEstavel3meses)
+        ]
+
+        estabilidade30dias = []
+
+        estabilidade30dias = [
+            int(cpuEstavel30dias),
+            int(ramEstavel30dias),
+            int(discoEstavel30dias)
+        ]
+
+        estabilidade7dias = []
+
+        estabilidade7dias = [
+            int(cpuEstavel7dias),
+            int(ramEstavel7dias),
+            int(discoEstavel7dias)
+        ]
+
 
 
 
@@ -224,6 +267,12 @@ def lambda_handler(event, context):
             "ociosidade6meses": ociosidade6meses,
             "ociosidade30dias": ociosidade30dias,
             "ociosidade7dias": ociosidade7dias
+        }
+
+        estabilidadeComponentes = {
+            "estabilidade3meses": estabilidade3meses,
+            "estabilidade30dias": estabilidade30dias,
+            "estabilidade7dias": estabilidade7dias
         }
 
         # Tabela de ociosidade para os últimos 6 meses
@@ -300,7 +349,7 @@ def lambda_handler(event, context):
 
 
 
-        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, ociodade3mesesTemporal, ociodade30diasTemporal, ociodade7diasTemporal]
+        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, ociodade3mesesTemporal, ociodade30diasTemporal, ociodade7diasTemporal, estabilidadeComponentes]
 
 
         json_final = json.dumps(dados, indent=4)

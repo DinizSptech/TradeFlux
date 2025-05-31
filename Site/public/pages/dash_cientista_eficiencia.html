@@ -41,7 +41,7 @@
 
     <div id="backdrop" class="backdrop"></div>
 
-    <div class="modal" id="modalServidor" style="display: none;">
+    <!-- <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
         <span class="titulo" id="servidorModal" style="color: #2b2b2b;"></span>
         <i onclick="fecharModal()" class="fa-solid fa-xmark"></i>
@@ -83,20 +83,26 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="main">
       <div class="kpis">
-        <div class="periodo">
-          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="7dias"
-            class="botaoTempo"> 7 dias
-          </button>
-          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="30dias"
-            class="botaoTempo"> 30
-            dias </button>
-          <button onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="3meses"
-            class="botaoTempo"> 3
-            meses </button>
+        <div class="kpi">
+          <span class="textKpi">Selecione o intervalo:</span>
+          <div class="perido">
+            <button
+              onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
+              id="7dias" class="botaoTempo"> 7 dias
+            </button>
+            <button
+              onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
+              id="30dias" class="botaoTempo"> 30
+              dias </button>
+            <button
+              onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
+              id="3meses" class="botaoTempo"> 3
+              meses </button>
+          </div>
         </div>
         <div class="kpi">
           <span class="textKpi">Tempo médio de ociosidade por servidor</span>
@@ -108,21 +114,22 @@
           <span id="componenteOciosidade" class="metricaKpi"></span>
           <div id="indicadorKpi2" class="indicador"></div>
         </div>
-        <div class="kpi">
+        <!-- <div class="kpi">
           <span class="textKpi">Servidores com 50% ou mais de ociosidade</span>
           <span id="50ouMaisOciosidade" class="metricaKpi">12</span>
           <div id="indicadorKpi3" class="indicador"></div>
-        </div>
+        </div> -->
       </div>
       <div class="content1">
         <div class="tabela">
           <span class="titulo">5 servidores mais ociosos</span>
           <table id="tabelaOcioso" class="tabelaDados">
             <thead>
-              <!-- <tr>
+              <tr>
                 <th>Servidor</th>
                 <th>Tempo de ociosidade</th>
-              </tr> -->
+                <th>Diferença do ideal</th>
+              </tr>
             </thead>
             <tbody id="bodyTabela"></tbody>
           </table>
@@ -135,11 +142,11 @@
       </div>
       <div class="content2">
         <div class="grafico2">
-          <span class="titulo">Distribuição do tempo de desempenho do datacenter</span>
+          <span class="titulo">Distribuição do tempo de desempenho do Data center</span>
           <div id="chart2"></div>
         </div>
         <div class="grafico1">
-          <span class="titulo">Percentual de ociosidade ao longo do tempo</span>
+          <span class="titulo">Quantidade de servidores ociosos ao longo do tempo</span>
           <div id="chart"></div>
         </div>
       </div>
@@ -161,10 +168,14 @@
   var tabela30diasAWS = []
   var tabela3mesesAWS = []
   var tabela7diasAWS = []
+  var graficoTempo7dias = []
+  var graficoTempo30dias = []
+  var graficoTempo3meses = []
+  var estabilidade = []
 
   function chamarDadosAWS() {
 
-    fetch('https://vvlpwkkqptrw7tsrsxdu27mkeq0mkbyc.lambda-url.us-east-1.on.aws/')
+    fetch('https://hf2m2zb4jalpa2qrwqvmwppbsy0tugey.lambda-url.us-east-1.on.aws/')
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos:", data);
@@ -173,8 +184,10 @@
         tabela3mesesAWS.push(data[2])
         tabela30diasAWS.push(data[3])
         tabela7diasAWS.push(data[4])
-
-        console.log(kpi1AWS[0].MediaOciosidade3meses)
+        graficoTempo3meses.push(data[5])
+        graficoTempo30dias.push(data[6])
+        graficoTempo7dias.push(data[7])
+        estabilidade.push(data[8])
       })
       .catch(error => {
         console.error("Erro na chamada:", error);
@@ -189,26 +202,6 @@
     sessionStorage.setItem("botaoTempo", tempo);
   }
 
-
-  mediaOciosidadeComponente = [
-    {
-      cpu: 28,
-      ram: 18,
-      disco: 25
-    },
-    {
-      cpu: 38,
-      ram: 12,
-      disco: 29
-    },
-    {
-      cpu: 25,
-      ram: 8,
-      disco: 32
-    },
-  ]
-
-  ociosidade50 = [27, 18, 12]
 
   function kpi1_geral() {
     tempo = sessionStorage.botaoTempo
@@ -302,18 +295,18 @@
     console.log(componentes)
 
 
-    var idealCPU3meses = 90 * 1440 * 0.1 * 10 
-    var idealCPU30dias = 30 * 1440 * 0.1 * 10 
-    var idealCPU7dias = 7 * 1440 * 0.1 * 10 
+    var idealCPU3meses = 90 * 1440 * 0.1 * 10
+    var idealCPU30dias = 30 * 1440 * 0.1 * 10
+    var idealCPU7dias = 7 * 1440 * 0.1 * 10
 
 
-    var idealRAM3meses = 90 * 1440 * 0.25 * 10 
-    var idealRAM30dias = 30 * 1440 * 0.25 * 10 
-    var idealRAM7dias = 7 * 1440 * 0.25 * 10 
+    var idealRAM3meses = 90 * 1440 * 0.25 * 10
+    var idealRAM30dias = 30 * 1440 * 0.25 * 10
+    var idealRAM7dias = 7 * 1440 * 0.25 * 10
 
-    var idealDisco3meses = 90 * 1440 * 0.25 * 10 
-    var idealDisco30dias = 30 * 1440 * 0.25 * 10 
-    var idealDisco7dias = 7 * 1440 * 0.25 * 10 
+    var idealDisco3meses = 90 * 1440 * 0.25 * 10
+    var idealDisco30dias = 30 * 1440 * 0.25 * 10
+    var idealDisco7dias = 7 * 1440 * 0.25 * 10
 
 
 
@@ -356,32 +349,8 @@
     }
   }
 
-
-
-
-
-  //grafico 1
-  var ociosidadeTempoCPU = [100, 52, 38, 45, 19, 23, 2]
-  var ociosidadeTempoDisco = [10, 52, 38, 4, 9, 3, 20]
-  var ociosidadeTempoRAM = [1, 2, 38, 45, 91, 28, 20]
-  var ociosidadeTempo = ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan"]
-
-  // grafico 2
-  var ociosidadePercentual = [60, 27, 13]
-
-  // grafico 3
-  var estavelComponentes = [44, 55, 57]
-  var ociosoComponentes = [76, 85, 101]
-  var alertaComponentes = [35, 41, 36]
-
-
-
-
   var infoServidorModalT = "Procesador: i5 - RAM total: 32GB  - Disco Total: 500GB"
   infoServidorModal.innerHTML += infoServidorModalT
-
-
-
 
   function carregarServidores() {
     bodyTabela.innerHTML = ''
@@ -520,26 +489,33 @@
     tabela30dias.sort((a, b) => b.valor - a.valor);
     tabela3meses.sort((a, b) => b.valor - a.valor);
 
+    var valorIdeal = 0
 
     if (sessionStorage.botaoTempo == '7dias') {
       tabela = tabela7dias
+      valorIdeal = 16.8
     } else if (sessionStorage.botaoTempo == '30dias') {
       tabela = tabela30dias
+      valorIdeal = 72
     } else {
       tabela = tabela3meses
+      valorIdeal = 216
     }
+
 
     for (var i = 0; i < 5; i++) {
 
       dias = Math.floor(tabela[i].valor / 24)
       horas = tabela[i].valor % 24
 
+      diferenca = ((tabela[i].valor - valorIdeal) / valorIdeal) * 100
+
+
       bodyTabela.innerHTML += `
             <tr>
             <td> Servidor ${tabela[i].servidor}</td>
-            <td>${dias}d e ${horas.toFixed(0)}h </td>
-            
-            <td> <i onclick="abrirModalServidor('${tabela[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
+            <td style >${dias}d e ${horas.toFixed(0)}h </td>
+            <td style="color: crimson;">${diferenca.toFixed(0)}% <i class="fa-solid fa-arrow-trend-up"> </i> </td>
              `;
     }
 
@@ -561,302 +537,409 @@
   document.getElementById('backdrop').addEventListener('click', fecharModal);
 
 
-  var options = {
-    chart: {
-      type: "line",
-      width: '100%',   // 100% do div grafico1
-      height: '100%',
-      foreColor: '#2b2b2b',  // cor do texto clara
-      toolbar: {
+  function graficoLinha() {
+    // Destroi gráfico anterior se existir
+    if (window.chartLinha) {
+      window.chartLinha.destroy();
+    }
+
+    var datas = [];
+    var valores = [];
+
+    function ordenarPorData(objeto) {
+      return Object.entries(objeto).sort(([dataA], [dataB]) => {
+        const [diaA, mesA, anoA] = dataA.split("/").map(Number);
+        const [diaB, mesB, anoB] = dataB.split("/").map(Number);
+        const dateA = new Date(anoA, mesA - 1, diaA);
+        const dateB = new Date(anoB, mesB - 1, diaB);
+        return dateA - dateB;
+      });
+    }
+
+    const graficoLinha7dias = ordenarPorData(graficoTempo7dias[0]);
+    const graficoLinha30dias = ordenarPorData(graficoTempo30dias[0]);
+    const graficoLinha3meses = ordenarPorData(graficoTempo3meses[0]);
+
+    const periodo = sessionStorage.botaoTempo;
+    let graficoSelecionado;
+
+    if (periodo === '7dias') {
+      graficoSelecionado = graficoLinha7dias;
+    } else if (periodo === '30dias') {
+      graficoSelecionado = graficoLinha30dias;
+    } else {
+      graficoSelecionado = graficoLinha3meses;
+    }
+
+    graficoSelecionado.forEach(([data, valor]) => {
+      datas.push(data);
+      valores.push(Number(valor));
+    });
+
+    const graficoLinhaTempo = {
+      chart: {
+        type: "line",
+        width: '100%',
+        height: '85%',
+        foreColor: '#2b2b2b',
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false
+          }
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      series: [
+        {
+          name: "Servidores",
+          data: valores
+        }
+      ],
+      fill: {
+        type: "solid"
+      },
+      stroke: {
+        width: 3
+      },
+      zoom: {
+        enabled: false
+      },
+      xaxis: {
+        categories: datas,
+        labels: {
+          style: {
+            colors: '#2b2b2b'
+          }
+        }
+      },
+      legend: {
         show: true,
-        tools: {
-          download: true,
-          selection: false,
-          zoom: false,
-          zoomin: false,
-          zoomout: false,
-          pan: false,
-          reset: false
+        labels: {
+          colors: '#2b2b2b'
         }
-      }
-    },
-    // colors: ['#FFB133', '#FFFFFF', '#FF0000'], // cor da linha (e do preenchimento também)
-    dataLabels: {
-      enabled: false
-    },
-    series: [
-      {
-        name: "CPU",
-        data: ociosidadeTempoCPU
       },
-      {
-        name: "Disco",
-        data: ociosidadeTempoDisco
+      yaxis: {
+        labels: {
+          style: {
+            colors: '#2b2b2b'
+          }
+        }
       },
-      {
-        name: "RAM",
-        data: ociosidadeTempoRAM
+      grid: {
+        borderColor: '#cccccc'
+      },
+      tooltip: {
+        enabled: true,
+        theme: 'dark'
       }
-    ],
-    fill: {
-      type: "solid",
+    };
 
-    },
-    stroke: {
-      width: 3
-    },
-    zoom: {
-      enabled: false
-    },
-    xaxis: {
-      categories: ociosidadeTempo,
-      labels: {
-        style: {
-          colors: '#2b2b2b' // texto dos rótulos do eixo x
-        }
-      }
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: '#2b2b2b' // texto dos rótulos do eixo y
-        }
-      }
-    },
-    grid: {
-      borderColor: '#cccccc ' // cor discreta para a grade
-    },
-    tooltip: {
-      enabled: true,
-      theme: 'dark' // tooltip escura
+    window.chartLinha = new ApexCharts(document.querySelector("#chart"), graficoLinhaTempo);
+    window.chartLinha.render();
+  }
+
+  function desempenhoComponentes() {
+    const periodo = sessionStorage.botaoTempo;
+
+    const totalMinutos = {
+      '7dias': 10080,
+      '30dias': 43800,
+      '3meses': 131400
+    };
+
+    const estabilidadeRaw = [
+      estabilidade[0].estabilidade7dias,
+      estabilidade[0].estabilidade30dias,
+      estabilidade[0].estabilidade3meses
+    ];
+
+    const ociosidadeRaw = [
+      kpi2AWS[0].ociosidade7dias,
+      kpi2AWS[0].ociosidade30dias,
+      kpi2AWS[0].ociosidade6meses
+    ];
+
+    const converterParaHoras = array => array.map(e => Math.floor(e / 600));
+
+    const estabilidadeHoras = estabilidadeRaw.map(converterParaHoras);
+    const ociosidadeHoras = ociosidadeRaw.map(converterParaHoras);
+
+    const calcularAlerta = (total, estavel, ocioso) =>
+      estavel.map((e, i) => Math.floor(total / 60) - e - ocioso[i]);
+
+    let estavelComponentes, ociosoComponentes, alertaComponentes;
+
+    if (periodo === '7dias') {
+      estavelComponentes = estabilidadeHoras[0];
+      ociosoComponentes = ociosidadeHoras[0];
+      alertaComponentes = calcularAlerta(totalMinutos['7dias'], estavelComponentes, ociosoComponentes);
+    } else if (periodo === '30dias') {
+      estavelComponentes = estabilidadeHoras[1];
+      ociosoComponentes = ociosidadeHoras[1];
+      alertaComponentes = calcularAlerta(totalMinutos['30dias'], estavelComponentes, ociosoComponentes);
+    } else {
+      estavelComponentes = estabilidadeHoras[2];
+      ociosoComponentes = ociosidadeHoras[2];
+      alertaComponentes = calcularAlerta(totalMinutos['3meses'], estavelComponentes, ociosoComponentes);
     }
-  };
 
-  var chart = new ApexCharts(document.querySelector("#chart"), options);
-  chart.render();
+    return {
+      estavelComponentes,
+      ociosoComponentes,
+      alertaComponentes
+    }
 
-  var options2 = {
-    series: ociosidadePercentual,
-    labels: ['Estável', 'Ocisoso', 'Alerta'],
-    chart: {
-      width: '100%',
-      height: '85%',
-      type: 'pie',
-      background: 'transparent',
-      foreColor: '#000000', // cor do texto
+  }
 
-    },
-    colors: ['#00B276', '#FFB133', '#FF4A4D'], // cores personalizadas dos pedaços
-    tooltip: {
-      theme: 'dark' // tooltip escura
-    },
-    dataLabels: {
-      enabled: true,
-      style: {
-        colors: ['#242d4a'],// muda a cor da % sobre as fatias
-        fontSize: '12px'
+
+  function graficoPie() {
+    if (window.chartPie) {
+      window.chartPie.destroy();
+    }
+
+    const periodo = sessionStorage.botaoTempo
+
+    const { estavelComponentes, ociosoComponentes, alertaComponentes } = desempenhoComponentes();
+
+    const tempoEstavel = estavelComponentes.reduce((a, b) => a + b, 0);
+    const tempoOcioso = ociosoComponentes.reduce((a, b) => a + b, 0);
+    const tempoAlerta = alertaComponentes.reduce((a, b) => a + b, 0);
+
+    const totalHoras = {
+      '7dias': 168,
+      '30dias': 730,
+      '3meses': 2190
+    };
+
+    const horasTotais = totalHoras[periodo];
+
+
+    const percEstavel = +(tempoEstavel / horasTotais * 100).toFixed(2);
+    const percOcioso = +(tempoOcioso / horasTotais * 100).toFixed(2);
+    const percAlerta = +(tempoAlerta / horasTotais * 100).toFixed(2);
+
+
+
+    var graficoPiePercentual = {
+      series: [percEstavel, percOcioso, percAlerta],
+      labels: ['Estável', 'Ocisoso', 'Alerta'],
+      chart: {
+        width: '100%',
+        height: '80%',
+        type: 'pie',
+        background: 'transparent',
+        foreColor: '#000000', // cor do texto
+
       },
-      dropShadow: {
-        enabled: false  // REMOVE a sombra
-      }
-    },
-    legend: {
-      labels: {
-        colors: '#2b2b2b' // cor da legenda
-      }
-    },
-    stroke: {
-      show: false
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200
+      colors: ['#00B276', '#FFB133', '#FF4A4D'], // cores personalizadas dos pedaços
+      tooltip: {
+        theme: 'dark' // tooltip escura
+      },
+      dataLabels: {
+        enabled: true,
+        style: {
+          colors: ['#242d4a'],// muda a cor da % sobre as fatias
+          fontSize: '12px'
         },
-        legend: {
-          position: 'bottom'
+        dropShadow: {
+          enabled: false  // REMOVE a sombra
         }
-      }
-    }]
-  };
-
-
-  var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
-  chart2.render();
-
-
-
-
-  var options3 = {
-    series: [{
-      name: 'Estável',
-      data: estavelComponentes
-    }, {
-      name: 'Ocioso',
-      data: ociosoComponentes
-    }, {
-      name: 'Alerta',
-      data: alertaComponentes
-    }],
-    colors: ['#00B276', '#FFB133', '#FF4A4D'],
-    chart: {
-      type: 'bar',
-      height: 350,
-      foreColor: '#2b2b2b',
-      width: '100%',
-      height: '100%'
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%',
-        borderRadius: 0,
-        borderRadiusApplication: 'end'
       },
-    },
-
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: ['CPU', 'RAM', 'DISCO'],
-    },
-    yaxis: {
-      title: {
-        text: 'Horas'
-      }
-    },
-    fill: {
-      opacity: 1
-    },
-    tooltip: {
-      theme: 'dark'
-    }
-  };
-
-  var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
-  chart3.render();
+      legend: {
+        labels: {
+          colors: '#2b2b2b' // cor da legenda
+        }
+      },
+      stroke: {
+        show: false
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    };
 
 
+    window.chartPie = new ApexCharts(document.querySelector("#chart2"), graficoPiePercentual);
+    window.chartPie.render();
+
+  }
+
+  function graficoBarra() {
+
+    const { estavelComponentes, ociosoComponentes, alertaComponentes } = desempenhoComponentes();
+    const graficoBarraHoras = {
+      series: [
+        { name: 'Estável', data: estavelComponentes },
+        { name: 'Ocioso', data: ociosoComponentes },
+        { name: 'Alerta', data: alertaComponentes }
+      ],
+      colors: ['#00B276', '#FFB133', '#FF4A4D'],
+      chart: {
+        type: 'bar',
+        foreColor: '#2b2b2b',
+        width: '100%',
+        height: '80%'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          borderRadius: 0,
+          borderRadiusApplication: 'end'
+        },
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['CPU', 'RAM', 'DISCO']
+      },
+      yaxis: {
+        title: { text: 'Horas' }
+      },
+      fill: { opacity: 1 },
+      tooltip: { theme: 'dark' }
+    };
+
+    const chartContainer = document.querySelector("#chart3");
+    chartContainer.innerHTML = ''; // limpa gráfico antigo (evita múltiplos)
+    new ApexCharts(chartContainer, graficoBarraHoras).render();
+  }
 
 
   // Graficos modal
 
-  var options4 = {
-    chart: {
-      type: "line",
-      width: '100%',   // 100% da div grafico1
-      height: '100%',
-      foreColor: '#ffffff',  // cor do texto clara
-      toolbar: {
-        show: true,
-        tools: {
-          download: true,
-          selection: false,
-          zoom: false,
-          zoomin: false,
-          zoomout: false,
-          pan: false,
-          reset: false
-        }
-      }
-    },
-    colors: ['#FFB133'], // cor da linha (e do preenchimento também)
-    dataLabels: {
-      enabled: false
-    },
-    series: [
-      {
-        name: "Series 1",
-        data: ociosidadeTempoValores
-      }
-    ],
-    fill: {
-      type: "solid",
+  // var options4 = {
+  //   chart: {
+  //     type: "line",
+  //     width: '100%',   // 100% da div grafico1
+  //     height: '100%',
+  //     foreColor: '#ffffff',  // cor do texto clara
+  //     toolbar: {
+  //       show: true,
+  //       tools: {
+  //         download: true,
+  //         selection: false,
+  //         zoom: false,
+  //         zoomin: false,
+  //         zoomout: false,
+  //         pan: false,
+  //         reset: false
+  //       }
+  //     }
+  //   },
+  //   colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+  //   dataLabels: {
+  //     enabled: false
+  //   },
+  //   series: [
+  //     {
+  //       name: "Series 1",
+  //       data: ociosidadeTempoValores
+  //     }
+  //   ],
+  //   fill: {
+  //     type: "solid",
 
-    },
-    xaxis: {
-      categories: ociosidadeTempo,
-      labels: {
-        style: {
-          colors: '#ffffff' // texto dos rótulos do eixo x
-        }
-      }
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: '#ffffff' // texto dos rótulos do eixo y
-        }
-      }
-    },
-    grid: {
-      borderColor: '#cccccc' // cor discreta para a grade
-    },
-    tooltip: {
-      enabled: true,
-      theme: 'dark' // tooltip escura
-    }
-  };
+  //   },
+  //   xaxis: {
+  //     categories: ociosidadeTempo,
+  //     labels: {
+  //       style: {
+  //         colors: '#ffffff' // texto dos rótulos do eixo x
+  //       }
+  //     }
+  //   },
+  //   yaxis: {
+  //     labels: {
+  //       style: {
+  //         colors: '#ffffff' // texto dos rótulos do eixo y
+  //       }
+  //     }
+  //   },
+  //   grid: {
+  //     borderColor: '#cccccc' // cor discreta para a grade
+  //   },
+  //   tooltip: {
+  //     enabled: true,
+  //     theme: 'dark' // tooltip escura
+  //   }
+  // };
 
-  var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
-  chart4.render();
+  // var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+  // chart4.render();
 
 
-  var options5 = {
-    series: [{
-      name: 'Estável',
-      data: estavelComponentes
-    }, {
-      name: 'Ocioso',
-      data: ociosoComponentes
-    }, {
-      name: 'Alerta',
-      data: alertaComponentes
-    }],
-    colors: ['#00B276', '#FFB133', '#FF4A4D'],
-    chart: {
-      type: 'bar',
-      height: 350,
-      foreColor: '#fff',
-      width: '100%',
-      height: '100%'
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%',
-        borderRadius: 0,
-        borderRadiusApplication: 'end'
-      },
-    },
+  // var options5 = {
+  //   series: [{
+  //     name: 'Estável',
+  //     data: estavelComponentes
+  //   }, {
+  //     name: 'Ocioso',
+  //     data: ociosoComponentes
+  //   }, {
+  //     name: 'Alerta',
+  //     data: alertaComponentes
+  //   }],
+  //   colors: ['#00B276', '#FFB133', '#FF4A4D'],
+  //   chart: {
+  //     type: 'bar',
+  //     height: 350,
+  //     foreColor: '#fff',
+  //     width: '100%',
+  //     height: '100%'
+  //   },
+  //   plotOptions: {
+  //     bar: {
+  //       horizontal: false,
+  //       columnWidth: '55%',
+  //       borderRadius: 0,
+  //       borderRadiusApplication: 'end'
+  //     },
+  //   },
 
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: ['CPU', 'RAM', 'DISCO'],
-    },
-    yaxis: {
-      title: {
-        text: 'Horas'
-      }
-    },
-    fill: {
-      opacity: 1
-    },
-    tooltip: {
-      theme: 'dark'
-    }
-  };
+  //   stroke: {
+  //     show: true,
+  //     width: 2,
+  //     colors: ['transparent']
+  //   },
+  //   xaxis: {
+  //     categories: ['CPU', 'RAM', 'DISCO'],
+  //   },
+  //   yaxis: {
+  //     title: {
+  //       text: 'Horas'
+  //     }
+  //   },
+  //   fill: {
+  //     opacity: 1
+  //   },
+  //   tooltip: {
+  //     theme: 'dark'
+  //   }
+  // };
 
-  var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
-  chart5.render();
+  // var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+  // chart5.render();
 
 
 

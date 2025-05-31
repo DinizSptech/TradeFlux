@@ -11,12 +11,12 @@ body {
 
 .kpis {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .periodo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding-left: 1vw;
 }
@@ -50,7 +50,7 @@ body {
     border: 1px solid #cfd4e0;
     align-items: center;
     padding: 1vh;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 8vw;
     border-radius: 1vw;
     font-weight: bold;
@@ -91,21 +91,27 @@ body {
     background-color: #ffffff;
     border-radius: 1vw;
     border: 4px solid #d3d7e3;
+    height: fit-content;
 }
 
 .tabelaDados {
     border-collapse: collapse;
     width: 31vw;
-    height: 11vw;
+    height: fit-content;
 }
 
 th,
-td {
-    padding: 9px;
+td {    
+    padding: 12px;
     padding-left: 14px;
-    text-align: left;
+    text-align: right;
     font-weight: bold;
-    font-size: 3vh;
+    font-size: 2.2vh;
+}
+
+th{
+    text-align: left;
+    background-color: #f2f3f7;
 }
 
 .tabelaDados tr:nth-child(even) {
@@ -141,7 +147,7 @@ td {
     background-color: #ffffff;
     border-radius: 1vw;
     border: 1px solid #cfd4e0;
-    max-height: 26vw;
+    height: 25vw;
 }
 
 .content2 {
@@ -161,12 +167,12 @@ td {
 
 .grafico2 {
     width: 31vw;
-    max-height: 26vw;
+    height: 25vw;
 }
 
 .grafico3 {
     width: 58vw;
-    max-height: 25vw;
+    max-height: 21vw;
 }
 
 .modal {
