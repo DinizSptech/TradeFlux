@@ -10,7 +10,7 @@ router.post('/', (req,res) =>{
     contentType = request.headers['content-type']
 
     if (contentType == 'application/json') {
-        monitoriaController.validarAlerta(req,res)
+        monitoriaController.enviar_captura_front(req,res)
     } else {
         res.send('Erro no router/index: Dados no formato errado.')
     }

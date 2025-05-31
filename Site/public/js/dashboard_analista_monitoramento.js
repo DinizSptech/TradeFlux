@@ -10,7 +10,7 @@ let dadosServidores = [
         'criticidade': 0,
         'download': 1204.58,
         'upload': 342.17,
-        'tempoAtivo': '03:12:45',
+        'tempo_ativo': '03:12:45',
         'processos' : []
       }
     ]
@@ -26,7 +26,7 @@ let dadosServidores = [
         'criticidade': 4,
         'download': 1820.31,
         'upload': 478.92,
-        'tempoAtivo': '07:06:22'
+        'tempo_ativo': '07:06:22'
       }
     ]
   },
@@ -41,7 +41,7 @@ let dadosServidores = [
         'criticidade': 9,
         'download': 2100.89,
         'upload': 602.33,
-        'tempoAtivo': '09:21:09'
+        'tempo_ativo': '09:21:09'
       }
     ]
   },
@@ -56,7 +56,7 @@ let dadosServidores = [
         'criticidade': 2,
         'download': 980.12,
         'upload': 315.78,
-        'tempoAtivo': '01:15:57'
+        'tempo_ativo': '01:15:57'
       }
     ]
   },
@@ -71,7 +71,7 @@ let dadosServidores = [
         'criticidade': 2,
         'download': 1435.66,
         'upload': 420.10,
-        'tempoAtivo': '02:23:05'
+        'tempo_ativo': '02:23:05'
       }
     ]
   },
@@ -86,7 +86,7 @@ let dadosServidores = [
         'criticidade': 5,
         'download': 1672.39,
         'upload': 498.44,
-        'tempoAtivo': '05:08:11'
+        'tempo_ativo': '05:08:11'
       }
     ]
   },
@@ -101,7 +101,7 @@ let dadosServidores = [
         'criticidade': 3,
         'download': 1544.22,
         'upload': 365.29,
-        'tempoAtivo': '04:10:50'
+        'tempo_ativo': '04:10:50'
       }
     ]
   },
@@ -116,7 +116,7 @@ let dadosServidores = [
         'criticidade': 9,
         'download': 2290.77,
         'upload': 612.81,
-        'tempoAtivo': '10:03:32'
+        'tempo_ativo': '10:03:32'
       }
     ]
   },
@@ -131,7 +131,7 @@ let dadosServidores = [
         'criticidade': 2,
         'download': 1301.11,
         'upload': 333.65,
-        'tempoAtivo': '06:09:24'
+        'tempo_ativo': '06:09:24'
       }
     ]
   },
@@ -146,7 +146,7 @@ let dadosServidores = [
         'criticidade': 6,
         'download': 1894.45,
         'upload': 547.02,
-        'tempoAtivo': '08:17:13'
+        'tempo_ativo': '08:17:13'
       }
     ]
   }
@@ -225,7 +225,7 @@ if(selecionado == undefined){
     <tr class="row ${classe}">
     <td class='col-server' style='border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
     <td style='color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
-    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempoAtivo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempoAtivo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempoAtivo}</td>
+    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
             <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
             <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
             <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
@@ -268,7 +268,7 @@ function ordenarTabela(escolhido){
         if(lista[maior].dados[ultimo][escolhido] < lista[j].dados[ultimo][escolhido]){
           maior = j
         } else if(lista[maior].dados[ultimo][escolhido] == lista[j].dados[ultimo][escolhido]){
-          if(compararData(lista[maior].dados[ultimo].tempoAtivo,lista[j].dados[ultimo].tempoAtivo) < 0){
+          if(compararData(lista[maior].dados[ultimo].tempo_ativo,lista[j].dados[ultimo].tempo_ativo) < 0){
             maior = j
           }
         }
