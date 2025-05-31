@@ -56,6 +56,7 @@ function fazerRequisicao(url, callback) {
 }
 
 function obterDadosPeriodo(periodo) {
+    limparGrafico()
     // Atualiza KPIs
     fazerRequisicao(`/adm/alertas/${periodo}`, json => {
         const total = json[0]?.total_alertas || 0;
