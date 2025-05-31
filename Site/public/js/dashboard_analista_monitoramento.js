@@ -382,9 +382,19 @@ function generateMinuteWiseTimeSeries(baseval, count) {
       offsetY: 7
     }
 
+  var sombra = {
+      enabled: true,
+      opacity: 0.3,
+      blur: 8,
+      left: -7,
+      top: 22
+    }  
+
     var altura = '300'
     var largura = '432'
     var velocidade = 200
+    var locura = 3000
+    
 // CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
 window.Apex = {
   chart: {
@@ -442,13 +452,7 @@ var optionsLineFisico = {
         speed: velocidade
       }
     },
-    dropShadow: {
-      enabled: true,
-      opacity: 0.3,
-      blur: 5,
-      left: -7,
-      top: 22
-    },
+    dropShadow: sombra,
     events: {
       animationEnd: function (chartCtx) {
 
@@ -559,7 +563,7 @@ window.setInterval(function () {
     }
   ]);
 
-}, 3000);
+}, locura);
 
 
 // CONFIGURA O GRÁFICO DE LINHAS DE REDE
@@ -619,13 +623,7 @@ var optionsLineRede = {
         speed: velocidade
       }
     },
-    dropShadow: {
-      enabled: true,
-      opacity: 0.3,
-      blur: 5,
-      left: -7,
-      top: 22
-    },
+    dropShadow: sombra,
     events: {
       animationEnd: function (chartCtx) {
 
@@ -723,4 +721,4 @@ window.setInterval(function () {
     }
   ]);
 
-}, 3000);
+}, locura);

@@ -1,4 +1,3 @@
-var dadosTotais
 
 var dadosServidores = [
   {

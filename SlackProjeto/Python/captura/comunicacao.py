@@ -30,13 +30,13 @@ def cadastrar_servidor(id_datacenter, uuidservidor, sistemaoperacional, discotot
 
 def enviar_alerta(fkparametro, valor, medida, data, criticidade, nomeservidor, nomecomponente):
     payload = {
-        "valor": valor,
-        "medida": medida,
-        "data": data,
-        "criticidade": criticidade,
-        "fkparametro": fkparametro,
-        "servidor": nomeservidor,
-        "componente": nomecomponente
+        valor valor,
+        medida medida,
+        data data,
+        criticidade criticidade,
+        fkparametro fkparametro,
+        servidor nomeservidor,
+        componente nomecomponente
     }
     resposta = requests.post(f"{API_URL}/alerta", json=payload)
     return resposta.json()

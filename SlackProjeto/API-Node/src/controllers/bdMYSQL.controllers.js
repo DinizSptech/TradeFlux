@@ -1,8 +1,15 @@
 const bdModel = require("../models/bdMYSQL.models")
 
 function cadastrar_servidor(req,res){
+    let id_datacenter = req.body.id_datacenter 
+    let uuidservidor = req.body.uuidservidor 
+    let sistemaoperacional = req.body.sistemaoperacional 
+    let discototal = req.body.discototal 
+    let ramtotal = req.body.ramtotal 
+    let processadorinfo = req.body.processadorinfo 
+
     console.log('Cadastrando servidor')
-        bdModel.insert_servidor(req,res)
+        bdModel.insert_servidor(id_datacenter, uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo)
             .then( function (resultado) {
                 res.json(resultado);
                 res.status(200).send("Cadastro bem sucedido!")
@@ -16,8 +23,9 @@ function cadastrar_servidor(req,res){
 }
 
 function buscar_servidor(req,res){
+  let id = req.params.id
   console.log('Selecionando servidor')
-        bdModel.select_servidor(req,res)
+        bdModel.select_servidor(id)
             .then( function (resultadoSelect) {
                 res.json({
                   lista: resultadoSelect
@@ -33,8 +41,9 @@ function buscar_servidor(req,res){
 }
 
 function buscar_parametro(req,res){
+  let id = req.params.id
   console.log('Selecionando servidor')
-        bdModel.select_parametro(req,res)
+        bdModel.select_parametro(id)
             .then( function (resultadoSelect) {
                 res.json({
                   lista: resultadoSelect
@@ -50,8 +59,17 @@ function buscar_parametro(req,res){
 }
 
 function inserir_alerta(req,res){
+
+    let valor = req.body.valor
+    let medida = req.body.medida
+    let data = req.body.data
+    let criticidade = req.body.criticidade
+    let fkparametro = req.body.fkparametro
+    let servidor = req.body.servidor
+    let componente = req.body.componente
+     
     console.log('Inserindo alerta')
-        bdModel.insert_alerta(req,res)
+        bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente)
             .then( function (resultado) {
                 res.json(resultado);
                 res.status(200).send("Sucesso em inserir alerta!\n")
