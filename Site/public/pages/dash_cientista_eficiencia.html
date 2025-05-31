@@ -17,7 +17,7 @@
   <script src="../js/barra_lateral.js" defer></script>
 </head>
 
-<body onload="carregarMenuLateral(); carregarServidores(); kpi1_geral(); kpi2_geral()">
+<body onload="carregarMenuLateral(); chamarDadosAWS(); kpi1_geral(); kpi2_geral() ">
   <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
     <div class="container_perfil_menu" id="modal_perfil">
@@ -37,9 +37,9 @@
   <div id="barralateral" class="barra-lateral"></div>
   <main>
 
-     <!-- Modal de servidor -->
+    <!-- Modal de servidor -->
 
-     <div id="backdrop" class="backdrop"></div>
+    <div id="backdrop" class="backdrop"></div>
 
     <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
@@ -51,7 +51,7 @@
         <div class="periodo" style="display: flex; flex-direction: row; justify-content: space-between; width: 30%;">
           <button onclick="ativarBotao(this)" id="7dias" class="botaoTempo"> 7 dias </button>
           <button onclick="ativarBotao(this)" id="30dias" class="botaoTempo"> 30 dias </button>
-          <button onclick="ativarBotao(this)" id="6meses" class="botaoTempo"> 6 meses </button>
+          <button onclick="ativarBotao(this)" id="3meses" class="botaoTempo"> 3 meses </button>
         </div>
       </div>
       <div class="contentModal">
@@ -88,12 +88,15 @@
     <div class="main">
       <div class="kpis">
         <div class="periodo">
-          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral()" id="7dias" class="botaoTempo"> 7 dias </button>
-          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral()" id="30dias" class="botaoTempo"> 30 dias </button>
-          <button onclick="ativarBotao(this, '6meses'); kpi1_geral(); kpi2_geral()" id="6meses" class="botaoTempo"> 6 meses </button>
+          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="7dias" class="botaoTempo"> 7 dias
+          </button>
+          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="30dias" class="botaoTempo"> 30
+            dias </button>
+          <button onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="3meses" class="botaoTempo"> 3
+            meses </button>
         </div>
         <div class="kpi">
-          <span class="textKpi">Média de ociosidade por servidor</span>
+          <span class="textKpi">Tempo médio de ociosidade por servidor</span>
           <span id="mediaOciosidade" class="metricaKpi"></span>
           <div id="indicadorKpi1"></div>
         </div>
@@ -139,7 +142,7 @@
       </div>
     </div>
 
-   
+
   </main>
 </body>
 
@@ -150,208 +153,207 @@
 <script>
 
 
+  var kpi1AWS = []
+  var kpi2AWS = []
+  var tabela30diasAWS = []
+  var tabela3mesesAWS = []
+  var tabela7diasAWS = []
+
+  function chamarDadosAWS() {
+
+    fetch('https://ozfmj07oa1.execute-api.us-east-1.amazonaws.com/dados')
+      .then(response => response.json())
+      .then(data => {
+        console.log("Dados recebidos:", data);
+        kpi1AWS.push(data[0])
+        kpi2AWS.push(data[1])
+        tabela3mesesAWS.push(data[2])
+        tabela30diasAWS.push(data[3])
+        tabela7diasAWS.push(data[4])
+
+        console.log(kpi1AWS[0].MediaOciosidade3meses)
+      })
+      .catch(error => {
+        console.error("Erro na chamada:", error);
+      });
+  }
+
+
   function ativarBotao(botaoClicado, tempo) {
-  const botoes = document.querySelectorAll('.periodo button');
-  botoes.forEach(botao => botao.classList.remove('ativo')); 
-  botaoClicado.classList.add('ativo'); 
-  sessionStorage.setItem("botaoTempo", tempo); 
-}
+    const botoes = document.querySelectorAll('.periodo button');
+    botoes.forEach(botao => botao.classList.remove('ativo'));
+    botaoClicado.classList.add('ativo');
+    sessionStorage.setItem("botaoTempo", tempo);
+  }
 
 
-
-  // tabela de servidores
-  var servidores = [
+  mediaOciosidadeComponente = [
     {
-      servidor: "4",
-      tempo: "25d 6h",
-      percentualAcima: 48
+      cpu: 28,
+      ram: 18,
+      disco: 25
     },
-
     {
-      servidor: "6",
-      tempo: "22d 6h",
-      percentualAcima: 41
+      cpu: 38,
+      ram: 12,
+      disco: 29
     },
-
     {
-      servidor: "7",
-      tempo: "18d 6h",
-      percentualAcima: 35
+      cpu: 25,
+      ram: 8,
+      disco: 32
     },
-
-    {
-      servidor: "1",
-      tempo: "14d 6h",
-      percentualAcima: 32
-    },
-
-    {
-      servidor: "9",
-      tempo: "7d 3h",
-      percentualAcima: 16
-    },
-
-  ];
-
-// mediaOciosidade
-// componenteOciosidade
-// 50ouMaisOciosidade
-
-mediaOciosidadeServidor = [32, 151, 257]
-
-
-mediaOciosidadeComponente = [
-  {cpu: 28,
-   ram: 18, 
-   disco: 25
-   },
-  {cpu: 38,
-   ram: 12, 
-   disco: 29
-   },
-  {cpu: 25,
-   ram: 8, 
-   disco: 32
-   },
   ]
 
-ociosidade50 = [27, 18, 12]
+  ociosidade50 = [27, 18, 12]
 
-  function kpi1_geral(){
+  function kpi1_geral() {
     tempo = sessionStorage.botaoTempo
     let indicador1 = document.getElementById("indicadorKpi1");
     let indicador3 = document.getElementById("indicadorKpi3");
 
-    minKpi1 = 7 * 24 * 0.1
-    maxKpi1 = 7 * 24 * 0.12
-    minKpi2 = 30 * 24 * 0.1
-    maxKpi2 = 30 * 24 * 0.15
-    minKpi3 = 180 * 24 * 0.1
-    maxKpi3 = 180 * 24 * 0.15
+    mediaOciosidadeServidor = [Number(kpi1AWS[0].MediaOciosidade7dias),
+    Number(kpi1AWS[0].MediaOciosidade30dias),
+    Number(kpi1AWS[0].MediaOciosidade6Meses)]
+
+    var percentual = 0
+
+    idealKpi1 = 7 * 24 * 0.1  
+    idealKpi2 = 30 * 24 * 0.1
+    idealKpi3 = 90 * 24 * 0.1
+    
 
 
-    if(tempo == '7dias'){
-      kpi1 = mediaOciosidadeServidor[0]
+      if (tempo == '7dias') {
+       kpi1 = mediaOciosidadeServidor[0]
 
-      if(kpi1 < minKpi1){
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(minKpi1 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
-      } else if (kpi1 > maxKpi1) {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi1).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      if (kpi1 < idealKpi1) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((idealKpi1 - kpi1) / kpi1) *100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+      } else if (kpi1 > idealKpi1) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi1) / idealKpi1) *100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ideal")
-          indicadorKpi1.innerHTML = `Ideal`
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ideal")
+        indicador1.classList.replace("indicador-ruim", "indicador-ideal")
+        indicadorKpi1.innerHTML = `Ideal`
       }
-    } else if (tempo == '30dias'){
+    } else if (tempo == '30dias') {
 
-        kpi1 = mediaOciosidadeServidor[1]
-      
-        if(kpi1 < minKpi2){
-           mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(minKpi2 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
-        } else if (kpi1 > maxKpi2) {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi2).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      kpi1 = mediaOciosidadeServidor[1]
+
+      if (kpi1 < idealKpi2) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((idealKpi2 - kpi1) / kpi1) *100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+      } else if (kpi1 > idealKpi2) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi2) / idealKpi2) *100).toFixed(1)}%  acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ideal")
-          indicadorKpi1.innerHTML = `Ideal`
-      }
-    }
-
-    else { 
-
-        kpi1 = mediaOciosidadeServidor[2]
-      
-        if(kpi1 < minKpi3){
-           mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(minKpi3 - kpi1).toFixed(1)}h abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
-        } else if (kpi1 > maxKpi3) {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ruim")
-          indicadorKpi1.innerHTML = `${(kpi1 - maxKpi3).toFixed(1)}h acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
-      } else {
-          mediaOciosidade.innerHTML = `${kpi1}h`;
-          indicador1.classList.add("indicador-ideal")
-          indicadorKpi1.innerHTML = `Ideal`
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ideal")
+        indicador1.classList.replace("indicador-ruim", "indicador-ideal")
+        indicadorKpi1.innerHTML = `Ideal`
       }
     }
 
+    else {
+
+      kpi1 = mediaOciosidadeServidor[2]
+
+      if (kpi1 < idealKpi3) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((idealKpi3 - kpi1) / kpi1) *100).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+      } else if (kpi1 > idealKpi3) {
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ruim")
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi3) / idealKpi3) *100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      } else {
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        indicador1.classList.add("indicador-ideal")
+        indicador1.classList.replace("indicador-ruim", "indicador-ideal")
+        indicadorKpi1.innerHTML = `Ideal`
+      }
+    }
 
 
-}
 
-  function kpi2_geral(){
-     tempo = sessionStorage.botaoTempo
+  }
 
-     var componentes = []
-     var media = []
-     var percentual = []
+  function kpi2_geral() {
+
+    tempo = sessionStorage.botaoTempo
 
     let indicador2 = document.getElementById("indicadorKpi2");
 
-    for (let i = 0; i < mediaOciosidadeComponente.length; i++) {
-    const dados = mediaOciosidadeComponente[i];
+    console.log(kpi2AWS)
+    var componentes = [kpi2AWS[0].componente7dias, kpi2AWS[0].componente30dias, kpi2AWS[0].componente6meses]
+    var media = [kpi2AWS[0].ociosidade7dias, kpi2AWS[0].ociosidade30dias, kpi2AWS[0].ociosidade6meses]
+    var percentual = 0
+    console.log(media[0][2])
+    console.log(componentes)
 
-  const cpu = dados.cpu;
-  const ram = dados.ram;
-  const disco = dados.disco;
 
-  let maiorComponente = 'CPU';
-  let maiorValor = cpu;
+    var idealCPU3meses = 90 * 1440 * 0.1
+    var idealCPU30dias = 30 * 1440 * 0.1
+    var idealCPU7dias = 7 * 1440 * 0.1
 
-  if (ram > maiorValor) {
-    maiorComponente = 'RAM';
-    maiorValor = ram;
+
+    var idealRAM3meses = 90 * 1440 * 0.25
+    var idealRAM30dias = 30 * 1440 * 0.25
+    var idealRAM7dias = 7 * 1440 * 0.25
+
+    var idealDisco3meses = 90 * 1440 * 0.25
+    var idealDisco30dias = 30 * 1440 * 0.25
+    var idealDisco7dias = 7 * 1440 * 0.25
+
+
+
+
+    if (sessionStorage.botaoTempo == '7dias') {
+      componenteOciosidade.innerHTML = componentes[0]
+      if (componentes[0] == 'CPU') {
+        percentual = ((media[0][0] - idealCPU7dias) / idealCPU7dias) * 100
+      } else if (componentes[0] == 'RAM') {
+        percentual = ((media[0][1] - idealRAM7dias) / idealRAM7dias) * 100
+      } else {
+        percentual = ((media[0][2] - idealDisco7dias) / idealDisco7dias) * 100
+      }
+      indicador2.classList.add('indicador-ruim')
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+    } else if (sessionStorage.botaoTempo == '30dias') {
+      componenteOciosidade.innerHTML = componentes[1]
+      if (componentes[1] == 'CPU') {
+        percentual = ((media[1][0] - idealCPU30dias) / idealCPU30dias) * 100
+      } else if (componentes[1] == 'RAM') {
+        percentual = ((media[1][1] - idealRAM30dias) / idealRAM30dias) * 100
+      } else {
+        percentual = ((media[1][2] - idealDisco30dias) / idealDisco30dias) * 100
+      }
+      indicador2.classList.add('indicador-ruim')
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+    } else {
+      componenteOciosidade.innerHTML = componentes[2]
+      if (componentes[2] == 'CPU') {
+        percentual = ((media[2][0] - idealCPU3meses) / idealCPU3meses) * 100
+      } else if (componentes[2] == 'RAM') {
+        percentual = ((media[2][1] - idealRAM3meses) / idealRAM3meses) * 100
+      } else {
+        percentual = ((media[2][2] - idealDisco3meses) / idealDisco3meses) * 100
+      }
+      indicador2.classList.add('indicador-ruim')
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+
+
+    }
   }
-  if (disco > maiorValor) {
-    maiorComponente = 'DISCO';
-    maiorValor = disco;
-  }
 
-  let somaOutros = 0;
-  if (maiorComponente === 'CPU') {
-    somaOutros = ram + disco;
-  } else if (maiorComponente === 'RAM') {
-    somaOutros = cpu + disco;
-  } else {
-    somaOutros = cpu + ram;
-  }
 
-  const mediaOutros = somaOutros / 2;
-
-  const percentualAcima = ((maiorValor - mediaOutros) / mediaOutros) * 100;
-      
-    
-
-   componentes.push(maiorComponente)
-   media.push(mediaOutros)
-   percentual.push(percentualAcima)
-
-}
-
-   if(tempo == '7dias'){
-    componenteOciosidade.innerHTML = componentes[0]
-    indicador2.classList.add('indicador-ruim')
-    indicadorKpi2.innerHTML = `${percentual[0].toFixed(1)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
-   } else if (tempo == '30dias'){
-    componenteOciosidade.innerHTML = componentes[1]
-    indicador2.classList.add('indicador-ruim')
-    indicadorKpi2.innerHTML = `${percentual[1].toFixed(1)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
-   } else {
-    componenteOciosidade.innerHTML = componentes[2]
-    indicador2.classList.add('indicador-ruim')
-    indicadorKpi2.innerHTML = `${percentual[1].toFixed(2)}% a mais que outros componentes <i class="fa-solid fa-arrow-trend-up"></i>`
-   }
-
-  }
 
 
 
@@ -369,7 +371,7 @@ ociosidade50 = [27, 18, 12]
   var ociosoComponentes = [76, 85, 101]
   var alertaComponentes = [35, 41, 36]
 
-  
+
 
 
   var infoServidorModalT = "Procesador: i5 - RAM total: 32GB  - Disco Total: 500GB"
@@ -379,35 +381,84 @@ ociosidade50 = [27, 18, 12]
 
 
   function carregarServidores() {
-    for (var i = 0; i < servidores.length; i++) {
-      let status = servidores[i].percentualAcima;
+    bodyTabela.innerHTML = ''
+
+    tabela7dias = [
+      {
+        servidor: 1,
+        valor: tabela7diasAWS[0].servidor1
+      },
+      {
+        servidor: 2,
+        valor: tabela7diasAWS[0].servidor2
+      }
+    ]
+
+    tabela30dias = [
+      {
+        servidor: 1,
+        valor: tabela30diasAWS[0].servidor1
+      },
+      {
+        servidor: 2,
+        valor: tabela30diasAWS[0].servidor2
+      }
+    ]
+
+    tabela3meses = [
+      {
+        servidor: 1,
+        valor: tabela3mesesAWS[0].servidor1
+      },
+      {
+        servidor: 2,
+        valor: tabela3mesesAWS[0].servidor2
+      }
+    ]
+
+    tabela7dias.sort((a, b) => b.valor - a.valor);
+    tabela30dias.sort((a, b) => b.valor - a.valor);
+    tabela3meses.sort((a, b) => b.valor - a.valor);
 
 
+    if (sessionStorage.botaoTempo == '7dias') {
+      tabela = tabela7dias
+    } else if (sessionStorage.botaoTempo == '30dias') {
+      tabela = tabela30dias
+    } else {
+      tabela = tabela3meses
+    }
 
+    for (var i = 0; i <= 5; i++) {
+
+      dias = Math.floor(tabela[i].valor / 24) 
+      horas = tabela[i].valor % 24
+   
       bodyTabela.innerHTML += `
             <tr>
-            <td> Servidor ${servidores[i].servidor}</td>
-            <td>${servidores[i].tempo}</td>
+            <td> Servidor ${tabela[i].servidor}</td>
+            <td>${dias}d e ${horas.toFixed(0)}h </td>
             
-            <td> <i onclick="abrirModalServidor('${servidores[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
+            <td> <i onclick="abrirModalServidor('${tabela[i].servidor}')" class="fa-solid fa-circle-info"></i></td>
              `;
     }
 
   }
+
   function abrirModalServidor(servidor) {
-  servidorModal.innerHTML = `Servidor ${servidor}`
-  const modalServidor = document.getElementById('modalServidor'); // ou outro seletor
-  modalServidor.style.display = "flex";
-   document.getElementById('backdrop').style.display = 'block';
+    servidorModal.innerHTML = `Servidor ${servidor}`
+    const modalServidor = document.getElementById('modalServidor'); // ou outro seletor
+    modalServidor.style.display = "flex";
+    document.getElementById('backdrop').style.display = 'block';
 
-}
+  }
 
-function fecharModal() {
-  document.getElementById('modalServidor').style.display = 'none';
-  document.getElementById('backdrop').style.display = 'none';
-}
+  function fecharModal() {
+    document.getElementById('modalServidor').style.display = 'none';
+    document.getElementById('backdrop').style.display = 'none';
+  }
 
-document.getElementById('backdrop').addEventListener('click', fecharModal);
+  document.getElementById('backdrop').addEventListener('click', fecharModal);
 
 
   var options = {
@@ -450,6 +501,12 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
     fill: {
       type: "solid",
 
+    },
+    stroke: {
+      width: 3
+    },
+    zoom: {
+      enabled: false  
     },
     xaxis: {
       categories: ociosidadeTempo,
@@ -591,7 +648,7 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
   var options4 = {
     chart: {
       type: "line",
-      width: '100%',   // 100% do div grafico1
+      width: '100%',   // 100% da div grafico1
       height: '100%',
       foreColor: '#ffffff',  // cor do texto clara
       toolbar: {
@@ -700,6 +757,8 @@ document.getElementById('backdrop').addEventListener('click', fecharModal);
 
   var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
   chart5.render();
+
+
 
 
 
