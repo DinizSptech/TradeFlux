@@ -88,11 +88,14 @@
     <div class="main">
       <div class="kpis">
         <div class="periodo">
-          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="7dias" class="botaoTempo"> 7 dias
+          <button onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="7dias"
+            class="botaoTempo"> 7 dias
           </button>
-          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="30dias" class="botaoTempo"> 30
+          <button onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="30dias"
+            class="botaoTempo"> 30
             dias </button>
-          <button onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="3meses" class="botaoTempo"> 3
+          <button onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores()" id="3meses"
+            class="botaoTempo"> 3
             meses </button>
         </div>
         <div class="kpi">
@@ -161,7 +164,7 @@
 
   function chamarDadosAWS() {
 
-    fetch('https://ozfmj07oa1.execute-api.us-east-1.amazonaws.com/dados')
+    fetch('https://vvlpwkkqptrw7tsrsxdu27mkeq0mkbyc.lambda-url.us-east-1.on.aws/')
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos:", data);
@@ -218,23 +221,23 @@
 
     var percentual = 0
 
-    idealKpi1 = 7 * 24 * 0.1  
+    idealKpi1 = 7 * 24 * 0.1
     idealKpi2 = 30 * 24 * 0.1
     idealKpi3 = 90 * 24 * 0.1
-    
 
 
-      if (tempo == '7dias') {
-       kpi1 = mediaOciosidadeServidor[0]
+
+    if (tempo == '7dias') {
+      kpi1 = mediaOciosidadeServidor[0]
 
       if (kpi1 < idealKpi1) {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi1 - kpi1) / kpi1) *100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(((idealKpi1 - kpi1) / kpi1) * 100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi1) {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi1) / idealKpi1) *100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi1) / idealKpi1) * 100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -248,11 +251,11 @@
       if (kpi1 < idealKpi2) {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi2 - kpi1) / kpi1) *100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(((idealKpi2 - kpi1) / kpi1) * 100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi2) {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi2) / idealKpi2) *100).toFixed(1)}%  acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi2) / idealKpi2) * 100).toFixed(1)}%  acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -268,11 +271,11 @@
       if (kpi1 < idealKpi3) {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi3 - kpi1) / kpi1) *100).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(((idealKpi3 - kpi1) / kpi1) * 100).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi3) {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi3) / idealKpi3) *100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi3) / idealKpi3) * 100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -299,18 +302,18 @@
     console.log(componentes)
 
 
-    var idealCPU3meses = 90 * 1440 * 0.1
-    var idealCPU30dias = 30 * 1440 * 0.1
-    var idealCPU7dias = 7 * 1440 * 0.1
+    var idealCPU3meses = 90 * 1440 * 0.1 * 10 
+    var idealCPU30dias = 30 * 1440 * 0.1 * 10 
+    var idealCPU7dias = 7 * 1440 * 0.1 * 10 
 
 
-    var idealRAM3meses = 90 * 1440 * 0.25
-    var idealRAM30dias = 30 * 1440 * 0.25
-    var idealRAM7dias = 7 * 1440 * 0.25
+    var idealRAM3meses = 90 * 1440 * 0.25 * 10 
+    var idealRAM30dias = 30 * 1440 * 0.25 * 10 
+    var idealRAM7dias = 7 * 1440 * 0.25 * 10 
 
-    var idealDisco3meses = 90 * 1440 * 0.25
-    var idealDisco30dias = 30 * 1440 * 0.25
-    var idealDisco7dias = 7 * 1440 * 0.25
+    var idealDisco3meses = 90 * 1440 * 0.25 * 10 
+    var idealDisco30dias = 30 * 1440 * 0.25 * 10 
+    var idealDisco7dias = 7 * 1440 * 0.25 * 10 
 
 
 
@@ -391,8 +394,41 @@
       {
         servidor: 2,
         valor: tabela7diasAWS[0].servidor2
+      },
+      {
+        servidor: 3,
+        valor: tabela7diasAWS[0].servidor3
+      },
+      {
+        servidor: 4,
+        valor: tabela7diasAWS[0].servidor4
+      },
+      {
+        servidor: 5,
+        valor: tabela7diasAWS[0].servidor5
+      },
+      {
+        servidor: 6,
+        valor: tabela7diasAWS[0].servidor6
+      },
+      {
+        servidor: 7,
+        valor: tabela7diasAWS[0].servidor7
+      },
+      {
+        servidor: 8,
+        valor: tabela7diasAWS[0].servidor8
+      },
+      {
+        servidor: 9,
+        valor: tabela7diasAWS[0].servidor9
+      },
+      {
+        servidor: 10,
+        valor: tabela7diasAWS[0].servidor10
       }
     ]
+
 
     tabela30dias = [
       {
@@ -402,6 +438,38 @@
       {
         servidor: 2,
         valor: tabela30diasAWS[0].servidor2
+      },
+      {
+        servidor: 3,
+        valor: tabela30diasAWS[0].servidor3
+      },
+      {
+        servidor: 4,
+        valor: tabela30diasAWS[0].servidor4
+      },
+      {
+        servidor: 5,
+        valor: tabela30diasAWS[0].servidor5
+      },
+      {
+        servidor: 6,
+        valor: tabela30diasAWS[0].servidor6
+      },
+      {
+        servidor: 7,
+        valor: tabela30diasAWS[0].servidor7
+      },
+      {
+        servidor: 8,
+        valor: tabela30diasAWS[0].servidor8
+      },
+      {
+        servidor: 9,
+        valor: tabela30diasAWS[0].servidor9
+      },
+      {
+        servidor: 10,
+        valor: tabela30diasAWS[0].servidor10
       }
     ]
 
@@ -413,6 +481,38 @@
       {
         servidor: 2,
         valor: tabela3mesesAWS[0].servidor2
+      },
+      {
+        servidor: 3,
+        valor: tabela3mesesAWS[0].servidor3
+      },
+      {
+        servidor: 4,
+        valor: tabela3mesesAWS[0].servidor4
+      },
+      {
+        servidor: 5,
+        valor: tabela3mesesAWS[0].servidor5
+      },
+      {
+        servidor: 6,
+        valor: tabela3mesesAWS[0].servidor6
+      },
+      {
+        servidor: 7,
+        valor: tabela3mesesAWS[0].servidor7
+      },
+      {
+        servidor: 8,
+        valor: tabela3mesesAWS[0].servidor8
+      },
+      {
+        servidor: 9,
+        valor: tabela3mesesAWS[0].servidor9
+      },
+      {
+        servidor: 10,
+        valor: tabela3mesesAWS[0].servidor10
       }
     ]
 
@@ -429,11 +529,11 @@
       tabela = tabela3meses
     }
 
-    for (var i = 0; i <= 5; i++) {
+    for (var i = 0; i < 5; i++) {
 
-      dias = Math.floor(tabela[i].valor / 24) 
+      dias = Math.floor(tabela[i].valor / 24)
       horas = tabela[i].valor % 24
-   
+
       bodyTabela.innerHTML += `
             <tr>
             <td> Servidor ${tabela[i].servidor}</td>
@@ -506,7 +606,7 @@
       width: 3
     },
     zoom: {
-      enabled: false  
+      enabled: false
     },
     xaxis: {
       categories: ociosidadeTempo,
