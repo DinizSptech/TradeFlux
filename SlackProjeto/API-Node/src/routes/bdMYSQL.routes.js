@@ -7,7 +7,7 @@ const bdController = require('../controllers/bdMYSQL.controllers')
     // response.status Serve para saber o status da requisição
 
 router.post("/cadastrar_servidor", (req, res) => {
-    contentType = request.headers['content-type']
+    contentType = req.headers['content-type']
     if (contentType == 'application/json') {
         bdController.cadastrar_servidor(req,res)
     } else {
@@ -17,7 +17,7 @@ router.post("/cadastrar_servidor", (req, res) => {
 })
 
 router.get("/servidor/:id", (req, res) => {
-    contentType = request.headers['content-type']
+    contentType = req.headers['content-type']
 
     if (contentType == 'application/json') {
         bdController.buscar_servidor(req,res)
@@ -29,12 +29,12 @@ router.get("/servidor/:id", (req, res) => {
 
 
 router.get("/parametros/:id", (req,res) =>{
-    contentType = request.headers['content-type']
+    contentType = req.headers['content-type']
 
     if (contentType == 'application/json') {
         bdController.buscar_parametro(req,res)
     } else {
-        response.status(400).send("Erro router bd/parametros: Envie um arquivo JSON")
+        res.status(400).send("Erro router bd/parametros: Envie um arquivo JSON")
     }
 
 })

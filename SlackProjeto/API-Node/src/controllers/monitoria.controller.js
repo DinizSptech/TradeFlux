@@ -54,6 +54,6 @@ function enviar_captura_front(req,res){
 
 }
 
-module.exports(
+module.exports = {
   enviar_captura_front
-)
+}

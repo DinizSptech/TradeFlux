@@ -2,8 +2,9 @@ const express = require("express");
 // Express é pra conseguir fazer o gerenciamento de chamadas HTTP
 const cors = require("cors");
 // Cors é para fazer a parte de acesso do que pode ou não acessar
-
 const app = express();
+app.use(express.json());
+require("dotenv").config();
 
 app.use((request, response, next) =>{
     response.header("Access-Control-Allow-Origin", "*")
@@ -14,7 +15,7 @@ app.use((request, response, next) =>{
 })
 
 const monitoriaRouter = require("./src/routes/monitoria.routes")
-const alertaRouter = require("./src/routes/monitoria.routes")
+const alertaRouter = require("./src/routes/alerta.routes")
 const bdRouter = require("./src/routes/bdMYSQL.routes")
 const bucketRouter = require("./src/routes/bucket.routes")
 
@@ -23,7 +24,7 @@ app.use("/bd", bdRouter)
 app.use("/bucket", bucketRouter)
 app.use("/monitoria", monitoriaRouter)
 
-app.listen(8080,()=>{
+app.listen(3000,()=>{
     // Tô colocando ele pra escutar tudo que bater na porta aí
     console.log("Servidor iniciado")
 })

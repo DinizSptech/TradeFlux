@@ -2,8 +2,8 @@ const mysql = require("mysql2");
 
 const mySqlSelect = {
     host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE_SELECT,
-    user: process.env.DB_USER,
+    database: process.env.DB_DATABASE,
+    user: process.env.DB_USER_SELECT,
     password: process.env.DB_PASSWORD_SELECT,
     port: process.env.DB_PORT,
     multipleStatements: true
@@ -19,6 +19,8 @@ const mySqlInsert = {
 }
 
 function executarSelect(instrucao) {
+
+    console.log(mySqlSelect)
 
     return new Promise(function (resolve, reject) {
         var conexao = mysql.createConnection(mySqlSelect);
@@ -38,6 +40,9 @@ function executarSelect(instrucao) {
 }
 
 function executarInsert(instrucao) {
+
+    console.log(mySqlInsert)
+
 
     return new Promise(function (resolve, reject) {
         var conexao = mysql.createConnection(mySqlInsert);

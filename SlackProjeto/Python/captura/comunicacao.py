@@ -1,6 +1,6 @@
 import requests
 
-API_URL = 'http://0.0.0.0:3000'
+API_URL = 'http://127.0.0.1:3000'
 
 def obter_parametros_servidor(uuid_maquina):
     resposta = requests.get(f"{API_URL}/bd/parametros/{uuid_maquina}")
@@ -16,15 +16,18 @@ def buscar_servidor(uuid_maquina):
         return None
 
 def cadastrar_servidor(id_datacenter, uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo):
-    payload = {
+    try:
+     payload = {
         "id_datacenter": id_datacenter,
         "uuidservidor": uuidservidor,
         "sistemaoperacional": sistemaoperacional,
         "discototal": discototal,
         "ramtotal": ramtotal,
         "processadorinfo": processadorinfo
-    }
-    
+     }
+    except Exception:
+      print(Exception)
+    print(payload)
     resposta = requests.post(f"{API_URL}/bd/cadastrar_servidor", json=payload)
     return resposta.json()
 

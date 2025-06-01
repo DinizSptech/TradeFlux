@@ -205,12 +205,30 @@ tr:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none;
 }
 
-.modal-info{
+.modal{
+  width: fit-content;
+  height: auto;
+  padding: 5vw 5vh;
   z-index: 20;
+    background-color: #ffffff;
+    border-radius: 1vw;
+    border: 4px solid #d3d7e3;
+    color: black;
   position: fixed;
   display: flex;
-  
-
+  justify-content: center;
+  align-items: center;
 }
+
+#x{
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  width: 4vw;
+  height: auto;
+}
+

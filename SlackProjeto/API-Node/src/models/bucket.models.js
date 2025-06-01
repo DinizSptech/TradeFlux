@@ -1,15 +1,17 @@
-const { PutObjectCommand } = require("@aws-sdk/client-s3");
-const s3 = require("../connections/bucket");
+// const { PutObjectCommand } = require("@aws-sdk/client-s3");
+// const s3 = require("../connections/bucket");
 
 async function salvandoImagem(nomeArquivo, buffer, mimeType) {
-    const comando = new PutObjectCommand({
-        Bucket: "bucketFotosUsuarios",
-        Key: `fotos/${nomeArquivo}`,
-        Body: buffer,
-        ContentType: mimeType
-    });
+    // const comando = new PutObjectCommand({
+    //     Bucket: "bucketFotosUsuarios",
+    //     Key: `fotos/${nomeArquivo}`,
+    //     Body: buffer,
+    //     ContentType: mimeType
+    // });
 
-    await s3.send(comando);
+    // await s3.send(comando);
+
+    console.log('teste bosta')
 }
 
 module.exports = {

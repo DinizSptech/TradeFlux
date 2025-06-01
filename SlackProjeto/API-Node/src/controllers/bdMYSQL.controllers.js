@@ -1,6 +1,8 @@
 const bdModel = require("../models/bdMYSQL.models")
 
 function cadastrar_servidor(req,res){
+
+    console.log(req.body)
     let id_datacenter = req.body.id_datacenter 
     let uuidservidor = req.body.uuidservidor 
     let sistemaoperacional = req.body.sistemaoperacional 

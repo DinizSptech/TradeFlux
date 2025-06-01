@@ -323,9 +323,20 @@ function ordenarTabela(escolhido){
       })
   })
   }
-
+    const modal = document.querySelector(".background-modal")
+    const content = document.querySelector("#modal-info")
 function carregarModal(texto){
-      
+  modal.style.display = 'flex'
+    content.innerHTML = `${texto}`
+}
+
+
+function fechar(real) {
+  if(real){
+    event.stopPropagation()
+    return
+  }
+    modal.style.display= 'none'
 }
 
 function expandirServidor(){
@@ -340,6 +351,7 @@ function expandirServidor(){
        }
       } else {
         carregarModal("É necessário selecionar um servidor antes expandir.")
+        console.log("selecione broxa")
       }
 
 }
