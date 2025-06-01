@@ -1,8 +1,10 @@
 Exemplo env:
 
-[default] ; default profile - Serve para dizer que esse é o serviço que sempre utilizará, dá pra criar mais usuários, por exemplo metendo um [Robert]
-aws_access_key_id = <DEFAULT_ACCESS_KEY_ID>
-aws_secret_access_key = <DEFAULT_SECRET_ACCESS_KEY>
+# [default] ; default profile - Serve para dizer que esse é o serviço que sempre utilizará, dá pra criar mais usuários, por exemplo metendo um [Robert]
+
+AWS_ACCESS_KEY_ID=<DEFAULT_ACCESS_KEY_ID>
+AWS_SECRET_ACCESS_KEY=<DEFAULT_SECRET_ACCESS_KEY>
+AWS_REGION=us-east-1
 
 AMBIENTE_PROCESSO=producao
 
@@ -20,4 +22,3 @@ DB_PASSWORD_SELECT='tradeflux_select'
 # Configurações do servidor de aplicação
 APP_PORT=3000
 APP_HOST=localhost
-
