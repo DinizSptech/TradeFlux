@@ -1,39 +1,49 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
 const bucketController = require("../controllers/bucket.controller");
 
-    // Request me geraria informações sobre a requisição
-    // Response define a resposta de quando bater nessa rota
-    // response.status Serve para saber o status da requisição
+// Request me geraria informações sobre a requisição
+// Response define a resposta de quando bater nessa rota
+// response.status Serve para saber o status da requisição
 
-router.post("/foto", (request, response) =>{
-    // Essa validação abaixo é pra ver se o tipo é JSON para ter certeza que não tá tendo nenhum problema
-    contentType = request.headers['content-type']
+router.post("/foto", (request, response) => {
+  // Essa validação abaixo é pra ver se o tipo é JSON para ter certeza que não tá tendo nenhum problema
+  contentType = request.headers["content-type"];
 
-    if (contentType == 'application/json') {
-        bucketController.salvarFoto
-    } else {
-        response.status(400).send("Envie um arquivo JSON")
-    }
-
-})
+  if (contentType == "application/json") {
+    bucketController.salvarFoto;
+  } else {
+    response.status(400).send("Envie um arquivo JSON");
+  }
+});
 
 router.get("/foto", (request, response) => {
-
-    response.status(200)
-    response.json()
-
-})
+  response.status(200);
+  response.json();
+});
 
 router.post("/monitoramento", (request, response) => {
-    contentType = request.headers['content-type']
+  contentType = request.headers["content-type"];
 
-    if (contentType == 'application/json') {
-        bucketController.salvarMonitoria
-    } else {
-        response.status(400).send("Envie um arquivo JSON")
-    }
-})
+  if (contentType == "application/json") {
+    bucketController.salvarMonitoria;
+  } else {
+    response.status(400).send("Envie um arquivo JSON");
+  }
+});
+
+router.get("/pix", bucketController.pegarPix);
+
+router.get("/pix", (request, response) => {
+  response.status(200);
+  respostaJson = response.json();
+});
+
+// router.get("/pix", (request, response) => {
+//   response.header("Content-Security-Policy", "connect-src 'self'");
+
+//   bucketController.pegarPix().then((data) => response.json(data));
+// });
 
 // Tbm pode ser declarado da maneira abaixo que basicamente só muda a forma de leitura
 

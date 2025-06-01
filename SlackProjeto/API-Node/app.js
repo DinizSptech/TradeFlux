@@ -6,28 +6,32 @@ const app = express();
 app.use(express.json());
 require("dotenv").config();
 
-app.use((request, response, next) =>{
-    response.header("Access-Control-Allow-Origin", "*")
-    // Aqui configuramos o cors e o * é o padrão do "Pode qualquer ip"
-    response.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS")
-    app.use(cors())
-    next()
-})
+app.use((request, response, next) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  // Aqui configuramos o cors e o * é o padrão do "Pode qualquer ip"
+  response.header(
+    "Access-Control-Allow-Methods",
+    "GET, PUT, POST, DELETE, OPTIONS"
+  );
+  response.header("Content-Security-Policy", "default-src 'self'");
+  app.use(cors());
+  next();
+});
 
-const monitoriaRouter = require("./src/routes/monitoria.routes")
-const alertaRouter = require("./src/routes/alerta.routes")
-const bdRouter = require("./src/routes/bdMYSQL.routes")
-const bucketRouter = require("./src/routes/bucket.routes")
+const monitoriaRouter = require("./src/routes/monitoria.routes");
+const alertaRouter = require("./src/routes/alerta.routes");
+const bdRouter = require("./src/routes/bdMYSQL.routes");
+const bucketRouter = require("./src/routes/bucket.routes");
 
-app.use("/alerta", alertaRouter)
-app.use("/bd", bdRouter)
-app.use("/bucket", bucketRouter)
-app.use("/monitoria", monitoriaRouter)
+app.use("/alerta", alertaRouter);
+app.use("/bd", bdRouter);
+app.use("/bucket", bucketRouter);
+app.use("/monitoria", monitoriaRouter);
 
-app.listen(3000,()=>{
-    // Tô colocando ele pra escutar tudo que bater na porta aí
-    console.log("Servidor iniciado")
-})
+app.listen(3000, () => {
+  // Tô colocando ele pra escutar tudo que bater na porta aí
+  console.log("Servidor iniciado");
+});
 
 // Testes que eu tava fazendo para Aprender a lidar com os metódos:
 
