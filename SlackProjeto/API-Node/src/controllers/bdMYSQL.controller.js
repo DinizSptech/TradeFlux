@@ -27,15 +27,20 @@ function cadastrar_servidor(req, res) {
         });
 }
 
+// Versão corrigida da função buscar_servidor
 function buscar_servidor(req, res) {
     let uuid = req.params.uuid;
-    console.log('Selecionando servidor');
+    console.log('Selecionando servidor com UUID:', uuid);
     bdModel.select_servidor(uuid)
         .then(function (resultadoSelect) {
-            // Corrigido: enviar apenas uma resposta JSON
+            console.log('Resultado da busca:', resultadoSelect);
+            
+            // Correção: usar o nome correto do campo conforme o banco
+            const idservidor = resultadoSelect.length > 0 ? resultadoSelect[0].idservidor : null;
+            
             res.status(200).json({
                 success: true,
-                idservidor: resultadoSelect.length > 0 ? resultadoSelect[0].idservidor_cliente : null,
+                idservidor: idservidor,
                 data: resultadoSelect
             });
         }).catch(function (erro) {
