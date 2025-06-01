@@ -1,50 +1,104 @@
-const bucketModel = require("../models/bucket.models")
+const bdModel = require("../models/bdMYSQL.models");
 
-function salvarMonitoria(request, response) {
-    let cpu = request.body.cpu
-    let ram = request.body.ram
-    let disco = request.body.disco
-    let processos = request.body.processos
-    let download = request.body.download
-    let upload = request.body.upload
+function cadastrar_servidor(req, res) {
+    let id_datacenter = req.body.id_datacenter;
+    let uuidservidor = req.body.uuidservidor;
+    let sistemaoperacional = req.body.sistemaoperacional;
+    let discototal = req.body.discototal;
+    let ramtotal = req.body.ramtotal;
+    let processadorinfo = req.body.processadorinfo;
 
-   const variaveis = { cpu, ram, disco, processos, download, upload }
-   let erro = false
-
-    for (const [nome, valor] of Object.entries(variaveis)) {
-        
-        if (valor == undefined) {
-            res.status(400).send(`A variável '${nome}' está undefined!`);
-            erro = true
-            return
-        }
-    
-    }
-
-    if(!erro) {
-        bucketModel
-            .salvandoJSON(request)
-            .then(() => {
-            res.status(200).send("Componente cadastrado com sucesso");
-          })
-        .catch(function (erro) {
-            console.error("Erro ao cadastrar componente:", erro);
-            res.status(500).json(erro.sqlMessage || erro.message);
-          });
-    } 
-
+    console.log('Cadastrando servidor');
+    bdModel.insert_servidor(id_datacenter, uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo)
+        .then(function (resultado) {
+            // Corrigido: enviar apenas uma resposta
+            res.status(200).json({
+                success: true,
+                message: "Cadastro bem sucedido!",
+                data: resultado
+            });
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao cadastrar o servidor! Erro: ", erro.sqlMessage);
+            res.status(500).json({
+                success: false,
+                error: erro.sqlMessage || erro.message
+            });
+        });
 }
 
-function salvarFoto(request, response) {
-    
+function buscar_servidor(req, res) {
+    let uuid = req.params.uuid;
+    console.log('Selecionando servidor');
+    bdModel.select_servidor(uuid)
+        .then(function (resultadoSelect) {
+            // Corrigido: enviar apenas uma resposta JSON
+            res.status(200).json({
+                success: true,
+                idservidor: resultadoSelect.length > 0 ? resultadoSelect[0].idservidor_cliente : null,
+                data: resultadoSelect
+            });
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao buscar o servidor! Erro: ", erro.sqlMessage);
+            res.status(500).json({
+                success: false,
+                error: erro.sqlMessage || erro.message
+            });
+        });
 }
 
-function pegarFoto(request, response) {
+function buscar_parametro(req, res) {
+    let id = req.params.id;
+    console.log('Selecionando parâmetros');
+    bdModel.select_parametro(id)
+        .then(function (resultadoSelect) {
+            // Corrigido: enviar apenas uma resposta JSON
+            res.status(200).json({
+                success: true,
+                idservidor: id,
+                parametros: resultadoSelect
+            });
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao buscar o parâmetro! Erro: ", erro.sqlMessage);
+            res.status(500).json({
+                success: false,
+                error: erro.sqlMessage || erro.message
+            });
+        });
+}
 
+function inserir_alerta(req, res) {
+    let valor = req.body.valor;
+    let medida = req.body.medida;
+    let data = req.body.data;
+    let criticidade = req.body.criticidade;
+    let fkparametro = req.body.fkparametro;
+    let servidor = req.body.servidor;
+    let componente = req.body.componente;
+     
+    console.log('Inserindo alerta');
+    bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente)
+        .then(function (resultado) {
+            res.status(200).json({
+                success: true,
+                message: "Sucesso ao inserir alerta!",
+                data: resultado
+            });
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao inserir o alerta! Erro: ", erro.sqlMessage);
+            res.status(500).json({
+                success: false,
+                error: erro.sqlMessage || erro.message
+            });
+        });
 }
 
 module.exports = {
-    salvarMonitoria,
-    salvarFoto,
-    pegarFoto
+    cadastrar_servidor,
+    inserir_alerta,
+    buscar_parametro,
+    buscar_servidor
 };
