@@ -3,7 +3,7 @@ const bd = require("../connections/bd");
 function insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente) {
     console.log("Acessando model para inserir alerta");
     let instrucaosql = `
-        INSERT INTO alerta (valor, medida, data_gerado, criticidade, fkparametro, servidor, componente)
+        INSERT INTO alerta (valor, medida, data_gerado, criticidade, fk_parametro, servidor, componente)
         VALUES ('${valor}', '${medida}', '${data}', '${criticidade}', '${fkparametro}', '${servidor}', '${componente}');
     `;
     console.log("Executando a instrução:" + instrucaosql);
@@ -40,7 +40,7 @@ function select_parametro(id) {
 
 function insert_alerta_com_issueKey(valor, medida, data, criticidade, fkparametro, servidor, componente, issueKey) {
     const instrucao = `
-        INSERT INTO alerta (idjira, valor, medida, data_gerado, criticidade, fkparametro)
+        INSERT INTO alerta (idjira, valor, medida, data_gerado, criticidade, fk_parametro)
         VALUES ('${issueKey}', '${valor}', '${medida}', '${data}', '${criticidade}', '${fkparametro}');
     `;
     return bd.executarInsert(instrucao);

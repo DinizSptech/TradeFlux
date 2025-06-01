@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const bdController = require('../controllers/bdMYSQL.controller');
+const bdController = require('../controllers/bdMYSQL.controllers');
 
 // Corrigido: request -> req, response -> res
 router.post("/cadastrar_servidor", (req, res) => {
