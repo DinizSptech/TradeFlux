@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import json
 
+    #essa lambda trata os dados do trusted e envia para o client
+
 def lambda_handler(event, context):
     try:
 
@@ -73,14 +75,14 @@ def lambda_handler(event, context):
         data_inicial = datetime(2025, 3, 5, 0, 1, 0)
 
 
-        quantidade = 7
+        quantidade = 19
 
         # Lista para armazenar os DataFrames
         vetor_ociosidade6meses = []
 
         # Loop para gerar de 5 em 5 dias
         for i in range(quantidade):
-            data_alvo = data_inicial + timedelta(days=15 * i)
+            data_alvo = data_inicial + timedelta(days=5 * i)
             
             filtro = len(df_6_meses[
                 (df_6_meses['CPU Percentual'] <= 20) &
@@ -91,14 +93,14 @@ def lambda_handler(event, context):
             
             vetor_ociosidade6meses.append(filtro)
 
-        quantidade2 = 7
+        quantidade2 = 16
         data_inicial2 = datetime(2025, 5, 3, 0, 1, 0)
         # Lista para armazenar os DataFrames
         vetor_ociosidade30dias = []
 
         # Loop para gerar de 15 em 15 dias
         for i in range(quantidade2):
-            data_alvo = data_inicial2 + timedelta(days=5 * i)
+            data_alvo = data_inicial2 + timedelta(days=2 * i)
             
             filtro = len(df_30_dias[
                 (df_30_dias['CPU Percentual'] <= 20) &
@@ -317,27 +319,51 @@ def lambda_handler(event, context):
             "servidor10": TabelaOciosidade_7dias[10]
         }
 
-        ociodade3mesesTemporal = {
-            "05/03/2025": vetor_ociosidade6meses[0],
-            "20/03/2025": vetor_ociosidade6meses[1],
-            "04/04/2025": vetor_ociosidade6meses[2],
-            "19/04/2025": vetor_ociosidade6meses[3],
-            "04/05/2025": vetor_ociosidade6meses[4],
-            "19/05/2025": vetor_ociosidade6meses[5],
-            "03/06/2025": vetor_ociosidade6meses[6]
+        ociosidade3mesesTemporal = {
+
+        "05/03/2025": vetor_ociosidade6meses[0],
+        "10/03/2025": vetor_ociosidade6meses[1],
+        "15/03/2025": vetor_ociosidade6meses[2],
+        "20/03/2025": vetor_ociosidade6meses[3],
+        "25/03/2025": vetor_ociosidade6meses[4],
+        "30/03/2025": vetor_ociosidade6meses[5],
+        "04/04/2025": vetor_ociosidade6meses[6],
+        "09/04/2025": vetor_ociosidade6meses[7],
+        "14/04/2025": vetor_ociosidade6meses[8],
+        "19/04/2025": vetor_ociosidade6meses[9],
+        "24/04/2025": vetor_ociosidade6meses[10],
+        "29/04/2025": vetor_ociosidade6meses[11],
+        "04/05/2025": vetor_ociosidade6meses[12],
+        "09/05/2025": vetor_ociosidade6meses[13],
+        "14/05/2025": vetor_ociosidade6meses[14],
+        "19/05/2025": vetor_ociosidade6meses[15],
+        "24/05/2025": vetor_ociosidade6meses[16],
+        "29/05/2025": vetor_ociosidade6meses[17],
+        "03/06/2025": vetor_ociosidade6meses[18]
         }
 
-        ociodade30diasTemporal = {
-            "03/05/2025": vetor_ociosidade30dias[0],
-            "08/05/2025": vetor_ociosidade30dias[1],
-            "13/05/2025": vetor_ociosidade30dias[2],
-            "18/05/2025": vetor_ociosidade30dias[3],
-            "23/05/2025": vetor_ociosidade30dias[4],
-            "28/05/2025": vetor_ociosidade30dias[5],
-            "03/06/2025": vetor_ociosidade30dias[6]
+
+
+        ociosidade30diasTemporal = {
+        "03/05/2025": vetor_ociosidade30dias[0],
+        "05/05/2025": vetor_ociosidade30dias[1],
+        "07/05/2025": vetor_ociosidade30dias[2],
+        "09/05/2025": vetor_ociosidade30dias[3],
+        "11/05/2025": vetor_ociosidade30dias[4],
+        "13/05/2025": vetor_ociosidade30dias[5],
+        "15/05/2025": vetor_ociosidade30dias[6],
+        "17/05/2025": vetor_ociosidade30dias[7],
+        "19/05/2025": vetor_ociosidade30dias[8],
+        "21/05/2025": vetor_ociosidade30dias[9],
+        "23/05/2025": vetor_ociosidade30dias[10],
+        "25/05/2025": vetor_ociosidade30dias[11],
+        "27/05/2025": vetor_ociosidade30dias[12],
+        "29/05/2025": vetor_ociosidade30dias[13],
+        "31/05/2025": vetor_ociosidade30dias[14],
+        "02/06/2025": vetor_ociosidade30dias[15]
         }
 
-        ociodade7diasTemporal = {
+        ociosidade7diasTemporal = {
             "28/05/2025": vetor_ociosidade7dias[0],
             "29/05/2025": vetor_ociosidade7dias[1],
             "30/05/2025": vetor_ociosidade7dias[2],
@@ -349,7 +375,7 @@ def lambda_handler(event, context):
 
 
 
-        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, ociodade3mesesTemporal, ociodade30diasTemporal, ociodade7diasTemporal, estabilidadeComponentes]
+        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, ociosidade3mesesTemporal, ociosidade30diasTemporal, ociosidade7diasTemporal, estabilidadeComponentes]
 
 
         json_final = json.dumps(dados, indent=4)

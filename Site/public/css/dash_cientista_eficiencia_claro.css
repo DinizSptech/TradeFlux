@@ -16,6 +16,7 @@ body {
 
 .periodo {
     display: flex;
+    width: 90%;
     flex-direction: row;
     justify-content: space-between;
     padding-left: 1vw;
@@ -34,6 +35,7 @@ body {
 
 .periodo button.ativo {
     background-color: #9b9b9b;
+    color: #fff;
 }
 
 .botaoTempo:hover {
