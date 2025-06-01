@@ -7,15 +7,15 @@ function enviar_captura_front(req,res){
         'dados': [
 
           {
-            'Momento': req.body.Momento,
-            'ram': req.body.ram_percentual,
-            'cpu': req.body.cpu_percentual,
-            'disco': req.body.disco_percentual,
+            'Momento': req.body.dados[0].Momento,
+            'ram': req.body.dados[0].ram_percentual,
+            'cpu': req.body.dados[0].cpu_percentual,
+            'disco': req.body.dados[0].disco_percentual,
             'criticidade': 0,
-            'download': req.body.velocidade_download,
-            'upload': req.body.velocidade_upload,
-            'tempoAtivo': req.body.tempo_ativo,
-            'processos': processos
+            'download': req.body.dados[0].velocidade_download,
+            'upload': req.body.dados[0].velocidade_upload,
+            'tempoAtivo': req.body.dados[0].tempo_ativo,
+            'processos': req.body.dados[0].processos
           }
         ]
         
