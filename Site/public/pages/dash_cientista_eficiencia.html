@@ -15,9 +15,10 @@
   <link rel="stylesheet" href="../css/dash_cientista_eficiencia_claro.css">
   <link rel="stylesheet" href="../css/barra_lateral.css">
   <script src="../js/barra_lateral.js" defer></script>
+  <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
 </head>
 
-<body onload="carregarMenuLateral(); chamarDadosAWS(); kpi1_geral(); kpi2_geral() ">
+<body onload=" chamarDadosAWS(); carregarMenuLateral();  ">
   <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
     <div class="container_perfil_menu" id="modal_perfil">
@@ -39,7 +40,7 @@
 
     <!-- Modal de servidor -->
 
-    <div id="backdrop" class="backdrop"></div>
+    <!-- <div id="backdrop" class="backdrop"></div> -->
 
     <!-- <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
@@ -89,7 +90,7 @@
       <div class="kpis">
         <div class="kpi">
           <span class="textKpi">Selecione o intervalo:</span>
-          <div class="perido">
+          <div class="periodo">
             <button
               onclick="ativarBotao(this, '7dias'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
               id="7dias" class="botaoTempo"> 7 dias
@@ -175,7 +176,7 @@
 
   function chamarDadosAWS() {
 
-    fetch('https://hf2m2zb4jalpa2qrwqvmwppbsy0tugey.lambda-url.us-east-1.on.aws/')
+    fetch('https://mqlouf2jnrl5gxx4yklcdfsewe0vubrt.lambda-url.us-east-1.on.aws/')
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos:", data);
@@ -188,6 +189,14 @@
         graficoTempo30dias.push(data[6])
         graficoTempo7dias.push(data[7])
         estabilidade.push(data[8])
+        sessionStorage.setItem("botaoTempo", '7dias');
+        kpi1_geral();
+        kpi2_geral();
+        carregarServidores();
+        graficoLinha();
+        graficoBarra();
+        desempenhoComponentes();
+        graficoPie()
       })
       .catch(error => {
         console.error("Erro na chamada:", error);
