@@ -62,7 +62,7 @@ function carregarMenuLateral() {
             </div>
             </a>
             
-            <a href="./dash_adm_custos.html">
+            <a href="./dash_adm_custo.html">
             <div class="option selected" data-tooltip="Dashboard de Custos">
                 <i class="fa-solid fa-magnifying-glass-dollar"></i>
                 <span>Dashboard de Custos</span>
