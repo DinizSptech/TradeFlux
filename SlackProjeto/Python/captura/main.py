@@ -8,6 +8,9 @@ id_datacenter = 1
 def main():
     print("Bem vindo ao sistema Crawler da TradeFlux\n")
     print("Essa é uma API Python que cadastra servidores e monitoriza os componentes de cada servidor.\n")
+    print("Os dados são enviados para:")
+    print("- Endpoints originais (monitoria, alertas) para processamento normal")
+    print("- Buffers do bucket que acumulam 240 capturas e 100 alertas\n")
 
     print("Escolha uma opção:\n1 - Iniciar coleta de dados\n2 - Sair")
     opcao = int(input("Digite a opção desejada: ")) 
@@ -56,21 +59,28 @@ def main():
         
         contador = 1
         # Usar o UUID para obter os parâmetros inicialmente
-        dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
+        dados_parametros = comunicacao.obter_parametros_servidor(idServidor)
         
         if "erro" not in dados_parametros:
             # Usar o ID do servidor obtido da busca/cadastro
             id_servidor_final = idServidor
             print(f"Iniciando monitoramento do servidor ID: {id_servidor_final}")
+            print("Enviando dados para endpoints originais + buffers do bucket...\n")
             
             while True:
                 try:
                     # Recarregar parâmetros periodicamente
                     if contador == 1 or contador % 300 == 0:
                         print("Atualizando parâmetros do servidor...")
-                        dados_parametros = comunicacao.obter_parametros_servidor(uuidServidor)
+                        dados_parametros = comunicacao.obter_parametros_servidor(idServidor)
                         if "erro" in dados_parametros:
                             print("Erro ao obter parâmetros atualizados. Continuando com parâmetros anteriores.")
+                    
+                    # Verificar status dos buffers a cada 50 ciclos
+                    if contador % 50 == 0:
+                        status_buffers = comunicacao.verificar_status_buffers()
+                        if "erro" not in status_buffers:
+                            print(f"Status buffers - Capturas: {status_buffers['capturas']['atual']}/240, Alertas: {status_buffers['alertas']['atual']}/100")
                     
                     dados_capturados = crawler.coletar_dados(id_datacenter, id_servidor_final)
                     
@@ -84,7 +94,8 @@ def main():
                         if "erro" not in dados_parametros:
                             comunicacao.verificar_e_enviar_alertas(dados_capturados, dados_parametros)
                         
-                        print(f"Ciclo {contador} - Dados coletados e enviados")
+                        if contador % 10 == 0:  # Log a cada 10 ciclos para não poluir
+                            print(f"Ciclo {contador} - Dados enviados (originais + buffer)")
                     else:
                         print(f"Erro na coleta de dados no ciclo {contador}")
                     
@@ -93,6 +104,12 @@ def main():
                     
                 except KeyboardInterrupt:
                     print("\nMonitoramento interrompido pelo usuário.")
+                    # Mostrar status final dos buffers
+                    status_final = comunicacao.verificar_status_buffers()
+                    if "erro" not in status_final:
+                        print(f"Status final dos buffers:")
+                        print(f"Capturas pendentes: {status_final['capturas']['atual']}")
+                        print(f"Alertas pendentes: {status_final['alertas']['atual']}")
                     break
                 except Exception as e:
                     print(f"Erro na coleta (ciclo {contador}): {e}")

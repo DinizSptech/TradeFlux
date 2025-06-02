@@ -5,7 +5,7 @@ function autenticar(email) {
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
     email
     // senha,
-    // cargo
+    // cargo 
   );
   var instrucaoSql = `
         SELECT idusuario, nome, senha, cargo, fk_data_center FROM usuario_cliente WHERE email = '${email}';

@@ -8,7 +8,7 @@ let usuarioModel = require("../models/usuarioModel");
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
-
+ 
   // Descomente para debugar caso algo dê errado:
   const testeSenha = "Jennifer123@";
   const hashBDTesteConstrução = criarHashComPepper(testeSenha);
@@ -65,7 +65,7 @@ function autenticar(req, res) {
               email: resultadoAutenticar[0].email,
               senha: senha,
               cargo: resultadoAutenticar[0].cargo,
-              data_center: resultadoAutenticar[0].fkDataCenter,
+              data_center: resultadoAutenticar[0].fk_data_center,
             });
           } else {
             res.status(403).send("Hash");

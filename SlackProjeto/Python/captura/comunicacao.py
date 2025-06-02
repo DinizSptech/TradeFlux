@@ -3,14 +3,14 @@ import json
 
 API_URL = 'http://34.239.37.209:3000'
 
-def obter_parametros_servidor(uuid_maquina):
+def obter_parametros_servidor(id_maquina):
     try:
         headers = {'Content-Type': 'application/json'}
-        resposta = requests.get(f"{API_URL}/bd/parametros/{uuid_maquina}", headers=headers, timeout=10)
+        resposta = requests.get(f"{API_URL}/bd/parametros/{id_maquina}", headers=headers, timeout=10)
         
         if resposta.status_code == 200:
             data = resposta.json()
-            print(f"Parâmetros obtidos com sucesso para UUID: {uuid_maquina}")
+            print(f"Parâmetros obtidos com sucesso para UUID: {id_maquina}")
             return data
         else:
             print(f"Erro ao obter parâmetros: {resposta.status_code} - {resposta.text}")
@@ -130,14 +130,39 @@ def enviar_alerta(fkparametro, valor, medida, data, criticidade, nomeservidor, n
         }
         
         headers = {'Content-Type': 'application/json'}
-        resposta = requests.post(f"{API_URL}/alerta", json=payload, headers=headers, timeout=10)
         
-        if resposta.status_code == 200:
-            print(f"Alerta enviado: {nomecomponente} = {valor}% (criticidade {criticidade})")
-            return resposta.json()
+        # Enviar para o endpoint original (Jira, banco, etc.)
+        resposta_original = requests.post(f"{API_URL}/alerta", json=payload, headers=headers, timeout=10)
+        
+        # Enviar para o buffer do bucket (adicional)
+        try:
+            resposta_bucket = requests.post(f"{API_URL}/bucket/alertas", json=payload, headers=headers, timeout=5)
+            if resposta_bucket.status_code == 200:
+                print(f"Alerta adicionado ao buffer: {nomecomponente} = {valor}% (criticidade {criticidade})")
+        except Exception as e_bucket:
+            print(f"Erro ao adicionar alerta ao buffer (não crítico): {e_bucket}")
+        
+        # Retornar resultado do endpoint principal
+        if resposta_original.status_code == 200:
+            # Verificar se a resposta é JSON válido
+            try:
+                resposta_json = resposta_original.json()
+                print(f"Alerta processado: {nomecomponente} = {valor}% (criticidade {criticidade})")
+                return resposta_json
+            except ValueError as json_error:
+                # Se não for JSON válido, tratar como texto
+                print(f"Resposta não-JSON do servidor: {resposta_original.text}")
+                return {"success": True, "message": resposta_original.text}
         else:
-            print(f"Erro ao enviar alerta: {resposta.status_code} - {resposta.text}")
-            return {"erro": f"HTTP {resposta.status_code}"}
+            print(f"Erro ao enviar alerta: {resposta_original.status_code} - {resposta_original.text}")
+            return {"erro": f"HTTP {resposta_original.status_code}"}
+            
+    except requests.exceptions.Timeout:
+        print("Timeout ao enviar alerta")
+        return {"erro": "Timeout"}
+    except requests.exceptions.ConnectionError:
+        print("Erro de conexão ao enviar alerta")
+        return {"erro": "Conexão"}
     except Exception as e:
         print(f"Erro ao enviar alerta: {e}")
         return {"erro": str(e)}
@@ -145,15 +170,42 @@ def enviar_alerta(fkparametro, valor, medida, data, criticidade, nomeservidor, n
 def enviar_dados(dados):
     try:
         headers = {'Content-Type': 'application/json'}
-        resposta = requests.post(f"{API_URL}/monitoria", json=dados, headers=headers, timeout=10)
+        
+        # Enviar para o endpoint original (monitoramento)
+        resposta_original = requests.post(f"{API_URL}/monitoria", json=dados, headers=headers, timeout=10)
+        
+        # Enviar para o buffer do bucket (adicional)
+        try:
+            resposta_bucket = requests.post(f"{API_URL}/bucket/capturas", json=dados, headers=headers, timeout=5)
+            if resposta_bucket.status_code == 200:
+                # Não printar toda vez para não poluir o log
+                pass
+        except Exception as e_bucket:
+            print(f"Erro ao adicionar dados ao buffer (não crítico): {e_bucket}")
+        
+        # Retornar resultado do endpoint principal
+        if resposta_original.status_code == 200:
+            return resposta_original.json()
+        else:
+            print(f"Erro ao enviar dados: {resposta_original.status_code} - {resposta_original.text}")
+            return {"erro": f"HTTP {resposta_original.status_code}"}
+    except Exception as e:
+        print(f"Erro ao enviar dados: {e}")
+        return {"erro": str(e)}
+
+def verificar_status_buffers():
+    """Nova função para verificar o status dos buffers"""
+    try:
+        headers = {'Content-Type': 'application/json'}
+        resposta = requests.get(f"{API_URL}/bucket/status", headers=headers, timeout=10)
         
         if resposta.status_code == 200:
             return resposta.json()
         else:
-            print(f"Erro ao enviar dados: {resposta.status_code} - {resposta.text}")
+            print(f"Erro ao verificar status dos buffers: {resposta.status_code}")
             return {"erro": f"HTTP {resposta.status_code}"}
     except Exception as e:
-        print(f"Erro ao enviar dados: {e}")
+        print(f"Erro ao verificar status dos buffers: {e}")
         return {"erro": str(e)}
 
 def verificar_e_enviar_alertas(dados_capturados, parametros_servidor):
