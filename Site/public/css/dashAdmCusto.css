@@ -48,6 +48,11 @@ body {
   cursor: pointer;
 }
 
+.selecionado {
+  background-color: grey;
+  color: white;
+}
+
 #grafico {
   background-color: #fff;
   border-radius: 1vw;

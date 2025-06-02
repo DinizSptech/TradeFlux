@@ -41,9 +41,21 @@
       </div>
       <div class="filtros-e-grafico">
         <div class="filtros">
-          <button onclick="exibir(24)">Últimas 24 horas</button>
-          <button onclick="exibir(7)">Últimos 7 dias</button>
-          <button onclick="exibir(30)">Últimos 30 dias</button>
+          <button onclick="exibir(24)">
+            <span class="filtro" onclick="selecionar(this)"
+              >Últimas 24 horas</span
+            >
+          </button>
+          <button onclick="exibir(7)">
+            <span class="filtro" onclick="selecionar(this)"
+              >Últimos 7 dias</span
+            >
+          </button>
+          <button onclick="exibir(30)">
+            <span class="filtro" onclick="selecionar(this)"
+              >Últimos 30 dias</span
+            >
+          </button>
         </div>
         <div class="filtros">
           <button onclick="exibir(1)">Data Center 1</button>

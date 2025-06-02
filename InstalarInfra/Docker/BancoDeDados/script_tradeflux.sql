@@ -56,9 +56,9 @@ create table if not exists data_center (
 );
 
 insert into data_center (nome, fk_cliente, fk_endereco) values
-('Data Center 1', 1, 2),
-('Data Center 2', 1, 3),
-('Data Center 3', 1, 4);
+('data center 1', 1, 2),
+('data center 2', 1, 3),
+('data center 3', 1, 4);
 
 create table if not exists usuario_cliente (
     idusuario int auto_increment primary key,

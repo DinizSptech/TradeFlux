@@ -1,7 +1,10 @@
-FROM mysql:latest
-WORKDIR /
-ENV MYSQL_ROOT_PASSWORD=urubu100
-COPY script_tradefluxLinux.sql /docker-entrypoint-initdb.d/
-EXPOSE 1730
+FROM mysql:8.0
 
-# docker build -f InstalarInfra/Docker/BancoDeDados/Dockerfile -t (Aqui cê coloca o nome que vc quer) SlackProjeto/databaseMySQL
+WORKDIR /bd
+
+# Remova esta linha
+ENV MYSQL_ROOT_PASSWORD=urubu100
+
+COPY ./script_tradeflux.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
