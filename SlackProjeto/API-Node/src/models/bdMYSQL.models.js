@@ -32,7 +32,7 @@ function select_servidor(uuid) {
 function select_parametro(id) {
     console.log("Acessando model para buscar parâmetros");
     let instrucaosql = `
-        SELECT * FROM parametro_servidor WHERE fk_servidor = ${id} OR fk_servidor IS NULL;
+        SELECT * FROM parametro_servidor WHERE fk_servidor = '${id}' OR fk_servidor IS NULL;
     `;
     console.log("Executando a instrução:" + instrucaosql);
     return bd.executarSelect(instrucaosql);
