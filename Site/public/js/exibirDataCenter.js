@@ -11,7 +11,7 @@ function exibirDataCenters() {
         const servidorCadastrado_atual = resjson[i].servidoresCadastrados;
         const status_atual = resjson[i].statusDataCenter;
 
-        bodyTabela.innerHTML += `<tr id="linha-${id_atual}">
+        bodyTabela.innerHTML += `<tr id="li nha-${id_atual}">
             <td>
              ${nome_atual}
             </td>
