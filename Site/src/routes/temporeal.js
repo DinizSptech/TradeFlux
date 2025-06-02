@@ -1,27 +1,31 @@
 var express = require("express");
 var router = express.Router();
 
- let dadosTempoReal = []
+let dadosTempoReal = [];
 
-router.post("/monitoria", (req,res) => {
-  if(dadosTempoReal.length == 0){
-    dadosTempoReal.push(req.body)
-    res.status(200).send("Novo servidor adicionado na monitoria.")
+router.post("/monitoria", (req, res) => {
+  const servidorRecebido = req.body.servidor;
+  const novoDado = req.body.dados[0];
+
+  let servidorExistente = dadosTempoReal.find(dadoServer => dadoServer.servidor == servidorRecebido);
+
+  if (!servidorExistente) {
+    dadosTempoReal.push({
+      servidor: servidorRecebido,
+      dados: [novoDado]
+    });
+    return res.status(200).send("Novo servidor adicionado na monitoria.");
   }
 
-  for(let i = 0; i < dadosTempoReal.length; i++){
-    let servidorAtual = dadosTempoReal[i] 
-    if(servidorAtual.servidor = req.body.servidor){
-      if (servidorAtual.length > 11){
-       servidorAtual.shift()
-       servidorAtual.push(req.body.dados[0])
-       res.status(200).send("Buffer modificado, nova captura enviada")
-      } else {
-         servidorAtual.push(req.body.dados[0])
-       res.status(200).send("Buffer modificado, nova captura enviada")
-      }
-    }
+  if (servidorExistente.dados.length >= 10) {
+    servidorExistente.dados.shift();
   }
-})
+  servidorExistente.dados.push(novoDado);
+  return res.status(200).send("Buffer modificado, nova captura enviada.");
+});
 
-module.exports = router
+router.get("/monitoria", (req, res) => {
+  res.status(200).json(dadosTempoReal);
+});
+
+module.exports = router;

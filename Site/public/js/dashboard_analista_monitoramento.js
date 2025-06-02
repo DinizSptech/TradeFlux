@@ -153,8 +153,6 @@ let dadosServidores = [
 ];
 
 let servidorTravado = false;
-let nomeServidorTravado = null;
-let ultimosAlertas = []; // armazenar alertas recentes
 
 let cores = {
   'critico': '#ff1900',
@@ -390,6 +388,7 @@ function fechar(real) {
     modal.style.display= 'none'
 }
 
+let servidorExpandido = null
 function expandirServidor(){
       const tabela = document.getElementById('spawnpointTabela')
       const sel = tabela.querySelector('.selected')
@@ -398,12 +397,11 @@ function expandirServidor(){
         let cols = sel.querySelectorAll('td')
         let criticidade = cols[1].innerText
         let selecionado = cols[0].innerText
+        servidorExpandido = selecionado
        for(let i = 0; i < dadosServidores.length; i ++){
         if (dadosServidores[i].servidor == selecionado){
           const servidor = dadosServidores[i];
           const dados = servidor.dados[servidor.dados.length - 1];
-          nomeServidorTravado = servidor.servidor;
-          console.log(nomeServidorTravado)
           let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta : cores.estavel
           let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
 
@@ -426,6 +424,7 @@ function atualizarListaAlertas() {
     lista.appendChild(li);
   });
 }
+
 let travado = false
 function travar(){
   if(!travado){
@@ -436,6 +435,68 @@ function travar(){
     document.getElementById('lock').querySelector('img').src = '../assets/lock.png'
   }
 }
+
+async function atualizarDadosEmTempoReal() {
+  try {
+    const resposta = await fetch('http://localhost:3000/monitoria');
+    const dados = await resposta.json();
+
+    dadosServidores = dados.map(jsonServer => ({
+      servidor: jsonServer.servidor,
+      dados: jsonServer.dados
+    }));
+
+    ordenarTabela('criticidade');
+    if(!travado){
+      atualizarGraficosComDados(dadosServidores);
+    }
+  } catch (erro) {
+    console.error("Erro ao buscar dados em tempo real:", erro);
+  }
+}
+
+function atualizarGraficosComDados(dadosServidores) {
+
+      servidorEscolhido = dadosServidores.find(jsonServer => jsonServer.servidor === servidorExpandido);
+
+  if (!servidorEscolhido) {
+    servidorEscolhido = [...dadosServidores].sort((a, b) => {
+      const aCrit = a.dados.at(-1).criticidade;
+      const bCrit = b.dados.at(-1).criticidade;
+      return bCrit - aCrit;
+    })[0];
+  }
+
+  if (!servidorEscolhido || !servidorEscolhido.dados.length) return;
+
+  const seriesCPU = [];
+  const seriesRAM = [];
+  const seriesDisco = [];
+  const seriesUpload = [];
+  const seriesDownload = [];
+
+  servidorEscolhido.dados.forEach(ponto => {
+    const timestamp = new Date(ponto.Momento).getTime();
+    seriesCPU.push([timestamp, ponto.cpu]);
+    seriesRAM.push([timestamp, ponto.ram]);
+    seriesDisco.push([timestamp, ponto.disco]);
+    seriesUpload.push([timestamp, ponto.upload]);
+    seriesDownload.push([timestamp, ponto.download]);
+  });
+
+  chartLineFisico.updateSeries([
+    { name: "CPU", data: seriesCPU },
+    { name: "RAM", data: seriesRAM },
+    { name: "Disco", data: seriesDisco }
+  ]);
+
+  chartLineRede.updateSeries([
+    { name: "Upload", data: seriesUpload },
+    { name: "Download", data: seriesDownload }
+  ]);
+}
+
+setInterval(atualizarDadosEmTempoReal, 5000);
 
 function getRandom() {
   return Math.ceil(Math.random() * 100) 
@@ -632,32 +693,6 @@ const chartLineFisico = new ApexCharts(
 );
 chartLineFisico.render();
 
-window.setInterval(function () {
-  /* Importante */
-  chartLineFisico.updateSeries([
-    {
-      data: [
-        ...chartLineFisico.w.config.series[0].data,
-        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
-      ]
-    },
-    {
-      data: [
-        ...chartLineFisico.w.config.series[1].data,
-        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
-      ]
-    },
-    {
-      data: [
-        ...chartLineFisico.w.config.series[2].data,
-        [chartLineFisico.w.globals.maxX + 300000, getRandom()]
-      ]
-    }
-  ]);
-
-}, locura);
-
-
 // CONFIGURA O GRÁFICO DE LINHAS DE REDE
 window.Apex = {
   chart: {
@@ -793,23 +828,3 @@ const chartLineRede = new ApexCharts(
   optionsLineRede
 );
 chartLineRede.render();
-
-window.setInterval(function () {
-
-  /* Importante */
-  chartLineRede.updateSeries([
-    {
-      data: [
-        ...chartLineRede.w.config.series[0].data,
-        [chartLineRede.w.globals.maxX + 300000, getRandom()]
-      ]
-    },
-    {
-      data: [
-        ...chartLineRede.w.config.series[1].data,
-        [chartLineRede.w.globals.maxX + 300000, getRandom()]
-      ]
-    }
-  ]);
-
-}, locura);
