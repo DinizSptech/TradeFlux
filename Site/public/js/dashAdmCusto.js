@@ -102,6 +102,8 @@ function exibir(valor) {
   }
   console.log("Data Center:", dataCenterSelecionado);
   console.log("Tempo:", tempoSelecionado);
+
+  // Coletar JSON do bucket client:
 }
 
 function gerarGrafico() {
