@@ -15,46 +15,6 @@ drop database if exists tradeflux;
 create database if not exists tradeflux;
 use tradeflux;
 
--- Script 1: Contagem de alertas por criticidade separadamente
--- Alertas de criticidade 3 (crítico) no datacenter 1 - últimos 30 dias
-SELECT COUNT(*) AS quantidade_alertas_criticos
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade = 3
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
-
--- Alertas de criticidade 1 (atenção) no datacenter 1 - últimos 30 dias
-SELECT COUNT(*) AS quantidade_alertas_atencao
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade = 1
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
-
--- Script 2: Contagem agrupada em uma única consulta
-SELECT 
-    a.criticidade,
-    COUNT(*) AS quantidade_alertas,
-    CASE 
-        WHEN a.criticidade = 1 THEN 'Atenção'
-        WHEN a.criticidade = 3 THEN 'Crítico'
-        ELSE 'Outro'
-    END AS tipo_criticidade
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade IN (1, 3)
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY
-GROUP BY a.criticidade
-ORDER BY a.criticidade;
-
 -- SELECT 
 --     s.idservidor,
 --     s.uuidservidor,
@@ -520,6 +480,46 @@ WHERE a.criticidade = 1
 GROUP BY s.idservidor
 ORDER BY qtd_alertas_atencao DESC
 LIMIT 5;
+
+-- Script 1: Contagem de alertas por criticidade separadamente
+-- Alertas de criticidade 3 (crítico) no datacenter 1 - últimos 30 dias
+SELECT COUNT(*) AS quantidade_alertas_criticos
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade = 3
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
+
+-- Alertas de criticidade 1 (atenção) no datacenter 1 - últimos 30 dias
+SELECT COUNT(*) AS quantidade_alertas_atencao
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade = 1
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
+
+-- Script 2: Contagem agrupada em uma única consulta
+SELECT 
+    a.criticidade,
+    COUNT(*) AS quantidade_alertas,
+    CASE 
+        WHEN a.criticidade = 1 THEN 'Atenção'
+        WHEN a.criticidade = 3 THEN 'Crítico'
+        ELSE 'Outro'
+    END AS tipo_criticidade
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade IN (1, 3)
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY a.criticidade
+ORDER BY a.criticidade;
 
 
 
