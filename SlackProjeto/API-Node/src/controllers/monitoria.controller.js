@@ -1,20 +1,25 @@
 const monitoriaModel = require("../models/monitoria.models")
 
 function enviar_captura_front(req,res){
+    if(!req){
+     res.status(400).send("Vetor de dados da captura vazio.")
+    }
+    console.log("\n\n\nCorpo da requisição: ")
+    console.log(req.body)
       
     captura = {
-        'servidor': req.body.servidor, // Corrigido: era 'nome_servidor' mas no Python é 'servidor'
-        'dados': 
-            {
-                'Momento': req.body.dados[0].Momento, // Corrigido: dados vem como array
-                'ram': req.body.dados[0].ram, // Corrigido: campos corretos
-                'cpu': req.body.dados[0].cpu,
-                'disco': req.body.dados[0].disco,
-                'criticidade': 0,
-                'download': req.body.dados[0].download,
-                'upload': req.body.dados[0].upload,
-                'tempoAtivo': req.body.dados[0].tempoAtivo,
-                'processos': req.body.dados[0].processos // Corrigido: agora pega do request
+
+        "servidor": req.body.servidor, // Corrigido: era "nome_servidor" mas no Python é "servidor"
+        "dados": {
+                "Momento": req.body.dados.Momento, 
+                "ram": req.body.dados.ram, 
+                "cpu": req.body.dados.cpu,
+                "disco": req.body.dados.disco,
+                "criticidade": 0,
+                "download": req.body.dados.download,
+                "upload": req.body.dados.upload,
+                "tempo_ativo": req.body.dados.tempo_ativo,
+                "processos": req.body.dados.processos
             }
         
     }

@@ -5,7 +5,7 @@ let dadosTempoReal = [];
 
 router.post("/monitoria", (req, res) => {
   const servidorRecebido = req.body.servidor;
-  const novoDado = req.body.dados[0];
+  const novoDado = req.body.dados;
 
   let servidorExistente = dadosTempoReal.find(dadoServer => dadoServer.servidor == servidorRecebido);
 

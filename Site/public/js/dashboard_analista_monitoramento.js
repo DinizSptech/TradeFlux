@@ -1,156 +1,4 @@
-let dadosServidores = [
-  {
-    'servidor': 'Servidor 1',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 47,
-        'cpu': 38,
-        'disco': 50,
-        'criticidade': 0,
-        'download': 1204.58,
-        'upload': 342.17,
-        'tempo_ativo': '03:12:45',
-        'processos' : []
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 2',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 65,
-        'cpu': 55,
-        'disco': 81,
-        'criticidade': 4,
-        'download': 1820.31,
-        'upload': 478.92,
-        'tempo_ativo': '07:06:22'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 3',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 90,
-        'cpu': 85,
-        'disco': 88,
-        'criticidade': 9,
-        'download': 2100.89,
-        'upload': 602.33,
-        'tempo_ativo': '09:21:09'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 4',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 70,
-        'cpu': 65,
-        'disco': 45,
-        'criticidade': 2,
-        'download': 980.12,
-        'upload': 315.78,
-        'tempo_ativo': '01:15:57'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 5',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 60,
-        'cpu': 61,
-        'disco': 62,
-        'criticidade': 2,
-        'download': 1435.66,
-        'upload': 420.10,
-        'tempo_ativo': '02:23:05'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 6',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 83,
-        'cpu': 79,
-        'disco': 66,
-        'criticidade': 5,
-        'download': 1672.39,
-        'upload': 498.44,
-        'tempo_ativo': '05:08:11'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 7',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 91,
-        'cpu': 45,
-        'disco': 39,
-        'criticidade': 3,
-        'download': 1544.22,
-        'upload': 365.29,
-        'tempo_ativo': '04:10:50'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 8',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 88,
-        'cpu': 88,
-        'disco': 88,
-        'criticidade': 9,
-        'download': 2290.77,
-        'upload': 612.81,
-        'tempo_ativo': '10:03:32'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 9',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 66,
-        'cpu': 77,
-        'disco': 59,
-        'criticidade': 2,
-        'download': 1301.11,
-        'upload': 333.65,
-        'tempo_ativo': '06:09:24'
-      }
-    ]
-  },
-  {
-    'servidor': 'Servidor 10',
-    'dados': [
-      {
-        'Momento': '2025-05-09 10:00:00',
-        'ram': 35,
-        'cpu': 82,
-        'disco': 84,
-        'criticidade': 6,
-        'download': 1894.45,
-        'upload': 547.02,
-        'tempo_ativo': '08:17:13'
-      }
-    ]
-  }
-];
+let dadosServidores = []
 
 let servidorTravado = false;
 
@@ -160,11 +8,16 @@ let cores = {
   'estavel': '#09bb26',
 }
 
+let criado = false
+
 criticos = 0
 moderados = 0
 
  const kpiCritico = document.getElementById("kpi-critico")
  const kpiModerado = document.getElementById("kpi-moderado")
+
+ const corpoRede = document.querySelector("#linechart-rede")
+ const corpoFisico = document.querySelector("#linechart-fisico")
 
 function compararData(d1, d2){
   let dias1 = Number(d1[0] + d1[1])
@@ -438,7 +291,7 @@ function travar(){
 
 async function atualizarDadosEmTempoReal() {
   try {
-    const resposta = await fetch('http://localhost:3000/monitoria');
+    const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
     const dados = await resposta.json();
 
     dadosServidores = dados.map(jsonServer => ({
@@ -550,6 +403,7 @@ function generateMinuteWiseTimeSeries(baseval, count) {
     var locura = 3000
     
 // CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
+function criarDashs(){}
 window.Apex = {
   chart: {
     foreColor: "#2b2b2b",
@@ -630,32 +484,10 @@ var optionsLineFisico = {
   },
   stroke: stroke,
   markers: marcadores,
-  series: [
-    {
-      name: "CPU",
-      data: generateMinuteWiseTimeSeries(
-        new Date("12/12/2016 00:20:00").getTime(),
-        12
-      )
-    },
-    {
-      name: "RAM",
-      data: generateMinuteWiseTimeSeries(
-        new Date("12/12/2016 00:20:00").getTime(),
-        12
-      )
-    },
-    {
-      name: "Disco",
-      data: generateMinuteWiseTimeSeries(
-        new Date("12/12/2016 00:20:00").getTime(),
-        12
-      )
-    }
-  ],
+  series: [],
   xaxis: {
     type: "datetime",
-    range: 2700000
+    range: 120
   },
   title: {
     text: "Uso dos componentes",
@@ -688,7 +520,7 @@ var optionsLineFisico = {
 };
 
 const chartLineFisico = new ApexCharts(
-  document.querySelector("#linechart-fisico"),
+  corpoFisico,
   optionsLineFisico
 );
 chartLineFisico.render();
@@ -772,25 +604,10 @@ var optionsLineRede = {
   },
   stroke: stroke,
   markers: marcadores,
-  series: [
-    {
-      name: "Upload",
-      data: generateMinuteWiseTimeSeries(
-        new Date("12/12/2016 00:20:00").getTime(),
-        12
-      )
-    },
-    {
-      name: "Download",
-      data: generateMinuteWiseTimeSeries(
-        new Date("12/12/2016 00:20:00").getTime(),
-        12
-      )
-    }
-  ],
+  series: [],
   xaxis: {
     type: "datetime",
-    range: 2700000
+    range: 120
   },
   title: {
     text: "Velocidade de rede",
@@ -824,7 +641,8 @@ var optionsLineRede = {
 };
 
 const chartLineRede = new ApexCharts(
-  document.querySelector("#linechart-rede"),
+  corpoRede,
   optionsLineRede
 );
+
 chartLineRede.render();

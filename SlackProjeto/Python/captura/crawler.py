@@ -325,8 +325,7 @@ def coletar_dados(id_datacenter=1, id_servidor=1, separar_processos=False):
     # Estrutura de dados conforme solicitado
     dados_estruturados = {
         'servidor': nome_servidor,
-        'dados': [
-            {
+        'dados': {
                 'Momento': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 'ram': ram_percentual,
                 'cpu': cpu_percentual,
@@ -336,10 +335,12 @@ def coletar_dados(id_datacenter=1, id_servidor=1, separar_processos=False):
                 'ram_gb': memoria_usada_gb,
                 'cpu_freq': cpu_freq,
                 'disco_gb': disco_usado_gb,
-                'tempoAtivo': tempo_ativo,
+                'tempo_ativo': tempo_ativo,
                 'processos': processos
             }
-        ]
+        
     }
     
+    # print('\n\n\n' + dados_estruturados + '\n\n\n')
+
     return dados_estruturados
