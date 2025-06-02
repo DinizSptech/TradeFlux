@@ -152,18 +152,21 @@ let dadosServidores = [
   }
 ];
 
+let servidorTravado = false;
+let nomeServidorTravado = null;
+let ultimosAlertas = []; // armazenar alertas recentes
 
 let cores = {
   'critico': '#ff1900',
   'alerta': '#ffa617',
   'estavel': '#09bb26',
-  'critico old': '#0a4146',
-  'alerta old': '#09373b',
-  'estavel old': '#132A2D'
 }
 
 criticos = 0
 moderados = 0
+
+ const kpiCritico = document.getElementById("kpi-critico")
+ const kpiModerado = document.getElementById("kpi-moderado")
 
 function compararData(d1, d2){
   let dias1 = Number(d1[0] + d1[1])
@@ -198,6 +201,19 @@ var selecionado
 
 
 function carregarServidoresTabela(copiaDados){
+
+
+// Lista de processos — já adicionado anteriormente
+// ...
+
+// Gerar alerta se criticidade for alta
+// if (dados.criticidade >= 7) {
+//   const alerta = `⚠️ ${servidor.servidor} com criticidade ${dados.criticidade} às ${dados.Momento}`;
+//   ultimosAlertas.unshift(alerta);
+//   if (ultimosAlertas.length > 5) ultimosAlertas.pop();
+//   atualizarListaAlertas();
+// }
+
   const tabela = document.getElementById('spawnpointTabela')
 if(jaGerado){
   const selected = tabela.querySelector('.selected')
@@ -212,9 +228,18 @@ if (selected) {
   }
   tabela.innerHTML = ''
   var addHTML = ''
+  moderados = 0
+ criticos = 0
   for (let i = 0; i < limite; i++) {
     const servidorAtual = copiaDados[i];
     var ultimo = (servidorAtual.dados.length - 1)
+
+      if(lista[i].dados[ultimo].criticidade >= 3){
+        criticos +=1
+      } else if (lista[i].dados[ultimo].criticidade >= 1){
+        moderados += 1
+      }
+
     var classe = ''
 if(selecionado == undefined){
 } else if ( selecionado == (`${servidorAtual.servidor}`)) {
@@ -234,6 +259,9 @@ if(selecionado == undefined){
           </tr>
     `
   }
+
+      kpiCritico.innerHTML = criticos
+kpiModerado.innerHTML = moderados
   tabela.innerHTML = addHTML
   document.querySelectorAll('tr').forEach((linha)=> {
     const linhas = tabela.querySelectorAll('tr');
@@ -252,6 +280,7 @@ if(selecionado == undefined){
 
  var ordenado
  var escolhidoOld = 'nada'
+
 function ordenarTabela(escolhido){
   lista = [...dadosServidores]
 
@@ -260,7 +289,7 @@ function ordenarTabela(escolhido){
     escolhidoOld = escolhido
   } 
     for(let i = 0; i < lista.length - 1; i ++){
-      const ultimo = (lista[i].dados.length - 1)
+      const ultimo = (lista[i].dados.length - 1)        
       let aux 
       let maior = i 
       if (escolhido == 'criticidade'){
@@ -276,7 +305,22 @@ function ordenarTabela(escolhido){
       aux = lista[i]
       lista[i] = lista[maior]
       lista[maior] = aux
-    } else  {
+} else if (escolhido == 'tempo_ativo'){
+  for(let i = 0; i < lista.length - 1; i ++){
+    const ultimo = lista[i].dados.length - 1;
+    let aux;
+    let maior = i;
+    for (let j = i + 1; j < lista.length; j++) {
+      const ultimoJ = lista[j].dados.length - 1;
+      if (compararData(lista[maior].dados[ultimo].tempo_ativo, lista[j].dados[ultimoJ].tempo_ativo) < 0) {
+        maior = j;
+      }
+    }
+    aux = lista[i];
+    lista[i] = lista[maior];
+    lista[maior] = aux;
+  }
+} else {
       for(let j = i + 1; j < lista.length; j++){
         if(lista[maior].dados[ultimo][escolhido] < lista[j].dados[ultimo][escolhido]){
           maior = j
@@ -293,8 +337,8 @@ function ordenarTabela(escolhido){
       lista.reverse()
       ordenado = 1
     }
+
     carregarServidoresTabela(lista)
-    
   }
 
 
@@ -322,7 +366,14 @@ function ordenarTabela(escolhido){
       }
       })
   })
+
+  document.getElementById('botao-travar-servidor').addEventListener('click', () => {
+  servidorTravado = !servidorTravado;
+  document.getElementById('estado-travado').innerText = servidorTravado ? 'Sim' : 'Não';
+});
+
   }
+  
     const modal = document.querySelector(".background-modal")
     const content = document.querySelector("#modal-info")
 function carregarModal(texto){
@@ -342,18 +393,48 @@ function fechar(real) {
 function expandirServidor(){
       const tabela = document.getElementById('spawnpointTabela')
       const sel = tabela.querySelector('.selected')
+
       if(sel){
-        let selecionado = sel.innerText
+        let cols = sel.querySelectorAll('td')
+        let criticidade = cols[1].innerText
+        let selecionado = cols[0].innerText
        for(let i = 0; i < dadosServidores.length; i ++){
         if (dadosServidores[i].servidor == selecionado){
-          console.log(dadosServidores[i])
+          const servidor = dadosServidores[i];
+          const dados = servidor.dados[servidor.dados.length - 1];
+          nomeServidorTravado = servidor.servidor;
+          console.log(nomeServidorTravado)
+          let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta : cores.estavel
+          let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
+
+          document.getElementById('nome-servidor-expandido').innerHTML = addHtml
+          document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`
         }
        }
       } else {
         carregarModal("É necessário selecionar um servidor antes expandir.")
-        console.log("selecione broxa")
       }
 
+}
+
+function atualizarListaAlertas() {
+  const lista = document.getElementById('lista-alertas');
+  lista.innerHTML = '';
+  ultimosAlertas.forEach(msg => {
+    const li = document.createElement('li');
+    li.innerText = msg;
+    lista.appendChild(li);
+  });
+}
+let travado = false
+function travar(){
+  if(!travado){
+    travado = true
+    document.getElementById('lock').querySelector('img').src = '../assets/unlock.png'
+  } else {
+    travado = false
+    document.getElementById('lock').querySelector('img').src = '../assets/lock.png'
+  }
 }
 
 function getRandom() {
@@ -475,7 +556,6 @@ var optionsLineFisico = {
         newData2.shift();
         const newData3 = chartCtx.w.config.series[2].data.slice();
         newData3.shift();
-        console.log(chartCtx)
 
       }
     },
@@ -517,11 +597,11 @@ var optionsLineFisico = {
     range: 2700000
   },
   title: {
-    text: "Componentes",
+    text: "Uso dos componentes",
     align: "left",
-    offsetY: -8,
+    offsetY: -3,
     style: {
-      fontSize: "30px"
+      fontSize: "25px"
     }
   },
   subtitle: {
@@ -644,7 +724,6 @@ var optionsLineRede = {
         newData1.shift();
         const newData2 = chartCtx.w.config.series[1].data.slice();
         newData2.shift();
-        console.log(chartCtx)
 
       }
     },

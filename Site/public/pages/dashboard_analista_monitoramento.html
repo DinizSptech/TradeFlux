@@ -25,8 +25,9 @@
     <script src="../js/analista.js"></script>
     <script src="../js/barra_lateral.js" defer></script>
 </head>
-<body onload="renderizarModalUsuario();carregarMenuLateral(); ordenarTabela('criticidade'); loadEvents()">
-    <div id="sistema_modais">
+<body onload="carregarMenuLateral(); ordenarTabela('criticidade'); loadEvents()">
+
+    <!-- <div id="sistema_modais">
     </div>
     <div class="navbar" id="div_navbar">
         <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
@@ -40,7 +41,7 @@
               <i class="fa-solid fa-chevron-down"></i>
             </div>
           </div>
-    </div>
+    </div> -->
 
     <div class="background-modal" onclick="fechar(false)">
       
@@ -63,6 +64,36 @@ style="fill:#FA5252;">
             <div class="central">
 
 <div class="section-head">
+
+    <div class="side-gestao">
+
+      <div class="faixa-gestao">
+        <div class="box sec1" style="border: 4px solid #ff1900"> <h1>🚫 - Servidores em perigo:<span id="kpi-critico"></span></h1></div>
+        <div class="box sec1" style="border: 4px solid #ffa617;"> <h1> ⚠️ - Servidores em alerta:<span id="kpi-moderado"></span></h1></div>
+        <div class="box sec1" id="box-destaque">
+        <h1>Servidor em destaque</h1>
+          <div id="destaque-lock">
+              <span id="nome-servidor-expandido">Nenhum</span>
+            <div onclick="travar()" id="lock"> <img src="../assets/lock.png"></div>
+          </div>
+            
+          </div>
+      </div>
+
+<div class="faixa-gestao">
+
+  
+    <div class="box sec1">  
+      <div>
+        <h3>Últimos alertas</h3>
+        <ul id="lista-alertas" class="lista-processos"></ul>
+      </div>
+    </div>
+  </div>
+    
+
+  </div>
+
   <div class="card">
     <div class="cardHeader">
       <h2>Monitoramento em tempo real dos 10 servidores mais críticos</h2>
@@ -70,6 +101,7 @@ style="fill:#FA5252;">
       <button class="expandButton" onclick="expandirServidor()">Expandir servidor</button>
 
     </div>
+    
     <table class="tabelaMonitoramento">
 
       <thead>
@@ -82,7 +114,7 @@ style="fill:#FA5252;">
         d="M9.78825 12.5399L0.3417 3.09327C-0.1139 2.63767 -0.1139 1.89903 0.3417 1.44348L1.44349 0.341688C1.89831 -0.113133 2.63545 -0.114009 3.09134 0.339744L10.6132 7.82634L18.135 0.339744C18.5909 -0.114009 19.328 -0.113133 19.7828 0.341688L20.8846 1.44348C21.3402 1.89908 21.3402 2.63772 20.8846 3.09327L11.4381 12.5399C10.9825 12.9954 10.2439 12.9954 9.78825 12.5399Z"
         fill="#272727" />
         </svg></th>
-          <th class="titleTable" onclick="ordenarTabela('tempoAtivo')"> <div style="display: flex; flex-direction: column; align-items: center;"> <span>Tempo Ativo</span>  <span>(dd-HH-MM)</span></div></th>
+          <th class="titleTable" onclick="ordenarTabela('tempo_ativo')"> <div style="display: flex; flex-direction: column; align-items: center;"> <span>Tempo Ativo</span>  <span>(dd-HH-MM)</span></div></th>
           <th class="titleTable" onclick="ordenarTabela('cpu')">Cpu %</th>
           <th class="titleTable" onclick="ordenarTabela('ram')">Ram %</th>
           <th class="titleTable" onclick="ordenarTabela('disco')">Disco %</th>
@@ -97,17 +129,26 @@ style="fill:#FA5252;">
     </table>
   </div>
 
-  <div style="background-color: black; height: 20px; width: 20px;"></div>
 </div>
 
 <div class="section-linhas">
-								<div class="box mt-4">
-									<div id="linechart-fisico"> </div>
-								</div>
-                								<div class="box mt-4">
-									<div id="linechart-rede"> </div>
-								</div>
-						</div>
+  <div class="box">
+    <h2>Top Processos por CPU</h2>
+    <ul id="lista-processos-cpu" class="lista-processos"></ul>
+  </div>
+  <div class="box">
+    <h2>Top Processos por RAM</h2>
+    <ul id="lista-processos-ram" class="lista-processos"></ul>
+  </div>
+  
+  <div class="box mt-4">
+    <div id="linechart-fisico"> </div>
+</div>
+                <div class="box mt-4">
+  <div id="linechart-rede"> </div>
+</div>
+
+</div>
 </div>
           
         </div>

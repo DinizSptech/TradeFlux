@@ -23,3 +23,5 @@ router.post("/monitoria", (req,res) => {
     }
   }
 })
+
+module.exports = router

@@ -12,7 +12,7 @@ router.post('/', (req,res) =>{
     if (contentType == 'application/json') {
         monitoriaController.enviar_captura_front(req,res)
     } else {
-        res.send('Erro no router/index: Dados no formato errado.')
+        res.status(400).send('Erro no router/index: Dados no formato errado.')
     }
 })
 
