@@ -25,20 +25,9 @@ function exibir(valor) {
   if (tempoSelecionado == 24) {
     fetch("/adm/datacenter/media-resolucao/24h").then((res) => {
       res.json().then((resjson) => {
-        if (resjson[0].data_center == "data center 1") {
-          data_center_custo.innerHTML = 1;
-          data_center_tempo.innerHTML = 1;
-          data_center_total.innerHTML = 1;
-        } else if (resjson[0].data_center == "data center 2") {
-          data_center_custo.innerHTML = 2;
-          data_center_tempo.innerHTML = 2;
-          data_center_total.innerHTML = 2;
-        } else if (resjson[0].data_center == "data center 3") {
-          data_center_custo.innerHTML = 3;
-          data_center_tempo.innerHTML = 3;
-          data_center_total.innerHTML = 3;
-        }
-
+        data_center_custo.innerHTML = resjson[0].data_center;
+        data_center_tempo.innerHTML = resjson[0].data_center;
+        data_center_total.innerHTML = resjson[0].data_center;
         tempo_medio_manutencao.innerHTML = resjson[0].tempo_medio;
 
         console.log(resjson[0].data_center);
@@ -49,15 +38,15 @@ function exibir(valor) {
           const tempo_atual = resjson[i].tempo_medio;
 
           if (dataCenterSelecionado == 1) {
-            if (dataCenter_atual == "data center 1") {
+            if (dataCenter_atual == "Data Center 1") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
-            if (dataCenter_atual == "data center 2") {
+            if (dataCenter_atual == "Data Center 2") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
-            if (dataCenter_atual == "data center 3") {
+            if (dataCenter_atual == "Data Center 3") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
@@ -72,15 +61,15 @@ function exibir(valor) {
           const tempo_atual = resjson[i].tempo_medio;
 
           if (dataCenterSelecionado == 1) {
-            if (dataCenter_atual == "data center 1") {
+            if (dataCenter_atual == "Data Center 1") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
-            if (dataCenter_atual == "data center 2") {
+            if (dataCenter_atual == "Data Center 2") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
-            if (dataCenter_atual == "data center 3") {
+            if (dataCenter_atual == "Data Center 3") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
@@ -95,15 +84,15 @@ function exibir(valor) {
           const tempo_atual = resjson[i].tempo_medio;
 
           if (dataCenterSelecionado == 1) {
-            if (dataCenter_atual == "data center 1") {
+            if (dataCenter_atual == "Data Center 1") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
-            if (dataCenter_atual == "data center 2") {
+            if (dataCenter_atual == "Data Center 2") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
-            if (dataCenter_atual == "data center 3") {
+            if (dataCenter_atual == "Data Center 3") {
               tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
@@ -137,4 +126,11 @@ function gerarGrafico() {
 
   var chart = new ApexCharts(document.querySelector("#grafico"), options);
   chart.render();
+}
+
+function selecionar(selecionado) {
+  const filtros = document.querySelectorAll(".filtro");
+
+  filtros.forEach((f) => f.classList.remove("selecionado"));
+  selecionado.classList.add("selecionado");
 }
