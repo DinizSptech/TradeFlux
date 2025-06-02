@@ -20,6 +20,7 @@ moderados = 0
  const corpoFisico = document.querySelector("#linechart-fisico")
 
 function compararData(d1, d2){
+  if(d1.length < 9 && d2.length < 9){
   let dias1 = Number(d1[0] + d1[1])
   let dias2 = Number(d2[0] + d2[1])
    if(dias1 > dias2){
@@ -43,6 +44,79 @@ function compararData(d1, d2){
    }
    }
    }
+  } else  if (d1.length == 9 && d2.length < 9){
+    let dias1 = Number(d1[0] + d1[1] + d1[2])
+  let dias2 = Number(d2[0] + d2[1])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[4] + d1[5])
+  let horas2 = Number(d2[3] + d2[4])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[7] + d1[8])
+  let min2 = Number(d2[6] + d2[7])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+}else  if (d1.length < 9 && d2.length == 9){
+    let dias1 = Number(d1[0] + d1[1])
+  let dias2 = Number(d2[0] + d2[1] + d2[2])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[3] + d1[4])
+  let horas2 = Number(d2[4] + d2[5])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[6] + d1[7])
+  let min2 = Number(d2[7] + d2[8])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+} else {
+      let dias1 = Number(d1[0] + d1[1] + d1[2])
+  let dias2 = Number(d2[0] + d2[1] + d2[2])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[4] + d1[5])
+  let horas2 = Number(d2[4] + d2[5])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[7] + d1[8])
+  let min2 = Number(d2[7] + d2[8])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+} 
 }
 
 dadosSelecionado = []
@@ -101,12 +175,12 @@ if(selecionado == undefined){
     <tr class="row ${classe}">
     <td class='col-server' style='border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
     <td style='color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
-    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].download <= 1200 ? cores['critico'] : servidorAtual.dados[ultimo].download <= 1500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].download}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].upload <= 400 ? cores['critico'] : servidorAtual.dados[ultimo].upload <= 500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].upload}</td>
+    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '24:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '120:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=70 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=70 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=70 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
+            <td style='color: #2160D5'>${servidorAtual.dados[ultimo].download}</td>
+            <td style='color: #8233C2'>${servidorAtual.dados[ultimo].upload}</td>
           </tr>
     `
   }
@@ -260,6 +334,7 @@ function expandirServidor(){
 
           document.getElementById('nome-servidor-expandido').innerHTML = addHtml
           document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`
+          
         }
        }
       } else {

@@ -24,29 +24,14 @@ function enviar_captura_front(req,res){
         
     }
 
-    validar = ['ram', 'cpu', 'disco','download','upload']
+    validar = ['ram', 'cpu', 'disco']
     for(let i  = 0; i < validar.length; i++){
-        if(i <= 2){
             if(captura.dados[validar[i]] > 80){
                 captura.dados.criticidade += 3
             } else if (captura.dados[validar[i]] > 70){
                 captura.dados.criticidade += 1
             }
-        } else if (i == 3){
-            if(captura.dados[validar[i]] > 1500){
-                captura.dados.criticidade += 3
-            }else if (captura.dados[validar[i]] > 1000){
-                captura.dados.criticidade += 1
-            }
-        } else {
-            if(captura.dados[validar[i]] > 500){
-                captura.dados.criticidade += 3
-            }else if (captura.dados[validar[i]] > 300){
-                captura.dados.criticidade += 1
-            }
-        } 
     }
-
     monitoriaModel.fetch_captura_wdv(captura)
         .then( function (resultado) {
             res.status(200).json(resultado);
