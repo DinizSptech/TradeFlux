@@ -1,3 +1,8 @@
+// CÁLCULOS:
+
+// CUSTO TOTAL = VALOR TOTAL
+// CUSTO MÉDIO POR MANUTENÇÃO = CUSTO TOTAL / QTD ALERTAS
+
 let tempoSelecionado = 24;
 let dataCenterSelecionado = null;
 
@@ -22,14 +27,15 @@ function exibir(valor) {
     data_center_total.innerHTML = 3;
   }
 
+  fetch("http://localhost:3000/pix/pegarPix").then((res) => {
+    res.json().then((resjson) => {
+      console.log(resjson);
+    });
+  });
+
   if (tempoSelecionado == 24) {
     fetch("/adm/datacenter/media-resolucao/24h").then((res) => {
       res.json().then((resjson) => {
-        data_center_custo.innerHTML = resjson[0].data_center;
-        data_center_tempo.innerHTML = resjson[0].data_center;
-        data_center_total.innerHTML = resjson[0].data_center;
-        tempo_medio_manutencao.innerHTML = resjson[0].tempo_medio;
-
         console.log(resjson[0].data_center);
         console.log(resjson[0].tempo_medio);
 
@@ -39,15 +45,12 @@ function exibir(valor) {
 
           if (dataCenterSelecionado == 1) {
             if (dataCenter_atual == "Data Center 1") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
             if (dataCenter_atual == "Data Center 2") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
             if (dataCenter_atual == "Data Center 3") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
         }
@@ -62,15 +65,12 @@ function exibir(valor) {
 
           if (dataCenterSelecionado == 1) {
             if (dataCenter_atual == "Data Center 1") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
             if (dataCenter_atual == "Data Center 2") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
             if (dataCenter_atual == "Data Center 3") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
         }
@@ -85,15 +85,12 @@ function exibir(valor) {
 
           if (dataCenterSelecionado == 1) {
             if (dataCenter_atual == "Data Center 1") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else if (dataCenterSelecionado == 2) {
             if (dataCenter_atual == "Data Center 2") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           } else {
             if (dataCenter_atual == "Data Center 3") {
-              tempo_medio_manutencao.innerHTML = tempo_atual;
             }
           }
         }
@@ -102,6 +99,8 @@ function exibir(valor) {
   }
   console.log("Data Center:", dataCenterSelecionado);
   console.log("Tempo:", tempoSelecionado);
+
+  // Coletar JSON do bucket client:
 }
 
 function gerarGrafico() {

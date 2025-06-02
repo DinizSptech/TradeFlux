@@ -15,46 +15,6 @@ drop database if exists tradeflux;
 create database if not exists tradeflux;
 use tradeflux;
 
--- Script 1: Contagem de alertas por criticidade separadamente
--- Alertas de criticidade 3 (crítico) no datacenter 1 - últimos 30 dias
-SELECT COUNT(*) AS quantidade_alertas_criticos
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade = 3
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
-
--- Alertas de criticidade 1 (atenção) no datacenter 1 - últimos 30 dias
-SELECT COUNT(*) AS quantidade_alertas_atencao
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade = 1
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
-
--- Script 2: Contagem agrupada em uma única consulta
-SELECT 
-    a.criticidade,
-    COUNT(*) AS quantidade_alertas,
-    CASE 
-        WHEN a.criticidade = 1 THEN 'Atenção'
-        WHEN a.criticidade = 3 THEN 'Crítico'
-        ELSE 'Outro'
-    END AS tipo_criticidade
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-JOIN data_center dc ON s.fk_data_center = dc.iddata_center
-WHERE dc.iddata_center = 1
-  AND a.criticidade IN (1, 3)
-  AND a.data_gerado >= NOW() - INTERVAL 30 DAY
-GROUP BY a.criticidade
-ORDER BY a.criticidade;
-
 -- SELECT 
 --     s.idservidor,
 --     s.uuidservidor,
@@ -261,7 +221,12 @@ INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, criticidade, fk_
 (95.2, '%', '2025-05-24 16:45:18', '2025-05-24 16:55:28', 3, 16),
 (96.5, '%', '2025-05-23 08:12:37', '2025-05-23 08:22:49', 3, 19),
 (97.8, '%', '2025-05-22 10:23:45', '2025-05-22 10:33:57', 3, 22),
-(98.1, '%', '2025-05-21 13:34:56', '2025-05-21 13:44:08', 3, 25);
+(98.1, '%', '2025-05-21 13:34:56', '2025-05-21 13:44:08', 3, 25),
+(75.2, '%', '2025-06-02 08:15:23', '2025-06-02 08:25:23', 1, 1),  
+(76.8, '%', '2025-06-02 10:22:12', '2025-06-02 10:32:12', 1, 2),  
+(77.5, '%', '2025-06-03 14:38:47', '2025-06-03 14:50:47', 1, 3),  
+(78.1, '%', '2025-06-03 09:12:34', '2025-06-03 09:14:56', 1, 4);
+
 -- views --
 
 create or replace view vw_dashusuarios as
@@ -515,6 +480,46 @@ WHERE a.criticidade = 1
 GROUP BY s.idservidor
 ORDER BY qtd_alertas_atencao DESC
 LIMIT 5;
+
+-- Script 1: Contagem de alertas por criticidade separadamente
+-- Alertas de criticidade 3 (crítico) no datacenter 1 - últimos 30 dias
+SELECT COUNT(*) AS quantidade_alertas_criticos
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade = 3
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
+
+-- Alertas de criticidade 1 (atenção) no datacenter 1 - últimos 30 dias
+SELECT COUNT(*) AS quantidade_alertas_atencao
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade = 1
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
+
+-- Script 2: Contagem agrupada em uma única consulta
+SELECT 
+    a.criticidade,
+    COUNT(*) AS quantidade_alertas,
+    CASE 
+        WHEN a.criticidade = 1 THEN 'Atenção'
+        WHEN a.criticidade = 3 THEN 'Crítico'
+        ELSE 'Outro'
+    END AS tipo_criticidade
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE dc.iddata_center = 1
+  AND a.criticidade IN (1, 3)
+  AND a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY a.criticidade
+ORDER BY a.criticidade;
 
 
 

@@ -25,8 +25,6 @@ JIRA_TOKEN=JIRA_TOKEN
 JIRA_URL=https://gerencia-alertas-b3.atlassian.net
 JIRA_PROJECT_KEY=GDAB3
 
-
 # Configurações do servidor de aplicação
 APP_PORT=3000
 APP_HOST=api_node
-
