@@ -1,7 +1,9 @@
 var dadosCalendario = [];
 var dadosComponentes = [];
 var dadosServidores = [];
-var dadosTotaisAlertas = []
+var dadosTotaisAlertas = [];
+var dadosCalendario = [];
+var dadosStatus = [];
 var tipoAlertaAtual = 'atencao';
 
 // Função para inicializar a dashboard
@@ -33,7 +35,8 @@ function carregarDadosDashboard() {
         buscarDadosCalendario(),
         buscarDadosComponentes(),
         buscarDadosServidores(),
-        buscarDadosTotaisAlerta()
+        buscarDadosTotaisAlerta(),
+        buscarDadosStatusServidor()
     ])
     .then(() => {
         renderizarCalendario();
@@ -46,9 +49,31 @@ function carregarDadosDashboard() {
     });
 }
 
+function buscarDadosStatusServidor(){
+    var idDataCenter = sessionStorage.getItem('DataCenter')
+    return fetch(`/alertas/getStatusServidores/${idDataCenter}`, {
+        method: 'GET'
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Erro ao buscar dados de status de servidor.')
+        }
+    })
+    .then((registros) => {
+        console.log("Dados do calendário recebidos:", registros);
+        dadosStatus = renderizarDadosStatusServidor(registros);
+    })
+    .catch((erro) => {
+        console.error('Erro ao buscar dados do calendário:', erro);
+        throw erro;
+    });
+}
 // Fetch para dados do calendário
 function buscarDadosCalendario() {
-    return fetch('/dashboard/calendario-alertas', {
+    var idDataCenter = sessionStorage.getItem('DataCenter')
+    return fetch(`/alertas/getAlertasCalendario/${idDataCenter}`, {
         method: 'GET',
     })
     .then((response) => {
@@ -430,10 +455,12 @@ function renderizarKPIsTotais(){
     kpi_alerta_critico.innerHTML = dadosTotaisAlertas[0].alertas_criticos
 }
 
-// Função para atualizar toda a dashboard (pode ser chamada periodicamente)
+function renderizarDadosStatusServidor(dadosDB){
+     td_status_critico.innerHTML = dadosDB[0].critico
+     td_status_atencao.innerHTML = dadosDB[0].atencao
+     td_status_estavel.innerHTML = dadosDB[0].estavel
+}
+
 function atualizarDashboard() {
     carregarDadosDashboard();
 }
-
-// Opcional: Atualizar dashboard a cada 5 minutos
-// setInterval(atualizarDashboard, 300000);
