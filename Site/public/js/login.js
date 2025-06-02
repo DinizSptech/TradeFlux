@@ -30,7 +30,7 @@ function entrar() {
           sessionStorage.setItem("NOME_USUARIO", json.nome);
           sessionStorage.setItem("Cargo", json.cargo);
           sessionStorage.setItem("ID_USUARIO", json.idusuario);
-          sessionStorage.setItem("DataCenter", json.fk_data_center);
+          sessionStorage.setItem("DataCenter", json.data_center);
           if (nivelConta == "administrador") {
             alert(
               `Olá ${json.nome}, login realizado com sucesso! Redirecionando para a conta administradora...`

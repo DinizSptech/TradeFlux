@@ -6,5 +6,15 @@ var alertaController = require("../controllers/alertaController");
 router.get("/exibirAlertas/:dataCenter", function (req, res) {
     alertaController.exibirAlertas(req, res);
 })
+router.get("/getTotalAlertas/:dataCenter", function (req, res) {
+    alertaController.getTotalAlertas(req, res);
+})
+router.get("/getQtdAlertasComponente/:dataCenter", function (req, res) {
+    alertaController.getQtdAlertasComponente(req, res);
+})
+
+router.get("/getTopServidoresAlertas/:dataCenter", function (req, res) {
+    alertaController.getTopServidoresAlertas(req, res);
+})
 
 module.exports = router;
