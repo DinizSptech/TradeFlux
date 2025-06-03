@@ -37,8 +37,8 @@ def lambda_handler(event, context):
     dt_final = dt_inicial + timedelta(days=qtd_dias)
 
     # --- Monta key do arquivo ---
-    key = f'client_datacenter{datacenter}.csv'
-    bucket = 'bucket-client-tradeflux'
+    key = f'Datacenter1Robert/client_datacenter{datacenter}.csv'
+    bucket = 'bucket-client-tradeflux-123 '
     local_file = f'/tmp/{key}'
     # Salvando em um arquivo temporário
 
@@ -46,8 +46,6 @@ def lambda_handler(event, context):
     s3.download_file(bucket, key, local_file)
 
     # --- Leitura do CSV inteiro ---
-    # df = pd.read_csv(local_file, parse_dates=['Data Hora'])
-
     df = pd.read_csv(local_file)
 
     df['Data Hora'] = pd.to_datetime(df['Data Hora'], errors='coerce')
@@ -56,20 +54,24 @@ def lambda_handler(event, context):
 
     # --- Filtro por data ---
     filtro = (df['Data Hora'] >= dt_inicial) & (df['Data Hora'] <= dt_final)
-    df_filtrado = df.loc[filtro, ['CPU Percentual', 'RAM Percentual', 'Disco Percentual']]
+    df_filtrado = df.loc[filtro, ['Servidor', 'CPU Percentual', 'RAM Percentual', 'Disco Percentual']]
 
-    # --- Cálculo das médias ---
-    medias = df_filtrado.mean().round(2)
+    # --- Agrupa por servidor e calcula médias ---
+    medias_por_servidor = df_filtrado.groupby('Servidor')[['CPU Percentual', 'RAM Percentual', 'Disco Percentual']].mean().round(2)
 
     # --- Resultado ---
-    resultado = {
-        'media_CPU': medias['CPU Percentual'],
-        'media_RAM': medias['RAM Percentual'],
-        'media_Disco': medias['Disco Percentual'],
-        'intervalo': qtd_dias,
-        'data_inicial': dt_inicial.strftime('%Y-%m-%d %H:%M:%S'),
-        'data_final': dt_final.strftime('%Y-%m-%d %H:%M:%S')
-    }
+    resultado = []
+    
+    for servidor in medias_por_servidor.index:
+        servidor_data = {
+            'servidor': int(servidor),
+            'CPU': medias_por_servidor.loc[servidor, 'CPU Percentual'],
+            'RAM': medias_por_servidor.loc[servidor, 'RAM Percentual'],
+            'Disco': medias_por_servidor.loc[servidor, 'Disco Percentual']
+            # 'data_inicial': dt_inicial.strftime('%Y-%m-%d %H:%M:%S'),
+            # 'data_final': dt_final.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        resultado.append(servidor_data)
 
     return {
         'statusCode': 200,
