@@ -43,13 +43,11 @@
             <div class="kpi_total">
           <span class="tituloKPI">Total de alertas de atenção nos últimos 30 dias:</span>
           <span class="qtd_total" id="kpi_alerta_atencao">30</span>
-          <span class="pctg_aumento">Texto de observaçaõ em %</span>
           <span></span>
         </div>
         <div class="kpi_total">
           <span class="tituloKPI">Total de alertas críticos nos últimos 30 dias:</span>
           <span class="qtd_total" id="kpi_alerta_critico">30</span>
-          <span class="pctg_aumento">Texto de observação em %</span>
         </div>
         </div>
         <h3 class="server-status-title">Status dos servidores nos últimos 30 dias:</h3>
@@ -91,6 +89,12 @@
                 </tr>
             </tbody>
         </table>
+        <div class="kpi_total kpi_correlacao">
+            <span class="tituloKPI titleCorrelacao" id="tituloCorrelacao">Buscando correlação com dados da B3...</span>
+          <span class="qtd_total kpi_valor_correlacao" id="kpi_valor_correlacao">Carregando...</span>
+          <span class="pctg_aumento spn_subKPI" id="spn_tipoCorrelacao">Carregando...</span>
+          <span></span>
+        </div>
       </div>
       <div class="painelPrincipal">
         <header class="cabecalho">
@@ -178,14 +182,17 @@
         </div>
     </div>
     <div class="container_graficos_alertas">
-      <div class="container_grafico">
-          <div id="grafico_servidores"></div>
-      </div>
+    <select name="slt_alertas" id="slt_alertas" class="slt_alertas">
+        <option value="criticos">Alertas Críticos</option>
+        <option value="atencao">Alertas de Atenção</option>
+    </select>
+    <div class="container_grafico">
+        <div id="grafico_servidores"></div>
+    </div>
     <div class="container_grafico graph_componentes">
         <div id="grafico_alertas"></div>
     </div>
-
-    </div>
+</div>
     </main>
 </body>
 </html>
