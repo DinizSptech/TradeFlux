@@ -14,5 +14,6 @@ public class Mapper {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(inputStream, new TypeReference<List<Stock>>() {});
     }
+
 }
 

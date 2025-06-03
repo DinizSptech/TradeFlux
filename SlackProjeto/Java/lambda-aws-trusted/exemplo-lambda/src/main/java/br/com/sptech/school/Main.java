@@ -18,7 +18,7 @@ public class Main implements RequestHandler<S3Event, String> {
     private final AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
 
     // Bucket de destino para o CSV gerado
-    private static final String DESTINATION_BUCKET = "bucket-trusted-teste125";
+    private static final String DESTINATION_BUCKET = "bucket-trusted-tradeflux-123";
 
     @Override
     public String handleRequest(S3Event s3Event, Context context) {
@@ -37,10 +37,10 @@ public class Main implements RequestHandler<S3Event, String> {
 
             // Geração do arquivo CSV a partir da lista de Stock usando o CsvWriter
             CsvWriter csvWriter = new CsvWriter();
+
+            // Gerar CSV de dados gerais
             ByteArrayOutputStream csvOutputStream = csvWriter.writeCsv(stocks);
             byte[] csvBytes = csvOutputStream.toByteArray();
-
-            // Converte o ByteArrayOutputStream para InputStream para enviar ao bucket de destino
             InputStream csvInputStream = new ByteArrayInputStream(csvBytes);
 
             ObjectMetadata metadata = new ObjectMetadata();
@@ -48,10 +48,30 @@ public class Main implements RequestHandler<S3Event, String> {
             metadata.setContentType("text/csv");
 
             String fileName = sourceKey.substring(sourceKey.lastIndexOf('/') + 1); // extrai só o nome do arquivo
-            String destinationKey = "servidoresTeste/" + fileName.replace(".json", ".csv");
+            String destinationKeyAmanda = "Datacenter1Amanda/" + fileName.replace(".json", ".csv");
+            String destinationKeyIsrael = "Datacenter1Israel/" + fileName.replace(".json", ".csv");
 
-            s3Client.putObject(DESTINATION_BUCKET, destinationKey, csvInputStream, metadata);
+            // Envia o CSV de dados gerais
+            s3Client.putObject(DESTINATION_BUCKET, destinationKeyAmanda, csvInputStream, metadata);
+            context.getLogger().log("CSV de dados gerais enviado para: " + destinationKeyAmanda);
 
+            s3Client.putObject(DESTINATION_BUCKET, destinationKeyIsrael, csvInputStream, metadata);
+            context.getLogger().log("CSV de dados gerais enviado para: " + destinationKeyIsrael);
+
+            // Gerar CSV de dados com processos
+            ByteArrayOutputStream csvProcessOutputStream = csvWriter.writeCsvComProcessos(stocks);
+            byte[] csvProcessBytes = csvProcessOutputStream.toByteArray();
+            InputStream csvProcessInputStream = new ByteArrayInputStream(csvProcessBytes);
+
+            ObjectMetadata processMetadata = new ObjectMetadata();
+            processMetadata.setContentLength(csvProcessBytes.length);
+            processMetadata.setContentType("text/csv");
+
+            String destinoProcesso = "Datacenter1/" + fileName.replace(".json", "_processos.csv");
+
+            // Envia o CSV de dados com processos
+            s3Client.putObject(DESTINATION_BUCKET, destinoProcesso, csvProcessInputStream, processMetadata);
+            context.getLogger().log("CSV de dados com processos enviado para: " + destinoProcesso);
 
             return "Sucesso no processamento";
         } catch (Exception e) {
@@ -60,4 +80,5 @@ public class Main implements RequestHandler<S3Event, String> {
             return "Erro no processamento";
         }
     }
+
 }
