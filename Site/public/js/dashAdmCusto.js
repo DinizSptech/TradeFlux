@@ -156,19 +156,6 @@ function carregar() {
           }
         }
 
-        valor24_dc1 = array_transacao_dc1[0];
-        valorHora24_dc1 = Math.ceil(valor24_dc1 / 24);
-
-        valor24_dc2 = array_transacao_dc2[0];
-        valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
-
-        valor24_dc3 = array_transacao_dc3[0];
-        valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
-
-        console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
-        console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
-        console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
-
         for (let i = 0; i < array_transacao_dc1.length; i++) {
           if (i < 7) {
             valor7_dc1 += array_transacao_dc1[i];
@@ -181,6 +168,19 @@ function carregar() {
             valor30_dc3 += array_transacao_dc3[i];
           }
         }
+
+        valor24_dc1 = array_transacao_dc1[0];
+        valorHora24_dc1 = Math.ceil(valor24_dc1 / 24);
+
+        valor24_dc2 = array_transacao_dc2[0];
+        valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
+
+        valor24_dc3 = array_transacao_dc3[0];
+        valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
+
+        console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
+        console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
+        console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
 
         console.log("Valor Hora 7d DC1: " + valorHora7_dc1);
         console.log("Valor Hora 7d DC2: " + valorHora7_dc2);
@@ -414,8 +414,8 @@ function filtrar(tempo) {
               // deixo o valor default
               let menorCustoMedio24_dc = 1;
 
-              console.warn("Custo Medio 24h DC1: " + custoMedioh_dc1);
-              console.warn("Custo Medio 24h DC2: " + custoMedio2h4_dc2);
+              console.warn("Custo Medio 24h DC1: " + custoMedio24h_dc1);
+              console.warn("Custo Medio 24h DC2: " + custoMedio24h_dc2);
               console.warn("Custo Medio 24h DC3: " + custoMedio24h_dc3);
 
               if (menorCustoMedio24 === custoMedio24_dc2) {
@@ -580,6 +580,10 @@ function filtrar(tempo) {
         custoHora30_dc2 = Math.ceil(valorHora30_dc2 * horas30_dc2);
         custoHora30_dc3 = Math.ceil(valorHora30_dc3 * horas30_dc3);
 
+        console.log("Custo Hora 30d DC1: " + custoHora30_dc1);
+        console.log("Custo Hora 30d DC2: " + custoHora30_dc2);
+        console.log("Custo Hora 30d DC3: " + custoHora30_dc3);
+
         let menorCusto30 = Math.ceil(
           Math.min(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
         );
@@ -613,7 +617,7 @@ function filtrar(tempo) {
           },
         ]);
 
-        let menorCustoTotal30 = Math.ceil(
+        let menorCustoTotal30 = Math.floor(
           Math.min(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
         );
 
