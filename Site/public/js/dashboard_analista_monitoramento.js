@@ -16,7 +16,7 @@ let booleanOrder = false
 
 async function atualizarDadosEmTempoReal() {
   try {
-    const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
+    const resposta = await fetch('/tempo_real/monitoria');
     const dados = await resposta.json();
     
     dadosServidores = dados.map(jsonServer => ({
@@ -507,7 +507,7 @@ function atualizarProcessos(servidor){
 
 async function pegarAlertas() {
   try {
-    const response = await fetch("http://127.0.0.1:8080/alertas/getAlertasUnsolved/1");
+    const response = await fetch("/alertas/getAlertasUnsolved/1");
     
     if (!response.ok) {
       throw new Error(`Erro no fetch! status: ${response.status}`);

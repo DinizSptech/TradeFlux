@@ -191,7 +191,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
+    fetch("/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
@@ -381,9 +381,7 @@ function filtrar(tempo) {
     carregar();
     return;
   } else if (tempo == 7) {
-    fetch(
-      "http://localhost:3333/adm/datacenter/media-resolucao/victao/7d"
-    ).then((res) => {
+    fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
@@ -479,7 +477,7 @@ function filtrar(tempo) {
 
         // Calcular o Custo Médio 7 dias
 
-        fetch("http://localhost:3333/adm/alertas/7d").then((res) => {
+        fetch("/adm/alertas/7d").then((res) => {
           res.json().then((resjson) => {
             let total_alertas_7 = resjson[0].total_alertas;
 
@@ -606,7 +604,7 @@ function filtrar(tempo) {
           custo_total.innerHTML = menorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
-          fetch("http://localhost:3333/adm/alertas/30d").then((res) => {
+          fetch("/adm/alertas/30d").then((res) => {
             res.json().then((resjson) => {
               let total_alertas_30 = resjson[0].total_alertas;
 
