@@ -27,16 +27,27 @@ body {
   min-width: 200px;
 }
 
+.filtros-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaço entre os dois grupos de filtros */
+  align-items: center; /* Centraliza os filtros em relação ao gráfico */
+}
+
 .filtros-e-grafico {
   display: flex;
-  gap: 2rem;
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  align-items: flex-start;
+  gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 2rem; /* Adiciona um espaço acima dos filtros */
 }
 
 .filtros {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: flex-start;
 }
 
 .filtros button {
@@ -46,6 +57,9 @@ body {
   padding: 0.7rem 1rem;
   border-radius: 4px;
   cursor: pointer;
+  width: 200px;
+  text-align: left;
+  transition: background-color 0.2s ease;
 }
 
 .selecionado {
@@ -58,13 +72,17 @@ body {
   border-radius: 1vw;
   border: 1px solid #cfd4e0;
   padding: 1rem;
-  flex: 1;
-  min-width: 300px;
+  width: 100%;
+  max-width: 700px;
   height: 350px;
+  margin: 0 auto; /* Centraliza o gráfico */
 }
 
 .investir {
   margin-top: 2rem;
-  text-align: center;
+  text-align: center; /* Centraliza o texto */
   font-weight: 500;
+  width: 100%;
+  display: flex; /* Adiciona flexbox para centralizar */
+  justify-content: center; /* Centraliza horizontalmente */
 }

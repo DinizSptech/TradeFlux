@@ -16,57 +16,57 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </head>
 
-  <body onload="gerarGrafico(); carregarMenuLateral()">
+  <body onload="carregar(); carregarMenuLateral();">
     <div id="barralateral" class="barra-lateral"></div>
     <main class="dashboard-container">
       <div class="kpis">
         <div class="kpi">
           Custo por hora manutenção<br /><strong
-            >Data Center <span id="data_center_custo"></span>:
-            <span id="custo_hora_manutencao"></span>
+            >Data Center <span id="data_center_custo"></span> : R$<span
+              id="custo_hora"
+            ></span
+            >M
           </strong>
         </div>
         <div class="kpi">
           Custo médio por manutenção<br /><strong
-            >Data Center <span id="data_center_tempo"></span>:
-            <span id="tempo_medio_manutencao"></span>
+            >Data Center <span id="data_center_medio"></span> : R$
+            <span id="custo_medio"></span>M
           </strong>
         </div>
         <div class="kpi">
           Custo total<br /><strong
-            >Data Center <span id="data_center_total"></span>:
-            <span id="custo_total"></span
-          ></strong>
+            >Data Center <span id="data_center_total"></span> : R$
+            <span id="custo_total"></span>M</strong
+          >
         </div>
       </div>
       <div class="filtros-e-grafico">
-        <div class="filtros">
-          <button onclick="exibir(24)">
-            <span class="filtro" onclick="selecionar(this)"
-              >Últimas 24 horas</span
-            >
-          </button>
-          <button onclick="exibir(7)">
-            <span class="filtro" onclick="selecionar(this)"
-              >Últimos 7 dias</span
-            >
-          </button>
-          <button onclick="exibir(30)">
-            <span class="filtro" onclick="selecionar(this)"
-              >Últimos 30 dias</span
-            >
-          </button>
-        </div>
-        <div class="filtros">
-          <button onclick="exibir(1)">Data Center 1</button>
-          <button onclick="exibir(2)">Data Center 2</button>
-          <button onclick="exibir(3)">Data Center 3</button>
+        <div class="filtros-container">
+          <div class="filtros">
+            <button onclick="filtrar(24)">
+              <span class="filtro" onclick="selecionar(this)"
+                >Últimas 24 horas</span
+              >
+            </button>
+            <button onclick="filtrar(7)">
+              <span class="filtro" onclick="selecionar(this)"
+                >Últimos 7 dias</span
+              >
+            </button>
+            <button onclick="filtrar(30)">
+              <span class="filtro" onclick="selecionar(this)"
+                >Últimos 30 dias</span
+              >
+            </button>
+          </div>
         </div>
         <div id="grafico"></div>
       </div>
       <div class="investir">
-        Investir no Data Center 000: menor custo por hora de manutenção no
-        período analisado
+        INVESTIR NO DATA CENTER
+        <span id="data_center_investir"></span>: MENOR CUSTO POR HORA DE
+        MANUTENÇÃO NAS ÚLTIMAS 24 HORAS
       </div>
     </main>
     <script src="../js/barra_lateral.js"></script>
