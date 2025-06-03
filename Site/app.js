@@ -10,8 +10,8 @@ require("dotenv").config({ path: caminho_env });
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA_APP = "3333";
-var HOST_APP = "localhost";
+var PORTA_APP = "8080";
+var HOST_APP = "127.0.0.1";
 
 var app = express();
 

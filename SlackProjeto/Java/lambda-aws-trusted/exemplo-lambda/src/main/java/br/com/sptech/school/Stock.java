@@ -3,6 +3,9 @@ package br.com.sptech.school;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Stock {
 
@@ -36,14 +39,37 @@ public class Stock {
     @JsonProperty("velocidadeUploadMbps")
     private double velocidadeUploadMbps;
 
+    @JsonProperty("tempoAtivo")
+    private String tempoAtivo;
 
-    // Getters e setters
+    @JsonProperty("pid")
+    private int pid;
 
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("cpu_percent")
+    private double cpuPercent;
+
+    @JsonProperty("ram_percent")
+    private double ramPercent;
+
+    @JsonProperty("grupo")
+    private String grupo;
+
+    // Getters e Setters
 
     public String getServidor() {
-        return servidor;
-    }
+        if (servidor != null) {
+            Pattern pattern = Pattern.compile("\\s+(\\d+)");
+            Matcher matcher = pattern.matcher(servidor);
 
+            if (matcher.find()) {
+                return matcher.group(1); // Retorna apenas o número
+            }
+        }
+        return servidor; // Retorna o valor original se não encontrar o padrão
+    }
     public void setServidor(String servidor) {
         this.servidor = servidor;
     }
@@ -118,5 +144,53 @@ public class Stock {
 
     public void setVelocidadeUploadMbps(double velocidadeUploadMbps) {
         this.velocidadeUploadMbps = velocidadeUploadMbps;
+    }
+
+    public String getTempoAtivo() {
+        return tempoAtivo;
+    }
+
+    public void setTempoAtivo(String tempoAtivo) {
+        this.tempoAtivo = tempoAtivo;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getCpuPercent() {
+        return cpuPercent;
+    }
+
+    public void setCpuPercent(double cpuPercent) {
+        this.cpuPercent = cpuPercent;
+    }
+
+    public double getRamPercent() {
+        return ramPercent;
+    }
+
+    public void setRamPercent(double ramPercent) {
+        this.ramPercent = ramPercent;
+    }
+
+    public String getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
     }
 }

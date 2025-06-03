@@ -12,7 +12,7 @@ criticos = 0
 moderados = 0
 
 let metricaOrder = 'criticidade'
-let booleanOrder = 'false'
+let booleanOrder = false
 
 async function atualizarDadosEmTempoReal() {
   try {
@@ -23,7 +23,7 @@ async function atualizarDadosEmTempoReal() {
       servidor: jsonServer.servidor,
       dados: jsonServer.dados
     }));
-
+    console.log(dadosServidores)
     let ordenado = ordenar();
     let maisCritico = ordenado[0]
     destacarServidor(maisCritico)
@@ -212,18 +212,19 @@ kpiModerado.innerHTML = moderados
 
 }
 
-function ordenar(metricaOrder, booleanReverse){
+function ordenar(){
   let lista = [...dadosServidores]  
     for(let i = 0; i < lista.length - 1; i ++){
-      const ultimo = (lista[i].dados.length - 1)        
+      const ultimoi = (lista[i].dados.length - 1)        
       let aux 
       let maior = i 
       if (metricaOrder == 'criticidade'){
       for(let j = i + 1; j < lista.length; j++){
-        if(lista[maior].dados[ultimo][metricaOrder] < lista[j].dados[ultimo][metricaOrder]){
+        const ultimoj = lista[j].dados.length - 1
+        if(lista[maior].dados[ultimoi][metricaOrder] < lista[j].dados[ultimoj][metricaOrder]){
           maior = j
-        } else if(lista[maior].dados[ultimo][metricaOrder] == lista[j].dados[ultimo][metricaOrder]){
-          if(compararData(lista[maior].dados[ultimo].tempo_ativo,lista[j].dados[ultimo].tempo_ativo) < 0){
+        } else if(lista[maior].dados[ultimoi][metricaOrder] == lista[j].dados[ultimoj][metricaOrder]){
+          if(compararData(lista[maior].dados[ultimoi].tempo_ativo,lista[j].dados[ultimoj].tempo_ativo) < 0){
             maior = j
           }
         }
@@ -247,23 +248,29 @@ function ordenar(metricaOrder, booleanReverse){
     lista[maior] = aux;
   }
 } else {
+    for(let i = 0; i < lista.length - 1; i ++){
+      const ultimoi = (lista[i].dados.length - 1)        
+      let aux 
+      let maior = i 
       for(let j = i + 1; j < lista.length; j++){
-        if(lista[maior].dados[ultimo][metricaOrder] < lista[j].dados[ultimo][metricaOrder]){
+      const ultimoJ = lista[j].dados.length - 1;
+        if(lista[maior].dados[ultimoi][metricaOrder] < lista[j].dados[ultimoJ][metricaOrder]){
           maior = j
         }
       }
       aux = lista[i]
       lista[i] = lista[maior]
       lista[maior] = aux
+    }
     }    
-  }
-   if(booleanReverse){
+  
+   if(booleanOrder){
     lista.reverse()
    }
 
-    return lista
   }
-
+  return lista
+}
 
   function loadEvents(){
   titulo = document.querySelectorAll('.titleTable')
@@ -273,13 +280,21 @@ function ordenar(metricaOrder, booleanReverse){
   document.querySelector('table').querySelectorAll('svg').forEach(svg => { if (svg == existingSvg){ return } else { svg.remove()}})
   
       if(existingSvg){
-        if(existingSvg.style.transform == 'rotate(180deg)'){
+        if(booleanOrder){
           booleanOrder = false
-          ordenar()
-          existingSvg.style.transform = 'rotate(0deg)'
+          let ordenado = ordenar();
+          let maisCritico = ordenado[0]
+          destacarServidor(maisCritico)
+          carregarServidoresTabela(ordenado)
+          
+          existingSvg.style.transform = 'rotate(180deg)'
         } else {
           booleanOrder = true
-          existingSvg.style.transform = 'rotate(180deg)'
+          let ordenado = ordenar();
+          let maisCritico = ordenado[0]
+          destacarServidor(maisCritico)
+          carregarServidoresTabela(ordenado)
+          existingSvg.style.transform = 'rotate(0deg)'
         }
       } else {
         let escolhido = title.innerHTML
@@ -302,7 +317,10 @@ function ordenar(metricaOrder, booleanReverse){
         }
         
         booleanOrder = false
-        ordenar()
+        let ordenado = ordenar();
+        let maisCritico = ordenado[0]
+        destacarServidor(maisCritico)
+        carregarServidoresTabela(ordenado)
         title.innerHTML += `<svg width="12" style='margin-left: 4px; height: 8px; transform: rotate(180deg)' viewBox="0 0 22 13" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path

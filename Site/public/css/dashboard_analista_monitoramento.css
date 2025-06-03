@@ -15,6 +15,10 @@
     font-weight: bolder;
   }
 
+  h1{
+    text-align: center;
+  }
+
   body{
 background-color: #f2f3f7;
 color: #2b2b2b;
@@ -123,9 +127,19 @@ overflow-y: hidden;
 .tabelaMonitoramento td {
   /* border: 1px solid #706f6f; */
   background-color: #ffffff;
-  padding: 10px;
+  padding: 6px;
   text-align: center;
   font-weight: bold;
+  font-size: 30px;
+              /* text-shadow:
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                -3px 0px 0 #000,
+                3px 0px 0 #000,
+                0px -3px 0 #000,
+                0px 3px 0 #000; */
 }
 
 tr:hover td.col-server{
@@ -139,6 +153,7 @@ tr:hover td{
 td.col-server{
   background-color: #b8b8b8;
   transition: none all;
+              /* text-shadow: 0; */
 }
 
 .tabelaMonitoramento th {
