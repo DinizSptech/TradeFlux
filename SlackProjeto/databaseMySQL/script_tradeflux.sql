@@ -338,6 +338,27 @@ WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
 GROUP BY dc.nome
 ORDER BY tempo_medio DESC;
 
+-- View para tempo médio por data center (24h) (com valor numérico)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_24h_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
 -- View para tempo médio por data center (7d)
 CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_7d AS
 SELECT
@@ -351,6 +372,27 @@ WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
 GROUP BY dc.nome
 ORDER BY tempo_medio DESC;
 
+-- View para tempo médio por data center (7d) (com valor numérico)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_7d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
 -- View para tempo médio por data center (30d)
 CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_30d AS
 SELECT
@@ -363,6 +405,27 @@ JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
 GROUP BY dc.nome
 ORDER BY tempo_medio DESC;
+
+-- View para tempo médio por data center (30d) (com valor numérico)
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_30d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
 
 
 -- 5. Rotas - Data Centers total de alertas
@@ -404,41 +467,6 @@ JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
 GROUP BY dc.nome
 ORDER BY total_alertas DESC;
-
-SELECT 
-    DATE(a.data_gerado) AS data_alerta,
-    SUM(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS alertas_atencao,
-    SUM(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS alertas_criticos,
-    COUNT(*) AS total_alertas
-FROM alerta a
-JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
-JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
-WHERE s.fk_data_center = 1
-  AND a.data_gerado >= CURDATE() - INTERVAL 29 DAY
-GROUP BY DATE(a.data_gerado)
-ORDER BY DATE(a.data_gerado);
-
-SELECT
-    status,
-    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM servidor_cliente WHERE fk_data_center = 1), 2) AS percentual
-FROM (
-    SELECT 
-        s.idservidor,
-        MAX(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS tem_critico,
-        MAX(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS tem_atencao,
-        CASE 
-            WHEN MAX(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) = 1 THEN 'Crítico'
-            WHEN MAX(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) = 1 THEN 'Atenção'
-            ELSE 'Estável'
-        END AS status
-    FROM servidor_cliente s
-    LEFT JOIN parametro_servidor p ON s.idservidor = p.fk_servidor
-    LEFT JOIN alerta a ON p.idparametros_servidor = a.fk_parametro
-        AND a.data_gerado >= NOW() - INTERVAL 30 DAY
-    WHERE s.fk_data_center = 1
-    GROUP BY s.idservidor
-) AS classificacao
-GROUP BY status;
 
 
 -- 6. Rotas - Data Centers alertas atrasados
@@ -577,6 +605,11 @@ ORDER BY a.criticidade;
 -- SELECT * FROM vw_datacenter_media_resolucao_24h;
 -- SELECT * FROM vw_datacenter_media_resolucao_7d;
 -- SELECT * FROM vw_datacenter_media_resolucao_30d;
+
+-- -- 4.1 Rotas - Data Centers com maior tempo de resolução (tempo em número)
+-- SELECT * FROM vw_datacenter_media_resolucao_24h_numerica;
+-- SELECT * FROM vw_datacenter_media_resolucao_7d_numerica;
+-- SELECT * FROM vw_datacenter_media_resolucao_30d_numerica;
 
 -- -- 5. Rotas - Data Centers total de alertas
 -- SELECT * FROM vw_datacenter_total_alertas_24h;
