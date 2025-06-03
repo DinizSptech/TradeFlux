@@ -191,7 +191,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("/pix/pegarPix").then((res) => {
+    fetch("http://3.230.80.85:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
@@ -240,7 +240,9 @@ function carregar() {
         console.log("Valor Hora 30d DC2: " + valorHora30_dc2);
         console.log("Valor Hora 30d DC3: " + valorHora30_dc3);
 
-        fetch("/adm/datacenter/media-resolucao/victao/24h").then((res) => {
+        fetch(
+          "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/24h"
+        ).then((res) => {
           res.json().then((resjson) => {
             for (let i = 0; i < resjson.length; i++) {
               const dataCenter_atual = resjson[i].data_center;
@@ -334,7 +336,7 @@ function carregar() {
             // Calcular o Custo Médio
             // CUSTO MÉDIO POR MANUTENÇÃO = CUSTO TOTAL / QTD ALERTAS
 
-            fetch("/adm/alertas/24h").then((res) => {
+            fetch("http://3.230.80.85:8080/adm/alertas/24h").then((res) => {
               res.json().then((resjson) => {
                 let total_alertas_24 = resjson[0].total_alertas;
 
@@ -381,7 +383,9 @@ function filtrar(tempo) {
     carregar();
     return;
   } else if (tempo == 7) {
-    fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
+    fetch(
+      "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/7d"
+    ).then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
@@ -477,7 +481,7 @@ function filtrar(tempo) {
 
         // Calcular o Custo Médio 7 dias
 
-        fetch("/adm/alertas/7d").then((res) => {
+        fetch("http://3.230.80.85:8080/adm/alertas/7d").then((res) => {
           res.json().then((resjson) => {
             let total_alertas_7 = resjson[0].total_alertas;
 
@@ -510,7 +514,9 @@ function filtrar(tempo) {
       });
     });
   } else {
-    fetch("/adm/datacenter/media-resolucao/victao/30d").then((res) => {
+    fetch(
+      "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/30d"
+    ).then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
@@ -604,7 +610,7 @@ function filtrar(tempo) {
           custo_total.innerHTML = menorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
-          fetch("/adm/alertas/30d").then((res) => {
+          fetch("http://3.230.80.85:8080/adm/alertas/30d").then((res) => {
             res.json().then((resjson) => {
               let total_alertas_30 = resjson[0].total_alertas;
 
