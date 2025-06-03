@@ -91,6 +91,12 @@
                 </tr>
             </tbody>
         </table>
+        <div class="kpi_total kpi_correlacao">
+            <span class="tituloKPI titleCorrelacao" id="tituloCorrelacao">Buscando correlação com dados da B3...</span>
+          <span class="qtd_total" id="kpi_valor_correlacao">Carregando...</span>
+          <span class="pctg_aumento">Carregando...</span>
+          <span></span>
+        </div>
       </div>
       <div class="painelPrincipal">
         <header class="cabecalho">
@@ -178,6 +184,10 @@
         </div>
     </div>
     <div class="container_graficos_alertas">
+        <select name="slt_alertas" id="slt_alertas" class="slt_alertas">
+            <option value="opt_critico">Críticos</option>
+            <option value="opt_critico">de Atenção</option>
+        </select>
       <div class="container_grafico">
           <div id="grafico_servidores"></div>
       </div>

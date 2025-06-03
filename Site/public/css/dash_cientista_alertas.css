@@ -8,13 +8,15 @@ main{
 .div_kpis{
     display: flex;
     flex-direction: column;
-    margin-top: 8vh;
+    align-items: center;
+    margin-top: 3vh;
     gap: 1vh;
     max-width: 28vw;
 }
 
 .kpis_total_container{
     display: flex;
+    flex-direction: column;
     gap: 1vw;
 }
 
@@ -26,13 +28,14 @@ main{
     background-color: #ffffff;
     border: 1px solid #cfd4e0;
     height: 15vh;
-    width: 17vw;
+    width: 100%;
+    padding: 2vh;
     border-radius: 2vh;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .tituloKPI{
-    font-size: 1.8vh;
+    font-size: 2.2vh;
     display: flex;
     font-weight: 700;
     text-align: center;
@@ -64,7 +67,7 @@ main{
 
 .server-status-title {
     color: #2b2b2b;
-    font-size: 2vh;
+    font-size: 2.4vh;
     font-weight: 700;
     padding: 0 1vw;
     text-align: center;
@@ -355,7 +358,7 @@ h2 {
 }
 
 .container_grafico {
-    width: 30vw;
+    width: 32vw;
     height: 36vh;
     display: flex;
     justify-content: center;
@@ -380,4 +383,20 @@ h2 {
 #grafico_servidores {
     width: 100%;
     height: 100%;
+}
+.kpi_correlacao{
+    margin-top: 2vh;
+    height: auto;
+    width: 27vw;
+    padding: 2vh;
+    align-self: center;
+}
+.titleCorrelacao{
+    font-size: 2.2vh;
+}
+.slt_alertas{
+    position: absolute;
+    right: 26.5vw;
+    top: 5vh;
+    z-index: 999;
 }

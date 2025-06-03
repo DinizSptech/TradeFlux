@@ -3,9 +3,6 @@ import json
 
 s3 = boto3.client('s3')
 
-# essa lambda pega o ultimo arquivo do bucket client para popular a dash 
-# a dash chama ela pela url 
-
 BUCKET_NAME = 'bucket-client-test-125'
 PREFIX = 'dataCenter1/'  
 

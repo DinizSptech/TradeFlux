@@ -36,13 +36,15 @@ function carregarDadosDashboard() {
         buscarDadosComponentes(),
         buscarDadosServidores(),
         buscarDadosTotaisAlerta(),
-        buscarDadosStatusServidor()
+        buscarDadosStatusServidor(),
+        
     ])
     .then(() => {
         renderizarCalendario();
         renderizarGraficoComponentes();
         renderizarGraficoServidores();
         renderizarKPIsTotais();
+        atualizarKpiCorrelacao()
     })
     .catch(erro => {
         console.error('Erro ao carregar dados da dashboard:', erro);
@@ -460,6 +462,32 @@ function renderizarDadosStatusServidor(dadosDB){
      td_status_atencao.innerHTML = dadosDB[0].atencao
      td_status_estavel.innerHTML = dadosDB[0].estavel
 }
+
+async function atualizarKpiCorrelacao() {
+    var idDataCenter = sessionStorage.getItem('DataCenter')
+    try {
+        const crawlerRes = await fetch('https://mqibct72j7jei56f2nv6r7pyea0tvxne.lambda-url.us-east-1.on.aws/');
+        if (!crawlerRes.ok) throw new Error('Erro ao acionar o crawler.');
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        const correlacaoRes = await fetch(`/alertas/getCorrelacao/${idDataCenter}`);
+        if (!correlacaoRes.ok) throw new Error('Erro ao buscar correlação.');
+
+        const dados = await correlacaoRes.json();
+
+        if (dados && dados.variavel && dados.correlacao !== undefined) {
+            document.getElementById('tituloCorrelacao').innerHTML = 
+                `A maior correlação com números de negociações foi com os dados de ${dados.variavel}`;
+            document.getElementById('kpi_valor_correlacao').innerHTML = dados.correlacao;
+        }
+
+    } catch (err) {
+        console.error('Erro ao atualizar KPI de correlação:', err.message);
+    }
+}
+
+
 
 function atualizarDashboard() {
     carregarDadosDashboard();

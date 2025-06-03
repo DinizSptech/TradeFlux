@@ -27,5 +27,16 @@ router.get("/getAlertasCalendario/:dataCenter", function (req, res) {
 router.get("/getStatusServidores/:dataCenter", function (req, res) {
     alertaController.getStatusServidores(req, res);
 })
+router.get("/getCorrelacao/:dataCenter", async function (req, res) {
+    const lambdaURL = 'https://ttxj7v3f3t7uowg73ylwrx36vu0ljtjs.lambda-url.us-east-1.on.aws/';
+    try {
+        const response = await fetch(lambdaURL);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error("Erro ao buscar correlação:", error.message);
+        res.status(500).json({ erro: "Erro ao buscar dados da Lambda" });
+    }
+});
 
 module.exports = router;
