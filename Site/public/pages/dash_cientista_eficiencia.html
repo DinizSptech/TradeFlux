@@ -176,7 +176,7 @@
 
   function chamarDadosAWS() {
 
-    fetch('https://mqlouf2jnrl5gxx4yklcdfsewe0vubrt.lambda-url.us-east-1.on.aws/')
+    fetch('https://n6lzhhstipibmqihciih4dbecq0msyuf.lambda-url.us-east-1.on.aws/')
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos:", data);
@@ -519,12 +519,18 @@
 
       diferenca = ((tabela[i].valor - valorIdeal) / valorIdeal) * 100
 
+      if(diferenca > 0){
+        status = 'fa-arrow-trend-up'
+      } else {
+        status = 'fa-arrow-trend-down'
+      }
+
 
       bodyTabela.innerHTML += `
             <tr>
             <td> Servidor ${tabela[i].servidor}</td>
             <td style >${dias}d e ${horas.toFixed(0)}h </td>
-            <td style="color: crimson;">${diferenca.toFixed(0)}% <i class="fa-solid fa-arrow-trend-up"> </i> </td>
+            <td style="color: crimson;">${diferenca.toFixed(0)}% <i class="fa-solid ${status}"> </i> </td>
              `;
     }
 
