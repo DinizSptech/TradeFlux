@@ -5,10 +5,12 @@ var dadosTotaisAlertas = [];
 var dadosCalendario = [];
 var dadosStatus = [];
 var tipoAlertaAtual = 'atencao';
+var dadosServidoresAtencao = [];
+var dadosServidoresCriticos = [];
+var tipoGraficoServidores = 'criticos';
 
-// Função para inicializar a dashboard
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar eventos dos botões
+    // Configurar eventos dos botões existentes
     document.getElementById('abaAlertasAtencao').addEventListener('click', function() {
         definirAbaAtiva(this);
         document.getElementById('legendaAlertasAtencao').style.display = 'flex';
@@ -25,19 +27,24 @@ document.addEventListener('DOMContentLoaded', function() {
         renderizarCalendario();
     });
     
+    // NOVO: Configurar evento do select
+    document.getElementById('slt_alertas').addEventListener('change', function() {
+        tipoGraficoServidores = this.value;
+        renderizarGraficoServidores();
+    });
+    
     // Carregar todos os dados
     carregarDadosDashboard();
 });
 
-// Função principal para carregar todos os dados
 function carregarDadosDashboard() {
     Promise.all([
         buscarDadosCalendario(),
         buscarDadosComponentes(),
-        buscarDadosServidores(),
+        buscarDadosServidoresCriticos(), // Renomeado
+        buscarDadosServidoresAtencao(), // Novo
         buscarDadosTotaisAlerta(),
         buscarDadosStatusServidor(),
-        
     ])
     .then(() => {
         renderizarCalendario();
@@ -143,29 +150,52 @@ function buscarDadosComponentes() {
     });
 }
 
-// Fetch para dados dos servidores
-function buscarDadosServidores() {
+function buscarDadosServidoresCriticos() {
     var idDataCenter = sessionStorage.getItem('DataCenter')
-    return fetch(`/alertas/getTopServidoresAlertas/${idDataCenter}`, {
+    return fetch(`/alertas/getTopServidoresAlertasCriticos/${idDataCenter}`, {
         method: 'GET',
     })
     .then((response) => {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error('Erro ao buscar dados dos servidores.');
+            throw new Error('Erro ao buscar dados dos servidores críticos.');
         }
     })
     .then((registros) => {
-        console.log("Dados dos servidores recebidos:", registros);
-        dadosServidores = registros;
-        renderizarGraficoServidores(dadosServidores)
+        console.log("Dados dos servidores críticos recebidos:", registros);
+        dadosServidoresCriticos = registros;
     })
     .catch((erro) => {
-        console.error('Erro ao buscar dados dos servidores:', erro);
+        console.error('Erro ao buscar dados dos servidores críticos:', erro);
         throw erro;
     });
 }
+
+// NOVA função para buscar dados de servidores com alertas de atenção
+function buscarDadosServidoresAtencao() {
+    var idDataCenter = sessionStorage.getItem('DataCenter')
+    return fetch(`/alertas/getTopServidoresAlertasAtencao/${idDataCenter}`, {
+        method: 'GET',
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Erro ao buscar dados dos servidores de atenção.');
+        }
+    })
+    .then((registros) => {
+        console.log("Dados dos servidores de atenção recebidos:", registros);
+        dadosServidoresAtencao = registros;
+    })
+    .catch((erro) => {
+        console.error('Erro ao buscar dados dos servidores de atenção:', erro);
+        throw erro;
+    });
+}
+
+
 
 // Função para processar dados do calendário
 function processarDadosCalendario(dadosDB) {
@@ -390,15 +420,30 @@ function renderizarGraficoComponentes(dadosDB) {
     grafico_alertas.render();
 }
 
-// Variável global para o gráfico de servidores
 let grafico_servidores;
 
-// Função para renderizar gráfico de servidores
-function renderizarGraficoServidores(dadosDB) {
-    if (dadosServidores.length === 0) return;
+function renderizarGraficoServidores() {
+    let dadosParaUsar = [];
+    let titulo = '';
+    let cor = '';
+    let nomeSerie = '';
     
-    const nomes = dadosServidores.map(item => item.nome_servidor);
-    const alertasCriticos = dadosServidores.map(item => parseInt(item.qtd_alertas_atencao) || 0);
+    if (tipoGraficoServidores == 'criticos') {
+        dadosParaUsar = dadosServidoresCriticos;
+        titulo = ['5 Servidores com Mais Alertas', 'Críticos nos Últimos 30 Dias'];
+        cor = '#ff7373';
+        nomeSerie = 'Alertas Críticos';
+    } else {
+        dadosParaUsar = dadosServidoresAtencao;
+        titulo = ['5 Servidores com Mais Alertas', 'de Atenção nos Últimos 30 Dias'];
+        cor = '#ffe066';
+        nomeSerie = 'Alertas de Atenção';
+    }
+    
+    if (dadosParaUsar.length === 0) return;
+    
+    const nomes = dadosParaUsar.map(item => item.nome_servidor);
+    const quantidades = dadosParaUsar.map(item => parseInt(item.qtd_alertas) || 0);
     
     const opcoes_servidores = {
         chart: {
@@ -407,9 +452,9 @@ function renderizarGraficoServidores(dadosDB) {
             height: "100%",
             width: "100%"
         },
-        colors: ['#8fa2eb'],
+        colors: [cor],
         title: {
-            text: ['5 Servidores com Mais Alertas', 'Críticos nos Últimos 30 Dias'],
+            text: titulo,
             align: 'center',
             style: {
                 color: '#2b2b2b',
@@ -417,7 +462,7 @@ function renderizarGraficoServidores(dadosDB) {
             }
         },
         series: [
-            { name: 'Alertas Críticos', data: alertasCriticos }
+            { name: nomeSerie, data: quantidades }
         ],
         xaxis: {
             categories: nomes,
@@ -439,9 +484,7 @@ function renderizarGraficoServidores(dadosDB) {
             }
         }
     };
-    
-    // Destruir gráfico anterior se existir
-    if (grafico_servidores) {
+        if (grafico_servidores) {
         grafico_servidores.destroy();
     }
     
@@ -477,9 +520,28 @@ async function atualizarKpiCorrelacao() {
         const dados = await correlacaoRes.json();
 
         if (dados && dados.variavel && dados.correlacao !== undefined) {
-            document.getElementById('tituloCorrelacao').innerHTML = 
-                `A maior correlação com números de negociações foi com os dados de ${dados.variavel}`;
+            document.getElementById('tituloCorrelacao').innerHTML = `A maior correlação com números de negociações foi com os dados de ${dados.variavel}`;
             document.getElementById('kpi_valor_correlacao').innerHTML = dados.correlacao;
+            const valorCorrelacao = parseFloat(dados.correlacao);
+            const spanTipoCorrelacao = document.getElementById('spn_tipoCorrelacao');
+            
+            let tipoCorrelacao = '';
+            let corBackground = '';
+            if ((valorCorrelacao > 0 && valorCorrelacao < 0.5) || (valorCorrelacao < 0 && valorCorrelacao > -0.5)) {
+                tipoCorrelacao = 'Pouca correlação';
+                corBackground = 'red';
+            } else if (valorCorrelacao >= 0.5 && valorCorrelacao <= 1) {
+                tipoCorrelacao = 'Correlação forte';
+                corBackground = 'green';
+            } else if (valorCorrelacao <= -0.5 && valorCorrelacao >= -1) {
+                tipoCorrelacao = 'Correlação forte negativa';
+                corBackground = 'green';
+            } else if (valorCorrelacao === 0) {
+                tipoCorrelacao = 'Sem correlação';
+                corBackground = 'gray';
+            }
+            spanTipoCorrelacao.innerHTML = tipoCorrelacao;
+            spanTipoCorrelacao.style.backgroundColor = corBackground
         }
 
     } catch (err) {

@@ -39,11 +39,11 @@ main{
     display: flex;
     font-weight: 700;
     text-align: center;
-    color: #666666;
+    color: #1e1e1e;
 }
 
 .qtd_total{
-    font-size: 4vh;
+    font-size: 5vh;
     font-weight: 700;
     color: #2b2b2b;
 }
@@ -396,7 +396,17 @@ h2 {
 }
 .slt_alertas{
     position: absolute;
-    right: 26.5vw;
-    top: 5vh;
+    right: 25vw;
+    top: 1vh;
     z-index: 999;
+}
+.spn_subKPI{
+    padding: 0.7vh;
+    border-radius: 1vh;
+    background-color: #2b2b2b;
+    color: #fff;
+    font-weight: bold;
+}
+.kpi_valor_correlacao{
+    font-size: 4vh;
 }

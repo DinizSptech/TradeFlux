@@ -631,6 +631,32 @@ WHERE dc.iddata_center = 1
   AND a.criticidade IN (1, 3)
   AND a.data_gerado >= NOW() - INTERVAL 30 DAY;
 
+SELECT
+    CASE 
+        WHEN total_critico_30d = 0 AND total_critico_1d > 0 THEN 'NOVOS_ALERTAS'
+        WHEN total_critico_30d = 0 AND total_critico_1d = 0 THEN 'SEM_DADOS'
+        ELSE ROUND((total_critico_1d * 100.0) / total_critico_30d, 2)
+    END AS taxa_alertas_criticos,
+    CASE 
+        WHEN total_atencao_30d = 0 AND total_atencao_1d > 0 THEN 'NOVOS_ALERTAS'
+        WHEN total_atencao_30d = 0 AND total_atencao_1d = 0 THEN 'SEM_DADOS'
+        ELSE ROUND((total_atencao_1d * 100.0) / total_atencao_30d, 2)
+    END AS taxa_alertas_atencao
+
+FROM (
+    SELECT 
+        SUM(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS total_critico_30d,
+        SUM(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS total_atencao_30d,
+        SUM(CASE WHEN a.criticidade = 3 AND a.data_gerado >= NOW() - INTERVAL 1 DAY THEN 1 ELSE 0 END) AS total_critico_1d,
+        SUM(CASE WHEN a.criticidade = 1 AND a.data_gerado >= NOW() - INTERVAL 1 DAY THEN 1 ELSE 0 END) AS total_atencao_1d
+
+    FROM alerta a
+    JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+    JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+    JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+    WHERE dc.iddata_center = ${idDataCenter}
+      AND a.data_gerado >= NOW() - INTERVAL 30 DAY
+) AS contagem;
 
 -- -- -- 1. Rotas - Alertas KPI
 -- SELECT * FROM vw_qtd_alertas_24h;
