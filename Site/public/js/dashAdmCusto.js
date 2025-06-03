@@ -307,16 +307,10 @@ function calcularValorHora(valor, dias) {
   return Math.floor(valor / dias / 24);
 }
 
-function filtrar(valor, tempo, dataCenter) {
+function filtrar(tempo) {
   let custoTotalSelecionado_dc1;
   let custoTotalSelecionado_dc2;
   let custoTotalSelecionado_dc3;
-
-  if (valor <= 3) {
-    dataCenterSelecionado = valor;
-  } else {
-    tempoSelecionado = valor;
-  }
 
   if (tempo == 24) {
     return menorCusto24;
@@ -374,6 +368,10 @@ function filtrar(valor, tempo, dataCenter) {
         custoTotal7_dc2 = Math.ceil(valor7_dc2 * horas7_dc2);
         custoTotal7_dc3 = Math.ceil(valor7_dc3 * horas7_dc3);
 
+        console.log("Custo Total 7 DC1: " + custoTotal7_dc1);
+        console.log("Custo Total 7 DC2: " + custoTotal7_dc2);
+        console.log("Custo Total 7 DC3: " + custoTotal7_dc3);
+
         let menorCustoTotal7 = Math.ceil(
           Math.min(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
         );
@@ -393,13 +391,13 @@ function filtrar(valor, tempo, dataCenter) {
 
         // Calcular o Custo Médio 7 dias
 
-        fetch("adm/alertas/7d").then((res) => {
+        fetch("http://localhost:3333/adm/alertas/7d").then((res) => {
           res.json().then((resjson) => {
             let total_alertas_7 = resjson[0].total_alertas;
 
-            custoMedio7_dc1 = Math.ceil(custoTotal7_dc1 / total_alertas_7);
-            custoMedio7_dc2 = Math.ceil(custoTotal7_dc2 / total_alertas_7);
-            custoMedio7_dc3 = Math.ceil(custoTotal7_dc3 / total_alertas_7);
+            custoMedio7_dc1 = custoTotal7_dc1 / total_alertas_7;
+            custoMedio7_dc2 = custoTotal7_dc2 / total_alertas_7;
+            custoMedio7_dc3 = custoTotal7_dc3 / total_alertas_7;
 
             let menorCustoMedio7 = Math.ceil(
               Math.min(custoMedio7_dc1, custoMedio7_dc2, custoMedio7_dc3)
@@ -407,6 +405,10 @@ function filtrar(valor, tempo, dataCenter) {
 
             // deixo o valor default
             let menorCustoMedio7_dc = 1;
+
+            console.warn("Custo Medio 7 DC1: " + custoMedio7_dc1);
+            console.warn("Custo Medio 7 DC2: " + custoMedio7_dc2);
+            console.warn("Custo Medio 7 DC3: " + custoMedio7_dc3);
 
             if (menorCustoMedio7 === custoMedio7_dc2) {
               menorCustoMedio7_dc = 2;
