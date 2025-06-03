@@ -509,7 +509,7 @@ function renderizarDadosStatusServidor(dadosDB){
 async function atualizarKpiCorrelacao() {
     var idDataCenter = sessionStorage.getItem('DataCenter')
     try {
-        const crawlerRes = await fetch('https://mqibct72j7jei56f2nv6r7pyea0tvxne.lambda-url.us-east-1.on.aws/');
+        const crawlerRes = await fetch(`/alertas/attCrawler/${idDataCenter}`);
         if (!crawlerRes.ok) throw new Error('Erro ao acionar o crawler.');
 
         await new Promise(resolve => setTimeout(resolve, 0));

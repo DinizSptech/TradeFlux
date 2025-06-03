@@ -42,6 +42,17 @@ router.get("/getCorrelacao/:dataCenter", async function (req, res) {
         res.status(500).json({ erro: "Erro ao buscar dados da Lambda" });
     }
 });
+router.get("/attCrawler/:dataCenter", async function (req, res) {
+    const lambdaURL = 'https://6pa5v6fprgm4qcunkdolzipdzi0rkyzl.lambda-url.us-east-1.on.aws/';
+    try {
+        const response = await fetch(lambdaURL);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error("Erro ao buscar correlação:", error.message);
+        res.status(500).json({ erro: "Erro ao buscar dados da Lambda" });
+    }
+});
 router.get("/getPorcentagemAumentoAlertas/:dataCenter", async function (req, res) {
     alertaController.getPorcentagemAumentoAlertas(req, res);
 });
