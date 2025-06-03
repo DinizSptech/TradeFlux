@@ -23,7 +23,7 @@ async function atualizarDadosEmTempoReal() {
       servidor: jsonServer.servidor,
       dados: jsonServer.dados
     }));
-
+    console.log(dadosServidores)
     let ordenado = ordenar();
     let maisCritico = ordenado[0]
     destacarServidor(maisCritico)
@@ -268,8 +268,8 @@ function ordenar(){
     lista.reverse()
    }
 
-    return lista
   }
+  return lista
 }
 
   function loadEvents(){
