@@ -1,3 +1,22 @@
+function pegarData() {
+
+  // Pega a data de hj pra não ficar o código em toda parte
+
+  const agr = new Date();
+  const ano = agr.getFullYear();
+  const mes = String(agr.getMonth() + 1).padStart(2, '0');
+  const dia = String(agr.getDate()).padStart(2, '0');
+  const hora = String(agr.getHours()).padStart(2, '0');
+  const minuto = String(agr.getMinutes()).padStart(2, '0');
+  const segundos = String(agr.getSeconds()).padStart(2, '0');
+
+  const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundos}`;
+  console.log(dataFormatada);
+
+    return dataFormatada
+
+}
+
 function gerarBotao() {
   // Cria o botão de baixar
   const BOTAO = document.getElementById("botaoBaixar");
@@ -7,63 +26,203 @@ function gerarBotao() {
   )}`;
 }
 
-function chamandoLambda(qtdDias, dataInicial) {
-  const datacenter = sessionStorage.getItem("DataCenter");
-  const dataFormatada = dataInicial;
 
-  fetch(
-    "https://cmu7qp7lb5exg53gb5umhnhuwy0eikhq.lambda-url.us-east-1.on.aws/",
-    // Alterar o Link para o da Amanda
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        qtdDias: qtdDias,
-        dtInicial: dataFormatada,
-        datacenter: "1",
-      }),
+// chamandoLambda function
+function chamandoLambda(qtdDias, dataInicial) {
+  const datacenter = sessionStorage.getItem("DataCenter") || "1";
+  const requestBody = {
+    qtdDias: qtdDias,
+    dtInicial: dataInicial,
+    datacenter: datacenter,
+  };
+
+  return fetch('http://127.0.0.1:8080/dataCenter/pegarServidores', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  )
-    .then((response) => response.json())
-    .then((data) => {
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
       // Limpa dados antigos
       for (let i = 1; i <= 10; i++) {
         sessionStorage.removeItem(`servidor${i}`);
       }
 
-      // Processa a nova estrutura de dados (array de servidores)
-      if (Array.isArray(data)) {
-        data.forEach(servidor => {
-          const qualServidor = `servidor${servidor.servidor}`;
-          
-          // Converte para o formato esperado pelo resto do código
-          const servidorFormatado = {
-            media_CPU: servidor.CPU,
-            media_RAM: servidor.RAM,
-            media_Disco: servidor.Disco
-          };
-          
-          sessionStorage.setItem(qualServidor, JSON.stringify(servidorFormatado));
-        });
-
-        // Calcula média total para o gráfico
-        const mediaTotal = {
-          CPU: data.reduce((sum, s) => sum + s.CPU, 0) / data.length,
-          RAM: data.reduce((sum, s) => sum + s.RAM, 0) / data.length,
-          Disco: data.reduce((sum, s) => sum + s.Disco, 0) / data.length
+      // Processa os dados dos servidores
+      data.data.forEach(servidor => {
+        const qualServidor = `servidor${servidor.servidor}`;
+        const servidorFormatado = {
+          media_CPU: servidor.media_CPU,
+          media_RAM: servidor.media_RAM,
+          media_Disco: servidor.media_Disco
         };
-        
-        sessionStorage.setItem("mediaTotal", JSON.stringify(mediaTotal));
-      }
+        sessionStorage.setItem(qualServidor, JSON.stringify(servidorFormatado));
+      });
 
-      console.log(data);
+      // Salva a média total
+      sessionStorage.setItem("mediaTotal", JSON.stringify(data.mediaTotal));
+
+      return data;
+    } else {
+      throw new Error(data.erro || "Erro ao carregar dados");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    throw error;
+  });
+}
+
+function inicializarDashboard() {
+  const periodo = document.getElementById('sltPeriodo').value;
+  let qtdDias;
+
+  if (periodo === "optPeriodo7Dias") {
+    qtdDias = 7;
+  } else if (periodo === "optPeriodo30Dias") {
+    qtdDias = 30;
+  } else if (periodo === "optPeriodo3Meses") {
+    qtdDias = 90;
+  } else {
+    qtdDias = 7; // Default to 7 days
+  }
+
+  const dataInicial = pegarData();
+
+  chamandoLambda(qtdDias, dataInicial)
+    .then(response => {
+      if (response.success) {
+        setTimeout(() => {
+          const servidores = [];
+          for (let i = 1; i <= 10; i++) {
+            const qualServidor = `servidor${i}`;
+            const servidorJSON = sessionStorage.getItem(qualServidor);
+            if (servidorJSON) {
+              const servidor = JSON.parse(servidorJSON);
+              servidores.push({
+                nome: qualServidor,
+                numeroServidor: i,
+                ...servidor
+              });
+            }
+          }
+
+          if (servidores.length > 0) {
+            servidores.sort((a, b) => b.media_CPU - a.media_CPU);
+            const primeiroServidor = servidores[0];
+            geradorGraficos('Barra', primeiroServidor);
+          } else {
+            console.error("Nenhum dado de servidor encontrado.");
+          }
+        }, 1000);
+      } else {
+        console.error("Erro ao carregar dados iniciais:", response.erro);
+      }
     })
     .catch(error => {
-      console.error('Erro ao chamar Lambda:', error);
+      console.error("Erro ao inicializar dashboard:", error);
     });
 }
+
+// function chamandoLambda(qtdDias, dataInicial) {
+//   const datacenter = sessionStorage.getItem("DataCenter") || "1";
+//   const dataFormatada = dataInicial;
+
+//   return fetch('/dataCenter/pegarServidores', {
+//     method: 'POST',
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       qtdDias: qtdDias,
+//       dtInicial: dataFormatada,
+//       datacenter: datacenter,
+//     }),
+//   })
+//   .then(response => response.json())
+//   .catch(error => {
+//     console.error("Error:", error);
+//     throw error;
+//   });
+// }
+
+// function chamandoLambda(qtdDias, dataInicial) {
+//   const datacenter = sessionStorage.getItem("DataCenter");
+//   const dataFormatada = dataInicial;
+
+//   fetch(`/dataCenter/pegarServidores`), {
+//     method : 'POST',
+//     headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         qtdDias: qtdDias,
+//         dtInicial: dataFormatada,
+//         datacenter: "1",
+//       }),
+//   }
+
+  // fetch(
+  //   "https://cmu7qp7lb5exg53gb5umhnhuwy0eikhq.lambda-url.us-east-1.on.aws/",
+  //   // Alterar o Link para o da Amanda
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       qtdDias: qtdDias,
+  //       dtInicial: dataFormatada,
+  //       datacenter: "1",
+  //     }),
+  //   }
+  // )
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     // Limpa dados antigos
+  //     for (let i = 1; i <= 10; i++) {
+  //       sessionStorage.removeItem(`servidor${i}`);
+  //     }
+
+  //     // Processa a nova estrutura de dados (array de servidores)
+  //     if (Array.isArray(data)) {
+  //       data.forEach(servidor => {
+  //         const qualServidor = `servidor${servidor.servidor}`;
+          
+  //         // Converte para o formato esperado pelo resto do código
+  //         const servidorFormatado = {
+  //           media_CPU: servidor.CPU,
+  //           media_RAM: servidor.RAM,
+  //           media_Disco: servidor.Disco
+  //         };
+          
+  //         sessionStorage.setItem(qualServidor, JSON.stringify(servidorFormatado));
+  //       });
+
+  //       // Calcula média total para o gráfico
+  //       const mediaTotal = {
+  //         CPU: data.reduce((sum, s) => sum + s.CPU, 0) / data.length,
+  //         RAM: data.reduce((sum, s) => sum + s.RAM, 0) / data.length,
+  //         Disco: data.reduce((sum, s) => sum + s.Disco, 0) / data.length
+  //       };
+        
+  //       sessionStorage.setItem("mediaTotal", JSON.stringify(mediaTotal));
+  //     }
+
+    //   console.log(data);
+    // })
+    // .catch(error => {
+    //   console.error('Erro ao chamar Lambda:', error);
+    // });
+// }
 
 function baixarCSV() {
   // Baixa CSV do Bucket
@@ -90,25 +249,6 @@ function trocarVisibilidade(e) {
   }
 }
 
-function pegarData() {
-
-  // Pega a data de hj pra não ficar o código em toda parte
-
-  const agr = new Date();
-  const ano = agr.getFullYear();
-  const mes = String(agr.getMonth() + 1).padStart(2, '0');
-  const dia = String(agr.getDate()).padStart(2, '0');
-  const hora = String(agr.getHours()).padStart(2, '0');
-  const minuto = String(agr.getMinutes()).padStart(2, '0');
-  const segundos = String(agr.getSeconds()).padStart(2, '0');
-
-  const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundos}`;
-  console.log(dataFormatada);
-
-    return dataFormatada
-
-}
-
 function filtrar() {
   const PERIODO = document.getElementById('sltPeriodo').value
 
@@ -128,54 +268,54 @@ function filtrar() {
 
   // Aguarda um pouco para os dados serem processados
   setTimeout(() => {
-    const SERVIDOR = mainSelect.value;
-    const SERVIDORESPECIFICO = hiddenSelect.classList.contains("show")
-      ? hiddenSelect.value
-      : "";
+  const SERVIDOR = mainSelect.value;
+  const SERVIDORESPECIFICO = hiddenSelect.classList.contains("show")
+    ? hiddenSelect.value
+    : "";
 
-    let servidores = [];
+  let servidores = [];
 
-    for (let i = 1; i <= 10; i++) {
-      const qualServidor = `servidor${i}`;
-      const servidorJSON = sessionStorage.getItem(qualServidor);
+  for (let i = 1; i <= 10; i++) {
+    const qualServidor = `servidor${i}`;
+    const servidorJSON = sessionStorage.getItem(qualServidor);
 
-      if (servidorJSON) {
-        const servidor = JSON.parse(servidorJSON);
-        servidores.push({
-          nome: qualServidor,
-          numeroServidor: i,
-          ...servidor
-        });
-      }
+    if (servidorJSON) {
+      const servidor = JSON.parse(servidorJSON);
+      servidores.push({
+        nome: qualServidor,
+        numeroServidor: i,
+        ...servidor
+      });
     }
+  }
 
-    if(SERVIDOR == 'CPU') {
-      servidores.sort((a, b) => b.CPU - a.CPU);
-      const primeiroServidor = servidores[0];
-      geradorGraficos('Barra', primeiroServidor)
-    } else if(SERVIDOR == 'RAM') {
-      servidores.sort((a, b) => b.RAM - a.RAM);
-      const primeiroServidor = servidores[0];
-      geradorGraficos('Barra', primeiroServidor)
-    } else if(SERVIDOR == 'Disco') {
-      servidores.sort((a, b) => b.Disco - a.Disco);
-      const primeiroServidor = servidores[0];
-      geradorGraficos('Barra', primeiroServidor)
-    } else if(SERVIDOR == 'Personalizado') {
-      servidores.sort((a, b) => a.numeroServidor - b.numeroServidor);
-      const servidorSelecionado = parseInt(document.getElementById("hiddenSelect").value);
-      const servidorDados = servidores.find(s => s.numeroServidor === servidorSelecionado);
-      
-      if (servidorDados) {
-        geradorGraficos('Barra', servidorDados);
-      }
+  if (SERVIDOR === 'CPU') {
+    servidores.sort((a, b) => b.media_CPU - a.media_CPU);
+    const primeiroServidor = servidores[0];
+    geradorGraficos('Barra', primeiroServidor);
+  } else if (SERVIDOR === 'RAM') {
+    servidores.sort((a, b) => b.media_RAM - a.media_RAM);
+    const primeiroServidor = servidores[0];
+    geradorGraficos('Barra', primeiroServidor);
+  } else if (SERVIDOR === 'Disco') {
+    servidores.sort((a, b) => b.media_Disco - a.media_Disco); // Fixed typo: 'Disco' instead of 'media_Disco'
+    const primeiroServidor = servidores[0];
+    geradorGraficos('Barra', primeiroServidor);
+  } else if (SERVIDOR === 'Personalizado') {
+    servidores.sort((a, b) => a.numeroServidor - b.numeroServidor);
+    const servidorSelecionado = parseInt(document.getElementById("hiddenSelect").value);
+    const servidorDados = servidores.find(s => s.numeroServidor === servidorSelecionado);
+    
+    if (servidorDados) {
+      geradorGraficos('Barra', servidorDados);
     }
+  }
 
-    console.log("Filtros aplicados:", {
-      categoria: SERVIDOR,
-      subcategoria: SERVIDORESPECIFICO,
-    });
-  }, 100000); // Aguarda 1 segundo para processar
+  console.log("Filtros aplicados:", {
+    categoria: SERVIDOR,
+    subcategoria: SERVIDORESPECIFICO,
+  });
+}, 10000);
 }
 
 function limparFiltro() {
@@ -185,15 +325,144 @@ function limparFiltro() {
   console.log("lalalalalalalal")
 }
 
-function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
-  if (tipo == "Barra") {
-    let media = [37.59, 40.1, 30.21];
-    let servidorSelecionado = servidor;
+// function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
+//   if (tipo == "Barra") {
+//     let media = [37.59, 40.1, 30.21];
+//     let servidorSelecionado = servidor;
 
-    // Usa as propriedades corretas (media_CPU, media_RAM, media_Disco)
+//     // Usa as propriedades corretas (media_CPU, media_RAM, media_Disco)
+//     let dados = [
+//       servidorSelecionado.media_CPU, 
+//       servidorSelecionado.media_RAM, 
+//       servidorSelecionado.Disco
+//     ];
+
+//     var options = {
+//       title: {
+//         text: "Comparação média com servidor escolhido",
+//         align: "center",
+//       },
+
+//       chart: {
+//         type: "bar",
+//         height: 350,
+//         background: "#ffffff",
+//       },
+
+//       plotOptions: {
+//         bar: {
+//           horizontal: true,
+//           dataLabels: {
+//             position: "top",
+//           },
+//           barHeight: "50%",
+//         },
+//       },
+
+//       colors: [
+//         "#7F7FFF", // Azul claro
+//         "#FF7F7F", // Vermelho claro
+//       ],
+
+//       dataLabels: {
+//         enabled: true,
+//         offsetX: 20,
+//         style: {
+//           fontSize: "12px",
+//           colors: ["#000"],
+//         },
+//       },
+
+//       series: [
+//         {
+//           name: "Média",
+//           data: media,
+//         },
+//         {
+//           name: "Servidor Selecionado",
+//           data: dados,
+//         },
+//       ],
+
+//       xaxis: {
+//         categories: ["CPU", "RAM", "Disco"],
+//         max: 100,
+//         labels: {
+//           style: {
+//             colors: "#000000",
+//           },
+//         },
+//       },
+
+//       yaxis: {
+//         labels: {
+//           style: {
+//             colors: "#000000",
+//           },
+//         },
+//       },
+
+//       legend: {
+//         position: "bottom",
+//         labels: {
+//           colors: "#000000",
+//         },
+//       },
+
+//       grid: {
+//         borderColor: "#555",
+//       },
+
+//       colors: [
+//         "#5A8DEE", // Cor fixa para "Média" (Azul)
+//         function ({ dataPointIndex }) {
+//           let valorServidor = dados[dataPointIndex];
+//           let valorMedia = media[dataPointIndex];
+
+//           if (valorServidor > valorMedia) {
+//             return "#E74C3C"; // Vermelho
+//           }
+
+//           let diferencaPercentual =
+//             ((valorMedia - valorServidor) / valorMedia) * 100;
+
+//           if (diferencaPercentual <= 10) {
+//             return "#F39C12"; // Laranja
+//           } else {
+//             return "#27AE60"; // Verde
+//           }
+//         },
+//       ],
+//     };
+
+//     // Limpa gráfico anterior se existir
+//     const chartContainer = document.querySelector("#myBarChart");
+//     if (chartContainer) {
+//       chartContainer.innerHTML = '';
+//     }
+
+//     var chart = new ApexCharts(chartContainer, options);
+//     chart.render();
+
+function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
+  if (tipo === "Barra") {
+    // Fallback values if servidor is undefined
+    const servidorSelecionado = servidor || {
+      media_CPU: 0,
+      media_RAM: 0,
+      Disco: 0
+    };
+
+    // Use static media values or fetch from sessionStorage
+    let media = JSON.parse(sessionStorage.getItem("mediaTotal")) || {
+      CPU: 37.59,
+      RAM: 40.1,
+      Disco: 30.21
+    };
+
     let dados = [
-      servidorSelecionado.CPU, 
-      servidorSelecionado.RAM, 
+      servidorSelecionado.media_CPU, 
+      servidorSelecionado.media_RAM, 
       servidorSelecionado.Disco
     ];
 
@@ -202,13 +471,11 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
         text: "Comparação média com servidor escolhido",
         align: "center",
       },
-
       chart: {
         type: "bar",
         height: 350,
         background: "#ffffff",
       },
-
       plotOptions: {
         bar: {
           horizontal: true,
@@ -218,12 +485,10 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
           barHeight: "50%",
         },
       },
-
       colors: [
-        "#7F7FFF", // Azul claro
+        "#5A8DEE", // Azul claro
         "#FF7F7F", // Vermelho claro
       ],
-
       dataLabels: {
         enabled: true,
         offsetX: 20,
@@ -232,18 +497,16 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
           colors: ["#000"],
         },
       },
-
       series: [
         {
           name: "Média",
-          data: media,
+          data: [media.CPU, media.RAM, media.Disco],
         },
         {
           name: "Servidor Selecionado",
           data: dados,
         },
       ],
-
       xaxis: {
         categories: ["CPU", "RAM", "Disco"],
         max: 100,
@@ -253,7 +516,6 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
           },
         },
       },
-
       yaxis: {
         labels: {
           style: {
@@ -261,23 +523,20 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
           },
         },
       },
-
       legend: {
         position: "bottom",
         labels: {
           colors: "#000000",
         },
       },
-
       grid: {
         borderColor: "#555",
       },
-
       colors: [
         "#5A8DEE", // Cor fixa para "Média" (Azul)
         function ({ dataPointIndex }) {
           let valorServidor = dados[dataPointIndex];
-          let valorMedia = media[dataPointIndex];
+          let valorMedia = [media.CPU, media.RAM, media.Disco][dataPointIndex];
 
           if (valorServidor > valorMedia) {
             return "#E74C3C"; // Vermelho
@@ -1196,7 +1455,7 @@ document.getElementsByName("server").forEach(function (item) {
 
 if (mainSelect && hiddenSelect) {
   mainSelect.addEventListener("change", function () {
-    if (this.value === "especial") {
+    if (this.value === "Personalizado") {
       // Mostra a combobox oculta com animação
       setTimeout(() => {
         hiddenSelect.classList.add("show");
