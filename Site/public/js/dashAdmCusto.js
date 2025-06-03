@@ -313,7 +313,112 @@ function filtrar(tempo) {
   let custoTotalSelecionado_dc3;
 
   if (tempo == 24) {
-    return menorCusto24;
+    fetch("/adm/datacenter/media-resolucao/victao/24h").then((res) => {
+      res.json().then((resjson) => {
+        for (let i = 0; i < resjson.length; i++) {
+          const dataCenter_atual = resjson[i].data_center;
+          const hora_atual = Number(resjson[i].tempo_medio_horas);
+
+          if (dataCenter_atual == "Data Center 1") {
+            horas24_dc1 = hora_atual;
+          } else if (dataCenter_atual == "Data Center 2") {
+            horas24_dc2 = hora_atual;
+          } else {
+            horas24_dc3 = hora_atual;
+          }
+
+          console.log("Horas 24h DC1: " + horas24_dc1);
+          console.log("Horas 24h DC2: " + horas24_dc2);
+          console.log("Horas 24h DC3: " + horas24_dc3);
+
+          valorHora24_dc1 = Math.floor(valor24_dc1 / 24);
+          valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
+          valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
+
+          console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
+          console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
+          console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
+
+          custoHora24_dc1 = Math.ceil(valorHora24_dc1 * horas24_dc1);
+          custoHora24_dc2 = Math.ceil(valorHora24_dc2 * horas24_dc2);
+          custoHora24_dc3 = Math.ceil(valorHora24_dc3 * horas24_dc3);
+
+          let menorCusto24 = Math.ceil(
+            Math.min(custoHora24_dc1, custoHora24_dc2, custoHora24_dc3)
+          );
+
+          // deixo o valor default
+          let menorCusto24_dc = 1;
+
+          if (menorCusto24 === custoHora24_dc2) {
+            menorCusto24_dc = 2;
+          } else if (menorCusto24 === custoHora24_dc3) {
+            menorCusto24_dc = 3;
+          }
+
+          data_center_custo.innerHTML = menorCusto24_dc;
+          data_center_investir.innerHTML = menorCusto24_dc;
+          custo_hora.innerHTML = menorCusto24;
+
+          // calcular o Custo Total
+          custoTotal24_dc1 = Math.ceil(valor24_dc1 * horas24_dc1);
+          custoTotal24_dc2 = Math.ceil(valor24_dc2 * horas24_dc2);
+          custoTotal24_dc3 = Math.ceil(valor24_dc3 * horas24_dc3);
+
+          console.log("Custo Total 24 DC1: " + custoTotal24_dc1);
+          console.log("Custo Total 24 DC2: " + custoTotal24_dc2);
+          console.log("Custo Total 24 DC3: " + custoTotal24_dc3);
+
+          let menorCustoTotal24 = Math.ceil(
+            Math.min(custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3)
+          );
+
+          // deixo o valor default
+          let menorCustoTotal24_dc = 1;
+
+          if (menorCustoTotal24 === custoTotal24_dc2) {
+            menorCustoTotal24_dc = 2;
+          } else if (menorCustoTotal24 === custoTotal24_dc3) {
+            menorCustoTotal24_dc = 3;
+          }
+
+          data_center_total.innerHTML = menorCustoTotal24_dc;
+          data_center_investir.innerHTML = menorCustoTotal24_dc;
+          custo_total.innerHTML = menorCusto24;
+
+          fetch("http://localhost:3333/adm/alertas/24h").then((res) => {
+            res.json().then((resjson) => {
+              let total_alertas_24 = resjson[0].total_alertas;
+
+              custoMedio24_dc1 = custoTotal24_dc1 / total_alertas_24;
+              custoMedio24_dc2 = custoTotal24_dc2 / total_alertas_24;
+              custoMedio24_dc3 = custoTotal24_dc3 / total_alertas_24;
+
+              let menorCustoMedio24 = Math.ceil(
+                Math.min(custoMedio24_dc1, custoMedio24_dc2, custoMedio24_dc3)
+              );
+
+              // deixo o valor default
+              let menorCustoMedio24_dc = 1;
+
+              console.warn("Custo Medio 24h DC1: " + custoMedioh_dc1);
+              console.warn("Custo Medio 24h DC2: " + custoMedio2h4_dc2);
+              console.warn("Custo Medio 24h DC3: " + custoMedio24h_dc3);
+
+              if (menorCustoMedio24 === custoMedio24_dc2) {
+                menorCustoMedio24_dc = 2;
+              } else if (menorCustoMedio24 === custoMedio24_dc3) {
+                menorCustoMedio24_dc = 3;
+              }
+
+              data_center_medio.innerHTML = menorCustoMedio24_dc;
+              data_center_investir.innerHTML = menorCustoMedio24_dc;
+              custo_medio.innerHTML = menorCustoMedio24;
+            });
+          });
+        }
+      });
+    });
   } else if (tempo == 7) {
     fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
       res.json().then((resjson) => {
