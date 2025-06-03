@@ -475,7 +475,7 @@ function filtrar(tempo) {
 
         data_center_total.innerHTML = menorCustoTotal7_dc;
         data_center_investir.innerHTML = menorCustoTotal7_dc;
-        custo_total.innerHTML = menorCusto7;
+        custo_total.innerHTML = menorCustoTotal7;
 
         // Calcular o Custo Médio 7 dias
 
@@ -603,7 +603,7 @@ function filtrar(tempo) {
 
           data_center_total.innerHTML = menorCustoTotal30_dc;
           data_center_investir.innerHTML = menorCustoTotal30_dc;
-          custo_total.innerHTML = menorCusto30;
+          custo_total.innerHTML = menorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
           fetch("http://localhost:3333/adm/alertas/30d").then((res) => {
