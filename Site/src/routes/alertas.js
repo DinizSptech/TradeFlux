@@ -32,7 +32,7 @@ router.get("/getStatusServidores/:dataCenter", function (req, res) {
     alertaController.getStatusServidores(req, res);
 })
 router.get("/getCorrelacao/:dataCenter", async function (req, res) {
-    const lambdaURL = 'https://ttxj7v3f3t7uowg73ylwrx36vu0ljtjs.lambda-url.us-east-1.on.aws/';
+    const lambdaURL = 'https://cwemkvs63ctowalcyeshj7x2si0rnjxq.lambda-url.us-east-1.on.aws/';
     try {
         const response = await fetch(lambdaURL);
         const data = await response.json();
