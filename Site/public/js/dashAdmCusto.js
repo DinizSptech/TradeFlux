@@ -65,6 +65,20 @@ let horas30_dc3 = 0;
 
 //
 
+let minutos24_dc1 = 0;
+let minutos24_dc2 = 0;
+let minutos24_dc3 = 0;
+
+let minutos7_dc1 = 0;
+let minutos7_dc2 = 0;
+let minutos7_dc3 = 0;
+
+let minutos30_dc1 = 0;
+let minutos30_dc2 = 0;
+let minutos30_dc3 = 0;
+
+//
+
 let custoHora24_dc1 = 0;
 let custoHora24_dc2 = 0;
 let custoHora24_dc3 = 0;
@@ -132,13 +146,49 @@ var chart = new ApexCharts(document.querySelector("#grafico"), options);
 chart.render();
 
 function carregar() {
-  let variavelGraficoCustoTotal_dc1 = 0;
-  let variavelGraficoCustoTotal_dc2 = 0;
-  let variavelGraficoCustoTotal_dc3 = 0;
+  array_transacao_dc1.length = 0;
+  array_transacao_dc2.length = 0;
+  array_transacao_dc3.length = 0;
+
+  valor24_dc1 = 0;
+  valor24_dc2 = 0;
+  valor24_dc3 = 0;
+
+  valorHora24_dc1 = 0;
+  valorHora24_dc2 = 0;
+  valorHora24_dc3 = 0;
+
+  horas24_dc1 = 0;
+  horas24_dc2 = 0;
+  horas24_dc3 = 0;
+
+  minutos24_dc1 = 0;
+  minutos24_dc2 = 0;
+  minutos24_dc3 = 0;
+
+  custoHora24_dc1 = 0;
+  custoHora24_dc2 = 0;
+  custoHora24_dc3 = 0;
+
+  custoMedio24_dc1 = 0;
+  custoMedio24_dc2 = 0;
+  custoMedio24_dc3 = 0;
+
+  custoTotal24_dc1 = 0;
+  custoTotal24_dc2 = 0;
+  custoTotal24_dc3 = 0;
+
+  valor7_dc1 = 0;
+  valor7_dc2 = 0;
+  valor7_dc3 = 0;
+
+  valor30_dc1 = 0;
+  valor30_dc2 = 0;
+  valor30_dc3 = 0;
 
   tempoSelecionado = 24;
 
-  if (tempoSelecionado == 24) {
+  if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
     fetch("http://localhost:3000/pix/pegarPix").then((res) => {
@@ -157,25 +207,25 @@ function carregar() {
         }
 
         for (let i = 0; i < array_transacao_dc1.length; i++) {
-          if (i < 7) {
+          if (i == 0) {
+            valor24_dc1 += array_transacao_dc1[i];
+            valor24_dc2 += array_transacao_dc2[i];
+            valor24_dc3 += array_transacao_dc3[i];
+          } else if (i < 7) {
             valor7_dc1 += array_transacao_dc1[i];
             valor7_dc2 += array_transacao_dc2[i];
             valor7_dc3 += array_transacao_dc3[i];
-          }
-          if (i < 30) {
+          } else if (i < 30) {
             valor30_dc1 += array_transacao_dc1[i];
             valor30_dc2 += array_transacao_dc2[i];
             valor30_dc3 += array_transacao_dc3[i];
           }
         }
 
-        valor24_dc1 = array_transacao_dc1[0];
         valorHora24_dc1 = Math.ceil(valor24_dc1 / 24);
 
-        valor24_dc2 = array_transacao_dc2[0];
         valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
 
-        valor24_dc3 = array_transacao_dc3[0];
         valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
 
         console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
@@ -195,35 +245,50 @@ function carregar() {
             for (let i = 0; i < resjson.length; i++) {
               const dataCenter_atual = resjson[i].data_center;
               const hora_atual = Number(resjson[i].tempo_medio_horas);
+              const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
               if (dataCenter_atual == "Data Center 1") {
-                horas24_dc1 = hora_atual;
+                minutos24_dc1 = minuto_atual;
               } else if (dataCenter_atual == "Data Center 2") {
-                horas24_dc2 = hora_atual;
+                minutos24_dc2 = minuto_atual;
               } else {
-                horas24_dc3 = hora_atual;
+                minutos24_dc3 = minuto_atual;
               }
             }
+
+            console.log("Minutos 24h DC1: " + minutos24_dc1);
+            console.log("Minutos 24h DC2:  " + minutos24_dc2);
+            console.log("Minutos 24h DC3: " + minutos24_dc3);
+
+            horas24_dc1 = Math.ceil(minutos24_dc1 / 60);
+            horas24_dc2 = Math.ceil(minutos24_dc2 / 60);
+            horas24_dc3 = Math.ceil(minutos24_dc3 / 60);
 
             console.log("Horas 24h DC1: " + horas24_dc1);
             console.log("Horas 24h DC2: " + horas24_dc2);
             console.log("Horas 24h DC3: " + horas24_dc3);
 
-            valorHora24_dc1 = Math.floor(valor24_dc1 / 24);
-            valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
-            valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
+            valorHora24_dc1 = Math.ceil(valor24_dc1 / 24);
+            valorHora24_dc2 = Math.ceil(valor24_dc2 / 24);
+            valorHora24_dc3 = Math.ceil(valor24_dc3 / 24);
 
             console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
             console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
             console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
 
-            custoHora24_dc1 = valorHora24_dc1 * horas24_dc1;
-            custoHora24_dc2 = valorHora24_dc2 * horas24_dc2;
-            custoHora24_dc3 = valorHora24_dc3 * horas24_dc3;
+            custoHora24_dc1 = Math.ceil(valorHora24_dc1 * horas24_dc1);
+            custoHora24_dc2 = Math.ceil(valorHora24_dc2 * horas24_dc2);
+            custoHora24_dc3 = Math.ceil(valorHora24_dc3 * horas24_dc3);
+
+            console.log("Custo Hora 24h DC1: " + custoHora24_dc1);
+            console.log("Custo Hora 24h DC2: " + custoHora24_dc2);
+            console.log("Custo Hora 24h DC3: " + custoHora24_dc3);
 
             let menorCusto24 = Math.ceil(
               Math.min(custoHora24_dc1, custoHora24_dc2, custoHora24_dc3)
             );
+
+            // deixo o valor default
             let menorCusto24_dc = 1;
 
             if (menorCusto24 === custoHora24_dc2) {
@@ -236,7 +301,7 @@ function carregar() {
             data_center_investir.innerHTML = menorCusto24_dc;
             custo_hora.innerHTML = menorCusto24;
 
-            // calcular o Custo Total
+            // Calcular o Custo Total
             // CUSTO TOTAL = VALOR TOTAL * TEMPO_MEDIO(TEMPO) * TEMPO
             // ex CUSTO TOTAL 30D = VALOR TOTAL(30D) * TEMPO_MEDIO(30D) * 30
 
@@ -248,18 +313,10 @@ function carregar() {
             console.log("Custo Total 24 DC2: " + custoTotal24_dc2);
             console.log("Custo Total 24 DC3: " + custoTotal24_dc3);
 
-            variavelGraficoCustoTotal_dc1 = custoTotal24_dc1;
-            variavelGraficoCustoTotal_dc2 = custoTotal24_dc2;
-            variavelGraficoCustoTotal_dc3 = custoTotal24_dc3;
-
             // atualziar gráfico com custo total
             chart.updateSeries([
               {
-                data: [
-                  variavelGraficoCustoTotal_dc1,
-                  variavelGraficoCustoTotal_dc2,
-                  variavelGraficoCustoTotal_dc3,
-                ],
+                data: [custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3],
               },
             ]);
 
@@ -318,135 +375,37 @@ function calcularValorHora(valor, dias) {
 }
 
 function filtrar(tempo) {
-  if (tempo == 24) {
-    fetch("/adm/datacenter/media-resolucao/victao/24h").then((res) => {
-      res.json().then((resjson) => {
-        for (let i = 0; i < resjson.length; i++) {
-          const dataCenter_atual = resjson[i].data_center;
-          const hora_atual = Number(resjson[i].tempo_medio_horas);
+  tempoSelecionado = tempo;
 
-          if (dataCenter_atual == "Data Center 1") {
-            horas24_dc1 = hora_atual;
-          } else if (dataCenter_atual == "Data Center 2") {
-            horas24_dc2 = hora_atual;
-          } else {
-            horas24_dc3 = hora_atual;
-          }
-
-          console.log("Horas 24h DC1: " + horas24_dc1);
-          console.log("Horas 24h DC2: " + horas24_dc2);
-          console.log("Horas 24h DC3: " + horas24_dc3);
-
-          valorHora24_dc1 = Math.floor(valor24_dc1 / 24);
-          valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
-          valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
-
-          console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
-          console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
-          console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
-
-          custoHora24_dc1 = Math.ceil(valorHora24_dc1 * horas24_dc1);
-          custoHora24_dc2 = Math.ceil(valorHora24_dc2 * horas24_dc2);
-          custoHora24_dc3 = Math.ceil(valorHora24_dc3 * horas24_dc3);
-
-          let menorCusto24 = Math.ceil(
-            Math.min(custoHora24_dc1, custoHora24_dc2, custoHora24_dc3)
-          );
-
-          // deixo o valor default
-          let menorCusto24_dc = 1;
-
-          if (menorCusto24 === custoHora24_dc2) {
-            menorCusto24_dc = 2;
-          } else if (menorCusto24 === custoHora24_dc3) {
-            menorCusto24_dc = 3;
-          }
-
-          data_center_custo.innerHTML = menorCusto24_dc;
-          data_center_investir.innerHTML = menorCusto24_dc;
-          custo_hora.innerHTML = menorCusto24;
-
-          // calcular o Custo Total
-          custoTotal24_dc1 = Math.ceil(valor24_dc1 * horas24_dc1);
-          custoTotal24_dc2 = Math.ceil(valor24_dc2 * horas24_dc2);
-          custoTotal24_dc3 = Math.ceil(valor24_dc3 * horas24_dc3);
-
-          console.log("Custo Total 24 DC1: " + custoTotal24_dc1);
-          console.log("Custo Total 24 DC2: " + custoTotal24_dc2);
-          console.log("Custo Total 24 DC3: " + custoTotal24_dc3);
-
-          // atualziar gráfico com custo total
-          chart.updateSeries([
-            {
-              data: [custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3],
-            },
-          ]);
-
-          let menorCustoTotal24 = Math.ceil(
-            Math.min(custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3)
-          );
-
-          // deixo o valor default
-          let menorCustoTotal24_dc = 1;
-
-          if (menorCustoTotal24 === custoTotal24_dc2) {
-            menorCustoTotal24_dc = 2;
-          } else if (menorCustoTotal24 === custoTotal24_dc3) {
-            menorCustoTotal24_dc = 3;
-          }
-
-          data_center_total.innerHTML = menorCustoTotal24_dc;
-          data_center_investir.innerHTML = menorCustoTotal24_dc;
-          custo_total.innerHTML = menorCusto24;
-
-          fetch("http://localhost:3333/adm/alertas/24h").then((res) => {
-            res.json().then((resjson) => {
-              let total_alertas_24 = resjson[0].total_alertas;
-
-              custoMedio24_dc1 = custoTotal24_dc1 / total_alertas_24;
-              custoMedio24_dc2 = custoTotal24_dc2 / total_alertas_24;
-              custoMedio24_dc3 = custoTotal24_dc3 / total_alertas_24;
-
-              let menorCustoMedio24 = Math.ceil(
-                Math.min(custoMedio24_dc1, custoMedio24_dc2, custoMedio24_dc3)
-              );
-
-              // deixo o valor default
-              let menorCustoMedio24_dc = 1;
-
-              console.warn("Custo Medio 24h DC1: " + custoMedio24h_dc1);
-              console.warn("Custo Medio 24h DC2: " + custoMedio24h_dc2);
-              console.warn("Custo Medio 24h DC3: " + custoMedio24h_dc3);
-
-              if (menorCustoMedio24 === custoMedio24_dc2) {
-                menorCustoMedio24_dc = 2;
-              } else if (menorCustoMedio24 === custoMedio24_dc3) {
-                menorCustoMedio24_dc = 3;
-              }
-
-              data_center_medio.innerHTML = menorCustoMedio24_dc;
-              data_center_investir.innerHTML = menorCustoMedio24_dc;
-              custo_medio.innerHTML = menorCustoMedio24;
-            });
-          });
-        }
-      });
-    });
+  if (tempo === 24) {
+    carregar();
+    return;
   } else if (tempo == 7) {
-    fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
+    fetch(
+      "http://localhost:3333/adm/datacenter/media-resolucao/victao/7d"
+    ).then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
           const hora_atual = Number(resjson[i].tempo_medio_horas);
+          const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
           if (dataCenter_atual == "Data Center 1") {
-            horas7_dc1 = hora_atual;
+            minutos7_dc1 = minuto_atual;
           } else if (dataCenter_atual == "Data Center 2") {
-            horas7_dc2 = hora_atual;
+            minutos7_dc2 = minuto_atual;
           } else {
-            horas7_dc3 = hora_atual;
+            minutos7_dc3 = minuto_atual;
           }
         }
+
+        console.log("Minutos 7d DC1: " + minutos7_dc1);
+        console.log("Minutos 7d DC2: " + minutos7_dc2);
+        console.log("Minutos 7d DC3: " + minutos7_dc3);
+
+        horas7_dc1 = Math.ceil(minutos7_dc1 / 60);
+        horas7_dc2 = Math.ceil(minutos7_dc2 / 60);
+        horas7_dc3 = Math.ceil(minutos7_dc3 / 60);
 
         console.log("Horas 7d DC1: " + horas7_dc1);
         console.log("Horas 7d DC2: " + horas7_dc2);
@@ -463,6 +422,10 @@ function filtrar(tempo) {
         custoHora7_dc1 = Math.ceil(valorHora7_dc1 * horas7_dc1);
         custoHora7_dc2 = Math.ceil(valorHora7_dc2 * horas7_dc2);
         custoHora7_dc3 = Math.ceil(valorHora7_dc3 * horas7_dc3);
+
+        console.log("Custo Hora 7d DC1: " + custoHora7_dc1);
+        console.log("Custo Hora 7d DC2: " + custoHora7_dc2);
+        console.log("Custo Hora 7d DC3: " + custoHora7_dc3);
 
         let menorCusto7 = Math.ceil(
           Math.min(custoHora7_dc1, custoHora7_dc2, custoHora7_dc3)
@@ -481,7 +444,7 @@ function filtrar(tempo) {
         data_center_investir.innerHTML = menorCusto7_dc;
         custo_hora.innerHTML = menorCusto7;
 
-        // calcular o Custo Total
+        // Calcular o Custo Total
         custoTotal7_dc1 = Math.ceil(valor7_dc1 * horas7_dc1);
         custoTotal7_dc2 = Math.ceil(valor7_dc2 * horas7_dc2);
         custoTotal7_dc3 = Math.ceil(valor7_dc3 * horas7_dc3);
@@ -490,16 +453,16 @@ function filtrar(tempo) {
         console.log("Custo Total 7 DC2: " + custoTotal7_dc2);
         console.log("Custo Total 7 DC3: " + custoTotal7_dc3);
 
+        let menorCustoTotal7 = Math.ceil(
+          Math.min(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
+        );
+
         // atualziar gráfico com custo total
         chart.updateSeries([
           {
             data: [custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3],
           },
         ]);
-
-        let menorCustoTotal7 = Math.ceil(
-          Math.min(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
-        );
 
         // deixo o valor default
         let menorCustoTotal7_dc = 1;
@@ -554,114 +517,126 @@ function filtrar(tempo) {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
           const hora_atual = Number(resjson[i].tempo_medio_horas);
+          const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
           if (dataCenter_atual == "Data Center 1") {
-            horas30_dc1 = hora_atual;
+            minutos30_dc1 = minuto_atual;
           } else if (dataCenter_atual == "Data Center 2") {
-            horas30_dc2 = hora_atual;
+            minutos30_dc2 = minuto_atual;
           } else {
-            horas30_dc3 = hora_atual;
+            minutos30_dc3 = minuto_atual;
           }
-        }
 
-        console.log("Horas 30d DC1: " + horas30_dc1);
-        console.log("Horas 30d DC2: " + horas30_dc2);
-        console.log("Horas 30d DC3: " + horas30_dc3);
+          console.log("Minutos 30d DC1 (filtrar): " + minutos30_dc1);
+          console.log("Minutos 30d DC2 (filtrar): " + minutos30_dc2);
+          console.log("Minutos 30d DC3 (filtrar): " + minutos30_dc3);
 
-        valorHora30_dc1 = Math.floor(valor30_dc1 / 30 / 24);
-        valorHora30_dc2 = Math.floor(valor30_dc2 / 30 / 24);
-        valorHora30_dc3 = Math.floor(valor30_dc3 / 30 / 24);
+          horas30_dc1 = Math.ceil(minutos30_dc1 / 60);
+          horas30_dc2 = Math.ceil(minutos30_dc2 / 60);
+          horas30_dc3 = Math.ceil(minutos30_dc3 / 60);
 
-        console.log("Valor Hora 30d DC1: " + valorHora30_dc1);
-        console.log("Valor Hora 30d DC2: " + valorHora30_dc2);
-        console.log("Valor Hora 30d DC3: " + valorHora30_dc3);
+          console.log("Horas 30d DC1 (filtrar): " + horas30_dc1);
+          console.log("Horas 30d DC2 (filtrar): " + horas30_dc2);
+          console.log("Horas 30d DC3 (filtrar): " + horas30_dc3);
 
-        custoHora30_dc1 = Math.ceil(valorHora30_dc1 * horas30_dc1);
-        custoHora30_dc2 = Math.ceil(valorHora30_dc2 * horas30_dc2);
-        custoHora30_dc3 = Math.ceil(valorHora30_dc3 * horas30_dc3);
+          valorHora30_dc1 = Math.floor(valor30_dc1 / 30 / 24);
+          valorHora30_dc2 = Math.floor(valor30_dc2 / 30 / 24);
+          valorHora30_dc3 = Math.floor(valor30_dc3 / 30 / 24);
 
-        console.log("Custo Hora 30d DC1: " + custoHora30_dc1);
-        console.log("Custo Hora 30d DC2: " + custoHora30_dc2);
-        console.log("Custo Hora 30d DC3: " + custoHora30_dc3);
+          console.log("Valor Hora 30d DC1 (filtrar): " + valorHora30_dc1);
+          console.log("Valor Hora 30d DC2 (filtrar): " + valorHora30_dc2);
+          console.log("Valor Hora 30d DC3 (filtrar): " + valorHora30_dc3);
 
-        let menorCusto30 = Math.ceil(
-          Math.min(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
-        );
+          custoHora30_dc1 = Math.ceil(valorHora30_dc1 * horas30_dc1);
+          custoHora30_dc2 = Math.ceil(valorHora30_dc2 * horas30_dc2);
+          custoHora30_dc3 = Math.ceil(valorHora30_dc3 * horas30_dc3);
 
-        // deixo o valor default
-        let menorCusto30_dc = 1;
+          console.log("Custo Hora 30d DC1 (filtrar): " + custoHora30_dc1);
+          console.log("Custo Hora 30d DC2 (filtrar): " + custoHora30_dc2);
+          console.log("Custo Hora 30d DC3 (filtrar): " + custoHora30_dc3);
 
-        if (menorCusto30 === custoHora30_dc2) {
-          menorCusto30_dc = 2;
-        } else if (menorCusto30 === custoHora30_dc3) {
-          menorCusto30_dc = 3;
-        }
+          let menorCusto30 = Math.ceil(
+            Math.min(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
+          );
 
-        data_center_custo.innerHTML = menorCusto30_dc;
-        data_center_investir.innerHTML = menorCusto30_dc;
-        custo_hora.innerHTML = menorCusto30;
+          // deixo o valor default
+          let menorCusto30_dc = 1;
 
-        // Calcular o Custo Total 30 dias
-        custoTotal30_dc1 = Math.ceil(valor30_dc1 * horas30_dc1);
-        custoTotal30_dc2 = Math.ceil(valor30_dc2 * horas30_dc2);
-        custoTotal30_dc3 = Math.ceil(valor30_dc3 * horas30_dc3);
+          if (menorCusto30 === custoHora30_dc2) {
+            menorCusto30_dc = 2;
+          } else if (menorCusto30 === custoHora30_dc3) {
+            menorCusto30_dc = 3;
+          }
 
-        console.log("Custo Total 30 DC1: " + custoTotal30_dc1);
-        console.log("Custo Total 30 DC2: " + custoTotal30_dc2);
-        console.log("Custo Total 30 DC3: " + custoTotal30_dc3);
+          data_center_custo.innerHTML = menorCusto30_dc;
+          data_center_investir.innerHTML = menorCusto30_dc;
+          custo_hora.innerHTML = menorCusto30;
 
-        // atualziar gráfico com custo total
-        chart.updateSeries([
-          {
-            data: [custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3],
-          },
-        ]);
+          // Calcular o Custo Total 30 dias
+          custoTotal30_dc1 = Math.ceil(valor30_dc1 * horas30_dc1);
+          custoTotal30_dc2 = Math.ceil(valor30_dc2 * horas30_dc2);
+          custoTotal30_dc3 = Math.ceil(valor30_dc3 * horas30_dc3);
 
-        let menorCustoTotal30 = Math.floor(
-          Math.min(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
-        );
+          console.log("Custo Total 30 DC1: " + custoTotal30_dc1);
+          console.log("Custo Total 30 DC2: " + custoTotal30_dc2);
+          console.log("Custo Total 30 DC3: " + custoTotal30_dc3);
 
-        // deixo o valor default
-        let menorCustoTotal30_dc = 1;
+          // atualziar gráfico com custo total
+          chart.updateSeries([
+            {
+              data: [custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3],
+            },
+          ]);
 
-        if (menorCustoTotal30 === custoTotal30_dc2) {
-          menorCustoTotal30_dc = 2;
-        } else if (menorCustoTotal30 === custoTotal30_dc3) {
-          menorCustoTotal30_dc = 3;
-        }
+          let menorCustoTotal30 = Math.floor(
+            Math.min(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
+          );
 
-        data_center_total.innerHTML = menorCustoTotal30_dc;
-        data_center_investir.innerHTML = menorCustoTotal30_dc;
-        custo_total.innerHTML = menorCusto30;
+          // deixo o valor default
+          let menorCustoTotal30_dc = 1;
 
-        // Calcular o Custo Médio 30 dias
+          if (menorCustoTotal30 === custoTotal30_dc2) {
+            menorCustoTotal30_dc = 2;
+          } else if (menorCustoTotal30 === custoTotal30_dc3) {
+            menorCustoTotal30_dc = 3;
+          }
 
-        fetch("http://localhost:3333/adm/alertas/30d").then((res) => {
-          res.json().then((resjson) => {
-            let total_alertas_30 = resjson[0].total_alertas;
+          data_center_total.innerHTML = menorCustoTotal30_dc;
+          data_center_investir.innerHTML = menorCustoTotal30_dc;
+          custo_total.innerHTML = menorCusto30;
 
-            custoMedio30_dc1 = Math.ceil(custoTotal30_dc1 / total_alertas_30);
-            custoMedio30_dc2 = Math.ceil(custoTotal30_dc2 / total_alertas_30);
-            custoMedio30_dc3 = Math.ceil(custoTotal30_dc3 / total_alertas_30);
+          // Calcular o Custo Médio 30 dias
+          fetch("http://localhost:3333/adm/alertas/30d").then((res) => {
+            res.json().then((resjson) => {
+              let total_alertas_30 = resjson[0].total_alertas;
 
-            let menorCustoMedio30 = Math.ceil(
-              Math.min(custoMedio30_dc1, custoMedio30_dc2, custoMedio30_dc3)
-            );
+              custoMedio30_dc1 = Math.ceil(custoTotal30_dc1 / total_alertas_30);
+              custoMedio30_dc2 = Math.ceil(custoTotal30_dc2 / total_alertas_30);
+              custoMedio30_dc3 = Math.ceil(custoTotal30_dc3 / total_alertas_30);
 
-            // deixo o valor default
-            let menorCustoMedio30_dc = 1;
+              let menorCustoMedio30 = Math.ceil(
+                Math.min(custoMedio30_dc1, custoMedio30_dc2, custoMedio30_dc3)
+              );
 
-            if (menorCustoMedio30 === custoMedio30_dc2) {
-              menorCustoMedio30_dc = 2;
-            } else if (menorCustoMedio30 === custoMedio30_dc3) {
-              menorCustoMedio30_dc = 3;
-            }
+              // deixo o valor default
+              let menorCustoMedio30_dc = 1;
 
-            data_center_medio.innerHTML = menorCustoMedio30_dc;
-            data_center_investir.innerHTML = menorCustoMedio30_dc;
-            custo_medio.innerHTML = menorCustoMedio30;
+              console.log("Custo Medio 30d DC1: " + custoMedio30_dc1);
+              console.log("Custo Medio 30d DC2: " + custoMedio30_dc2);
+              console.log("Custo Medio 30d DC3: " + custoMedio30_dc3);
+
+              if (menorCustoMedio30 === custoMedio30_dc2) {
+                menorCustoMedio30_dc = 2;
+              } else if (menorCustoMedio30 === custoMedio30_dc3) {
+                menorCustoMedio30_dc = 3;
+              }
+
+              data_center_medio.innerHTML = menorCustoMedio30_dc;
+              data_center_investir.innerHTML = menorCustoMedio30_dc;
+              custo_medio.innerHTML = menorCustoMedio30;
+            });
           });
-        });
+        }
       });
     });
   }
