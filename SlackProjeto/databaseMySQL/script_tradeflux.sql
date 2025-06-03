@@ -405,6 +405,41 @@ WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
 GROUP BY dc.nome
 ORDER BY total_alertas DESC;
 
+SELECT 
+    DATE(a.data_gerado) AS data_alerta,
+    SUM(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS alertas_atencao,
+    SUM(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS alertas_criticos,
+    COUNT(*) AS total_alertas
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+WHERE s.fk_data_center = 1
+  AND a.data_gerado >= CURDATE() - INTERVAL 29 DAY
+GROUP BY DATE(a.data_gerado)
+ORDER BY DATE(a.data_gerado);
+
+SELECT
+    status,
+    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM servidor_cliente WHERE fk_data_center = 1), 2) AS percentual
+FROM (
+    SELECT 
+        s.idservidor,
+        MAX(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS tem_critico,
+        MAX(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS tem_atencao,
+        CASE 
+            WHEN MAX(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) = 1 THEN 'Crítico'
+            WHEN MAX(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) = 1 THEN 'Atenção'
+            ELSE 'Estável'
+        END AS status
+    FROM servidor_cliente s
+    LEFT JOIN parametro_servidor p ON s.idservidor = p.fk_servidor
+    LEFT JOIN alerta a ON p.idparametros_servidor = a.fk_parametro
+        AND a.data_gerado >= NOW() - INTERVAL 30 DAY
+    WHERE s.fk_data_center = 1
+    GROUP BY s.idservidor
+) AS classificacao
+GROUP BY status;
+
 
 -- 6. Rotas - Data Centers alertas atrasados
 -- View para alertas atrasados por data center (24h)

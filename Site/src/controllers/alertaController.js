@@ -39,16 +39,37 @@ function getTopServidoresAlertas(req, res) {
 function getAlertaUnsolved(req, res) {
   idDataCenter = req.params.dataCenter
     alertaModel.getAlertaUnsolved(idDataCenter).then((resultado) => {
+              res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+function getAlertasCalendario(req, res) {
+  idDataCenter = req.params.dataCenter
+    alertaModel.getAlertasCalendario(idDataCenter).then((resultado) => {
         res.status(200).json(resultado);
     }).catch(function(erro){
         console.log(erro);
         res.status(500).json(erro.sqlMessage);
     })
 }
+function getStatusServidores(req, res) {
+  idDataCenter = req.params.dataCenter
+    alertaModel.getStatusServidores(idDataCenter).then((resultado) => {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
   exibirAlertas,
   getTotalAlertas,
   getQtdAlertasComponente,
   getTopServidoresAlertas,
-  getAlertaUnsolved
-};
+  getAlertaUnsolved,
+  getAlertasCalendario,
+  getStatusServidores
+}

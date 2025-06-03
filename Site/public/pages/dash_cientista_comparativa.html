@@ -1,175 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
       integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-    <link rel="stylesheet" href="../css/barra_lateral.css">
-    <link rel="stylesheet" href="../css/dashComparativa.css">
+    <link rel="stylesheet" href="../css/barra_lateral.css" />
+    <link rel="stylesheet" href="../css/dashComparativa.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../js/barra_lateral.js" defer></script>
     <script src="../js/dashComparativa.js" defer></script>
 
     <title>Document</title>
-  
   </head>
-  <body onload="carregarMenuLateral(); geradorGraficos('Barra')" style="background-color: #f2f3f7;">
-    
-    <div class="navbar">
-      <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+  <body onload="carregarMenuLateral(); geradorGraficos('Barra'); gerarBotao();">
+    <main>
+      <div class="navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
         <div class="container_perfil_menu" id="modal_perfil">
           <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
           <span class="barraVertical"></span>
           <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
-            <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
-            <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
-            <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+            <img
+              class="imgPerfil"
+              id="rogerioCientista2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/rogerioCientista.png"
+              alt=""
+              height="80"
+            />
+            <img
+              class="imgPerfil"
+              id="jenniferADM2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/jenniferADM.png"
+              alt=""
+              height="80"
+            />
+            <img
+              class="imgPerfil"
+              id="juliaAnalista2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/juliaAnalista.png"
+              alt=""
+              height="80"
+            />
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </div>
-    </div>
-    
-    <div id="barralateral" class="barra-lateral"></div>
-    
-    <main>
+      </div>
+      <div id="barralateral" class="barra-lateral"></div>
+
       <header>
-    
-    <div>
-      <div>
-        
-        <input type="radio" name="server" id="iptRdServerEscolhido">
-        <label for="iptRDServerEscolhido">Escolher servidor:</label>
-        <input type="text" id="iptServidorPersonalizado" placeholder="Digite aqui seu Servidor" disabled>
+        <div>
+          <input type="radio" name="server" id="iptRdServerCPU" checked />
+          <label for="iptRdServerCPU"
+            >Servidor com maior utilização da CPU</label
+          >
 
-        <!-- O name serve para eles pertencerem todos ao msm grupo e o For para poder clicar no texto e não só na bolinha (Label é Etiqueta, ou seja, tamo etiquetando os radio) -->
+          <input type="radio" name="server" id="iptRdServerRAM" />
+          <label for="iptRdServerRAM"
+            >Servidor com maior utilização da RAM</label
+          >
 
-      </div>
-      <div>
-        
-        <input type="radio" name="server" id="iptRdServerCPU">
-        <label for="iptServerCPU">Escolher servidor com maior utilização da CPU</label>
-        
-        <input type="radio" name="server" id="iptRdServerRAM">
-        <label for="iptServerRAM">Escolher servidor com maior utilização da RAM</label>
-        
-        <input type="radio" name="server" id="iptRdServerDisco">
-        <label for="iptServerDisco">Escolher servidor com maior utilização do Disco</label>
-      
-      </div>
-    </div>
+          <input type="radio" name="server" id="iptRdServerDisco" />
+          <label for="iptRdServerDisco"
+            >Servidor com maior utilização do Disco</label
+          >
 
-    <div>
-      
-      <div>
+          <div class="divPersonalizadaServidorEscolhido">
+           
+            <div>
+              <input type="radio" name="server" id="iptRdServerEscolhido" />
+              <label for="iptRdServerEscolhido">Servidor específico:</label>
+            </div>
 
-        <select name="tempo" id="sltPeriodo">
-          <option value="optPeriodo7Dias" selected>Últimos 7 dias</option>
-          <option value="optPeriodo30Dias">Últimos 30 dias</option>
-          <option value="optPeriodo6Meses">Últimos 6 meses</option>
-          <option value="optPeriodoPersonalizado">Personalizado</option>
-        </select>
-      
-      </div>
+            <select name="serverSlt" id="sltServidor" disabled>
+              <option value="#" selected disabled>Selecione um:</option>
+              <option value="optServidor1">Servidor 1</option>
+              <option value="optServidor2">Servidor 2</option>
+              <option value="optServidor3">Servidor 3</option>
+              <option value="optServidor4">Servidor 4</option>
+              <option value="optServidor5">Servidor 5</option>
+              <option value="optServidor6">Servidor 6</option>
+              <option value="optServidor7">Servidor 7</option>
+              <option value="optServidor8">Servidor 8</option>
+              <option value="optServidor9">Servidor 9</option>
+              <option value="optServidor10">Servidor 10</option>
+            </select>
 
-      <div class="divPersonalizada esconder" id="divPersonalizada">
-        
-        <span>De</span>
-        <input type="date" id="iptDateComeco">
-        
-        <span>Até</span>
-        <input type="date" id="iptDateFinal">
+            <!-- O name serve para eles pertencerem todos ao msm grupo e o For para poder clicar no texto e não só na bolinha (Label é Etiqueta, ou seja, tamo etiquetando os radio) -->
+          
+          </div>
+        </div>
 
-      </div>
-    
-    </div>
-  </header>
+        <div class="divDatas">
+          <select name="tempo" id="sltPeriodo">
+            <option value="optPeriodo7Dias" selected>Últimos 7 dias</option>
+            <option value="optPeriodo30Dias">Últimos 30 dias</option>
+            <option value="optPeriodo6Meses">Últimos 6 meses</option>
+            <option value="optPeriodoPersonalizado">Personalizado</option>
+          </select>
+
+          <div class="divPersonalizadaData esconder" id="divPersonalizadaData">
+            <span>De</span>
+            <input type="date" id="iptDateComeco" />
+
+            <span>Até</span>
+            <input type="date" id="iptDateFinal" />
+          </div>
+        </div>
+      </header>
 
       <div id="myBarChart"></div>
-      <div id="myLineChart"></div>
 
+      <div class="container-tabela">
+        <div class="table-container">
+            <h2 class="table-title">Top 5 processos</h2>
+            <table id="processTable">
+                <thead>
+                    <tr>
+                        <th id="processHeader" onclick="sortTable('process')">Processo</th>
+                        <th id="cpuHeader" onclick="sortTable('cpu')">CPU</th>
+                        <th id="ramHeader" onclick="sortTable('ram')">RAM</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Conteúdo será gerado pelo JavaScript -->
+                </tbody>
+            </table>
+            <div class="sort-info">
+                Clique nas colunas para ordenar do maior ao menor
+            </div>
+            <div class="button-container">
+                <button class="action-btn secondary" onclick="exportData()">Exportar CSV dos processos</button>
+            </div>
+        </div>
+        <!-- Versão atual com texto -->
+        <button class="open-modal-btn" onclick="openModal()">
+          Modal teste
+        </button>
+        <button class="open-modal-btn" id="botaoBaixar" onclick="baixarCSV()">
+        </button>
+
+      </div>
+
+      <div id="modal" class="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Gráfico de linha comparativo</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="myLineChart"></div>
+                <select name="serverSlt" id="sltServidor2">
+                  <option value="#" selected disabled>Selecione um:</option>
+                  <option value="optServidor1">Servidor 1</option>
+                  <option value="optServidor2">Servidor 2</option>
+                  <option value="optServidor3">Servidor 3</option>
+                  <option value="optServidor4">Servidor 4</option>
+                  <option value="optServidor5">Servidor 5</option>
+                  <option value="optServidor6">Servidor 6</option>
+                  <option value="optServidor7">Servidor 7</option>
+                  <option value="optServidor8">Servidor 8</option>
+                  <option value="optServidor9">Servidor 9</option>
+                  <option value="optServidor10">Servidor 10</option>
+                </select>
+                <div id="myLineChart2"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Fechar</button>
+                <button class="btn btn-primary" onclick="handleAction()">Confirmar</button>
+            </div>
+        </div>
+      </div>
     </main>
-
   </body>
 </html>
-
-<script>
-
-    var options = {
-
-        chart: {
-            type: 'line',
-            height: 350
-        },
-      
-        series: [{
-      
-        // Servidor 1
-
-            name: 'CPU utilizada (Servidor 1)',
-            data: [10, 41, 35, 51, 49, 62, 69]
-        },{
-          name: 'RAM utilizada (Servidor 1)',
-          data: [50, 80, 30, 58, 26, 54, 15]
-        },{
-          name: 'Disco utilizado (Servidor 1)',
-          data: [60, 58, 62, 65, 63, 60, 65]
-        },
-        
-        // Servidor 2
-        
-        {
-          name: 'CPU utilizada (Servidor 2)',
-          data: [60, 70, 90, 80, 70, 60, 45]
-        },{
-          name: 'RAM utilizada (Servidor 2)',
-          data: [80, 70, 75, 78, 85, 88, 92]
-        },{
-          name: 'Disco utilizado (Servidor 2)',
-          data: [50, 80, 30, 58, 26, 54, 15]
-        }
-      
-      
-      ],
-        xaxis: {
-            categories: ['01/04', '02/04', '03/04', '04/04', '05/04', '06/04', '07/04']
-        },
-        yaxis : {
-          max: 100
-        },
-        title: {
-            text: 'Média do gasto de recursos',
-            align: 'center'
-        },
-        stroke: {
-            curve: 'straight'
-        },
-        markers: {
-            size: 4
-        },
-        colors: ['#92DC00', '#00FF00', '#0000FF', '#169916', '#FF00FF', '#00FFFF']
-
-    };
-
-    var chart = new ApexCharts(document.querySelector("#myLineChart"), options);
-    chart.render();
-
-</script> 
-
-<!-- Tipos de gráficos que vão ser usados:
-
-line
-https://apexcharts.com/docs/chart-types/line-chart/
-
-bar
-https://apexcharts.com/docs/chart-types/bar-chart/
-
--->
