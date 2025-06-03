@@ -1,7 +1,5 @@
 let dadosServidores = []
 
-let servidorTravado = false;
-
 let cores = {
   'critico': '#ff1900',
   'alerta': '#ffa617',
@@ -13,6 +11,28 @@ let criado = false
 criticos = 0
 moderados = 0
 
+let metricaOrder = 'criticidade'
+let booleanOrder = false
+
+async function atualizarDadosEmTempoReal() {
+  try {
+    const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
+    const dados = await resposta.json();
+    
+    dadosServidores = dados.map(jsonServer => ({
+      servidor: jsonServer.servidor,
+      dados: jsonServer.dados
+    }));
+    console.log(dadosServidores)
+    let ordenado = ordenar();
+    let maisCritico = ordenado[0]
+    destacarServidor(maisCritico)
+    carregarServidoresTabela(ordenado)
+  } catch (erro) {
+    console.error("Erro ao buscar dados em tempo real:", erro);
+  }
+}
+
  const kpiCritico = document.getElementById("kpi-critico")
  const kpiModerado = document.getElementById("kpi-moderado")
 
@@ -20,6 +40,7 @@ moderados = 0
  const corpoFisico = document.querySelector("#linechart-fisico")
 
 function compararData(d1, d2){
+  if(d1.length < 9 && d2.length < 9){
   let dias1 = Number(d1[0] + d1[1])
   let dias2 = Number(d2[0] + d2[1])
    if(dias1 > dias2){
@@ -43,6 +64,79 @@ function compararData(d1, d2){
    }
    }
    }
+  } else  if (d1.length == 9 && d2.length < 9){
+    let dias1 = Number(d1[0] + d1[1] + d1[2])
+  let dias2 = Number(d2[0] + d2[1])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[4] + d1[5])
+  let horas2 = Number(d2[3] + d2[4])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[7] + d1[8])
+  let min2 = Number(d2[6] + d2[7])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+}else  if (d1.length < 9 && d2.length == 9){
+    let dias1 = Number(d1[0] + d1[1])
+  let dias2 = Number(d2[0] + d2[1] + d2[2])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[3] + d1[4])
+  let horas2 = Number(d2[4] + d2[5])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[6] + d1[7])
+  let min2 = Number(d2[7] + d2[8])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+} else {
+      let dias1 = Number(d1[0] + d1[1] + d1[2])
+  let dias2 = Number(d2[0] + d2[1] + d2[2])
+   if(dias1 > dias2){
+    return 1
+   } else if (dias1 < dias2){
+    return -1
+   } else {
+  let horas1 = Number(d1[4] + d1[5])
+  let horas2 = Number(d2[4] + d2[5])
+   if(horas1 > horas2){
+    return 1
+   } else if (horas1 < horas2){
+    return -1
+   } else {
+  let min1 = Number(d1[7] + d1[8])
+  let min2 = Number(d2[7] + d2[8])
+   if(min1 > min2){
+    return 1
+   } else if (min1 < min2){
+    return -1
+   }
+   }
+  }
+} 
 }
 
 dadosSelecionado = []
@@ -52,18 +146,6 @@ var selecionado
 
 
 function carregarServidoresTabela(copiaDados){
-
-
-// Lista de processos — já adicionado anteriormente
-// ...
-
-// Gerar alerta se criticidade for alta
-// if (dados.criticidade >= 7) {
-//   const alerta = `⚠️ ${servidor.servidor} com criticidade ${dados.criticidade} às ${dados.Momento}`;
-//   ultimosAlertas.unshift(alerta);
-//   if (ultimosAlertas.length > 5) ultimosAlertas.pop();
-//   atualizarListaAlertas();
-// }
 
   const tabela = document.getElementById('spawnpointTabela')
 if(jaGerado){
@@ -85,9 +167,9 @@ if (selected) {
     const servidorAtual = copiaDados[i];
     var ultimo = (servidorAtual.dados.length - 1)
 
-      if(lista[i].dados[ultimo].criticidade >= 3){
+      if(copiaDados[i].dados[ultimo].criticidade >= 3){
         criticos +=1
-      } else if (lista[i].dados[ultimo].criticidade >= 1){
+      } else if (copiaDados[i].dados[ultimo].criticidade >= 1){
         moderados += 1
       }
 
@@ -101,15 +183,16 @@ if(selecionado == undefined){
     <tr class="row ${classe}">
     <td class='col-server' style='border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
     <td style='color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
-    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '07:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '05:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=60 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=60 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].download <= 1200 ? cores['critico'] : servidorAtual.dados[ultimo].download <= 1500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].download}</td>
-            <td style='color: ${servidorAtual.dados[ultimo].upload <= 400 ? cores['critico'] : servidorAtual.dados[ultimo].upload <= 500 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].upload}</td>
+    <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '24:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '120:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=70 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].ram >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].ram >=70 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].ram}</td>
+            <td style='color: ${servidorAtual.dados[ultimo].disco >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].disco >=70 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].disco}</td>
+            <td style='color: #8233C2'>${servidorAtual.dados[ultimo].download}</td>
+            <td style='color: #2160D5'>${servidorAtual.dados[ultimo].upload}</td>
           </tr>
     `
   }
+  
 
       kpiCritico.innerHTML = criticos
 kpiModerado.innerHTML = moderados
@@ -129,26 +212,19 @@ kpiModerado.innerHTML = moderados
 
 }
 
- var ordenado
- var escolhidoOld = 'nada'
-
-function ordenarTabela(escolhido){
-  lista = [...dadosServidores]
-
-  if(escolhidoOld != escolhido){
-    ordenado = 1
-    escolhidoOld = escolhido
-  } 
+function ordenar(){
+  let lista = [...dadosServidores]  
     for(let i = 0; i < lista.length - 1; i ++){
-      const ultimo = (lista[i].dados.length - 1)        
+      const ultimoi = (lista[i].dados.length - 1)        
       let aux 
       let maior = i 
-      if (escolhido == 'criticidade'){
+      if (metricaOrder == 'criticidade'){
       for(let j = i + 1; j < lista.length; j++){
-        if(lista[maior].dados[ultimo][escolhido] < lista[j].dados[ultimo][escolhido]){
+        const ultimoj = lista[j].dados.length - 1
+        if(lista[maior].dados[ultimoi][metricaOrder] < lista[j].dados[ultimoj][metricaOrder]){
           maior = j
-        } else if(lista[maior].dados[ultimo][escolhido] == lista[j].dados[ultimo][escolhido]){
-          if(compararData(lista[maior].dados[ultimo].tempo_ativo,lista[j].dados[ultimo].tempo_ativo) < 0){
+        } else if(lista[maior].dados[ultimoi][metricaOrder] == lista[j].dados[ultimoj][metricaOrder]){
+          if(compararData(lista[maior].dados[ultimoi].tempo_ativo,lista[j].dados[ultimoj].tempo_ativo) < 0){
             maior = j
           }
         }
@@ -156,7 +232,7 @@ function ordenarTabela(escolhido){
       aux = lista[i]
       lista[i] = lista[maior]
       lista[maior] = aux
-} else if (escolhido == 'tempo_ativo'){
+} else if (metricaOrder == 'tempo_ativo'){
   for(let i = 0; i < lista.length - 1; i ++){
     const ultimo = lista[i].dados.length - 1;
     let aux;
@@ -172,42 +248,79 @@ function ordenarTabela(escolhido){
     lista[maior] = aux;
   }
 } else {
+    for(let i = 0; i < lista.length - 1; i ++){
+      const ultimoi = (lista[i].dados.length - 1)        
+      let aux 
+      let maior = i 
       for(let j = i + 1; j < lista.length; j++){
-        if(lista[maior].dados[ultimo][escolhido] < lista[j].dados[ultimo][escolhido]){
+      const ultimoJ = lista[j].dados.length - 1;
+        if(lista[maior].dados[ultimoi][metricaOrder] < lista[j].dados[ultimoJ][metricaOrder]){
           maior = j
         }
       }
       aux = lista[i]
       lista[i] = lista[maior]
       lista[maior] = aux
-    }    
-  }
-    if(ordenado == 1) {
-    ordenado = 2
-    } else {
-      lista.reverse()
-      ordenado = 1
     }
+    }    
+  
+   if(booleanOrder){
+    lista.reverse()
+   }
 
-    carregarServidoresTabela(lista)
   }
-
+  return lista
+}
 
   function loadEvents(){
-
-  document.querySelectorAll('.titleTable').forEach((title) => {
+  titulo = document.querySelectorAll('.titleTable')
+  titulo.forEach((title) => {
     title.addEventListener('click', () => {
-
       const existingSvg = title.querySelector('svg');
-  document.querySelectorAll('svg').forEach(svg => { if (svg == existingSvg){ return }else { svg.remove()}})
+  document.querySelector('table').querySelectorAll('svg').forEach(svg => { if (svg == existingSvg){ return } else { svg.remove()}})
   
       if(existingSvg){
-        if(existingSvg.style.transform == 'rotate(180deg)'){
-          existingSvg.style.transform = 'rotate(0deg)'
-        } else {
+        if(booleanOrder){
+          booleanOrder = false
+          let ordenado = ordenar();
+          let maisCritico = ordenado[0]
+          destacarServidor(maisCritico)
+          carregarServidoresTabela(ordenado)
+          
           existingSvg.style.transform = 'rotate(180deg)'
+        } else {
+          booleanOrder = true
+          let ordenado = ordenar();
+          let maisCritico = ordenado[0]
+          destacarServidor(maisCritico)
+          carregarServidoresTabela(ordenado)
+          existingSvg.style.transform = 'rotate(0deg)'
         }
       } else {
+        let escolhido = title.innerHTML
+        if(escolhido.includes('Nome')){
+          metricaOrder = 'nome'
+        } else if (escolhido.includes('Criticidade')){
+          metricaOrder = 'criticidade'
+        }else if (escolhido.includes('Tempo')){
+          metricaOrder = 'tempo_ativo'
+        } else if (escolhido.includes('Cpu')){
+          metricaOrder = 'cpu'
+        } else if (escolhido.includes('Ram')){
+          metricaOrder = 'ram'
+        } else if (escolhido.includes('Disco')){
+          metricaOrder = 'disco'
+        } else if (escolhido.includes('Download')){
+          metricaOrder = 'download'
+        } else if (escolhido.includes('Upload')){
+          metricaOrder = 'upload'
+        }
+        
+        booleanOrder = false
+        let ordenado = ordenar();
+        let maisCritico = ordenado[0]
+        destacarServidor(maisCritico)
+        carregarServidoresTabela(ordenado)
         title.innerHTML += `<svg width="12" style='margin-left: 4px; height: 8px; transform: rotate(180deg)' viewBox="0 0 22 13" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
@@ -218,10 +331,6 @@ function ordenarTabela(escolhido){
       })
   })
 
-  document.getElementById('botao-travar-servidor').addEventListener('click', () => {
-  servidorTravado = !servidorTravado;
-  document.getElementById('estado-travado').innerText = servidorTravado ? 'Sim' : 'Não';
-});
 
   }
   
@@ -240,8 +349,7 @@ function fechar(real) {
   }
     modal.style.display= 'none'
 }
-
-let servidorExpandido = null
+let expandidoGlobal
 function expandirServidor(){
       const tabela = document.getElementById('spawnpointTabela')
       const sel = tabela.querySelector('.selected')
@@ -250,16 +358,17 @@ function expandirServidor(){
         let cols = sel.querySelectorAll('td')
         let criticidade = cols[1].innerText
         let selecionado = cols[0].innerText
-        servidorExpandido = selecionado
        for(let i = 0; i < dadosServidores.length; i ++){
         if (dadosServidores[i].servidor == selecionado){
           const servidor = dadosServidores[i];
-          const dados = servidor.dados[servidor.dados.length - 1];
           let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta : cores.estavel
           let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
 
           document.getElementById('nome-servidor-expandido').innerHTML = addHtml
           document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`
+          
+          expandidoGlobal = servidor
+          atualizarGraficosComDados(servidor)
         }
        }
       } else {
@@ -268,59 +377,55 @@ function expandirServidor(){
 
 }
 
-function atualizarListaAlertas() {
-  const lista = document.getElementById('lista-alertas');
-  lista.innerHTML = '';
-  ultimosAlertas.forEach(msg => {
-    const li = document.createElement('li');
-    li.innerText = msg;
-    lista.appendChild(li);
-  });
+function destacarServidor(destacado) {
+  if (travado) {
+    if (expandidoGlobal) {
+      expandidoAtualizado = dadosServidores.find(servidor => servidor.servidor == expandidoGlobal.servidor)
+      atualizarGraficosComDados(expandidoAtualizado);
+    } else {
+      console.warn("expandidoGlobal está undefined.");
+    }
+    return;
+  }
+
+  let ultimoDado = destacado.dados[destacado.dados.length - 1];
+  let criticidade = ultimoDado.criticidade;
+  let servidor = destacado.servidor;
+
+  let corDestaque =
+    criticidade >= 3 ? cores.critico :
+    criticidade >= 1 ? cores.alerta :
+    cores.estavel;
+
+  let addHtml = `<span style='color:${corDestaque}'>${servidor}</span>`;
+
+  document.getElementById('nome-servidor-expandido').innerHTML = addHtml;
+  document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`;
+
+  atualizarGraficosComDados(destacado);
 }
+
 
 let travado = false
 function travar(){
   if(!travado){
     travado = true
-    document.getElementById('lock').querySelector('img').src = '../assets/unlock.png'
+var nomeServidorHTML = document.querySelector('#nome-servidor-expandido').innerText.trim().toLowerCase();
+console.log("nomeServidorHTML")
+console.log(nomeServidorHTML)
+for(let i = 0; i < dadosServidores.length; i++){
+  if(nomeServidorHTML == dadosServidores[i].servidor.toLowerCase())
+    expandidoGlobal = dadosServidores[i]
+  }
+
+    document.getElementById('lock').querySelector('img').src = '../assets/lock.png'
   } else {
     travado = false
-    document.getElementById('lock').querySelector('img').src = '../assets/lock.png'
+    document.getElementById('lock').querySelector('img').src = '../assets/unlock.png'
   }
 }
 
-async function atualizarDadosEmTempoReal() {
-  try {
-    const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
-    const dados = await resposta.json();
-
-    dadosServidores = dados.map(jsonServer => ({
-      servidor: jsonServer.servidor,
-      dados: jsonServer.dados
-    }));
-
-    ordenarTabela('criticidade');
-    if(!travado){
-      atualizarGraficosComDados(dadosServidores);
-    }
-  } catch (erro) {
-    console.error("Erro ao buscar dados em tempo real:", erro);
-  }
-}
-
-function atualizarGraficosComDados(dadosServidores) {
-
-      servidorEscolhido = dadosServidores.find(jsonServer => jsonServer.servidor === servidorExpandido);
-
-  if (!servidorEscolhido) {
-    servidorEscolhido = [...dadosServidores].sort((a, b) => {
-      const aCrit = a.dados.at(-1).criticidade;
-      const bCrit = b.dados.at(-1).criticidade;
-      return bCrit - aCrit;
-    })[0];
-  }
-
-  if (!servidorEscolhido || !servidorEscolhido.dados.length) return;
+function atualizarGraficosComDados(servidorEscolhido) {
 
   const seriesCPU = [];
   const seriesRAM = [];
@@ -337,37 +442,116 @@ function atualizarGraficosComDados(dadosServidores) {
     seriesDownload.push([timestamp, ponto.download]);
   });
 
-  chartLineFisico.updateSeries([
-    { name: "CPU", data: seriesCPU },
-    { name: "RAM", data: seriesRAM },
-    { name: "Disco", data: seriesDisco }
-  ]);
+    const minTime = Math.min(...servidorEscolhido.dados.map(p => new Date(p.Momento).getTime()));
+  const maxTime = Math.max(...servidorEscolhido.dados.map(p => new Date(p.Momento).getTime()));
 
-  chartLineRede.updateSeries([
-    { name: "Upload", data: seriesUpload },
-    { name: "Download", data: seriesDownload }
-  ]);
+
+  chartLineFisico.updateOptions({
+    series: [
+      { name: "CPU", data: seriesCPU },
+      { name: "RAM", data: seriesRAM },
+      { name: "Disco", data: seriesDisco }
+    ],
+    xaxis: {
+  type: "datetime",
+  labels: {
+    format: 'HH:mm:ss'
+  },
+  min: minTime,
+  max: maxTime
+}
+  }, false, true); 
+
+  chartLineRede.updateOptions({
+    series: [
+      { name: "Upload", data: seriesUpload },
+      { name: "Download", data: seriesDownload }
+    ],
+    xaxis: {
+      type: 'datetime',
+      min: minTime,
+      max: maxTime,
+      labels: {
+        format: 'HH:mm:ss'
+      }
+    }
+  }, false, true);
+
+  atualizarProcessos(servidorEscolhido)
 }
 
-setInterval(atualizarDadosEmTempoReal, 5000);
-
-function getRandom() {
-  return Math.ceil(Math.random() * 100) 
+const listacpu = document.querySelector("#lista-processos-cpu")
+const listaram = document.querySelector("#lista-processos-ram")
+function atualizarProcessos(servidor){
+  let topcpu = ''
+  let topram = ``
+  console.log(servidor)
+  servidor.dados[servidor.dados.length - 1].processos.forEach(processo => {
+    if(processo.grupo == 'top_cpu'){
+      topcpu += `<li>
+      <strong>Nome do processo:${processo.name}</strong> | <span>Uso CPU: ${processo.cpu_percent}%</span> |
+      <small>Id do processo:${processo.pid}</small>
+      </li>
+      `
+    } else {
+      topram +=  `<li>
+      <strong>Nome do processo:${processo.name}</strong> | <span>Uso RAM: ${processo.ram_percent}%</span> |
+      <small>Id do processo:${processo.pid}</small>
+      </li>
+      `
+    }
+  })
+   listacpu.innerHTML = topcpu
+   listaram.innerHTML = topram
 }
 
+async function pegarAlertas() {
+  try {
+    const response = await fetch("http://127.0.0.1:8080/alertas/getAlertasUnsolved/1");
+    
+    if (!response.ok) {
+      throw new Error(`Erro no fetch! status: ${response.status}`);
+    }
 
-function generateMinuteWiseTimeSeries(baseval, count) {
-  var i = 0;
-  var series = [];
-  while (i < count) {
-    var x = baseval;
-    series.push([x, getRandom()]);
-    baseval += 300000;
-    i++;
+    const alertas = await response.json();
+    atualizarListaAlertas(alertas);
+  } catch (erro) {
+    console.error("Erro ao pegar os alertas:", erro);
   }
-  return series;
 }
 
+function atualizarListaAlertas(alertas) {
+  const lista = document.getElementById('lista-alertas');
+  lista.innerHTML = '';
+
+  alertas.forEach((alerta) => {
+
+    let servidorNome = alerta.fk_servidor ? `Servidor ${alerta.fk_servidor}`: 'Servidor desconhecido';
+
+    let componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
+
+    const data = new Date(alerta.data_gerado);
+    const dataFormatada = data.toLocaleString('pt-BR', {
+      day: '2-digit', month: '2-digit',
+      hour: '2-digit', minute: '2-digit'
+    });
+      
+      const idjira = alerta.idjira ? `ID Jira: ${alerta.idjira}` : '';
+      
+      lista.innerHTML += `<li>
+      <strong>${servidorNome}</strong> | <span>${componente} em ${alerta.valor}%</span> |
+      <small>${dataFormatada}</small> |<small>${idjira}</small>
+      </li>
+      `;
+      
+    // Cores de acordo com valor
+  });
+}
+
+setInterval(() => {
+  atualizarDadosEmTempoReal()
+  pegarAlertas()
+}, 6000);
 
 // variaveis estéticas
  var stroke =  {
@@ -377,9 +561,10 @@ function generateMinuteWiseTimeSeries(baseval, count) {
   }
 
   var marcadores = {
-    size: 0,
+    size: 1,
+    backgroundColor: 'black',
     hover: {
-      size: 0
+      size: 2
     }
   }
 
@@ -397,13 +582,20 @@ function generateMinuteWiseTimeSeries(baseval, count) {
       top: 22
     }  
 
-    var altura = '300'
-    var largura = '432'
+    var tooltip = {
+    theme: "dark",
+    x: {
+          show: true,
+          format: "HH:mm:ss",
+      }
+  }
+
+    var altura = '260'
+    var largura = '412'
     var velocidade = 200
     var locura = 3000
     
 // CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
-function criarDashs(){}
 window.Apex = {
   chart: {
     foreColor: "#2b2b2b",
@@ -429,15 +621,7 @@ window.Apex = {
       color: "#333"
     }
   },
-  fill: {
-    type: "gradient",
-    gradient: {
-      gradientToColors: ["#F55555", "#6078ea", "#6094ea"]
-    }
-  },
-  tooltip: {
-    theme: "dark"
-  },
+  tooltip: tooltip,
   yaxis: {
     decimalsInFloat: 2,
     opposite: true,
@@ -454,7 +638,7 @@ var optionsLineFisico = {
     type: "line",
     stacked: false,
     animations: {
-      enabled: true,
+      enabled: false,
       easing: "linear",
       dynamicAnimation: {
         speed: velocidade
@@ -486,9 +670,11 @@ var optionsLineFisico = {
   markers: marcadores,
   series: [],
   xaxis: {
-    type: "datetime",
-    range: 120
-  },
+  type: "datetime",
+  labels: {
+    format: 'HH:mm:ss' // mostra o horário sempre
+  }
+},
   title: {
     text: "Uso dos componentes",
     align: "left",
@@ -501,9 +687,9 @@ var optionsLineFisico = {
     text: "Percentual",
     floating: true,
     align: "right",
-    offsetY: 0,
+    offsetY: 3,
     style: {
-      fontSize: "22px"
+      fontSize: "18px"
     }
   },
   legend: {
@@ -551,15 +737,7 @@ window.Apex = {
       color: "#333"
     }
   },
-  fill: {
-    type: "gradient",
-    gradient: {
-      gradientToColors: ["#F55555", "#6078ea"]
-    }
-  },
-  tooltip: {
-    theme: "dark"
-  },
+  tooltip: tooltip,
   yaxis: {
     decimalsInFloat: 2,
     opposite: true,
@@ -576,7 +754,7 @@ var optionsLineRede = {
     type: "line",
     stacked: false,
     animations: {
-      enabled: true,
+      enabled: false,
       easing: "linear",
       dynamicAnimation: {
         speed: velocidade
@@ -606,9 +784,11 @@ var optionsLineRede = {
   markers: marcadores,
   series: [],
   xaxis: {
-    type: "datetime",
-    range: 120
-  },
+  type: "datetime",
+  labels: {
+    format: 'HH:mm:ss' 
+  }
+},
   title: {
     text: "Velocidade de rede",
     align: "left",
@@ -619,7 +799,7 @@ var optionsLineRede = {
     }
   },
   subtitle: {
-    text: "Percentual",
+    text: "KB/s",
     floating: true,
     align: "right",
     offsetY: 0,

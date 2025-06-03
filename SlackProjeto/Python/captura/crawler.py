@@ -121,7 +121,7 @@ def coletarVelocidadeDownload():
     depois = psutil.net_io_counters()
 
     bytes_recebidos = depois.bytes_recv - antes.bytes_recv
-    velocidade_mbps = (bytes_recebidos * 8) / (1024 ** 2)  # Correção: MB/s, não GB/s
+    velocidade_mbps = (bytes_recebidos * 8) / (1024)  # Correção: MB/s, não GB/s
 
     return round(velocidade_mbps, 2)
 
@@ -131,7 +131,7 @@ def coletarVelocidadeUpload():
     depois = psutil.net_io_counters()
 
     bytes_enviados = depois.bytes_sent - antes.bytes_sent
-    velocidade_mbps = (bytes_enviados * 8) / (1024 ** 2)  # Correção: MB/s, não GB/s
+    velocidade_mbps = (bytes_enviados * 8) / (1024)  # Correção: MB/s, não GB/s
 
     return round(velocidade_mbps, 2)
 

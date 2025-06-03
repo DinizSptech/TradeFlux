@@ -94,6 +94,28 @@ function getDataCenterMediaResolucao30d() {
   return database.executar(instrucaoSql);
 }
 
+// 4.1 Data Centers com maior tempo de resolução (Victao)
+function getDataCenterMediaResolucaoVictao24h() {
+  logFuncao("getDataCenterMediaResolucaoVictao24h");
+  let instrucaoSql = `SELECT * FROM vw_datacenter_media_resolucao_24h_numerica;`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function getDataCenterMediaResolucaoVictao7d() {
+  logFuncao("getDataCenterMediaResolucaoVictao7d");
+  let instrucaoSql = `SELECT * FROM vw_datacenter_media_resolucao_7d_numerica;`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function getDataCenterMediaResolucaoVictao30d() {
+  logFuncao("getDataCenterMediaResolucaoVictao30d");
+  let instrucaoSql = `SELECT * FROM vw_datacenter_media_resolucao_30d_numerica;`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 // 5. Data Centers total de alertas
 function getDataCenterTotalAlertas24h() {
   logFuncao("getDataCenterTotalAlertas24h");
@@ -151,10 +173,13 @@ module.exports = {
   getDataCenterMediaResolucao24h,
   getDataCenterMediaResolucao7d,
   getDataCenterMediaResolucao30d,
+  getDataCenterMediaResolucaoVictao24h,
+  getDataCenterMediaResolucaoVictao7d,
+  getDataCenterMediaResolucaoVictao30d,
   getDataCenterTotalAlertas24h,
   getDataCenterTotalAlertas7d,
   getDataCenterTotalAlertas30d,
   getDataCenterTotalAlertasAtrasados24h,
   getDataCenterTotalAlertasAtrasados7d,
-  getDataCenterTotalAlertasAtrasados30d
+  getDataCenterTotalAlertasAtrasados30d,
 };

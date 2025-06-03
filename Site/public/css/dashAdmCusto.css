@@ -1,23 +1,20 @@
 body {
   background-color: #f2f3f7;
   color: #2b2b2b;
+  font-weight: 900;
 }
-
 .dashboard-container {
   margin-left: 5vw;
   padding: 2vh 3vw;
 }
-
 .kpis {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
-
 .kpi {
   background-color: #fff;
-  color: #666;
   padding: 1rem 2rem;
   border-radius: 8px;
   border: 1px solid #cfd4e0;
@@ -25,20 +22,35 @@ body {
   flex: 1;
   margin: 0 1rem;
   min-width: 200px;
+  font-size: 1.3rem;
 }
 
+.filtro {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.filtros-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaço entre os dois grupos de filtros */
+  align-items: flex-start; /* Alinha os filtros à esquerda */
+}
 .filtros-e-grafico {
   display: flex;
-  gap: 2rem;
+  justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+  align-items: flex-start;
+  gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 2rem; /* Adiciona um espaço acima dos filtros */
+  margin-left: 1rem; /* Adiciona margem para alinhar com o primeiro KPI */
 }
-
 .filtros {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: flex-start;
 }
-
 .filtros button {
   background-color: #bfcbf4;
   color: #2b2b2b;
@@ -46,25 +58,52 @@ body {
   padding: 0.7rem 1rem;
   border-radius: 4px;
   cursor: pointer;
+  width: 200px;
+  text-align: left;
+  transition: background-color 0.2s ease;
 }
-
 .selecionado {
   background-color: grey;
   color: white;
 }
-
 #grafico {
   background-color: #fff;
   border-radius: 1vw;
   border: 1px solid #cfd4e0;
   padding: 1rem;
-  flex: 1;
-  min-width: 300px;
-  height: 350px;
+  width: 100%;
+  max-width: 900px; /* Aumentei o tamanho máximo do gráfico */
+  height: 450px; /* Aumentei a altura do gráfico */
+  margin: 0 auto; /* Centraliza o gráfico */
 }
-
 .investir {
   margin-top: 2rem;
   text-align: center;
-  font-weight: 500;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.investir-frase {
+  background: #667eea;
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  margin-left: 5%; /* Adiciona margem à esquerda para deslocar a frase para a direita */
+}
+.data_center_investir {
+  background-color: #fefefe;
+  color: #2b2b2b;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-shadow: none;
 }

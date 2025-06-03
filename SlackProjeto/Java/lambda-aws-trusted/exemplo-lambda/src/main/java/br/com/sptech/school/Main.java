@@ -41,21 +41,25 @@ public class Main implements RequestHandler<S3Event, String> {
             // Gerar CSV de dados gerais
             ByteArrayOutputStream csvOutputStream = csvWriter.writeCsv(stocks);
             byte[] csvBytes = csvOutputStream.toByteArray();
-            InputStream csvInputStream = new ByteArrayInputStream(csvBytes);
 
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(csvBytes.length);
             metadata.setContentType("text/csv");
 
-            String fileName = sourceKey.substring(sourceKey.lastIndexOf('/') + 1); // extrai só o nome do arquivo
-            String destinationKeyAmanda = "Datacenter1Amanda/" + fileName.replace(".json", ".csv");
-            String destinationKeyIsrael = "Datacenter1Israel/" + fileName.replace(".json", ".csv");
+            String fileName = sourceKey.substring(sourceKey.lastIndexOf('/') + 1);
+            String destinationKeyAmanda = "DataCenter1Amanda/" + fileName.replace(".json", ".csv");
+            String destinationKeyIsrael = "DataCenter1Israel/" + fileName.replace(".json", ".csv");
 
-            // Envia o CSV de dados gerais
-            s3Client.putObject(DESTINATION_BUCKET, destinationKeyAmanda, csvInputStream, metadata);
+            // Criar InputStream separado para cada upload
+            InputStream csvInputStreamAmanda = new ByteArrayInputStream(csvBytes);
+            InputStream csvInputStreamIsrael = new ByteArrayInputStream(csvBytes);
+
+            // Envia o CSV de dados gerais para Amanda
+            s3Client.putObject(DESTINATION_BUCKET, destinationKeyAmanda, csvInputStreamAmanda, metadata);
             context.getLogger().log("CSV de dados gerais enviado para: " + destinationKeyAmanda);
 
-            s3Client.putObject(DESTINATION_BUCKET, destinationKeyIsrael, csvInputStream, metadata);
+            // Envia o CSV de dados gerais para Israel
+            s3Client.putObject(DESTINATION_BUCKET, destinationKeyIsrael, csvInputStreamIsrael, metadata);
             context.getLogger().log("CSV de dados gerais enviado para: " + destinationKeyIsrael);
 
             // Gerar CSV de dados com processos
@@ -67,7 +71,7 @@ public class Main implements RequestHandler<S3Event, String> {
             processMetadata.setContentLength(csvProcessBytes.length);
             processMetadata.setContentType("text/csv");
 
-            String destinoProcesso = "Datacenter1/" + fileName.replace(".json", "_processos.csv");
+            String destinoProcesso = "DataCenter1/" + fileName.replace(".json", "_processos.csv");
 
             // Envia o CSV de dados com processos
             s3Client.putObject(DESTINATION_BUCKET, destinoProcesso, csvProcessInputStream, processMetadata);
