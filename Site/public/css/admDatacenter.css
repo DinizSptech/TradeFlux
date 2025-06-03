@@ -26,11 +26,12 @@ body {
 
 .botao-filtro {
     background-color: #bfcbf4;
-    color: #2b2b2b;
+    font-weight: bold;
+    color: #000000;
     border: 1px solid #cfd4e0;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
     flex: 1;
@@ -93,6 +94,7 @@ body {
 
 #secao-metricas {
     display: flex;
+    justify-content: space-around;
     gap: 1rem;
     flex-wrap: wrap;
 }
