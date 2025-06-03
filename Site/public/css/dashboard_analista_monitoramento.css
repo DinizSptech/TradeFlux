@@ -18,6 +18,7 @@
   body{
 background-color: #f2f3f7;
 color: #2b2b2b;
+overflow-y: scroll;
 }
 
 .container-main {
