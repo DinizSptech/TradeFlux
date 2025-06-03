@@ -5,6 +5,8 @@
 
 // CUSTO MÉDIO POR MANUTENÇÃO = CUSTO TOTAL / QTD ALERTAS
 
+let corGrafico = "rgb(0,178,118)";
+
 let tempoSelecionado = 0;
 let dataCenterSelecionado = null;
 
@@ -103,7 +105,37 @@ let custoTotal30_dc1 = 0;
 let custoTotal30_dc2 = 0;
 let custoTotal30_dc3 = 0;
 
+//
+
+var options = {
+  chart: {
+    type: "bar",
+    height: 350,
+  },
+  title: {
+    text: "Top 3 Data Centers Custo Total",
+    align: "center",
+  },
+  series: [
+    {
+      name: "Custo Total R$",
+      data: [],
+    },
+  ],
+  xaxis: {
+    categories: ["Data Center 1", "Data Center 2", "Data Center 3"],
+  },
+  colors: [corGrafico],
+};
+
+var chart = new ApexCharts(document.querySelector("#grafico"), options);
+chart.render();
+
 function carregar() {
+  let variavelGraficoCustoTotal_dc1 = 0;
+  let variavelGraficoCustoTotal_dc2 = 0;
+  let variavelGraficoCustoTotal_dc3 = 0;
+
   tempoSelecionado = 24;
 
   if (tempoSelecionado == 24) {
@@ -216,6 +248,21 @@ function carregar() {
             console.log("Custo Total 24 DC2: " + custoTotal24_dc2);
             console.log("Custo Total 24 DC3: " + custoTotal24_dc3);
 
+            variavelGraficoCustoTotal_dc1 = custoTotal24_dc1;
+            variavelGraficoCustoTotal_dc2 = custoTotal24_dc2;
+            variavelGraficoCustoTotal_dc3 = custoTotal24_dc3;
+
+            // atualziar gráfico com custo total
+            chart.updateSeries([
+              {
+                data: [
+                  variavelGraficoCustoTotal_dc1,
+                  variavelGraficoCustoTotal_dc2,
+                  variavelGraficoCustoTotal_dc3,
+                ],
+              },
+            ]);
+
             // para se alinhar com a KPI de Custo por hora de manutencao
             data_center_total.innerHTML = menorCusto24_dc;
 
@@ -257,43 +304,6 @@ function carregar() {
                 } else if (menorCusto24_dc == 3) {
                   custo_medio.innerHTML = custoMedio24_dc3;
                 }
-
-                let corGrafico = "rgb(0,178,118)";
-
-                var options = {
-                  chart: {
-                    type: "bar",
-                    height: 350,
-                  },
-                  title: {
-                    text: "Top 3 Data Centers Custo Total",
-                    align: "center",
-                  },
-                  series: [
-                    {
-                      name: "Custo Total R$",
-                      data: [
-                        custoTotal24_dc1,
-                        custoTotal24_dc2,
-                        custoTotal24_dc3,
-                      ],
-                    },
-                  ],
-                  xaxis: {
-                    categories: [
-                      "Data Center 1",
-                      "Data Center 2",
-                      "Data Center 3",
-                    ],
-                  },
-                  colors: [corGrafico],
-                };
-
-                var chart = new ApexCharts(
-                  document.querySelector("#grafico"),
-                  options
-                );
-                chart.render();
               });
             });
           });
@@ -308,10 +318,6 @@ function calcularValorHora(valor, dias) {
 }
 
 function filtrar(tempo) {
-  let custoTotalSelecionado_dc1;
-  let custoTotalSelecionado_dc2;
-  let custoTotalSelecionado_dc3;
-
   if (tempo == 24) {
     fetch("/adm/datacenter/media-resolucao/victao/24h").then((res) => {
       res.json().then((resjson) => {
@@ -368,6 +374,13 @@ function filtrar(tempo) {
           console.log("Custo Total 24 DC1: " + custoTotal24_dc1);
           console.log("Custo Total 24 DC2: " + custoTotal24_dc2);
           console.log("Custo Total 24 DC3: " + custoTotal24_dc3);
+
+          // atualziar gráfico com custo total
+          chart.updateSeries([
+            {
+              data: [custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3],
+            },
+          ]);
 
           let menorCustoTotal24 = Math.ceil(
             Math.min(custoTotal24_dc1, custoTotal24_dc2, custoTotal24_dc3)
@@ -477,6 +490,13 @@ function filtrar(tempo) {
         console.log("Custo Total 7 DC2: " + custoTotal7_dc2);
         console.log("Custo Total 7 DC3: " + custoTotal7_dc3);
 
+        // atualziar gráfico com custo total
+        chart.updateSeries([
+          {
+            data: [custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3],
+          },
+        ]);
+
         let menorCustoTotal7 = Math.ceil(
           Math.min(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
         );
@@ -581,6 +601,17 @@ function filtrar(tempo) {
         custoTotal30_dc1 = Math.ceil(valor30_dc1 * horas30_dc1);
         custoTotal30_dc2 = Math.ceil(valor30_dc2 * horas30_dc2);
         custoTotal30_dc3 = Math.ceil(valor30_dc3 * horas30_dc3);
+
+        console.log("Custo Total 30 DC1: " + custoTotal30_dc1);
+        console.log("Custo Total 30 DC2: " + custoTotal30_dc2);
+        console.log("Custo Total 30 DC3: " + custoTotal30_dc3);
+
+        // atualziar gráfico com custo total
+        chart.updateSeries([
+          {
+            data: [custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3],
+          },
+        ]);
 
         let menorCustoTotal30 = Math.ceil(
           Math.min(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
