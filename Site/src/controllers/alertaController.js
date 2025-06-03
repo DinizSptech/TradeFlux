@@ -36,10 +36,19 @@ function getTopServidoresAlertas(req, res) {
         res.status(500).json(erro.sqlMessage);
     })
 }
-
+function getAlertaUnsolved(req, res) {
+  idDataCenter = req.params.dataCenter
+    alertaModel.getAlertaUnsolved(idDataCenter).then((resultado) => {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
 module.exports = {
   exibirAlertas,
   getTotalAlertas,
   getQtdAlertasComponente,
-  getTopServidoresAlertas
+  getTopServidoresAlertas,
+  getAlertaUnsolved
 };

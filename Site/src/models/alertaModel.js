@@ -91,9 +91,29 @@ function getTopServidoresAlertas(idDataCenter){
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+function getAlertaUnsolved(idDataCenter){
+    console.log(
+    "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirAlertas():",
+  );
+
+    let instrucaoSql = `
+      select fk_servidor,idjira, valor, nomecomponente, data_gerado from alerta 
+JOIN parametro_servidor as p ON fk_parametro = idparametros_servidor
+JOIN componente as c ON fk_componente = idcomponente
+LEFT JOIN servidor_cliente as s ON fk_servidor = idservidor
+LEFT JOIN data_center as d ON iddata_center = fk_data_center
+WHERE data_resolvido is NULL 
+AND idjira IS NOT NULL
+AND fk_data_center = '${idDataCenter}' OR fk_data_center IS NULL
+ORDER BY data_gerado DESC;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 module.exports = {
     exibirAlertas,
     getTotalAlertas,
     getQtdAlertasComponente,
-    getTopServidoresAlertas
+    getTopServidoresAlertas,
+    getAlertaUnsolved
 };

@@ -17,4 +17,8 @@ router.get("/getTopServidoresAlertas/:dataCenter", function (req, res) {
     alertaController.getTopServidoresAlertas(req, res);
 })
 
+router.get("/getAlertasUnsolved/:dataCenter", function (req,res) {
+    alertaController.getAlertaUnsolved(req,res)
+})
+
 module.exports = router;

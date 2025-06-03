@@ -26,6 +26,7 @@ router.post("/monitoria", (req, res) => {
   return res.status(200).send("Buffer modificado, nova captura enviada.");
 });
 
+
 router.get("/monitoria", (req, res) => {
   res.status(200).json(dadosTempoReal);
 });

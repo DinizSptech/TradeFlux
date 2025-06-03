@@ -1,5 +1,5 @@
-// var ambiente_processo = 'producao';
-var ambiente_processo = "desenvolvimento";
+var ambiente_processo = 'producao';
+// var ambiente_processo = "desenvolvimento";
 
 var caminho_env = ambiente_processo === "producao" ? ".env" : ".env.dev";
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
@@ -10,8 +10,8 @@ require("dotenv").config({ path: caminho_env });
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST || "0.0.0.0";
+var PORTA_APP = "8080";
+var HOST_APP = "127.0.0.1";
 
 var app = express();
 
