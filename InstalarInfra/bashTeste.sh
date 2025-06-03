@@ -40,20 +40,43 @@ sudo mv ngrok /usr/local/bin
 # Criar docker-compose.yml
 cat <<EOF > docker-compose.yml
 services:
+  api_node:
+    image: israelcoaquira/node_api:v1.28
+    ports:
+      - "3000:3000"
+    networks:
+      - rede-compose
+    depends_on:
+      - bd
+    environment:
+      - DB_HOST=bd
+      - DB_DATABASE=tradeflux
+      - DB_PORT=3306
+      - DB_USER_INSERT=user_insert_tradeflux
+      - DB_PASSWORD_INSERT=tradeflux_insert
+      - DB_USER_SELECT=user_select_tradeflux
+      - DB_PASSWORD_SELECT=tradeflux_select
+
   site:
-    image: robert1730/nodedockerwebdataviz:1.1
+    image: israelcoaquira/site:v1.2
     ports:
       - "8080:8080"
     networks:
       - rede-compose
     depends_on:
-      - db
-  db:
-    image: robert1730/bddocker:1.1
+      - bd
+
+  bd:
+    image: israelcoaquira/db:v1.2
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
     ports:
-      - "1730:3306"
+      - "3306:3306"
     networks:
       - rede-compose
+    environment:
+      - MYSQL_ROOT_PASSWORD=urubu100  # Use a mesma do Dockerfile
+      - MYSQL_DATABASE=tradeflux
+
 networks:
   rede-compose:
     driver: bridge
