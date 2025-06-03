@@ -177,9 +177,13 @@ function carregar() {
             console.log("Horas 24h DC2: " + horas24_dc2);
             console.log("Horas 24h DC3: " + horas24_dc3);
 
-            calcularValorHora(valor24_dc1, 1);
-            calcularValorHora(valor24_dc2, 1);
-            calcularValorHora(valor24_dc3, 1);
+            valorHora24_dc1 = Math.floor(valor24_dc1 / 24);
+            valorHora24_dc2 = Math.floor(valor24_dc2 / 24);
+            valorHora24_dc3 = Math.floor(valor24_dc3 / 24);
+
+            console.log("Valor Hora 24h DC1: " + valorHora24_dc1);
+            console.log("Valor Hora 24h DC2: " + valorHora24_dc2);
+            console.log("Valor Hora 24h DC3: " + valorHora24_dc3);
 
             custoHora24_dc1 = valorHora24_dc1 * horas24_dc1;
             custoHora24_dc2 = valorHora24_dc2 * horas24_dc2;
@@ -261,6 +265,10 @@ function carregar() {
                     type: "bar",
                     height: 350,
                   },
+                  title: {
+                    text: "Top 3 Data Centers Custo Total",
+                    align: "center",
+                  },
                   series: [
                     {
                       name: "Custo Total R$",
@@ -332,9 +340,13 @@ function filtrar(valor, tempo, dataCenter) {
         console.log("Horas 7d DC2: " + horas7_dc2);
         console.log("Horas 7d DC3: " + horas7_dc3);
 
-        calcularValorHora(valor7_dc1, 7);
-        calcularValorHora(valor7_dc2, 7);
-        calcularValorHora(valor7_dc3, 7);
+        valorHora7_dc1 = Math.floor(valor7_dc1 / 7 / 24);
+        valorHora7_dc2 = Math.floor(valor7_dc2 / 7 / 24);
+        valorHora7_dc3 = Math.floor(valor7_dc3 / 7 / 24);
+
+        console.log("Valor Hora 7d DC1: " + valorHora7_dc1);
+        console.log("Valor Hora 7d DC2: " + valorHora7_dc2);
+        console.log("Valor Hora 7d DC3: " + valorHora7_dc3);
 
         custoHora7_dc1 = Math.ceil(valorHora7_dc1 * horas7_dc1);
         custoHora7_dc2 = Math.ceil(valorHora7_dc2 * horas7_dc2);
@@ -429,9 +441,13 @@ function filtrar(valor, tempo, dataCenter) {
         console.log("Horas 30d DC2: " + horas30_dc2);
         console.log("Horas 30d DC3: " + horas30_dc3);
 
-        calcularValorHora(valor30_dc1, 30);
-        calcularValorHora(valor30_dc2, 30);
-        calcularValorHora(valor30_dc3, 30);
+        valorHora30_dc1 = Math.floor(valor30_dc1 / 30 / 24);
+        valorHora30_dc2 = Math.floor(valor30_dc2 / 30 / 24);
+        valorHora30_dc3 = Math.floor(valor30_dc3 / 30 / 24);
+
+        console.log("Valor Hora 30d DC1: " + valorHora30_dc1);
+        console.log("Valor Hora 30d DC2: " + valorHora30_dc2);
+        console.log("Valor Hora 30d DC3: " + valorHora30_dc3);
 
         custoHora30_dc1 = Math.ceil(valorHora30_dc1 * horas30_dc1);
         custoHora30_dc2 = Math.ceil(valorHora30_dc2 * horas30_dc2);
@@ -478,7 +494,7 @@ function filtrar(valor, tempo, dataCenter) {
 
         // Calcular o Custo Médio 30 dias
 
-        fetch("adm/alertas/30d").then((res) => {
+        fetch("http://localhost:3333/adm/alertas/30d").then((res) => {
           res.json().then((resjson) => {
             let total_alertas_30 = resjson[0].total_alertas;
 
