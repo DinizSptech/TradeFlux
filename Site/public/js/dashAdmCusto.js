@@ -381,7 +381,7 @@ function filtrar(tempo) {
     carregar();
     return;
   } else if (tempo == 7) {
-    fetch("adm/datacenter/media-resolucao/victao/7d").then((res) => {
+    fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
