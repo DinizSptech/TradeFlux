@@ -223,9 +223,17 @@ INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, criticidade, fk_
 (97.8, '%', '2025-05-22 10:23:45', '2025-05-22 10:33:57', 3, 22),
 (98.1, '%', '2025-05-21 13:34:56', '2025-05-21 13:44:08', 3, 25),
 (75.2, '%', '2025-06-02 08:15:23', '2025-06-02 08:25:23', 1, 1),  
-(76.8, '%', '2025-06-02 10:22:12', '2025-06-02 10:32:12', 1, 2),  
-(77.5, '%', '2025-06-03 14:38:47', '2025-06-03 14:50:47', 1, 3),  
-(78.1, '%', '2025-06-03 09:12:34', '2025-06-03 09:14:56', 1, 4);
+(76.8, '%', '2025-06-02 10:22:12', '2025-06-02 10:27:12', 1, 2),  
+(77.5, '%', '2025-06-03 14:38:47', '2025-06-03 14:45:21', 1, 13),  
+(78.1, '%', '2025-06-03 09:12:34', '2025-06-03 09:17:56', 1, 12),
+(75.2, '%', '2025-06-02 08:15:23', '2025-06-02 08:25:23', 1, 8),  
+(76.8, '%', '2025-06-02 10:22:12', '2025-06-02 10:27:12', 1, 5),  
+(77.5, '%', '2025-06-03 14:38:47', '2025-06-03 14:45:21', 1, 6),  
+(78.1, '%', '2025-06-03 09:12:34', '2025-06-03 09:17:56', 1, 7),
+(75.2, '%', '2025-06-02 08:15:23', '2025-06-02 08:25:23', 1, 13),  
+(76.8, '%', '2025-06-02 10:22:12', '2025-06-02 10:27:12', 1, 16),  
+(77.5, '%', '2025-06-03 14:38:47', '2025-06-03 14:45:21', 1, 22),  
+(78.1, '%', '2025-06-03 09:12:34', '2025-06-03 09:17:56', 1, 25);
 
 -- views --
 
@@ -239,20 +247,25 @@ join data_center dc on u.fk_data_center = dc.iddata_center;
 CREATE OR REPLACE VIEW vw_qtd_alertas_24h AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 24 HOUR;
+WHERE data_gerado >= NOW() - INTERVAL 24 HOUR
+  AND data_resolvido IS NOT NULL
+  AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) >= 5;
 
 -- View para alertas nos últimos 7 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_7d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 7 DAY;
-
+WHERE data_gerado >= NOW() - INTERVAL 7 DAY
+  AND data_resolvido IS NOT NULL
+  AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) >= 5;
 
 -- View para alertas nos últimos 30 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_30d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 30 DAY;
+WHERE data_gerado >= NOW() - INTERVAL 30 DAY
+  AND data_resolvido IS NOT NULL
+  AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) >= 5;
 
 -- 2. Rotas - Tempo médio geral
 -- View para tempo médio nas últimas 24 horas
@@ -587,9 +600,9 @@ ORDER BY a.criticidade;
 
 
 -- -- -- 1. Rotas - Alertas KPI
--- SELECT * FROM vw_qtd_alertas_24h;
--- SELECT * FROM vw_qtd_alertas_7d;
--- SELECT * FROM vw_qtd_alertas_30d;
+--  SELECT * FROM vw_qtd_alertas_24h;
+--  SELECT * FROM vw_qtd_alertas_7d;
+--  SELECT * FROM vw_qtd_alertas_30d;
 
 -- -- 2. Rotas - Tempo médio geral
 -- SELECT * FROM vw_tempo_medio_24h;
