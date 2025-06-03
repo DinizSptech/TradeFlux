@@ -427,6 +427,7 @@ function atualizarGraficosComDados(servidorEscolhido) {
     const minTime = Math.min(...servidorEscolhido.dados.map(p => new Date(p.Momento).getTime()));
   const maxTime = Math.max(...servidorEscolhido.dados.map(p => new Date(p.Momento).getTime()));
 
+
   chartLineFisico.updateOptions({
     series: [
       { name: "CPU", data: seriesCPU },
@@ -458,6 +459,32 @@ function atualizarGraficosComDados(servidorEscolhido) {
     }
   }, false, true);
 
+  atualizarProcessos(servidorEscolhido)
+}
+
+const listacpu = document.querySelector("#lista-processos-cpu")
+const listaram = document.querySelector("#lista-processos-ram")
+function atualizarProcessos(servidor){
+  let topcpu = ''
+  let topram = ``
+  console.log(servidor)
+  servidor.dados[servidor.dados.length - 1].processos.forEach(processo => {
+    if(processo.grupo == 'top_cpu'){
+      topcpu += `<li>
+      <strong>Nome do processo:${processo.name}</strong> | <span>Uso CPU: ${processo.cpu_percent}%</span> |
+      <small>Id do processo:${processo.pid}</small>
+      </li>
+      `
+    } else {
+      topram +=  `<li>
+      <strong>Nome do processo:${processo.name}</strong> | <span>Uso RAM: ${processo.ram_percent}%</span> |
+      <small>Id do processo:${processo.pid}</small>
+      </li>
+      `
+    }
+  })
+   listacpu.innerHTML = topcpu
+   listaram.innerHTML = topram
 }
 
 async function pegarAlertas() {
@@ -481,23 +508,21 @@ function atualizarListaAlertas(alertas) {
 
   alertas.forEach((alerta) => {
 
-    const servidorNome = alerta.fk_servidor
-      ? `Servidor ${alerta.fk_servidor}`
-      : 'Servidor desconhecido';
+    let servidorNome = alerta.fk_servidor ? `Servidor ${alerta.fk_servidor}`: 'Servidor desconhecido';
 
-    const componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
+    let componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
 
     const data = new Date(alerta.data_gerado);
     const dataFormatada = data.toLocaleString('pt-BR', {
-      day: '2-digit', month: '2-digit', year: 'numeric',
+      day: '2-digit', month: '2-digit',
       hour: '2-digit', minute: '2-digit'
     });
       
       const idjira = alerta.idjira ? `ID Jira: ${alerta.idjira}` : '';
       
       lista.innerHTML += `<li>
-      <strong>${servidorNome}</strong> <span>${componente} em ${alerta.valor}%</span>
-      <small>${dataFormatada}</small> <small>${idjira}</small>
+      <strong>${servidorNome}</strong> | <span>${componente} em ${alerta.valor}%</span> |
+      <small>${dataFormatada}</small> |<small>${idjira}</small>
       </li>
       `;
       
@@ -508,7 +533,7 @@ function atualizarListaAlertas(alertas) {
 setInterval(() => {
   atualizarDadosEmTempoReal()
   pegarAlertas()
-}, 5000);
+}, 6000);
 
 // variaveis estéticas
  var stroke =  {
@@ -539,13 +564,20 @@ setInterval(() => {
       top: 22
     }  
 
-    var altura = '300'
-    var largura = '432'
+    var tooltip = {
+    theme: "dark",
+    x: {
+          show: true,
+          format: "HH:mm:ss",
+      }
+  }
+
+    var altura = '260'
+    var largura = '412'
     var velocidade = 200
     var locura = 3000
     
 // CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
-function criarDashs(){}
 window.Apex = {
   chart: {
     foreColor: "#2b2b2b",
@@ -571,9 +603,7 @@ window.Apex = {
       color: "#333"
     }
   },
-  tooltip: {
-    theme: "dark"
-  },
+  tooltip: tooltip,
   yaxis: {
     decimalsInFloat: 2,
     opposite: true,
@@ -639,9 +669,9 @@ var optionsLineFisico = {
     text: "Percentual",
     floating: true,
     align: "right",
-    offsetY: 0,
+    offsetY: 3,
     style: {
-      fontSize: "22px"
+      fontSize: "18px"
     }
   },
   legend: {
@@ -689,9 +719,7 @@ window.Apex = {
       color: "#333"
     }
   },
-  tooltip: {
-    theme: "dark"
-  },
+  tooltip: tooltip,
   yaxis: {
     decimalsInFloat: 2,
     opposite: true,
@@ -753,7 +781,7 @@ var optionsLineRede = {
     }
   },
   subtitle: {
-    text: "Percentual",
+    text: "KB/s",
     floating: true,
     align: "right",
     offsetY: 0,
