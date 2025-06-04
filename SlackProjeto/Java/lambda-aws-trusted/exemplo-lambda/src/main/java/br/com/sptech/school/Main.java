@@ -71,7 +71,7 @@ public class Main implements RequestHandler<S3Event, String> {
             processMetadata.setContentLength(csvProcessBytes.length);
             processMetadata.setContentType("text/csv");
 
-            String destinoProcesso = "DataCenter1/" + fileName.replace(".json", "_processos.csv");
+            String destinoProcesso = "dadosRobertTrusted/Datacenter1/" + fileName.replace(".json", "_processos.csv");
 
             // Envia o CSV de dados com processos
             s3Client.putObject(DESTINATION_BUCKET, destinoProcesso, csvProcessInputStream, processMetadata);
