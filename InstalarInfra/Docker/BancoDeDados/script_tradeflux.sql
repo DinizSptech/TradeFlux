@@ -1,12 +1,10 @@
 -- active: 1732573765546@@127.0.0.1@3306@allset
 -- usuarios e privilegios
 
-drop user if exists 'user_insert_tradeflux'@'%';
-create user 'user_insert_tradeflux'@'%' identified by 'tradeflux_insert';
+CREATE USER IF NOT EXISTS 'user_insert_tradeflux'@'%' IDENTIFIED BY 'tradeflux_insert';
 grant all privileges on tradeflux.* to 'user_insert_tradeflux'@'%';
 
-drop user if exists 'user_select_tradeflux'@'%';
-create user 'user_select_tradeflux'@'%' identified by 'tradeflux_select';
+CREATE USER IF NOT EXISTS 'user_select_tradeflux'@'%' IDENTIFIED BY 'tradeflux_select';
 grant all privileges on tradeflux.* to 'user_select_tradeflux'@'%';
 -- update mysql.user set host='%' where user='root' and host='localhost';
 flush privileges;
