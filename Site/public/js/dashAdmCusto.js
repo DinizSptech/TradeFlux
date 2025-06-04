@@ -191,7 +191,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://3.230.80.85:3000/pix/pegarPix").then((res) => {
+    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
@@ -610,7 +610,7 @@ function filtrar(tempo) {
           custo_total.innerHTML = menorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
-          fetch("http://3.230.80.85:8080/adm/alertas/30d").then((res) => {
+          fetch("/adm/alertas/30d").then((res) => {
             res.json().then((resjson) => {
               let total_alertas_30 = resjson[0].total_alertas;
 

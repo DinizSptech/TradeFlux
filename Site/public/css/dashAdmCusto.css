@@ -28,22 +28,25 @@ body {
 .filtro {
   font-size: 1.3rem;
   font-weight: 700;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .filtros-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Espaço entre os dois grupos de filtros */
-  align-items: flex-start; /* Alinha os filtros à esquerda */
+  gap: 2rem;
+  align-items: flex-start;
 }
 .filtros-e-grafico {
   display: flex;
-  justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 2rem; /* Adiciona um espaço acima dos filtros */
-  margin-left: 1rem; /* Adiciona margem para alinhar com o primeiro KPI */
+  margin-top: 2rem;
+  margin-left: 1rem;
 }
 .filtros {
   display: flex;
@@ -57,7 +60,6 @@ body {
   border: none;
   padding: 0.7rem 1rem;
   border-radius: 4px;
-  cursor: pointer;
   width: 200px;
   text-align: left;
   transition: background-color 0.2s ease;
@@ -72,9 +74,9 @@ body {
   border: 1px solid #cfd4e0;
   padding: 1rem;
   width: 100%;
-  max-width: 900px; /* Aumentei o tamanho máximo do gráfico */
-  height: 450px; /* Aumentei a altura do gráfico */
-  margin: 0 auto; /* Centraliza o gráfico */
+  max-width: 900px;
+  height: 450px;
+  margin: 0 auto;
 }
 .investir {
   margin-top: 2rem;
@@ -86,7 +88,7 @@ body {
   align-items: center;
 }
 .investir-frase {
-  background: #667eea;
+  background: #7286d5;
   color: white;
   padding: 1.5rem 2rem;
   border-radius: 12px;
@@ -94,11 +96,10 @@ body {
   font-weight: 600;
   letter-spacing: 0.5px;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  text-transform: uppercase;
   max-width: 900px;
   width: 100%;
   text-align: center;
-  margin-left: 5%; /* Adiciona margem à esquerda para deslocar a frase para a direita */
+  margin-left: 5%;
 }
 .data_center_investir {
   background-color: #fefefe;
