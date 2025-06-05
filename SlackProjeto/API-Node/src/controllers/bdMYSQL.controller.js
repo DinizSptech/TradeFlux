@@ -53,6 +53,29 @@ function buscar_servidor(req, res) {
         });
 }
 
+function cadastrar_parametros(req, res) {
+    let id_servidor = req.body.id_servidor;
+    let limiar_atencao = req.body.limiar_atencao;
+    let limiar_critico = req.body.limiar_critico;
+
+    console.log('Cadastrando parametros');
+    bdModel.insert_parametros(id_servidor, limiar_atencao, limiar_critico)
+        .then(function (resultado) {
+            res.status(200).json({
+                success: true,
+                message: "Cadastro de parâmetros bem sucedido!",
+                data: resultado
+            });
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao cadastrar os parâmetros! Erro: ", erro.sqlMessage);
+            res.status(500).json({
+                success: false,
+                error: erro.sqlMessage || erro.message
+            });
+        });
+}
+
 function buscar_parametro(req, res) {
     let id = req.params.id;
     console.log('Selecionando parâmetros');
@@ -104,6 +127,7 @@ function inserir_alerta(req, res) {
 module.exports = {
     cadastrar_servidor,
     inserir_alerta,
+    cadastrar_parametros,
     buscar_parametro,
     buscar_servidor
 };

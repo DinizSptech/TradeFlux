@@ -658,6 +658,22 @@ FROM (
       AND a.data_gerado >= NOW() - INTERVAL 30 DAY
 ) AS contagem;
 
+-- CALENDARIO
+SELECT 
+    DATE(a.data_gerado) AS data_alerta,
+    SUM(CASE WHEN a.criticidade = 1 THEN 1 ELSE 0 END) AS alertas_atencao,
+    SUM(CASE WHEN a.criticidade = 3 THEN 1 ELSE 0 END) AS alertas_criticos,
+    COUNT(*) AS total_alertas
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+WHERE s.fk_data_center = 1
+  AND a.data_gerado >= CURDATE() - INTERVAL 29 DAY
+GROUP BY DATE(a.data_gerado)
+ORDER BY DATE(a.data_gerado);
+
+SELECT * FROM alerta;
+
 -- -- -- 1. Rotas - Alertas KPI
 -- SELECT * FROM vw_qtd_alertas_24h;
 -- SELECT * FROM vw_qtd_alertas_7d;

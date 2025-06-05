@@ -25,6 +25,36 @@ def obter_parametros_servidor(id_maquina):
         print(f"Erro na requisição de parâmetros: {e}")
         return {"erro": str(e)}
 
+def cadastrar_parametros(limiar_atencao, limiar_critico, idServidor):
+    try:
+        payload = {
+            "id_servidor": idServidor,
+            "limiar_atencao": limiar_atencao,
+            "limiar_critico": limiar_critico
+        }
+        
+        print(f"Enviando dados de parametros para cadastro: {payload}")
+        
+        headers = {'Content-Type': 'application/json'}
+        resposta = requests.post(f"{API_URL}/bd/cadastrar_parametros", json=payload, headers=headers, timeout=15)
+        
+        if resposta.status_code == 200:
+            data = resposta.json()
+            print(f"Resposta do cadastro: {data}")
+            return data
+        else:
+            print(f"Erro ao cadastrar servidor: {resposta.status_code} - {resposta.text}")
+            return {"erro": f"HTTP {resposta.status_code}"}
+    except requests.exceptions.Timeout:
+        print("Timeout ao cadastrar servidor")
+        return {"erro": "Timeout"}
+    except requests.exceptions.ConnectionError:
+        print("Erro de conexão ao cadastrar servidor")
+        return {"erro": "Conexão"}
+    except Exception as e:
+        print(f"Erro ao cadastrar servidor: {e}")
+        return {"erro": str(e)}
+
 def buscar_servidor(uuid_maquina):
     try:
         headers = {'Content-Type': 'application/json'}

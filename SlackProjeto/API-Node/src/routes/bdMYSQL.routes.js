@@ -12,6 +12,15 @@ router.post("/cadastrar_servidor", (req, res) => {
     }
 });
 
+router.post("/cadastrar_parametros", (req, res) => {
+    const contentType = req.headers['content-type'];
+    if (contentType === 'application/json') {
+        bdController.cadastrar_parametros(req, res);
+    } else {
+        res.status(400).send("Erro router bd/cadastrar parametros: Envie um arquivo JSON");
+    }
+});
+
 router.get("/servidor/:uuid", (req, res) => {
     const contentType = req.headers['content-type'];
     // Removido check de content-type para GET (não é necessário)

@@ -19,6 +19,19 @@ function insert_servidor(id_datacenter, uuidservidor, sistemaoperacional, discot
     console.log("Executando a instrução:" + instrucaosql);
     return bd.executarInsert(instrucaosql);
 }
+function insert_parametros(id_servidor, limiar_atencao, limiar_critico) {
+    console.log("Acessando model para inserir os parametros do servidor ");
+    let instrucaosql = `
+        INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
+        VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 1);
+        INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
+        VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 3);
+        INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
+        VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 5);
+    `;
+    console.log("Executando a instrução:" + instrucaosql);
+    return bd.executarInsert(instrucaosql);
+}
 
 function select_servidor(uuid) {
     console.log("Acessando model para buscar servidor");
@@ -77,6 +90,7 @@ function update_alerta_concluido(issueKey, dataConclusao) {
 module.exports = {
     insert_alerta,
     insert_servidor,
+    insert_parametros,
     select_servidor,
     select_parametro,
     insert_alerta_com_issueKey,
