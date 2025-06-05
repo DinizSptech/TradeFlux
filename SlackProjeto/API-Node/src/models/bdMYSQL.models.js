@@ -1,6 +1,6 @@
 const bd = require("../connections/bd");
 
-function insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente) {
+function insert_alerta(valor, medida, data, criticidade, fkparametro) {
     console.log("Acessando model para inserir alerta");
     let instrucaosql = `
         INSERT INTO alerta (valor, medida, data_gerado, criticidade, fk_parametro)

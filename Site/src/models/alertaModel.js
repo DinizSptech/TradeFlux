@@ -120,14 +120,14 @@ function getAlertaUnsolved(idDataCenter){
   );
 
     let instrucaoSql = `
-      select fk_servidor,idjira, valor, nomecomponente, data_gerado from alerta 
+select fk_servidor,idjira, valor, nomecomponente, data_gerado from alerta 
 JOIN parametro_servidor as p ON fk_parametro = idparametros_servidor
 JOIN componente as c ON fk_componente = idcomponente
 LEFT JOIN servidor_cliente as s ON fk_servidor = idservidor
 LEFT JOIN data_center as d ON iddata_center = fk_data_center
 WHERE data_resolvido is NULL 
 AND idjira IS NOT NULL
-AND fk_data_center = '${idDataCenter}' OR fk_data_center IS NULL
+AND (fk_data_center = ${idDataCenter} OR fk_data_center IS NULL)
 ORDER BY data_gerado DESC;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

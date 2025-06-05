@@ -121,16 +121,20 @@ overflow-y: hidden;
   padding: 10px;
   text-align: center;
   font-weight: bold;
+  font-size: 18px;
+  text-wrap: nowrap;
 }
+
 
 
 .tabelaMonitoramento td {
   /* border: 1px solid #706f6f; */
+  text-wrap: nowrap;
   background-color: #ffffff;
   padding: 6px;
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 18px;
               /* text-shadow:
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
