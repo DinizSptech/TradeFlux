@@ -5,15 +5,19 @@ async function enviarJira(req, res) {
   try {
     const { valor, medida, data, criticidade, fkparametro, servidor, componente } = req.body;
 
+    // Sempre inserir o alerta no banco primeiro
     await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente);
 
     if (criticidade !== 3) {
+      await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro);
       return res.status(200).json({
         success: true,
         message: "Alerta recebido e salvo no banco, mas criticidade != 3. Não enviado ao Jira.",
         criticidade: criticidade
       });
     }
+    // Sempre inserir o alerta no banco primeiro
+    await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro);
 
     // Se for crítico, criar no Jira também
     const summary = `ALERTA CRÍTICO - ${componente} no servidor ${servidor}`;
@@ -27,7 +31,7 @@ async function enviarJira(req, res) {
     res.status(201).json({
       success: true,
       message: `Alerta crítico criado no Jira com issueKey ${issueKey}`,
-      issueKey: issueKey
+      issueKey: `Issue key: ${issueKey}`
     });
   } catch (err) {
     console.error("Erro ao enviar alerta ao Jira:", err);
