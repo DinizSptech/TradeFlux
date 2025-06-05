@@ -21,6 +21,7 @@ function insert_servidor(id_datacenter, uuidservidor, sistemaoperacional, discot
 }
 function insert_parametros(id_servidor, limiar_atencao, limiar_critico) {
     console.log("Acessando model para inserir os parametros do servidor ");
+    console.log("id do servidor na model: ", id_servidor);
     let instrucaosql = `
         INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
         VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 1);

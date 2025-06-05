@@ -35,7 +35,6 @@ def main():
             discoTotal = info["Armazenamento Máximo"]
             
             resultado_cadastro = comunicacao.cadastrar_servidor(id_datacenter, uuidServidor, SO_maq, discoTotal, ramTotal, cpuInfo)
-            resultado_cadastro_parametros = comunicacao.cadastrar_parametros(limiar_atencao, limiar_critico, idServidor)
             if "erro" not in resultado_cadastro:
                 print("Servidor cadastrado com sucesso!")
                 print("Dados inseridos:")
@@ -47,6 +46,8 @@ def main():
                 # Aguardar um momento e buscar novamente o ID do servidor após cadastro
                 time.sleep(2)
                 idServidor = comunicacao.buscar_servidor(uuidServidor)
+                resultado_cadastro_parametros = comunicacao.cadastrar_parametros(limiar_atencao, limiar_critico, idServidor)
+
                 
                 if idServidor is None:
                     print("Erro: Não foi possível obter o ID do servidor após cadastro.")
