@@ -5,16 +5,14 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import json
 
-    #essa lambda trata os dados do trusted e envia para o client
-
 def lambda_handler(event, context):
     try:
 
   
         s3 = boto3.client('s3')
 
-        bucket_name = 'bucket-trusted-teste125'
-        prefix = 'servidoresAmanda' 
+        bucket_name = 'bucket-trusted-tradeflux-123'
+        prefix = 'DataCenter1Amanda/' 
 
         response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
 
@@ -60,71 +58,80 @@ def lambda_handler(event, context):
         ociosidade_30dias = df_30_dias[(df_30_dias['CPU Percentual'] <= 5) & (df_30_dias['RAM Percentual'] <= 25 ) & (df_30_dias['Disco Percentual'] <= 25)]
         ociosidade_7dias = df_7_dias[(df_7_dias['CPU Percentual'] <= 5) & (df_7_dias['RAM Percentual'] <= 25 ) & (df_7_dias['Disco Percentual'] <= 25)]
 
-        # Listas para armazenar os resultados por servidor
+    
         TabelaOciosidade_6meses = {}
         TabelaOciosidade_30dias = {}
         TabelaOciosidade_7dias = {}
 
-        # Lista com os dataframes e nomes
+    
         periodos = [
             ("6meses", df_6_meses),
             ("30dias", df_30_dias),
             ("7dias", df_7_dias)
         ]
 
-        data_inicial = datetime(2025, 3, 5, 0, 1, 0)
+        
+        vetor_ociosidade3meses = []
+        data_inicial = datetime.now() - timedelta(days=90)
+        data3meses = []
 
+        quantidade = 19  # a cada 5 dias
 
-        quantidade = 19
-
-        # Lista para armazenar os DataFrames
-        vetor_ociosidade6meses = []
-
-        # Loop para gerar de 5 em 5 dias
         for i in range(quantidade):
-            data_alvo = data_inicial + timedelta(days=5 * i)
-            
-            filtro = len(df_6_meses[
-                (df_6_meses['CPU Percentual'] <= 20) &
-                (df_6_meses['RAM Percentual'] <= 25) &
-                (df_6_meses['Disco Percentual'] <= 25) &
-                (df_6_meses['Data Hora'] == data_alvo)
-            ])
-            
-            vetor_ociosidade6meses.append(filtro)
+                data_alvo = data_inicial + timedelta(days=5 * i)
+                data3meses.append(data_alvo)
+                filtro_df = df_6_meses[
+                    (df_6_meses['CPU Percentual'] <= 20) &
+                    (df_6_meses['RAM Percentual'] <= 25) &
+                    (df_6_meses['Disco Percentual'] <= 25) &
+                    (df_6_meses['Data Hora'] == data_alvo)
+                ]
 
-        quantidade2 = 16
-        data_inicial2 = datetime(2025, 5, 3, 0, 1, 0)
-        # Lista para armazenar os DataFrames
+                vetor_ociosidade3meses.append(len(filtro_df))
+
+
         vetor_ociosidade30dias = []
+        data_inicial2 = datetime.now() - timedelta(days=30)
+        data30dias = []
 
-        # Loop para gerar de 15 em 15 dias
+        quantidade2 = 16  # a cada 2 dias
+
         for i in range(quantidade2):
-            data_alvo = data_inicial2 + timedelta(days=2 * i)
-            
-            filtro = len(df_30_dias[
-                (df_30_dias['CPU Percentual'] <= 20) &
-                (df_30_dias['RAM Percentual'] <= 25) &
-                (df_30_dias['Disco Percentual'] <= 25) &
-                (df_30_dias['Data Hora'] == data_alvo)
-            ])
-            
-            vetor_ociosidade30dias.append(filtro)
+                data_alvo = data_inicial2 + timedelta(days=2 * i)
+                data30dias.append(data_alvo)
+
+                filtro_df = df_30_dias[
+                    (df_30_dias['CPU Percentual'] <= 20) &
+                    (df_30_dias['RAM Percentual'] <= 25) &
+                    (df_30_dias['Disco Percentual'] <= 25) &
+                    (df_30_dias['Data Hora'] == data_alvo)
+                ]
+
+                vetor_ociosidade30dias.append(len(filtro_df))
+                
+
+
 
         vetor_ociosidade7dias = []
-        data_inicial3 = datetime(2025, 5, 28, 0, 1, 0)
+        data_inicial3 = datetime.now() - timedelta(days=7)
 
-        for i in range(quantidade):
-            data_alvo = data_inicial3 + timedelta(days=1 * i)
-            
-            filtro = len(df_7_dias[
-                (df_7_dias['CPU Percentual'] <= 20) &
-                (df_7_dias['RAM Percentual'] <= 25) &
-                (df_7_dias['Disco Percentual'] <= 25) &
-                (df_7_dias['Data Hora'] == data_alvo)
-            ])
-            
-            vetor_ociosidade7dias.append(filtro)
+        data7dias = []
+
+        quantidade3 = 8  
+
+        for i in range(quantidade3):
+                data_alvo = data_inicial3 + timedelta(days=i)
+                data7dias.append(data_alvo)
+                filtro_df = df_7_dias[
+                    (df_7_dias['CPU Percentual'] <= 20) &
+                    (df_7_dias['RAM Percentual'] <= 25) &
+                    (df_7_dias['Disco Percentual'] <= 25) &
+                    (df_7_dias['Data Hora'] == data_alvo)
+                ]
+
+                vetor_ociosidade7dias.append(len(filtro_df))
+
+          
 
 
         for servidor_id in range(1, 11):
@@ -136,7 +143,7 @@ def lambda_handler(event, context):
                     (df['Servidor'] == servidor_id)
                 )
                 
-                valor = len(df[filtro]) / 60  # divide por 60 como no seu código
+                valor = len(df[filtro]) / 60  # divide por 60 como no seu código    
 
                 # Armazena no dicionário
                 if nome_periodo == "6meses":
@@ -321,56 +328,20 @@ def lambda_handler(event, context):
 
         ociosidade3mesesTemporal = {
 
-        "05/03/2025": vetor_ociosidade6meses[0],
-        "10/03/2025": vetor_ociosidade6meses[1],
-        "15/03/2025": vetor_ociosidade6meses[2],
-        "20/03/2025": vetor_ociosidade6meses[3],
-        "25/03/2025": vetor_ociosidade6meses[4],
-        "30/03/2025": vetor_ociosidade6meses[5],
-        "04/04/2025": vetor_ociosidade6meses[6],
-        "09/04/2025": vetor_ociosidade6meses[7],
-        "14/04/2025": vetor_ociosidade6meses[8],
-        "19/04/2025": vetor_ociosidade6meses[9],
-        "24/04/2025": vetor_ociosidade6meses[10],
-        "29/04/2025": vetor_ociosidade6meses[11],
-        "04/05/2025": vetor_ociosidade6meses[12],
-        "09/05/2025": vetor_ociosidade6meses[13],
-        "14/05/2025": vetor_ociosidade6meses[14],
-        "19/05/2025": vetor_ociosidade6meses[15],
-        "24/05/2025": vetor_ociosidade6meses[16],
-        "29/05/2025": vetor_ociosidade6meses[17],
-        "03/06/2025": vetor_ociosidade6meses[18]
+        data3meses[i].strftime("%d/%m/%Y"): vetor_ociosidade3meses[i]
+        for i in range(len(vetor_ociosidade3meses))
+        
         }
-
-
+        
 
         ociosidade30diasTemporal = {
-        "03/05/2025": vetor_ociosidade30dias[0],
-        "05/05/2025": vetor_ociosidade30dias[1],
-        "07/05/2025": vetor_ociosidade30dias[2],
-        "09/05/2025": vetor_ociosidade30dias[3],
-        "11/05/2025": vetor_ociosidade30dias[4],
-        "13/05/2025": vetor_ociosidade30dias[5],
-        "15/05/2025": vetor_ociosidade30dias[6],
-        "17/05/2025": vetor_ociosidade30dias[7],
-        "19/05/2025": vetor_ociosidade30dias[8],
-        "21/05/2025": vetor_ociosidade30dias[9],
-        "23/05/2025": vetor_ociosidade30dias[10],
-        "25/05/2025": vetor_ociosidade30dias[11],
-        "27/05/2025": vetor_ociosidade30dias[12],
-        "29/05/2025": vetor_ociosidade30dias[13],
-        "31/05/2025": vetor_ociosidade30dias[14],
-        "02/06/2025": vetor_ociosidade30dias[15]
+        data30dias[i].strftime("%d/%m/%Y"): vetor_ociosidade30dias[i]
+        for i in range(len(vetor_ociosidade30dias))
         }
 
         ociosidade7diasTemporal = {
-            "28/05/2025": vetor_ociosidade7dias[0],
-            "29/05/2025": vetor_ociosidade7dias[1],
-            "30/05/2025": vetor_ociosidade7dias[2],
-            "31/05/2025": vetor_ociosidade7dias[3],
-            "01/06/2025": vetor_ociosidade7dias[4],
-            "02/06/2025": vetor_ociosidade7dias[5],
-            "03/06/2025": vetor_ociosidade7dias[6]
+        data7dias[i].strftime("%d/%m/%Y"): vetor_ociosidade7dias[i]
+        for i in range(len(vetor_ociosidade7dias))
         }
 
 
@@ -388,8 +359,8 @@ def lambda_handler(event, context):
         nome_arquivo = f'dados_eficiencia_{data_hoje}.json'
 
         s3.put_object(
-        Bucket='bucket-client-test-125',
-        Key=f'dataCenter1/{nome_arquivo}',
+        Bucket='bucket-client-tradeflux-123',
+        Key=f'dataCenter1Amanda/{nome_arquivo}',
         Body=json_final,
         ContentType='application/json'
         )

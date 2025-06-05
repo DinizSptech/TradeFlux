@@ -147,7 +147,7 @@
           <div id="chart2"></div>
         </div>
         <div class="grafico1">
-          <span class="titulo">Quantidade de servidores ociosos ao longo do tempo</span>
+          <span class="titulo">Quantidade de horas de ociosidade ao longo do tempo</span>
           <div id="chart"></div>
         </div>
       </div>
@@ -519,7 +519,7 @@
 
       diferenca = ((tabela[i].valor - valorIdeal) / valorIdeal) * 100
 
-      if(diferenca > 0){
+      if (diferenca > 0) {
         status = 'fa-arrow-trend-up'
       } else {
         status = 'fa-arrow-trend-down'
@@ -561,35 +561,42 @@
     var datas = [];
     var valores = [];
 
-    function ordenarPorData(objeto) {
-      return Object.entries(objeto).sort(([dataA], [dataB]) => {
-        const [diaA, mesA, anoA] = dataA.split("/").map(Number);
-        const [diaB, mesB, anoB] = dataB.split("/").map(Number);
-        const dateA = new Date(anoA, mesA - 1, diaA);
-        const dateB = new Date(anoB, mesB - 1, diaB);
-        return dateA - dateB;
-      });
-    }
+    // function ordenarPorData(objeto) {
+    //   return Object.entries(objeto).sort(([dataA], [dataB]) => {
+    //     const [diaA, mesA, anoA] = dataA.split("/").map(Number);
+    //     const [diaB, mesB, anoB] = dataB.split("/").map(Number);
+    //     const dateA = new Date(anoA, mesA - 1, diaA);
+    //     const dateB = new Date(anoB, mesB - 1, diaB);
+    //     return dateA - dateB;
+    //   });
+    // }
 
-    const graficoLinha7dias = ordenarPorData(graficoTempo7dias[0]);
-    const graficoLinha30dias = ordenarPorData(graficoTempo30dias[0]);
-    const graficoLinha3meses = ordenarPorData(graficoTempo3meses[0]);
+    // const graficoLinha7dias = ordenarPorData(graficoTempo7dias[0]);
+    // const graficoLinha30dias = ordenarPorData(graficoTempo30dias[0]);
+    // const graficoLinha3meses = ordenarPorData(graficoTempo3meses[0]);
 
     const periodo = sessionStorage.botaoTempo;
     let graficoSelecionado;
 
     if (periodo === '7dias') {
-      graficoSelecionado = graficoLinha7dias;
+      graficoSelecionado = graficoTempo7dias;
     } else if (periodo === '30dias') {
-      graficoSelecionado = graficoLinha30dias;
+      graficoSelecionado = graficoTempo30dias;
     } else {
-      graficoSelecionado = graficoLinha3meses;
+      graficoSelecionado = graficoTempo3meses;
     }
 
-    graficoSelecionado.forEach(([data, valor]) => {
+    // transforma o json em array
+    Object.entries(graficoSelecionado[0]).forEach(([data, valor]) => {
       datas.push(data);
       valores.push(Number(valor));
     });
+
+    const valoresHoras = valores.map(e => Math.floor(e / 60));
+
+    console.log(datas)
+    console.log(valores)
+    console.log(graficoTempo30dias)
 
     const graficoLinhaTempo = {
       chart: {
@@ -615,8 +622,8 @@
       },
       series: [
         {
-          name: "Servidores",
-          data: valores
+          name: "Horas",
+          data: valoresHoras
         }
       ],
       fill: {
@@ -689,7 +696,8 @@
     const ociosidadeHoras = ociosidadeRaw.map(converterParaHoras);
 
     const calcularAlerta = (total, estavel, ocioso) =>
-      estavel.map((e, i) => Math.floor(total / 60) - e - ocioso[i]);
+    estavel.map((e, i) => Math.max(0, Math.floor(total / 60) - e - ocioso[i]));
+
 
     let estavelComponentes, ociosoComponentes, alertaComponentes;
 
