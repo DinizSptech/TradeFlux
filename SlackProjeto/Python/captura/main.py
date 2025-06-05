@@ -83,7 +83,8 @@ def main():
                             print(f"Status buffers - Capturas: {status_buffers['capturas']['atual']}/240, Alertas: {status_buffers['alertas']['atual']}/100")
                     
                     dados_capturados = crawler.coletar_dados(id_datacenter, id_servidor_final)
-                    
+                    # print(dados_capturados)
+                    # print(dados_parametros)
                     # Verificar se os dados foram coletados com sucesso
                     if dados_capturados and 'dados' in dados_capturados:
                         resultado_envio = comunicacao.enviar_dados(dados_capturados)

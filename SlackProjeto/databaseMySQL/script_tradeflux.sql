@@ -146,6 +146,7 @@ create table if not exists parametro_servidor (
     limiar_alerta_critico double,
     fk_servidor int,
     fk_componente int,
+    Foreign Key (fk_servidor) REFERENCES servidor_cliente(idservidor),
     foreign key (fk_componente) references componente(idcomponente)
 );
 

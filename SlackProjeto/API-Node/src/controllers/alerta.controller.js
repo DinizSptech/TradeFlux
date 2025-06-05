@@ -5,7 +5,6 @@ async function enviarJira(req, res) {
   try {
     const { valor, medida, data, criticidade, fkparametro, servidor, componente } = req.body;
 
-    // Sempre inserir o alerta no banco primeiro
     await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente);
 
     if (criticidade !== 3) {
