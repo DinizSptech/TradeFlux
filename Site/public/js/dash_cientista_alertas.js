@@ -10,7 +10,6 @@ var dadosServidoresCriticos = [];
 var tipoGraficoServidores = "criticos";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Configurar eventos dos botões existentes
   document
     .getElementById("abaAlertasAtencao")
     .addEventListener("click", function () {
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderizarCalendario();
     });
 
-  // NOVO: Configurar evento do select
   document
     .getElementById("slt_alertas")
     .addEventListener("change", function () {
@@ -39,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderizarGraficoServidores();
     });
 
-  // Carregar todos os dados
   carregarDadosDashboard();
 });
 
@@ -47,8 +44,8 @@ function carregarDadosDashboard() {
   Promise.all([
     buscarDadosCalendario(),
     buscarDadosComponentes(),
-    buscarDadosServidoresCriticos(), // Renomeado
-    buscarDadosServidoresAtencao(), // Novo
+    buscarDadosServidoresCriticos(),
+    buscarDadosServidoresAtencao(), 
     buscarDadosTotaisAlerta(),
     buscarDadosStatusServidor(),
   ])
@@ -85,7 +82,6 @@ function buscarDadosStatusServidor() {
       throw erro;
     });
 }
-// Fetch para dados do calendário
 function buscarDadosCalendario() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
   return fetch(`/alertas/getAlertasCalendario/${idDataCenter}`, {
@@ -132,7 +128,6 @@ function buscarDadosTotaisAlerta() {
     });
 }
 
-// Fetch para dados dos componentes
 function buscarDadosComponentes() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
   return fetch(`/alertas/getQtdAlertasComponente/${idDataCenter}`, {
@@ -178,7 +173,6 @@ function buscarDadosServidoresCriticos() {
     });
 }
 
-// NOVA função para buscar dados de servidores com alertas de atenção
 function buscarDadosServidoresAtencao() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
   return fetch(`/alertas/getTopServidoresAlertasAtencao/${idDataCenter}`, {
@@ -201,13 +195,11 @@ function buscarDadosServidoresAtencao() {
     });
 }
 
-// Função para processar dados do calendário
 function processarDadosCalendario(dadosDB) {
   const hoje = new Date();
   const diasAtras30 = new Date();
   diasAtras30.setDate(hoje.getDate() - 29);
 
-  // Criar array com todos os dias dos últimos 30 dias
   const datas = [];
   const dataAtual = new Date(diasAtras30);
 
@@ -223,15 +215,14 @@ function processarDadosCalendario(dadosDB) {
     dataAtual.setDate(dataAtual.getDate() + 1);
   }
 
-  // Preencher dados do banco
   dadosDB.forEach((registro) => {
-    const dataFormatada = formatarDataSQL(new Date(registro.data_alerta));
+    const dataFormatada = registro.data_alerta.split('T')[0];
+    
     const dataIndex = datas.findIndex((d) => d.data === dataFormatada);
 
     if (dataIndex >= 0) {
       datas[dataIndex].alertasAtencao = parseInt(registro.alertas_atencao) || 0;
-      datas[dataIndex].alertasCriticos =
-        parseInt(registro.alertas_criticos) || 0;
+      datas[dataIndex].alertasCriticos = parseInt(registro.alertas_criticos) || 0;
       datas[dataIndex].total = parseInt(registro.total_alertas) || 0;
     }
   });
@@ -239,7 +230,6 @@ function processarDadosCalendario(dadosDB) {
   return datas;
 }
 
-// Funções auxiliares para formatação de data
 function formatarDataSQL(data) {
   return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(
     2,
@@ -253,7 +243,6 @@ function formatarDataExibicao(data) {
   ).padStart(2, "0")}`;
 }
 
-// Funções para cores dos alertas
 function obterCorAlertaAtencao(valor) {
   if (valor === 0) return "#91cc75";
   if (valor <= 2) return "#ffe066";
@@ -268,7 +257,6 @@ function obterCorAlertaCritico(valor) {
   return "#ff3d00";
 }
 
-// Função para definir aba ativa
 function definirAbaAtiva(botaoAba) {
   document.querySelectorAll(".botaoTipoAlerta").forEach(function (botao) {
     botao.classList.remove("ativo");
@@ -276,7 +264,6 @@ function definirAbaAtiva(botaoAba) {
   botaoAba.classList.add("ativo");
 }
 
-// Função para renderizar o calendário
 function renderizarCalendario() {
   if (dadosCalendario.length === 0) return;
 
@@ -315,7 +302,6 @@ function renderizarCalendario() {
     }
   }
 
-  // Renderizar semanas
   semanas.forEach((semana) => {
     htmlCalendario += '<div class="linhaCalendario">';
 
@@ -355,7 +341,6 @@ function renderizarCalendario() {
   painelCalendario.innerHTML = htmlCalendario;
 }
 
-// Funções para tooltip
 function mostrarBalaoInfo(evento, dadosDia) {
   const balaoInfo = document.getElementById("balaoInfoAlertas");
   balaoInfo.style.display = "block";
@@ -379,10 +364,8 @@ function ocultarBalaoInfo() {
   balaoInfo.style.display = "none";
 }
 
-// Variável global para o gráfico de componentes
 let grafico_alertas;
 
-// Função para renderizar gráfico de componentes
 function renderizarGraficoComponentes(dadosDB) {
   if (dadosComponentes.length === 0) return;
 
