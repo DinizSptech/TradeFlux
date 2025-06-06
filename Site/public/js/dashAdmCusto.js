@@ -5,7 +5,7 @@
 
 // CUSTO MÉDIO POR MANUTENÇÃO = CUSTO TOTAL / QTD ALERTAS
 
-let corGrafico = "rgb(0,178,118)";
+let corGrafico = "#28a745";
 
 let tempoSelecionado = 0;
 let dataCenterSelecionado = null;
