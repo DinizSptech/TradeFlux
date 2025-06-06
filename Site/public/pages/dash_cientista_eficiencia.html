@@ -147,7 +147,7 @@
           <div id="chart2"></div>
         </div>
         <div class="grafico1">
-          <span class="titulo">Quantidade de horas de ociosidade ao longo do tempo</span>
+          <span class="titulo">Média de horas de ociosidade por componente ao longo do tempo</span>
           <div id="chart"></div>
         </div>
       </div>
@@ -169,10 +169,16 @@
   var tabela30diasAWS = []
   var tabela3mesesAWS = []
   var tabela7diasAWS = []
-  var graficoTempo7dias = []
-  var graficoTempo30dias = []
-  var graficoTempo3meses = []
   var estabilidade = []
+  var graficoTempo7diasCPU = []
+  var graficoTempo7diasRAM = []
+  var graficoTempo7diasDisco = []
+  var graficoTempo30diasCPU = []
+  var graficoTempo30diasRAM = []
+  var graficoTempo30diasDisco = []
+  var graficoTempo3mesesCPU = []
+  var graficoTempo3mesesRAM = []
+  var graficoTempo3mesesDisco = []
 
   function chamarDadosAWS() {
 
@@ -185,10 +191,17 @@
         tabela3mesesAWS.push(data[2])
         tabela30diasAWS.push(data[3])
         tabela7diasAWS.push(data[4])
-        graficoTempo3meses.push(data[5])
-        graficoTempo30dias.push(data[6])
-        graficoTempo7dias.push(data[7])
-        estabilidade.push(data[8])
+        estabilidade.push(data[5])
+        graficoTempo3mesesCPU.push(data[6])
+        graficoTempo3mesesRAM.push(data[7])
+        graficoTempo3mesesDisco.push(data[8])
+        graficoTempo30diasCPU.push(data[9])
+        graficoTempo30diasRAM.push(data[10])
+        graficoTempo30diasDisco.push(data[11])
+        graficoTempo7diasCPU.push(data[12])
+        graficoTempo7diasRAM.push(data[13])
+        graficoTempo7diasDisco.push(data[14])
+        
         sessionStorage.setItem("botaoTempo", '7dias');
         kpi1_geral();
         kpi2_geral();
@@ -558,45 +571,54 @@
       window.chartLinha.destroy();
     }
 
-    var datas = [];
-    var valores = [];
+    var datas = []
+    var valoresCPU = []
+    var valoresRAM = []
+    var valoresDisco = []
 
-    // function ordenarPorData(objeto) {
-    //   return Object.entries(objeto).sort(([dataA], [dataB]) => {
-    //     const [diaA, mesA, anoA] = dataA.split("/").map(Number);
-    //     const [diaB, mesB, anoB] = dataB.split("/").map(Number);
-    //     const dateA = new Date(anoA, mesA - 1, diaA);
-    //     const dateB = new Date(anoB, mesB - 1, diaB);
-    //     return dateA - dateB;
-    //   });
-    // }
 
-    // const graficoLinha7dias = ordenarPorData(graficoTempo7dias[0]);
-    // const graficoLinha30dias = ordenarPorData(graficoTempo30dias[0]);
-    // const graficoLinha3meses = ordenarPorData(graficoTempo3meses[0]);
 
     const periodo = sessionStorage.botaoTempo;
-    let graficoSelecionado;
+    let graficoSelecionadoCPU;
+    let graficoSelecionadoRAM;
+    let graficoSelecionadoDisco;
 
     if (periodo === '7dias') {
-      graficoSelecionado = graficoTempo7dias;
+      graficoSelecionadoCPU = graficoTempo7diasCPU
+      graficoSelecionadoRAM = graficoTempo7diasRAM
+      graficoSelecionadoDisco = graficoTempo7diasDisco
+
     } else if (periodo === '30dias') {
-      graficoSelecionado = graficoTempo30dias;
+      graficoSelecionadoCPU = graficoTempo30diasCPU
+      graficoSelecionadoRAM = graficoTempo30diasRAM
+      graficoSelecionadoDisco = graficoTempo30diasDisco
     } else {
-      graficoSelecionado = graficoTempo3meses;
+      graficoSelecionadoCPU = graficoTempo3mesesCPU
+      graficoSelecionadoRAM = graficoTempo3mesesRAM
+      graficoSelecionadoDisco = graficoTempo3mesesDisco;
     }
 
     // transforma o json em array
-    Object.entries(graficoSelecionado[0]).forEach(([data, valor]) => {
+    Object.entries(graficoSelecionadoCPU[0]).forEach(([data, valor]) => {
       datas.push(data);
-      valores.push(Number(valor));
+      valoresCPU.push(Number(valor));
     });
 
-    const valoresHoras = valores.map(e => Math.floor(e / 60));
+    Object.entries(graficoSelecionadoRAM[0]).forEach(([data, valor]) => {
+      valoresRAM.push(Number(valor));
+    });
 
-    console.log(datas)
-    console.log(valores)
-    console.log(graficoTempo30dias)
+    Object.entries(graficoSelecionadoDisco[0]).forEach(([data, valor]) => {
+    valoresDisco.push(Number(valor));
+    });
+
+    console.log(valoresCPU)
+    console.log(graficoTempo30diasCPU)
+
+    const valoresHorasCPU = valoresCPU.map(e => Math.floor(e / 60));
+    const valoresHorasRAM = valoresRAM.map(e => Math.floor(e / 60));
+    const valoresHorasDisco = valoresDisco.map(e => Math.floor(e / 60));
+
 
     const graficoLinhaTempo = {
       chart: {
@@ -622,8 +644,16 @@
       },
       series: [
         {
-          name: "Horas",
-          data: valoresHoras
+          name: "CPU",
+          data: valoresHorasCPU
+        },
+        {
+          name: "RAM",
+          data: valoresHorasRAM
+        },
+        {
+          name: "Disco",
+          data: valoresHorasDisco
         }
       ],
       fill: {
