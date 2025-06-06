@@ -13,7 +13,7 @@
 
   h2{
     font-weight: bolder;
-    font-size: 50px;
+    font-size: 25px;
   }
 
   h1{
@@ -185,6 +185,14 @@ tr.selected {
 
 tr.selected td.col-server{
   background-color: #2b2b2b;
+}
+
+tr:nth-child(even) {
+  background-color: #f4f6fa;
+}
+
+tr:nth-child(odd) {
+    background-color: #e9edf5;
 }
 
 tr:hover{

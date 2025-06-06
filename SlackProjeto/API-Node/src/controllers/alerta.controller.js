@@ -19,17 +19,24 @@ async function enviarJira(req, res) {
   
   const description = `Valor: ${valor}\nMedida: ${medida}\nData: ${data}\nParâmetro: ${fkparametro}`;
   const summary = `ALERTA CRÍTICO - ${componente} no servidor ${servidor}`;
-  let existe
+  let JaInserido
   try {
     console.log("Fazendo select no jira!\n\n")
     console.log(summary)
-    existe = await selectAlertaNoJira(summary)
+    JaInserido = await selectAlertaNoJira(servidor,componente)
   } catch (erro) {
     console.log("Erro ao buscar no jira: " + erro)
   }
   console.log
-  if(existe){
+  if(!JaInserido){
+    console.log("Rechecando após delay de 3s...");
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    JaInserido = await selectAlertaNoJira(servidor, componente);
+  }
+  if (!JaInserido) {
   try{
+
+
     console.log("Criando alerta no jira!\n\n")
     const issueKey = await criarAlertaNoJira({ summary, description });
     console.log("Inserindo alerta CRÍTICO!\n\n")
@@ -51,7 +58,7 @@ async function enviarJira(req, res) {
     });
   }
 } else {
-  console.log("Alerta já inserido no jira")
+  return
 }
 }
 
