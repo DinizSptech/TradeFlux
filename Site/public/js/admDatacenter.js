@@ -180,7 +180,7 @@ function atualizarGraficoBarrasDuplas(dadosTotais, dadosAtrasados) {
                 endingShape: 'rounded'
             },
         },
-        dataLabels: { enabled: false },
+        dataLabels: { enabled: true },
         stroke: {
             show: true,
             width: 2,

@@ -8,11 +8,14 @@ import java.util.regex.Matcher;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Stock {
 
+    // Pega as propriedades da parta raiz do JSON e vai retornando, pq como tinha um outro JSON dentro desse, ele dava erro
+
     @JsonProperty("servidor")
     private String servidor;
 
     @JsonProperty("dados")
     private Dados dados;
+    // Dados é uma classe que foi criada para pegar os dados de cada JSON e dentro dele tem uma lista para ter os processos
 
     @JsonProperty("timestamp")
     private String timestamp;
@@ -53,4 +56,5 @@ public class Stock {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
 }

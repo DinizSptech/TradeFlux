@@ -50,7 +50,7 @@ public class Main implements RequestHandler<S3Event, String> {
             String destinationKeyAmanda = "DataCenter1Amanda/" + fileName.replace(".json", ".csv");
             String destinationKeyIsrael = "DataCenter1Israel/" + fileName.replace(".json", ".csv");
 
-            // Criar InputStream separado para cada upload
+            // Criar InputStream separado para cada upload (Isso é preciso pq sempre que vc lê um desses, ele "Morre", aí se tentar ler o msm para todos, ele daria erro pq a Amanda teria utilizado e dps ngm mais conseguiria ler
             InputStream csvInputStreamAmanda = new ByteArrayInputStream(csvBytes);
             InputStream csvInputStreamIsrael = new ByteArrayInputStream(csvBytes);
 

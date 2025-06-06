@@ -365,7 +365,7 @@ function expandirServidor(){
           let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
 
           document.getElementById('nome-servidor-expandido').innerHTML = addHtml
-          document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`
+          document.getElementById('nome-servidor-expandido').style.border = `4px solid ${corDestaque}`
           
           expandidoGlobal = servidor
           atualizarGraficosComDados(servidor)
@@ -400,7 +400,7 @@ function destacarServidor(destacado) {
   let addHtml = `<span style='color:${corDestaque}'>${servidor}</span>`;
 
   document.getElementById('nome-servidor-expandido').innerHTML = addHtml;
-  document.getElementById('box-destaque').style.border = `4px solid ${corDestaque}`;
+  document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
 
   atualizarGraficosComDados(destacado);
 }
@@ -489,13 +489,13 @@ function atualizarProcessos(servidor){
   servidor.dados[servidor.dados.length - 1].processos.forEach(processo => {
     if(processo.grupo == 'top_cpu'){
       topcpu += `<li>
-      <strong>Nome do processo:${processo.name}</strong> | <span>Uso CPU: ${processo.cpu_percent}%</span> |
+      <strong>${processo.name}</strong> | <span>Uso CPU: ${processo.cpu_percent}%</span> |
       <small>Id do processo:${processo.pid}</small>
       </li>
       `
     } else {
       topram +=  `<li>
-      <strong>Nome do processo:${processo.name}</strong> | <span>Uso RAM: ${processo.ram_percent}%</span> |
+      <strong>${processo.name}</strong> | <span>Uso RAM: ${processo.ram_percent}%</span> |
       <small>Id do processo:${processo.pid}</small>
       </li>
       `

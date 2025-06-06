@@ -63,67 +63,69 @@
       </div>
       <div id="barralateral" class="barra-lateral"></div>
 
-      <header>
-        <div class="filter-container">
-          <div class="filter-row">
-            <select class="select-field" id="mainSelect">
-              <option value="CPU">- Servidor com maior utilização de CPU -</option>
-              <option value="RAM">
-                - Servidor com maior utilização de RAM -
-              </option>
-              <option value="Disco">
-                - Servidor com maior utilização de Disco -
-              </option>
-              <option value="Personalizado">- Servidor específico - </option>
-            </select>
-
-            <select class="hidden-select" id="hiddenSelect">
-              <option value="#" selected disabled>Selecione um:</option>
-              <option value="1">Servidor 1</option>
-              <option value="2">Servidor 2</option>
-              <option value="3">Servidor 3</option>
-              <option value="4">Servidor 4</option>
-              <option value="5">Servidor 5</option>
-              <option value="6">Servidor 6</option>
-              <option value="7">Servidor 7</option>
-              <option value="8">Servidor 8</option>
-              <option value="9">Servidor 9</option>
-              <option value="10">Servidor 10</option>
-            </select>
-
-            <div class="divDatas">
-              <select class="select-field" name="tempo" id="sltPeriodo">
-                <option value="optPeriodo7Dias" selected>Últimos 7 dias</option>
-                <option value="optPeriodo30Dias">Últimos 30 dias</option>
-                <option value="optPeriodo3Meses">Últimos 3 meses</option>
-                <option value="optPeriodoPersonalizado">Personalizado</option>
+      <div class="grafico_comparacao">
+        <header>
+          <div class="filter-container">
+            <div class="filter-row">
+              <select class="select-field" id="mainSelect">
+                <option value="CPU">- Servidor com maior utilização de CPU -</option>
+                <option value="RAM">
+                  - Servidor com maior utilização de RAM -
+                </option>
+                <option value="Disco">
+                  - Servidor com maior utilização de Disco -
+                </option>
+                <option value="Personalizado">- Servidor específico - </option>
               </select>
-
-              <div
-                class="divPersonalizadaData esconder"
-                id="divPersonalizadaData"
-              >
-                <span>De</span>
-                <input class="data-field" type="date" id="iptDateComeco" />
-
-                <span>Até</span>
-                <input class="data-field" type="date" id="iptDateFinal" />
+  
+              <select class="hidden-select" id="hiddenSelect">
+                <option value="#" selected disabled>Selecione um:</option>
+                <option value="1">Servidor 1</option>
+                <option value="2">Servidor 2</option>
+                <option value="3">Servidor 3</option>
+                <option value="4">Servidor 4</option>
+                <option value="5">Servidor 5</option>
+                <option value="6">Servidor 6</option>
+                <option value="7">Servidor 7</option>
+                <option value="8">Servidor 8</option>
+                <option value="9">Servidor 9</option>
+                <option value="10">Servidor 10</option>
+              </select>
+  
+              <div class="divDatas">
+                <select class="select-field" name="tempo" id="sltPeriodo">
+                  <option value="optPeriodo7Dias" selected>Últimos 7 dias</option>
+                  <option value="optPeriodo30Dias">Últimos 30 dias</option>
+                  <option value="optPeriodo3Meses">Últimos 3 meses</option>
+                  <option value="optPeriodoPersonalizado">Personalizado</option>
+                </select>
+  
+                <div
+                  class="divPersonalizadaData esconder"
+                  id="divPersonalizadaData"
+                >
+                  <span>De</span>
+                  <input class="data-field" type="date" id="iptDateComeco" />
+  
+                  <span>Até</span>
+                  <input class="data-field" type="date" id="iptDateFinal" />
+                </div>
+              </div>
+  
+              <div class="buttons-container">
+                <button class="btn btn-filter" onclick="filtrar()">
+                  Filtrar
+                </button>
+                <button class="btn btn-clear" onclick="limparFiltro()">
+                  Limpar Filtro
+                </button>
               </div>
             </div>
-
-            <div class="buttons-container">
-              <button class="btn btn-filter" onclick="filtrar()">
-                Filtrar
-              </button>
-              <button class="btn btn-clear" onclick="limparFiltro()">
-                Limpar Filtro
-              </button>
-            </div>
           </div>
-        </div>
-      </header>
-
-      <div id="myBarChart"></div>
+        </header>
+  
+        <div id="myBarChart"></div>
+      </div>
 
       <div class="row-tabela">
         <div class="container-tabela">
@@ -156,6 +158,7 @@
         </div>
 
         <div class="action-buttons">
+          <p class="funcoes"> Outras funções </p>
           <button class="open-modal-btn" onclick="openModal()">
             Comparar com outro servidor
           </button>
