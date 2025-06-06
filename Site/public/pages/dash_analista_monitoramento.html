@@ -63,34 +63,37 @@ style="fill:#FA5252;">
         <div class="mainContent">
             <div class="central">
 
-<div class="section-head">
+<div class="section head">
 
     <div class="side-gestao">
 
       <div class="faixa-gestao kpis">
-        <div class="box sec1" style="border: 4px solid #ff1900"> <h1>🚫 - Servidores em perigo:<span id="kpi-critico"></span></h1></div>
-        <div class="box sec1" style="border: 4px solid #ffa617;"> <h1> ⚠️ - Servidores em alerta:<span id="kpi-moderado"></span></h1></div>
+        <div class="box sec1"> <h1 style="color: #ff1900">Servidores em perigo:<span id="kpi-critico"></span></h1></div>
+        <div class="box sec1"> <h1 style="color: #ffa617">Servidores em alerta:<span id="kpi-moderado"></span></h1></div>
         <div class="box sec1" id="box-destaque">
-        <h1>Servidor em destaque</h1>
-          <div id="destaque-lock">
-              <span id="nome-servidor-expandido">Nenhum</span>
-            <div onclick="travar()" id="lock"> <img src="../assets/unlock.png"></div>
-          </div>
+        <h1>Servidor em destaque
+          <!-- <div id="destaque-lock"> -->
+            <span id="nome-servidor-expandido"></span>
+          <!-- </div> -->
             
-          </div>
+        </h1>
+        </div>
       </div>
       <div class="faixa-gestao">
-    <div style="width: 100%;">
-    
-    
     <div class="box sec1 alertas">  
       <div>
-        <h3>Últimos alertas</h3>
+        <h1>Últimos alertas não resolvidos hoje</h1>
         <ul id="lista-alertas" class="lista"></ul>
       </div>
     </div>
-  </div>
-  
+    <div class="box sec1">
+      
+      <div class="lock">
+         <h2>Travar atualização automática do servidor destacado </h2>
+        <div onclick="travar()" id="lock"> <img src="../assets/unlock.png"></div>
+      </div>
+    </div>
+
 </div>
   
 </div>
@@ -131,7 +134,7 @@ style="fill:#FA5252;">
 
 </div>
 
-<div class="section-linhas">
+<div class="section linhas">
   <div class="box">
     <h2>Top 5 Processos por CPU</h2>
     <ul id="lista-processos-cpu" class="lista processos"></ul>
