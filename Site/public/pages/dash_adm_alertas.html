@@ -30,6 +30,7 @@
     <div id="painel-controle" class="dashboard">
         <div id="secao-metricas" class="header-metrics">
             <div id="cartao-filtro" class="metric-card filter-card">
+                <h3>Selecione intervalo de tempo</h3>
                 <div class="botoes-filtro">
                     <div class="botoes-filtro">
                         <button class="botao-filtro" onclick="obterValores24h()">Últimas 24h</button>
@@ -37,15 +38,14 @@
                         <button class="botao-filtro" onclick="obterValores30d()">Últimos 30 dias</button>
                     </div>
                 </div>
-                <h3>Selecione intervalo de tempo</h3>
             </div>
             <div id="cartao-alertas" class="metric-card alert-card">
-                <div id="valor-alertas" class="metric-value danger">Carregando...</div>
                 <h3>Alertas fora do tempo ideal de resolução</h3>
+                <div id="valor-alertas" class="metric-value danger">Carregando...</div>
             </div>
             <div id="cartao-tempo" class="metric-card time-card">
-                <div id="valor-medio-resolucao" class="metric-value warning">Carregando...</div>
                 <h3>Tempo médio de resolução em todos Data Centers</h3>
+                <div id="valor-medio-resolucao" class="metric-value warning">Carregando...</div>
             </div>
         </div>
 
