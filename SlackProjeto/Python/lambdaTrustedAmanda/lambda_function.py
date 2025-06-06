@@ -70,66 +70,69 @@ def lambda_handler(event, context):
             ("7dias", df_7_dias)
         ]
 
-        
-        vetor_ociosidade3meses = []
         data_inicial = datetime.now() - timedelta(days=90)
         data3meses = []
-
         quantidade = 19  # a cada 5 dias
 
+        cpu_ociosa_3meses = []
+        ram_ociosa_3meses = []
+        disco_ociosa_3meses = []
+
         for i in range(quantidade):
-                data_alvo = data_inicial + timedelta(days=5 * i)
-                data3meses.append(data_alvo)
-                filtro_df = df_6_meses[
-                    (df_6_meses['CPU Percentual'] <= 20) &
-                    (df_6_meses['RAM Percentual'] <= 25) &
-                    (df_6_meses['Disco Percentual'] <= 25) &
-                    (df_6_meses['Data Hora'] == data_alvo)
-                ]
+            data_alvo = data_inicial + timedelta(days=5 * i)
+            data3meses.append(data_alvo)
 
-                vetor_ociosidade3meses.append(len(filtro_df))
+            cpu = df_6_meses[(df_6_meses['CPU Percentual'] <= 20) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
+            ram = df_6_meses[(df_6_meses['RAM Percentual'] <= 25) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
+            disco = df_6_meses[(df_6_meses['Disco Percentual'] <= 25) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
+
+            cpu_ociosa_3meses.append(len(cpu))
+            ram_ociosa_3meses.append(len(ram))
+            disco_ociosa_3meses.append(len(disco))
 
 
-        vetor_ociosidade30dias = []
+        
         data_inicial2 = datetime.now() - timedelta(days=30)
         data30dias = []
-
         quantidade2 = 16  # a cada 2 dias
 
+        cpu_ociosa_30dias = []
+        ram_ociosa_30dias = []
+        disco_ociosa_30dias = []
+
         for i in range(quantidade2):
-                data_alvo = data_inicial2 + timedelta(days=2 * i)
-                data30dias.append(data_alvo)
+            data_alvo = data_inicial2 + timedelta(days=2 * i)
+            data30dias.append(data_alvo)
 
-                filtro_df = df_30_dias[
-                    (df_30_dias['CPU Percentual'] <= 20) &
-                    (df_30_dias['RAM Percentual'] <= 25) &
-                    (df_30_dias['Disco Percentual'] <= 25) &
-                    (df_30_dias['Data Hora'] == data_alvo)
-                ]
+            cpu = df_30_dias[(df_30_dias['CPU Percentual'] <= 20) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
+            ram = df_30_dias[(df_30_dias['RAM Percentual'] <= 25) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
+            disco = df_30_dias[(df_30_dias['Disco Percentual'] <= 25) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
 
-                vetor_ociosidade30dias.append(len(filtro_df))
-                
+            cpu_ociosa_30dias.append(len(cpu))
+            ram_ociosa_30dias.append(len(ram))
+            disco_ociosa_30dias.append(len(disco))
 
 
-
-        vetor_ociosidade7dias = []
+     
         data_inicial3 = datetime.now() - timedelta(days=7)
-
         data7dias = []
+        quantidade3 = 8  # um por dia
 
-        quantidade3 = 8  
+        cpu_ociosa_7dias = []
+        ram_ociosa_7dias = []
+        disco_ociosa_7dias = []
 
         for i in range(quantidade3):
-                data_alvo = data_inicial3 + timedelta(days=i)
-                data7dias.append(data_alvo)
-                filtro_df = df_7_dias[
-                    (df_7_dias['CPU Percentual'] <= 20) &
-                    (df_7_dias['RAM Percentual'] <= 25) &
-                    (df_7_dias['Disco Percentual'] <= 25) &
-                    (df_7_dias['Data Hora'] == data_alvo)
-                ]
+            data_alvo = data_inicial3 + timedelta(days=i)
+            data7dias.append(data_alvo)
 
-                vetor_ociosidade7dias.append(len(filtro_df))
+            cpu = df_7_dias[(df_7_dias['CPU Percentual'] <= 20) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
+            ram = df_7_dias[(df_7_dias['RAM Percentual'] <= 25) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
+            disco = df_7_dias[(df_7_dias['Disco Percentual'] <= 25) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
+
+            cpu_ociosa_7dias.append(len(cpu))
+            ram_ociosa_7dias.append(len(ram))
+            disco_ociosa_7dias.append(len(disco))
 
           
 
@@ -143,7 +146,7 @@ def lambda_handler(event, context):
                     (df['Servidor'] == servidor_id)
                 )
                 
-                valor = len(df[filtro]) / 60  # divide por 60 como no seu código    
+                valor = len(df[filtro]) / 60     
 
                 # Armazena no dicionário
                 if nome_periodo == "6meses":
@@ -326,27 +329,61 @@ def lambda_handler(event, context):
             "servidor10": TabelaOciosidade_7dias[10]
         }
 
-        ociosidade3mesesTemporal = {
+        ociosidadeCPU3mesesTemporal = {
 
-        data3meses[i].strftime("%d/%m/%Y"): vetor_ociosidade3meses[i]
-        for i in range(len(vetor_ociosidade3meses))
+        data3meses[i].strftime("%d/%m/%Y"): cpu_ociosa_3meses[i]
+        for i in range(len(cpu_ociosa_3meses))
+        
+        }
+
+        ociosidadeRAM3mesesTemporal = {
+
+        data3meses[i].strftime("%d/%m/%Y"): ram_ociosa_3meses[i]
+        for i in range(len(ram_ociosa_3meses))
+        
+        }
+
+        ociosidadeDISCO3mesesTemporal = {
+
+        data3meses[i].strftime("%d/%m/%Y"): disco_ociosa_3meses[i]
+        for i in range(len(disco_ociosa_3meses))
         
         }
         
 
-        ociosidade30diasTemporal = {
-        data30dias[i].strftime("%d/%m/%Y"): vetor_ociosidade30dias[i]
-        for i in range(len(vetor_ociosidade30dias))
+        ociosidadeCPU30diasTemporal = {
+        data30dias[i].strftime("%d/%m/%Y"): cpu_ociosa_30dias[i]
+        for i in range(len(cpu_ociosa_30dias))
         }
 
-        ociosidade7diasTemporal = {
-        data7dias[i].strftime("%d/%m/%Y"): vetor_ociosidade7dias[i]
-        for i in range(len(vetor_ociosidade7dias))
+        ociosidadeRAM30diasTemporal = {
+        data30dias[i].strftime("%d/%m/%Y"): ram_ociosa_30dias[i]
+        for i in range(len(ram_ociosa_30dias))
+        }
+
+        ociosidadeDISCO30diasTemporal = {
+        data30dias[i].strftime("%d/%m/%Y"): disco_ociosa_30dias[i]
+        for i in range(len(disco_ociosa_30dias))
+        }
+
+        ociosidadeCPU7diasTemporal = {
+        data7dias[i].strftime("%d/%m/%Y"): cpu_ociosa_7dias[i]
+        for i in range(len(cpu_ociosa_7dias))
+        }
+
+        ociosidadeRAM7diasTemporal = {
+        data7dias[i].strftime("%d/%m/%Y"): ram_ociosa_7dias[i]
+        for i in range(len(ram_ociosa_7dias))
+        }
+
+        ociosidadeDISCO7diasTemporal = {
+        data7dias[i].strftime("%d/%m/%Y"): disco_ociosa_7dias[i]
+        for i in range(len(disco_ociosa_7dias))
         }
 
 
 
-        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, ociosidade3mesesTemporal, ociosidade30diasTemporal, ociosidade7diasTemporal, estabilidadeComponentes]
+        dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, estabilidadeComponentes, ociosidadeCPU3mesesTemporal, ociosidadeRAM3mesesTemporal, ociosidadeDISCO3mesesTemporal, ociosidadeCPU30diasTemporal, ociosidadeRAM30diasTemporal, ociosidadeDISCO30diasTemporal, ociosidadeCPU7diasTemporal, ociosidadeRAM7diasTemporal, ociosidadeDISCO7diasTemporal]
 
 
         json_final = json.dumps(dados, indent=4)

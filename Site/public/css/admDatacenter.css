@@ -106,9 +106,9 @@ body {
     padding: 1rem;
     flex: 1 1 200px;
     min-width: 200px;
-    max-width: 350px;
+    max-width: 380px;
     height: 10rem;
-    width: 8rem; /* Esta propriedade 'width' é redundante se flex-basis já estiver definida */
+    width: 9%; /* Esta propriedade 'width' é redundante se flex-basis já estiver definida */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
