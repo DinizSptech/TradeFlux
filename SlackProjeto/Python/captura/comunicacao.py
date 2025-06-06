@@ -1,8 +1,8 @@
 import requests
 import json
 
-# API_URL = 'http://3.230.80.85:3000'
-API_URL = 'http://127.0.0.1:3000'
+API_URL = 'http://3.230.80.85:3000'
+# API_URL = 'http://127.0.0.1:3000'
 
 def obter_parametros_servidor(id_maquina):
     try:

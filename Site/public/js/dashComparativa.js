@@ -132,37 +132,99 @@ function inicializarDashboard() {
     });
 }
 
-function baixarCSV() {
-  // Baixa CSV do Bucket
-  const DATACENTER = 1;
-  const url = 'https://bucket-client-tradeflux-123.s3.us-east-1.amazonaws.com/Datacenter1Robert/servidor1.csv?response-content-disposition=inline&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEIaCXVzLWVhc3QtMSJGMEQCIAQutTNcD%2BUgJo6bQmXQtcAb2TKkLigwYvnLwxMryjTBAiBnAmKJJboSNs8hLoxEnlHengUdBDo8GhU0i25%2FtloMeyrhAwgbEAEaDDE4NTI1NzMyNzUyOSIMMelUbYJG4g56UrnZKr4DSJ9szw2bDkY486GPaAfOMmXYQLEJBvCURu7dyOYn8XJ1rOUwPdgIsOJeubDc%2BWUPKsmPoTem2MJuWN%2FLU65Uv1e%2Ff49Tsz255e6YIWAACoU4nk4ORy29fpS7HjyT3YICqxfuMJ22eDSPmlQH%2FYI9p2d%2FXvV9J1a%2F%2B1at6mkMy5P%2BdDmW1X7U1qrdc8AN%2BmpkN1OuWsf2ZrA6FuuXQZQYRk4Ft4VWkZuTi8pfWYGXDHiA3ZRLoMACYcjfhqTGDDnDU%2FYnA0TyRIhTPCEvg2OLYDOQDIe%2FLtYiZ8ILlQN%2FvQTIio%2B6EjvQMydv6iIM7HntMecj8uiXoIqYOGTr07UCHZTiZEPaFmfVjftl9itmCJpK8bSE3fq189nUeCADcUjoviTu2IFkOMON5JKCK0ysPMapnxwgKMmf8qXUQL%2FUYoycyuQoPd419aNuCDNekEr5YVJ2S9oV7M8KxD3oaW1IwPBohcn0ThYgTneefPiUxlVjOD23LdvkJw96MjFpPiKOCYlZlj89T83eCCqkBTORylJgfL1eAiB3tKEFEB7byjT8IrjePt6HmNnxZ%2F3lzmKygucoODBv5oscx4lwK58wmK78wQY6uAIRQtl3IjOJzSum7Oml%2FRSb%2Beanmxgw76wdp0kj%2FSBuMQ5YO%2F56IB%2B9i65Z%2FlRmh4o1ND8f2WhXmLj6lWpcoTRO6eEKni%2Fcs6CD3znt9fmhPOrOQy%2BzWm74xCbqd8iFfbwp6H5uyCfLPpkzV%2B7JAsa89uc9YEwvniyQcsyactHmcAjKZG92qxUWYrUhH4A1ha63NCq45bs8M6ZNECKv0EUCH5%2BmEmKMDNlQX%2F%2FmKRxtGV9CxDgXuLZVCNCRgpHfoU4sxf3fEi08nylRxLJimHW0JI8DnCz2RuupZ8Eo0kt11dxWC2n9vi3A82cLnaccTse7SphdxFSlFTOgcZswjtGpKKnl1hBMPulrXFkKFkP%2FpXfva2WxuxApw50%2BLndL8H1xaC9ASl9hSJrpx2oL2lRH0idT7osVikM%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIASWIRSPOUTUTKO3K7%2F20250603%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250603T173514Z&X-Amz-Expires=43200&X-Amz-SignedHeaders=host&X-Amz-Signature=45ede0a178cc32788cf55dfe00083c369da8177561eed650aa0b29ec22d6e268'
-  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+// async function baixarCSV() {
 
-  if (DATACENTER == 1) {
-    fetch(proxyUrl + url)
-  .then(response => {
-    console.log('Status da resposta:', response.status);
-    if (!response.ok) {
-      throw new Error(`Erro HTTP! status: ${response.status}`);
+//   let arquivo = 'datacenter_client1.csv'
+//   let caminho = 'dadosRobertClient'
+
+//   try {                                                  
+//     const resposta = await fetch(`http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       }
+//     })
+    
+//     if (!resposta) {
+//       throw new Error("erro ao pegar a resposta" + resposta.status)
+//     }
+
+//     const blob = await resposta.blob();
+//     console.log(blob);
+
+//     const url = window.URL.createObjectURL(blob)
+//     const a = document.createElement("a");
+//     a.style.display = "none"
+//     a.href = url;
+//     a.download = `bucket.csv`
+
+//     a.click()
+
+//     window.URL.revokeObjectURL(url)
+//     document.body.removeChild(a)
+//   } catch {
+//     erro()
+//   }
+// }
+
+async function baixarCSV() {
+  let arquivo = 'datacenter_client1.csv'
+  let caminho = 'dadosRobertClient'
+
+  try {
+    // Primeiro teste se a rota básica funciona
+    console.log('Testando rota básica...');
+    const testeResposta = await fetch('http://3.230.80.85:3000/CSVs/test');
+    if (testeResposta.ok) {
+      const testeData = await testeResposta.json();
+      console.log('Teste da rota:', testeData);
+    } else {
+      console.log('Erro no teste da rota:', testeResposta.status);
     }
-    return response.blob();
-  })
-  .then(blob => {
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'servidor1.csv';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(link.href);
-  })
-  .catch(err => {
-    console.error('Erro ao baixar arquivo:', err);
-  });
-  } else if (DATACENTER == 2) {
-  } else {
+
+    console.log('Fazendo requisição para:', `http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`);
+                                                 
+    const resposta = await fetch(`http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json", // Corrigido: era "apllication/json"
+      }
+    })
+    
+    console.log('Status da resposta:', resposta.status);
+    
+    // Corrigido: verificar resposta.ok ao invés de !resposta
+    if (!resposta.ok) {
+      const errorText = await resposta.text();
+      console.log('Resposta de erro:', errorText);
+      throw new Error(`Erro ao pegar a resposta: ${resposta.status} - ${errorText}`)
+    }
+
+    const blob = await resposta.blob();
+    console.log('Blob recebido:', blob);
+
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement("a");
+    a.style.display = "none"
+    a.href = url;
+    a.download = `${arquivo}` // Usar o nome do arquivo correto
+
+    // Adicionar elemento ao DOM antes de clicar
+    document.body.appendChild(a);
+    a.click()
+
+    // Limpar após um pequeno delay
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    }, 100);
+
+  } catch (error) { // Corrigido: capturar o erro
+    console.error('Erro ao baixar CSV:', error);
+    // erro() // descomente se você tem essa função definida
   }
 }
+
 
 function trocarVisibilidade(e) {
   // Muda a visibilidade da div que contém o Input de data

@@ -22,12 +22,24 @@ const alertaRouter = require("./src/routes/alerta.routes");
 const bdRouter = require("./src/routes/bdMYSQL.routes");
 const bucketRouter = require("./src/routes/bucket.routes");
 const pixRouter = require("./src/routes/pix.routes");
+const csvRouter = require("./src/routes/pegarCSVs.routes");
 
 app.use("/alerta", alertaRouter);
 app.use("/bd", bdRouter);
 app.use("/bucket", bucketRouter);
 app.use("/monitoria", monitoriaRouter);
 app.use("/pix", pixRouter);
+// app.use("/CSVs", csvRouter);
+
+console.log('Registrando rotas...');
+app.use("/CSVs", csvRouter);
+console.log('Rota /CSVs registrada');
+
+// 2. Adicione middleware para logar todas as requisições
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.originalUrl}`);
+  next();
+});
 
 app.listen(3000, () => {
   // Tô colocando ele pra escutar tudo que bater na porta aí
