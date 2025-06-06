@@ -13,6 +13,7 @@
 
   h2{
     font-weight: bolder;
+    font-size: 50px;
   }
 
   h1{
@@ -85,7 +86,7 @@ overflow-y: hidden;
 }
 
 .cardHeader h2 {
-  font-size: 16px;
+  font-size: 30px;
   margin: 0;
 }
 
@@ -121,16 +122,20 @@ overflow-y: hidden;
   padding: 10px;
   text-align: center;
   font-weight: bold;
+  font-size: 18px;
+  text-wrap: nowrap;
 }
+
 
 
 .tabelaMonitoramento td {
   /* border: 1px solid #706f6f; */
+  text-wrap: nowrap;
   background-color: #ffffff;
   padding: 6px;
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 18px;
               /* text-shadow:
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
@@ -336,4 +341,26 @@ tr:hover{
   justify-content: space-evenly;
   align-items: center;
   font-size: 30px;
+}
+
+.botao-filtro {
+    background-color: #bfcbf4;
+    font-weight: bold;
+    color: #000000;
+    border: 1px solid #cfd4e0;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.botao-filtro:hover {
+    background-color: #a8b3e8;
+    border-color: #b0b8d8;
+}
+
+.botao-filtro:active {
+    transform: scale(0.98);
 }

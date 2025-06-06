@@ -32,7 +32,7 @@ function enviar_captura_front(req,res){
             }
     }
     monitoriaModel.fetch_captura_wdv(captura)
-        .then( function (resultado) {
+        .then(function (resultado) {
             res.status(200).json(resultado);
         }).catch (function (erro){
             res.status(500).send("Erro em enviar captura para web-data-viz:" + erro)

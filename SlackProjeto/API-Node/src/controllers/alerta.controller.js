@@ -1,33 +1,46 @@
 const criarAlertaNoJira = require("../utils/criarAlertaJira");
+const selectAlertaNoJira = require("../utils/selectAlertaJira")
 const bdModel = require("../models/bdMYSQL.models");
 
 async function enviarJira(req, res) {
+  const { valor, medida, data, criticidade, fkparametro, servidor, componente } = req.body;
+
+  if (criticidade !== 3) {
+    console.log(`Inserindo alerta MODERADO de ${componente} `)
+    await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro);
+    return res.status(200).json({
+      success: true,
+      message: "Alerta recebido e salvo no banco, mas criticidade != 3. Não enviado ao Jira.",
+      criticidade: criticidade
+    });
+  }
+  
+  // Se for crítico, criar no Jira também
+  
+  const description = `Valor: ${valor}\nMedida: ${medida}\nData: ${data}\nParâmetro: ${fkparametro}`;
+  const summary = `ALERTA CRÍTICO - ${componente} no servidor ${servidor}`;
+  let existe
   try {
-    const { valor, medida, data, criticidade, fkparametro, servidor, componente } = req.body;
-
-    await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro, servidor, componente);
-
-    if (criticidade !== 3) {
-      return res.status(200).json({
-        success: true,
-        message: "Alerta recebido e salvo no banco, mas criticidade != 3. Não enviado ao Jira.",
-        criticidade: criticidade
-      });
-    }
-
-    // Se for crítico, criar no Jira também
-    const summary = `ALERTA CRÍTICO - ${componente} no servidor ${servidor}`;
-    const description = `Valor: ${valor}\nMedida: ${medida}\nData: ${data}\nParâmetro: ${fkparametro}`;
-
+    console.log("Fazendo select no jira!\n\n")
+    console.log(summary)
+    existe = await selectAlertaNoJira(summary)
+  } catch (erro) {
+    console.log("Erro ao buscar no jira: " + erro)
+  }
+  console.log
+  if(existe){
+  try{
+    console.log("Criando alerta no jira!\n\n")
     const issueKey = await criarAlertaNoJira({ summary, description });
-
+    console.log("Inserindo alerta CRÍTICO!\n\n")
+    await bdModel.insert_alerta(valor, medida, data, criticidade, fkparametro);
     // Atualizar o alerta com o issueKey do Jira
     await bdModel.update_alerta_com_jira(fkparametro, data, issueKey);
 
     res.status(201).json({
       success: true,
       message: `Alerta crítico criado no Jira com issueKey ${issueKey}`,
-      issueKey: issueKey
+      issueKey: `Issue key: ${issueKey}`
     });
   } catch (err) {
     console.error("Erro ao enviar alerta ao Jira:", err);
@@ -37,6 +50,9 @@ async function enviarJira(req, res) {
       details: err.message
     });
   }
+} else {
+  console.log("Alerta já inserido no jira")
+}
 }
 
 async function receberWebhook(req, res) {
