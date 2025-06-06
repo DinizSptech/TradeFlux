@@ -40,6 +40,7 @@ router.get("/monitoria", (req, res) => {
           if(buffer[i].countdown <= 5 && buffer[i].countdown > 0){
             buffer[i].function = `enviarNotif("${buffer[i].servidor}")`
           } else if (buffer[i].countdown < 0){
+            console.log(`"SERVIDOR ${buffer[i].servidor} REMOVIDO!"`)
            buffer.splice(i,1)
            continue
           } 
