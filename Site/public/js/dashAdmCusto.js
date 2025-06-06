@@ -121,6 +121,49 @@ let custoTotal30_dc3 = 0;
 
 //
 
+let quocientemaiorCusto24 = 0;
+let restomaiorCusto24 = 0;
+
+let quocientemaiorCusto7 = 0;
+let restomaiorCusto7 = 0;
+
+let quocientemaiorCustoTotal7 = 0;
+let restomaiorCustoTotal7 = 0;
+
+let quocientemaiorCustoMedio7 = 0;
+let restomaiorCustoMedio7 = 0;
+
+let quocientemaiorCusto30 = 0;
+let restomaiorCusto30 = 0;
+
+let quocientemaiorCustoTotal30 = 0;
+let restomaiorCustoTotal30 = 0;
+
+let quocientemaiorCustoMedio30 = 0;
+let restomaiorCustoMedio30 = 0;
+
+//
+
+let quocientemaiorCustoTotal24_dc1 = 0;
+let restomaiorCustoTotal24_dc1 = 0;
+
+let quocientemaiorCustoTotal24_dc2 = 0;
+let restomaiorCustoTotal24_dc2 = 0;
+
+let quocientemaiorCustoTotal24_dc3 = 0;
+let restomaiorCustoTotal24_dc3 = 0;
+
+//
+
+let quocientemaiorCustoMedio24_dc1 = 0;
+let restomaiorCustoMedio24_dc1 = 0;
+
+let quocientemaiorCustoMedio24_dc2 = 0;
+let restomaiorCustoMedio24_dc2 = 0;
+
+let quocientemaiorCustoMedio24_dc3 = 0;
+let restomaiorCustoMedio24_dc3 = 0;
+
 var options = {
   chart: {
     type: "bar",
@@ -186,6 +229,27 @@ function carregar() {
   valor30_dc2 = 0;
   valor30_dc3 = 0;
 
+  quocientemaiorCusto24 = 0;
+  restomaiorCusto24 = 0;
+
+  quocientemaiorCustoTotal24_dc1 = 0;
+  restomaiorCustoTotal24_dc1 = 0;
+
+  quocientemaiorCustoTotal24_dc2 = 0;
+  restomaiorCustoTotal24_dc2 = 0;
+
+  quocientemaiorCustoTotal24_dc3 = 0;
+  restomaiorCustoTotal24_dc3 = 0;
+
+  quocientemaiorCustoMedio24_dc1 = 0;
+  restomaiorCustoMedio24_dc1 = 0;
+
+  quocientemaiorCustoMedio24_dc2 = 0;
+  restomaiorCustoMedio24_dc2 = 0;
+
+  quocientemaiorCustoMedio24_dc3 = 0;
+  restomaiorCustoMedio24_dc3 = 0;
+
   tempoSelecionado = 24;
 
   if (tempoSelecionado === 24) {
@@ -240,9 +304,7 @@ function carregar() {
         console.log("Valor Hora 30d DC2: " + valorHora30_dc2);
         console.log("Valor Hora 30d DC3: " + valorHora30_dc3);
 
-        fetch(
-          "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/24h"
-        ).then((res) => {
+        fetch("/adm/datacenter/media-resolucao/victao/24h").then((res) => {
           res.json().then((resjson) => {
             for (let i = 0; i < resjson.length; i++) {
               const dataCenter_atual = resjson[i].data_center;
@@ -286,22 +348,25 @@ function carregar() {
             console.log("Custo Hora 24h DC2: " + custoHora24_dc2);
             console.log("Custo Hora 24h DC3: " + custoHora24_dc3);
 
-            let menorCusto24 = Math.ceil(
-              Math.min(custoHora24_dc1, custoHora24_dc2, custoHora24_dc3)
+            let maiorCusto24 = Math.ceil(
+              Math.max(custoHora24_dc1, custoHora24_dc2, custoHora24_dc3)
             );
 
             // deixo o valor default
-            let menorCusto24_dc = 1;
+            let maiorCusto24_dc = 1;
 
-            if (menorCusto24 === custoHora24_dc2) {
-              menorCusto24_dc = 2;
-            } else if (menorCusto24 === custoHora24_dc3) {
-              menorCusto24_dc = 3;
+            if (maiorCusto24 === custoHora24_dc2) {
+              maiorCusto24_dc = 2;
+            } else if (maiorCusto24 === custoHora24_dc3) {
+              maiorCusto24_dc = 3;
             }
 
-            data_center_custo.innerHTML = menorCusto24_dc;
-            data_center_investir.innerHTML = menorCusto24_dc;
-            custo_hora.innerHTML = menorCusto24;
+            quocientemaiorCusto24 = maiorCusto24 / 10;
+            restomaiorCusto24 = maiorCusto24 % 10;
+
+            data_center_custo.innerHTML = maiorCusto24_dc;
+            data_center_investir.innerHTML = maiorCusto24_dc;
+            custo_hora.innerHTML = maiorCusto24;
 
             // Calcular o Custo Total
             // CUSTO TOTAL = VALOR TOTAL * TEMPO_MEDIO(TEMPO) * TEMPO
@@ -323,20 +388,29 @@ function carregar() {
             ]);
 
             // para se alinhar com a KPI de Custo por hora de manutencao
-            data_center_total.innerHTML = menorCusto24_dc;
+            data_center_total.innerHTML = maiorCusto24_dc;
 
-            if (menorCusto24_dc == 1) {
+            // quocientemaiorCustoTotal24_dc1 = custoTotal24_dc1 / 1000;
+            // restomaiorCustoTotal24_dc1 = custoTotal24_dc1 % 1000;
+
+            // quocientemaiorCustoTotal24_dc2 = custoTotal24_dc2 / 1000;
+            // restomaiorCustoTotal24_dc2 = custoTotal24_dc2 % 1000;
+
+            // quocientemaiorCustoTotal24_dc3 = custoTotal24_dc3 / 1000;
+            // restomaiorCustoTotal24_dc3 = custoTotal24_dc3 % 1000;
+
+            if (maiorCusto24_dc == 1) {
               custo_total.innerHTML = custoTotal24_dc1;
-            } else if (menorCusto24_dc == 2) {
+            } else if (maiorCusto24_dc == 2) {
               custo_total.innerHTML = custoTotal24_dc2;
-            } else if (menorCusto24_dc == 3) {
+            } else if (maiorCusto24_dc == 3) {
               custo_total.innerHTML = custoHora24_dc3;
             }
 
             // Calcular o Custo Médio
             // CUSTO MÉDIO POR MANUTENÇÃO = CUSTO TOTAL / QTD ALERTAS
 
-            fetch("http://3.230.80.85:8080/adm/alertas/24h").then((res) => {
+            fetch("/adm/alertas/24h").then((res) => {
               res.json().then((resjson) => {
                 let total_alertas_24 = resjson[0].total_alertas;
 
@@ -354,13 +428,22 @@ function carregar() {
                 console.log("Custo medio 24h dc2: " + custoMedio24_dc2);
                 console.log("Custo medio 24h dc3: " + custoMedio24_dc3);
 
-                data_center_medio.innerHTML = menorCusto24_dc;
+                data_center_medio.innerHTML = maiorCusto24_dc;
 
-                if (menorCusto24_dc == 1) {
+                // quocientemaiorCustoMedio24_dc1 = custoMedio24_dc1;
+                // restomaiorCustoMedio24_dc1 = custoMedio24_dc1;
+
+                // quocientemaiorCustoMedio24_dc2 = custoMedio24_dc2;
+                // restomaiorCustoMedio24_dc2 = custoMedio24_dc2;
+
+                // quocientemaiorCustoMedio24_dc3 = custoMedio24_dc3;
+                // restomaiorCustoMedio24_dc3 = custoMedio24_dc3;
+
+                if (maiorCusto24_dc == 1) {
                   custo_medio.innerHTML = custoMedio24_dc1;
-                } else if (menorCusto24_dc == 2) {
+                } else if (maiorCusto24_dc == 2) {
                   custo_medio.innerHTML = custoMedio24_dc2;
-                } else if (menorCusto24_dc == 3) {
+                } else if (maiorCusto24_dc == 3) {
                   custo_medio.innerHTML = custoMedio24_dc3;
                 }
               });
@@ -383,9 +466,7 @@ function filtrar(tempo) {
     carregar();
     return;
   } else if (tempo == 7) {
-    fetch(
-      "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/7d"
-    ).then((res) => {
+    fetch("/adm/datacenter/media-resolucao/victao/7d").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
@@ -429,22 +510,28 @@ function filtrar(tempo) {
         console.log("Custo Hora 7d DC2: " + custoHora7_dc2);
         console.log("Custo Hora 7d DC3: " + custoHora7_dc3);
 
-        let menorCusto7 = Math.ceil(
-          Math.min(custoHora7_dc1, custoHora7_dc2, custoHora7_dc3)
+        let maiorCusto7 = Math.ceil(
+          Math.max(custoHora7_dc1, custoHora7_dc2, custoHora7_dc3)
         );
 
-        // deixo o valor default
-        let menorCusto7_dc = 1;
+        console.warn("QuocientemaiorCustoHora7: " + quocientemaiorCusto7);
+        console.warn("RestomaiorCustoHora7: " + restomaiorCusto7);
 
-        if (menorCusto7 === custoHora7_dc2) {
-          menorCusto7_dc = 2;
-        } else if (menorCusto7 === custoHora7_dc3) {
-          menorCusto7_dc = 3;
+        quocientemaiorCusto7 = maiorCusto7 / 10;
+        restomaiorCusto7 = maiorCusto7 % 10;
+
+        // deixo o valor default
+        let maiorCusto7_dc = 1;
+
+        if (maiorCusto7 === custoHora7_dc2) {
+          maiorCusto7_dc = 2;
+        } else if (maiorCusto7 === custoHora7_dc3) {
+          maiorCusto7_dc = 3;
         }
 
-        data_center_custo.innerHTML = menorCusto7_dc;
-        data_center_investir.innerHTML = menorCusto7_dc;
-        custo_hora.innerHTML = menorCusto7;
+        data_center_custo.innerHTML = maiorCusto7_dc;
+        data_center_investir.innerHTML = maiorCusto7_dc;
+        custo_hora.innerHTML = maiorCusto7;
 
         // Calcular o Custo Total
         custoTotal7_dc1 = Math.ceil(valor7_dc1 * horas7_dc1);
@@ -455,9 +542,15 @@ function filtrar(tempo) {
         console.log("Custo Total 7 DC2: " + custoTotal7_dc2);
         console.log("Custo Total 7 DC3: " + custoTotal7_dc3);
 
-        let menorCustoTotal7 = Math.ceil(
-          Math.min(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
+        let maiorCustoTotal7 = Math.ceil(
+          Math.max(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
         );
+
+        quocientemaiorCustoTotal7 = maiorCustoTotal7 / 1000;
+        restomaiorCustoTotal7 = maiorCustoTotal7 % 1000;
+
+        console.warn("QuocientemaiorCustoTotal7: " + quocientemaiorCustoTotal7);
+        console.warn("RestomaiorCustoTotal7: " + restomaiorCustoTotal7);
 
         // atualziar gráfico com custo total
         chart.updateSeries([
@@ -467,21 +560,21 @@ function filtrar(tempo) {
         ]);
 
         // deixo o valor default
-        let menorCustoTotal7_dc = 1;
+        let maiorCustoTotal7_dc = 1;
 
-        if (menorCustoTotal7 === custoTotal7_dc2) {
-          menorCustoTotal7_dc = 2;
-        } else if (menorCustoTotal7 === custoTotal7_dc3) {
-          menorCustoTotal7_dc = 3;
+        if (maiorCustoTotal7 === custoTotal7_dc2) {
+          maiorCustoTotal7_dc = 2;
+        } else if (maiorCustoTotal7 === custoTotal7_dc3) {
+          maiorCustoTotal7_dc = 3;
         }
 
-        data_center_total.innerHTML = menorCustoTotal7_dc;
-        data_center_investir.innerHTML = menorCustoTotal7_dc;
-        custo_total.innerHTML = menorCustoTotal7;
+        data_center_total.innerHTML = maiorCustoTotal7_dc;
+        data_center_investir.innerHTML = maiorCustoTotal7_dc;
+        custo_total.innerHTML = maiorCustoTotal7;
 
         // Calcular o Custo Médio 7 dias
 
-        fetch("http://3.230.80.85:8080/adm/alertas/7d").then((res) => {
+        fetch("/adm/alertas/7d").then((res) => {
           res.json().then((resjson) => {
             let total_alertas_7 = resjson[0].total_alertas;
 
@@ -489,34 +582,40 @@ function filtrar(tempo) {
             custoMedio7_dc2 = custoTotal7_dc2 / total_alertas_7;
             custoMedio7_dc3 = custoTotal7_dc3 / total_alertas_7;
 
-            let menorCustoMedio7 = Math.ceil(
-              Math.min(custoMedio7_dc1, custoMedio7_dc2, custoMedio7_dc3)
+            let maiorCustoMedio7 = Math.ceil(
+              Math.max(custoMedio7_dc1, custoMedio7_dc2, custoMedio7_dc3)
             );
 
+            quocientemaiorCustoMedio7 = maiorCustoMedio7 / 10;
+            restomaiorCustoMedio7 = maiorCustoMedio7 % 10;
+
+            console.warn(
+              "QuocientemaiorCustoMedio7: " + quocientemaiorCustoMedio7
+            );
+            console.warn("RestomaiorCustoMedio7: " + restomaiorCustoMedio7);
+
             // deixo o valor default
-            let menorCustoMedio7_dc = 1;
+            let maiorCustoMedio7_dc = 1;
 
             console.warn("Custo Medio 7 DC1: " + custoMedio7_dc1);
             console.warn("Custo Medio 7 DC2: " + custoMedio7_dc2);
             console.warn("Custo Medio 7 DC3: " + custoMedio7_dc3);
 
-            if (menorCustoMedio7 === custoMedio7_dc2) {
-              menorCustoMedio7_dc = 2;
-            } else if (menorCustoMedio7 === custoMedio7_dc3) {
-              menorCustoMedio7_dc = 3;
+            if (maiorCustoMedio7 === custoMedio7_dc2) {
+              maiorCustoMedio7_dc = 2;
+            } else if (maiorCustoMedio7 === custoMedio7_dc3) {
+              maiorCustoMedio7_dc = 3;
             }
 
-            data_center_medio.innerHTML = menorCustoMedio7_dc;
-            data_center_investir.innerHTML = menorCustoMedio7_dc;
-            custo_medio.innerHTML = menorCustoMedio7;
+            data_center_medio.innerHTML = maiorCustoMedio7_dc;
+            data_center_investir.innerHTML = maiorCustoMedio7_dc;
+            custo_medio.innerHTML = maiorCustoMedio7;
           });
         });
       });
     });
   } else {
-    fetch(
-      "http://3.230.80.85:8080/adm/datacenter/media-resolucao/victao/30d"
-    ).then((res) => {
+    fetch("/adm/datacenter/media-resolucao/victao/30d").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
@@ -559,22 +658,28 @@ function filtrar(tempo) {
           console.log("Custo Hora 30d DC2 (filtrar): " + custoHora30_dc2);
           console.log("Custo Hora 30d DC3 (filtrar): " + custoHora30_dc3);
 
-          let menorCusto30 = Math.ceil(
-            Math.min(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
+          let maiorCusto30 = Math.ceil(
+            Math.max(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
           );
 
-          // deixo o valor default
-          let menorCusto30_dc = 1;
+          quocientemaiorCusto30 = maiorCusto30 / 10;
+          restomaiorCusto30 = maiorCusto30 % 10;
 
-          if (menorCusto30 === custoHora30_dc2) {
-            menorCusto30_dc = 2;
-          } else if (menorCusto30 === custoHora30_dc3) {
-            menorCusto30_dc = 3;
+          console.warn("QuocientemaiorCustoHora30: " + quocientemaiorCusto30);
+          console.warn("RestomaiorCustoHora30: " + restomaiorCusto30);
+
+          // deixo o valor default
+          let maiorCusto30_dc = 1;
+
+          if (maiorCusto30 === custoHora30_dc2) {
+            maiorCusto30_dc = 2;
+          } else if (maiorCusto30 === custoHora30_dc3) {
+            maiorCusto30_dc = 3;
           }
 
-          data_center_custo.innerHTML = menorCusto30_dc;
-          data_center_investir.innerHTML = menorCusto30_dc;
-          custo_hora.innerHTML = menorCusto30;
+          data_center_custo.innerHTML = maiorCusto30_dc;
+          data_center_investir.innerHTML = maiorCusto30_dc;
+          custo_hora.innerHTML = maiorCusto30;
 
           // Calcular o Custo Total 30 dias
           custoTotal30_dc1 = Math.ceil(valor30_dc1 * horas30_dc1);
@@ -592,22 +697,30 @@ function filtrar(tempo) {
             },
           ]);
 
-          let menorCustoTotal30 = Math.floor(
-            Math.min(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
+          let maiorCustoTotal30 = Math.floor(
+            Math.max(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
           );
 
-          // deixo o valor default
-          let menorCustoTotal30_dc = 1;
+          quocientemaiorCustoTotal30 = maiorCustoTotal30 / 1000;
+          restomaiorCustoTotal30 = maiorCustoTotal30 % 1000;
 
-          if (menorCustoTotal30 === custoTotal30_dc2) {
-            menorCustoTotal30_dc = 2;
-          } else if (menorCustoTotal30 === custoTotal30_dc3) {
-            menorCustoTotal30_dc = 3;
+          console.warn(
+            "QuocientemaiorCustoTotal30: " + quocientemaiorCustoTotal30
+          );
+          console.warn("RestomaiorCustoTotal30: " + restomaiorCustoTotal30);
+
+          // deixo o valor default
+          let maiorCustoTotal30_dc = 1;
+
+          if (maiorCustoTotal30 === custoTotal30_dc2) {
+            maiorCustoTotal30_dc = 2;
+          } else if (maiorCustoTotal30 === custoTotal30_dc3) {
+            maiorCustoTotal30_dc = 3;
           }
 
-          data_center_total.innerHTML = menorCustoTotal30_dc;
-          data_center_investir.innerHTML = menorCustoTotal30_dc;
-          custo_total.innerHTML = menorCustoTotal30;
+          data_center_total.innerHTML = maiorCustoTotal30_dc;
+          data_center_investir.innerHTML = maiorCustoTotal30_dc;
+          custo_total.innerHTML = maiorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
           fetch("/adm/alertas/30d").then((res) => {
@@ -618,26 +731,34 @@ function filtrar(tempo) {
               custoMedio30_dc2 = Math.ceil(custoTotal30_dc2 / total_alertas_30);
               custoMedio30_dc3 = Math.ceil(custoTotal30_dc3 / total_alertas_30);
 
-              let menorCustoMedio30 = Math.ceil(
-                Math.min(custoMedio30_dc1, custoMedio30_dc2, custoMedio30_dc3)
+              let maiorCustoMedio30 = Math.ceil(
+                Math.max(custoMedio30_dc1, custoMedio30_dc2, custoMedio30_dc3)
               );
 
+              quocientemaiorCustoMedio30 = maiorCustoMedio30 / 10;
+              restomaiorCustoMedio30 = maiorCustoMedio30 % 10;
+
+              console.warn(
+                "QuocientemaiorCustoMedio30: " + quocientemaiorCustoMedio30
+              );
+              console.warn("RestomaiorCustoMedio30: " + restomaiorCustoMedio30);
+
               // deixo o valor default
-              let menorCustoMedio30_dc = 1;
+              let maiorCustoMedio30_dc = 1;
 
               console.log("Custo Medio 30d DC1: " + custoMedio30_dc1);
               console.log("Custo Medio 30d DC2: " + custoMedio30_dc2);
               console.log("Custo Medio 30d DC3: " + custoMedio30_dc3);
 
-              if (menorCustoMedio30 === custoMedio30_dc2) {
-                menorCustoMedio30_dc = 2;
-              } else if (menorCustoMedio30 === custoMedio30_dc3) {
-                menorCustoMedio30_dc = 3;
+              if (maiorCustoMedio30 === custoMedio30_dc2) {
+                maiorCustoMedio30_dc = 2;
+              } else if (maiorCustoMedio30 === custoMedio30_dc3) {
+                maiorCustoMedio30_dc = 3;
               }
 
-              data_center_medio.innerHTML = menorCustoMedio30_dc;
-              data_center_investir.innerHTML = menorCustoMedio30_dc;
-              custo_medio.innerHTML = menorCustoMedio30;
+              data_center_medio.innerHTML = maiorCustoMedio30_dc;
+              data_center_investir.innerHTML = maiorCustoMedio30_dc;
+              custo_medio.innerHTML = maiorCustoMedio30;
             });
           });
         }
