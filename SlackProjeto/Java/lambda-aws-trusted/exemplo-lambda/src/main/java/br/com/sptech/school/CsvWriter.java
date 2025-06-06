@@ -13,8 +13,8 @@ public class CsvWriter {
         // Criar um CSV em memória utilizando ByteArrayOutputStream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Servidor", "Data Hora", "CPU Percentual", "CPU Frequência",
-                "RAM Percentual", "Memória Usada (GB)", "Disco Percentual", "Disco Usado (GB)", "Velocidade Download (Mbps)", "Velocidade Upload (Mbps)"));
+        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Servidor", "Data Hora", "CPU Percentual",
+                "RAM Percentual", "Disco Percentual"));
 
         // Processar e escrever cada objeto no CSV
         for(Stock stock : stocks) {
@@ -22,13 +22,9 @@ public class CsvWriter {
                     stock.getServidor(),
                     stock.getDados().getMomento(),
                     stock.getDados().getPercentualCPU(),
-                    stock.getDados().getFrequenciaCPU(),
                     stock.getDados().getPercentualRAM(),
-                    stock.getDados().getMemoriaUsadaGB(),
-                    stock.getDados().getPercentualDisco(),
-                    stock.getDados().getDiscoUsadoGB(),
-                    stock.getDados().getVelocidadeDownloadMbps(),
-                    stock.getDados().getVelocidadeUploadMbps()
+                    stock.getDados().getPercentualDisco()
+                    // Esse .getDados funciona pq ele pega o objeto Dados dentro de cada stock e dps faz o comando de cada um desses objetos
             );
         }
 
@@ -69,6 +65,9 @@ public class CsvWriter {
                         processo.getCpuPercent(),
                         processo.getRamPercent(),
                         processo.getGrupo()
+
+                        // Msm coisa que o de cima, mas pegando os processos tbm
+
                 );
             }
         }
