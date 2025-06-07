@@ -27,7 +27,7 @@ body {
     color: #2b2b2b;
     font-size: 2vh;
     width: 5vw;
-    height: 2vw;
+    height: 3vw;
     border-radius: 1vh;
     border: none;
     font-weight: bold;
@@ -69,15 +69,16 @@ body {
 }
 
 .indicador-ideal{
-    background-color: rgba(115, 255, 157, .4);
+    background-color: rgba(115, 255, 157, .9);
     width: 15vw;
     border-radius: 1vw; 
 }
 
 .indicador-ruim{
-    background-color: rgba(255, 115, 115, 0.7);
+    background-color: rgba(221, 54, 54, 0.9);
     width: 15vw;
     border-radius: 1vw; 
+    color: #fff;
 }
 
 
@@ -179,15 +180,15 @@ th{
 
 .modal {
     flex-direction: column;
-    height: 35vw;
-    width: 60vw;
+    height: 28vw;
+    width: 32vw;
     background-color: #ffffff;
     z-index: 100;
     border-radius: 1vw;
-    border: solid 2px #b0b0b0;
+    border: solid 3px #525252;
     position: absolute;
-    left: 22vw;
-    top: 5vw;
+    left: 35vw;
+    top: 10vw;
     animation: fadeIn 0.5s both;
 }
 
@@ -267,7 +268,23 @@ th{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display: none;
     z-index: 99;
+}
+
+.caracteristicas_servidorModal{
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: #3a3a3a;
+    padding: 0vw 1vw 1vw 1vw;
+}
+
+.componente{
+    color: #2b2b2b;
+}
+
+.infoComponente {
+    color: #666666;
 }

@@ -289,44 +289,20 @@ def lambda_handler(event, context):
 
         # Tabela de ociosidade para os últimos 6 meses
         tabela6meses = {
-            "servidor1": TabelaOciosidade_6meses[1],
-            "servidor2": TabelaOciosidade_6meses[2],
-            "servidor3": TabelaOciosidade_6meses[3],
-            "servidor4": TabelaOciosidade_6meses[4],
-            "servidor5": TabelaOciosidade_6meses[5],
-            "servidor6": TabelaOciosidade_6meses[6],
-            "servidor7": TabelaOciosidade_6meses[7],
-            "servidor8": TabelaOciosidade_6meses[8],
-            "servidor9": TabelaOciosidade_6meses[9],
-            "servidor10": TabelaOciosidade_6meses[10]
+            i: TabelaOciosidade_6meses[i]
+            for i in range(1, len(TabelaOciosidade_6meses))
         }
 
         # Tabela de ociosidade para os últimos 30 dias
         tabela30dias = {
-            "servidor1": TabelaOciosidade_30dias[1],
-            "servidor2": TabelaOciosidade_30dias[2],
-            "servidor3": TabelaOciosidade_30dias[3],
-            "servidor4": TabelaOciosidade_30dias[4],
-            "servidor5": TabelaOciosidade_30dias[5],
-            "servidor6": TabelaOciosidade_30dias[6],
-            "servidor7": TabelaOciosidade_30dias[7],
-            "servidor8": TabelaOciosidade_30dias[8],
-            "servidor9": TabelaOciosidade_30dias[9],
-            "servidor10": TabelaOciosidade_30dias[10]
+            i: TabelaOciosidade_30dias[i]
+            for i in range(1, len(TabelaOciosidade_30dias))
         }
 
         # Tabela de ociosidade para os últimos 7 dias
         tabela7dias = {
-            "servidor1": TabelaOciosidade_7dias[1],
-            "servidor2": TabelaOciosidade_7dias[2],
-            "servidor3": TabelaOciosidade_7dias[3],
-            "servidor4": TabelaOciosidade_7dias[4],
-            "servidor5": TabelaOciosidade_7dias[5],
-            "servidor6": TabelaOciosidade_7dias[6],
-            "servidor7": TabelaOciosidade_7dias[7],
-            "servidor8": TabelaOciosidade_7dias[8],
-            "servidor9": TabelaOciosidade_7dias[9],
-            "servidor10": TabelaOciosidade_7dias[10]
+            i: TabelaOciosidade_7dias[i]
+            for i in range(1, len(TabelaOciosidade_7dias))
         }
 
         ociosidadeCPU3mesesTemporal = {
