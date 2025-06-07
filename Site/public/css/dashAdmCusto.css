@@ -68,6 +68,7 @@ body {
   background-color: grey;
   color: white;
 }
+
 #grafico {
   background-color: #fff;
   border-radius: 1vw;
@@ -107,5 +108,4 @@ body {
   padding: 0.3rem 0.8rem;
   border-radius: 6px;
   font-weight: 700;
-  text-shadow: none;
 }

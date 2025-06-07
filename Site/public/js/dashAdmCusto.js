@@ -166,6 +166,17 @@ let restomaiorCustoMedio24_dc3 = 0;
 
 var options = {
   chart: {
+    animations: {
+      enabled: true,
+      speed: 800,
+      animateGradually: {
+        enabled: true,
+      },
+      dynamicAnimation: {
+        enabled: true,
+        speed: 350,
+      },
+    },
     type: "bar",
     height: 350,
   },
@@ -255,7 +266,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://3.230.80.85:3000/pix/pegarPix").then((res) => {
+    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
@@ -324,9 +335,9 @@ function carregar() {
             console.log("Minutos 24h DC2:  " + minutos24_dc2);
             console.log("Minutos 24h DC3: " + minutos24_dc3);
 
-            horas24_dc1 = Math.ceil(minutos24_dc1 / 60);
-            horas24_dc2 = Math.ceil(minutos24_dc2 / 60);
-            horas24_dc3 = Math.ceil(minutos24_dc3 / 60);
+            horas24_dc1 = minutos24_dc1 / 60;
+            horas24_dc2 = minutos24_dc2 / 60;
+            horas24_dc3 = minutos24_dc3 / 60;
 
             console.log("Horas 24h DC1: " + horas24_dc1);
             console.log("Horas 24h DC2: " + horas24_dc2);
@@ -360,9 +371,6 @@ function carregar() {
             } else if (maiorCusto24 === custoHora24_dc3) {
               maiorCusto24_dc = 3;
             }
-
-            quocientemaiorCusto24 = maiorCusto24 / 10;
-            restomaiorCusto24 = maiorCusto24 % 10;
 
             data_center_custo.innerHTML = maiorCusto24_dc;
             data_center_investir.innerHTML = maiorCusto24_dc;
@@ -404,7 +412,7 @@ function carregar() {
             } else if (maiorCusto24_dc == 2) {
               custo_total.innerHTML = custoTotal24_dc2;
             } else if (maiorCusto24_dc == 3) {
-              custo_total.innerHTML = custoHora24_dc3;
+              custo_total.innerHTML = custoTotal24_dc3;
             }
 
             // Calcular o Custo Médio
@@ -455,10 +463,6 @@ function carregar() {
   }
 }
 
-function calcularValorHora(valor, dias) {
-  return Math.floor(valor / dias / 24);
-}
-
 function filtrar(tempo) {
   tempoSelecionado = tempo;
 
@@ -486,17 +490,17 @@ function filtrar(tempo) {
         console.log("Minutos 7d DC2: " + minutos7_dc2);
         console.log("Minutos 7d DC3: " + minutos7_dc3);
 
-        horas7_dc1 = Math.ceil(minutos7_dc1 / 60);
-        horas7_dc2 = Math.ceil(minutos7_dc2 / 60);
-        horas7_dc3 = Math.ceil(minutos7_dc3 / 60);
+        horas7_dc1 = minutos7_dc1 / 60;
+        horas7_dc2 = minutos7_dc2 / 60;
+        horas7_dc3 = minutos7_dc3 / 60;
 
         console.log("Horas 7d DC1: " + horas7_dc1);
         console.log("Horas 7d DC2: " + horas7_dc2);
         console.log("Horas 7d DC3: " + horas7_dc3);
 
-        valorHora7_dc1 = Math.floor(valor7_dc1 / 7 / 24);
-        valorHora7_dc2 = Math.floor(valor7_dc2 / 7 / 24);
-        valorHora7_dc3 = Math.floor(valor7_dc3 / 7 / 24);
+        valorHora7_dc1 = Math.ceil(valor7_dc1 / 7 / 24);
+        valorHora7_dc2 = Math.ceil(valor7_dc2 / 7 / 24);
+        valorHora7_dc3 = Math.ceil(valor7_dc3 / 7 / 24);
 
         console.log("Valor Hora 7d DC1: " + valorHora7_dc1);
         console.log("Valor Hora 7d DC2: " + valorHora7_dc2);
@@ -513,12 +517,6 @@ function filtrar(tempo) {
         let maiorCusto7 = Math.ceil(
           Math.max(custoHora7_dc1, custoHora7_dc2, custoHora7_dc3)
         );
-
-        console.warn("QuocientemaiorCustoHora7: " + quocientemaiorCusto7);
-        console.warn("RestomaiorCustoHora7: " + restomaiorCusto7);
-
-        quocientemaiorCusto7 = maiorCusto7 / 10;
-        restomaiorCusto7 = maiorCusto7 % 10;
 
         // deixo o valor default
         let maiorCusto7_dc = 1;
@@ -546,12 +544,6 @@ function filtrar(tempo) {
           Math.max(custoTotal7_dc1, custoTotal7_dc2, custoTotal7_dc3)
         );
 
-        quocientemaiorCustoTotal7 = maiorCustoTotal7 / 1000;
-        restomaiorCustoTotal7 = maiorCustoTotal7 % 1000;
-
-        console.warn("QuocientemaiorCustoTotal7: " + quocientemaiorCustoTotal7);
-        console.warn("RestomaiorCustoTotal7: " + restomaiorCustoTotal7);
-
         // atualziar gráfico com custo total
         chart.updateSeries([
           {
@@ -569,7 +561,6 @@ function filtrar(tempo) {
         }
 
         data_center_total.innerHTML = maiorCustoTotal7_dc;
-        data_center_investir.innerHTML = maiorCustoTotal7_dc;
         custo_total.innerHTML = maiorCustoTotal7;
 
         // Calcular o Custo Médio 7 dias
@@ -586,14 +577,6 @@ function filtrar(tempo) {
               Math.max(custoMedio7_dc1, custoMedio7_dc2, custoMedio7_dc3)
             );
 
-            quocientemaiorCustoMedio7 = maiorCustoMedio7 / 10;
-            restomaiorCustoMedio7 = maiorCustoMedio7 % 10;
-
-            console.warn(
-              "QuocientemaiorCustoMedio7: " + quocientemaiorCustoMedio7
-            );
-            console.warn("RestomaiorCustoMedio7: " + restomaiorCustoMedio7);
-
             // deixo o valor default
             let maiorCustoMedio7_dc = 1;
 
@@ -608,7 +591,6 @@ function filtrar(tempo) {
             }
 
             data_center_medio.innerHTML = maiorCustoMedio7_dc;
-            data_center_investir.innerHTML = maiorCustoMedio7_dc;
             custo_medio.innerHTML = maiorCustoMedio7;
           });
         });
@@ -634,17 +616,17 @@ function filtrar(tempo) {
           console.log("Minutos 30d DC2 (filtrar): " + minutos30_dc2);
           console.log("Minutos 30d DC3 (filtrar): " + minutos30_dc3);
 
-          horas30_dc1 = Math.ceil(minutos30_dc1 / 60);
-          horas30_dc2 = Math.ceil(minutos30_dc2 / 60);
-          horas30_dc3 = Math.ceil(minutos30_dc3 / 60);
+          horas30_dc1 = minutos30_dc1 / 60;
+          horas30_dc2 = minutos30_dc2 / 60;
+          horas30_dc3 = minutos30_dc3 / 60;
 
           console.log("Horas 30d DC1 (filtrar): " + horas30_dc1);
           console.log("Horas 30d DC2 (filtrar): " + horas30_dc2);
           console.log("Horas 30d DC3 (filtrar): " + horas30_dc3);
 
-          valorHora30_dc1 = Math.floor(valor30_dc1 / 30 / 24);
-          valorHora30_dc2 = Math.floor(valor30_dc2 / 30 / 24);
-          valorHora30_dc3 = Math.floor(valor30_dc3 / 30 / 24);
+          valorHora30_dc1 = Math.ceil(valor30_dc1 / 30 / 24);
+          valorHora30_dc2 = Math.ceil(valor30_dc2 / 30 / 24);
+          valorHora30_dc3 = Math.ceil(valor30_dc3 / 30 / 24);
 
           console.log("Valor Hora 30d DC1 (filtrar): " + valorHora30_dc1);
           console.log("Valor Hora 30d DC2 (filtrar): " + valorHora30_dc2);
@@ -661,12 +643,6 @@ function filtrar(tempo) {
           let maiorCusto30 = Math.ceil(
             Math.max(custoHora30_dc1, custoHora30_dc2, custoHora30_dc3)
           );
-
-          quocientemaiorCusto30 = maiorCusto30 / 10;
-          restomaiorCusto30 = maiorCusto30 % 10;
-
-          console.warn("QuocientemaiorCustoHora30: " + quocientemaiorCusto30);
-          console.warn("RestomaiorCustoHora30: " + restomaiorCusto30);
 
           // deixo o valor default
           let maiorCusto30_dc = 1;
@@ -701,14 +677,6 @@ function filtrar(tempo) {
             Math.max(custoTotal30_dc1, custoTotal30_dc2, custoTotal30_dc3)
           );
 
-          quocientemaiorCustoTotal30 = maiorCustoTotal30 / 1000;
-          restomaiorCustoTotal30 = maiorCustoTotal30 % 1000;
-
-          console.warn(
-            "QuocientemaiorCustoTotal30: " + quocientemaiorCustoTotal30
-          );
-          console.warn("RestomaiorCustoTotal30: " + restomaiorCustoTotal30);
-
           // deixo o valor default
           let maiorCustoTotal30_dc = 1;
 
@@ -719,7 +687,6 @@ function filtrar(tempo) {
           }
 
           data_center_total.innerHTML = maiorCustoTotal30_dc;
-          data_center_investir.innerHTML = maiorCustoTotal30_dc;
           custo_total.innerHTML = maiorCustoTotal30;
 
           // Calcular o Custo Médio 30 dias
@@ -735,14 +702,6 @@ function filtrar(tempo) {
                 Math.max(custoMedio30_dc1, custoMedio30_dc2, custoMedio30_dc3)
               );
 
-              quocientemaiorCustoMedio30 = maiorCustoMedio30 / 10;
-              restomaiorCustoMedio30 = maiorCustoMedio30 % 10;
-
-              console.warn(
-                "QuocientemaiorCustoMedio30: " + quocientemaiorCustoMedio30
-              );
-              console.warn("RestomaiorCustoMedio30: " + restomaiorCustoMedio30);
-
               // deixo o valor default
               let maiorCustoMedio30_dc = 1;
 
@@ -757,7 +716,6 @@ function filtrar(tempo) {
               }
 
               data_center_medio.innerHTML = maiorCustoMedio30_dc;
-              data_center_investir.innerHTML = maiorCustoMedio30_dc;
               custo_medio.innerHTML = maiorCustoMedio30;
             });
           });
