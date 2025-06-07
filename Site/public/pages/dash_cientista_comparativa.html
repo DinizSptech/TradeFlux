@@ -92,34 +92,18 @@
                 <option value="10">Servidor 10</option>
               </select>
   
-              <div class="divDatas">
-                <select class="select-field" name="tempo" id="sltPeriodo">
-                  <option value="optPeriodo7Dias" selected>Últimos 7 dias</option>
-                  <option value="optPeriodo30Dias">Últimos 30 dias</option>
-                  <option value="optPeriodo3Meses">Últimos 3 meses</option>
-                  <option value="optPeriodoPersonalizado">Personalizado</option>
-                </select>
-  
-                <div
-                  class="divPersonalizadaData esconder"
-                  id="divPersonalizadaData"
-                >
-                  <span>De</span>
-                  <input class="data-field" type="date" id="iptDateComeco" />
-  
-                  <span>Até</span>
-                  <input class="data-field" type="date" id="iptDateFinal" />
-                </div>
-              </div>
-  
-              <div class="buttons-container">
-                <button class="btn btn-filter" onclick="filtrar()">
-                  Filtrar
+              <div class="botoes-filtro">
+                <button class="botao-filtro" onclick="">
+                  Últimas 24h
                 </button>
-                <button class="btn btn-clear" onclick="limparFiltro()">
-                  Limpar Filtro
+                <button class="botao-filtro" onclick="">
+                  Últimos 7 dias
+                </button>
+                <button class="botao-filtro" onclick="">
+                  Últimos 30 dias
                 </button>
               </div>
+  
             </div>
           </div>
         </header>

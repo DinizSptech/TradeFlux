@@ -3,19 +3,32 @@ const express = require("express");
 const cors = require("cors");
 // Cors é para fazer a parte de acesso do que pode ou não acessar
 const app = express();
-app.use(express.json());
+
 require("dotenv").config();
 
-app.use((request, response, next) => {
-  response.header("Access-Control-Allow-Origin", "*");
-  // Aqui configuramos o cors e o * é o padrão do "Pode qualquer ip"
-  response.header(
-    "Access-Control-Allow-Methods",
-    "GET, PUT, POST, DELETE, OPTIONS"
-  );
-  app.use(cors());
-  next();
+const corsOptions = {
+  origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true
+};
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  // Aqui é a configuração do Cors para aceitar de qualquer IP
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  
+  // Responder a requisições OPTIONS (preflight)
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
 });
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 const monitoriaRouter = require("./src/routes/monitoria.routes");
 const alertaRouter = require("./src/routes/alerta.routes");
@@ -29,17 +42,7 @@ app.use("/bd", bdRouter);
 app.use("/bucket", bucketRouter);
 app.use("/monitoria", monitoriaRouter);
 app.use("/pix", pixRouter);
-// app.use("/CSVs", csvRouter);
-
-console.log('Registrando rotas...');
 app.use("/CSVs", csvRouter);
-console.log('Rota /CSVs registrada');
-
-// 2. Adicione middleware para logar todas as requisições
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.originalUrl}`);
-  next();
-});
 
 app.listen(3000, () => {
   // Tô colocando ele pra escutar tudo que bater na porta aí

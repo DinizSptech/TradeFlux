@@ -132,97 +132,43 @@ function inicializarDashboard() {
     });
 }
 
-// async function baixarCSV() {
-
-//   let arquivo = 'datacenter_client1.csv'
-//   let caminho = 'dadosRobertClient'
-
-//   try {                                                  
-//     const resposta = await fetch(`http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       }
-//     })
-    
-//     if (!resposta) {
-//       throw new Error("erro ao pegar a resposta" + resposta.status)
-//     }
-
-//     const blob = await resposta.blob();
-//     console.log(blob);
-
-//     const url = window.URL.createObjectURL(blob)
-//     const a = document.createElement("a");
-//     a.style.display = "none"
-//     a.href = url;
-//     a.download = `bucket.csv`
-
-//     a.click()
-
-//     window.URL.revokeObjectURL(url)
-//     document.body.removeChild(a)
-//   } catch {
-//     erro()
-//   }
-// }
-
 async function baixarCSV() {
-  let arquivo = 'datacenter_client1.csv'
-  let caminho = 'dadosRobertClient'
+    let arquivo = 'client_datacenter1.csv';
+    let caminho = 'dadosRobertClient';
 
-  try {
-    // Primeiro teste se a rota básica funciona
-    console.log('Testando rota básica...');
-    const testeResposta = await fetch('http://3.230.80.85:3000/CSVs/test');
-    if (testeResposta.ok) {
-      const testeData = await testeResposta.json();
-      console.log('Teste da rota:', testeData);
-    } else {
-      console.log('Erro no teste da rota:', testeResposta.status);
+    try {                                                  
+        
+        const resposta = await fetch(`http://localhost:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`);
+        
+        if (!resposta.ok) {
+            throw new Error(`Erro ao buscar arquivo: ${resposta.status} - ${resposta.statusText}`);
+        }
+
+        const blob = await resposta.blob();
+        // Blob (Binary Large Object) é o que gera o arquivo, ou seja, ele armazena tudo como um sistema binário e dps envia para outro lugar, aqui estamos recebendo o blob do arquivo que tá lá no S3, para ele transformar no arquivo do usuário
+        console.log('Blob recebido:', blob);
+
+        // Aqui ele cria o link do download
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = arquivo;
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        // Limpa recursos urilizados para não ficar gastando memória atoa
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        console.log('Download iniciado com sucesso!');
+        
+    } catch (error) {
+        // Aqui é só a validação de erro que eu tava fazendo 
+        console.error('Erro no download:', error);
+        // alert('Erro ao baixar arquivo: ' + error.message);
     }
-
-    console.log('Fazendo requisição para:', `http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`);
-                                                 
-    const resposta = await fetch(`http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json", // Corrigido: era "apllication/json"
-      }
-    })
-    
-    console.log('Status da resposta:', resposta.status);
-    
-    // Corrigido: verificar resposta.ok ao invés de !resposta
-    if (!resposta.ok) {
-      const errorText = await resposta.text();
-      console.log('Resposta de erro:', errorText);
-      throw new Error(`Erro ao pegar a resposta: ${resposta.status} - ${errorText}`)
-    }
-
-    const blob = await resposta.blob();
-    console.log('Blob recebido:', blob);
-
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement("a");
-    a.style.display = "none"
-    a.href = url;
-    a.download = `${arquivo}` // Usar o nome do arquivo correto
-
-    // Adicionar elemento ao DOM antes de clicar
-    document.body.appendChild(a);
-    a.click()
-
-    // Limpar após um pequeno delay
-    setTimeout(() => {
-      window.URL.revokeObjectURL(url)
-      document.body.removeChild(a)
-    }, 100);
-
-  } catch (error) { // Corrigido: capturar o erro
-    console.error('Erro ao baixar CSV:', error);
-    // erro() // descomente se você tem essa função definida
-  }
 }
 
 
@@ -725,9 +671,6 @@ mainSelect.addEventListener("change", function () {
   }
 });
 
-document
-  .getElementById("sltPeriodo")
-  .addEventListener("change", trocarVisibilidade);
 // Pega o elemento, ao pegar ele, verifica se houve mudança, por isso ele está em change e se tiver mudança, ele roda a função dps da virgula (Não precisa de parenteses dps do nome da função)
 
 document.getElementsByName("server").forEach(function (item) {
