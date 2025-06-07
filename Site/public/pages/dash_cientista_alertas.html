@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard de Análise de Alertas</title>
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
     <!-- <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet" /> -->
@@ -11,14 +12,13 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- IMPORT JS E CSS DOS GRÁFICOS DA DASH -->
     <link rel="stylesheet" href="../css/dash_cientista_alertas.css">
     <script src="../js/dash_cientista_alertas.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <!-- IMPORT BARRA LATERAL -->
     <link rel="stylesheet" href="../css/barra_lateral.css">
     <script src="../js/barra_lateral.js" defer></script>
+    
 </head>
 <body onload="carregarMenuLateral()">
     <div class="navbar">
@@ -91,8 +91,8 @@
         </table>
         <div class="kpi_total kpi_correlacao">
             <span class="tituloKPI titleCorrelacao" id="tituloCorrelacao">Buscando correlação com dados da B3...</span>
-          <span class="qtd_total kpi_valor_correlacao" id="kpi_valor_correlacao">Carregando...</span>
-          <span class="pctg_aumento spn_subKPI" id="spn_tipoCorrelacao">Carregando...</span>
+          <span class="qtd_total kpi_valor_correlacao" id="kpi_valor_correlacao">...</span>
+          <span class="pctg_aumento spn_subKPI" id="spn_tipoCorrelacao">---</span>
           <span></span>
         </div>
       </div>
@@ -182,12 +182,14 @@
         </div>
     </div>
     <div class="container_graficos_alertas">
-    <select name="slt_alertas" id="slt_alertas" class="slt_alertas">
-        <option value="criticos">Alertas Críticos</option>
-        <option value="atencao">Alertas de Atenção</option>
-    </select>
-    <div class="container_grafico">
-        <div id="grafico_servidores"></div>
+    <div class="container_servidores">
+        <div class="menuAbasTipo servidores">
+            <button id="btnServidoresCriticos" class="botaoTipoAlerta ativo">Servidores Críticos</button>
+            <button id="btnServidoresAtencao" class="botaoTipoAlerta">Servidores Atenção</button>
+        </div>
+        <div class="container_grafico graph_servidores">
+            <div id="grafico_servidores"></div>
+        </div>
     </div>
     <div class="container_grafico graph_componentes">
         <div id="grafico_alertas"></div>

@@ -244,10 +244,6 @@ def verificar_e_enviar_alertas(dados_capturados, parametros_servidor):
         if not dados_capturados or 'dados' not in dados_capturados or len(dados_capturados['dados']) == 0:
             print("Dados capturados inválidos para verificação de alertas")
             return
-        
-        print("Linha 217 verificar_e_enviar_alertas() funcionando: ", )
-        print("Dados capturados", dados_capturados['dados'])
-        print("Dados capturados", dados_capturados['dados'])
         dados_momento = dados_capturados['dados']
         data_atual = dados_momento['Momento']
         nome_servidor = dados_capturados['servidor'] 

@@ -30,14 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
       renderizarCalendario();
     });
 
-  document
-    .getElementById("slt_alertas")
-    .addEventListener("change", function () {
-      tipoGraficoServidores = this.value;
-      renderizarGraficoServidores();
-    });
+  
 
-  carregarDadosDashboard();
+  
+  document.getElementById("btnServidoresCriticos").addEventListener("click", function () {
+    tipoGraficoServidores = "criticos";
+    definirAbaAtivaServidores(this);
+    renderizarGraficoServidores();
+  });
+
+  document.getElementById("btnServidoresAtencao").addEventListener("click", function () {
+    tipoGraficoServidores = "atencao";
+    definirAbaAtivaServidores(this);
+    renderizarGraficoServidores();
+  });
+
+  function definirAbaAtivaServidores(botaoAba) {
+    document.querySelectorAll(".menuAbasTipo.servidores .botaoTipoAlerta").forEach(function (botao) {
+      botao.classList.remove("ativo");
+    });
+    botaoAba.classList.add("ativo");
+  }
+carregarDadosDashboard();
 });
 
 function carregarDadosDashboard() {
@@ -61,6 +75,40 @@ function carregarDadosDashboard() {
     });
 }
 
+function calcularStatusServidores(dadosServidores) {
+  console.log("=== DEBUG 11092 DE STATUS SERVIDORES ===");
+  console.log("Total de servidores retornados:", dadosServidores.length);
+  
+  const totalServidores = dadosServidores.length;
+  let criticos = 0;
+  let atencao = 0;
+  let estaveis = 0;
+  
+  dadosServidores.forEach(servidor => {
+    console.log(`Servidor ${servidor.idservidor}: Críticos=${servidor.alertas_criticos}, Atenção=${servidor.alertas_atencao}`);
+    
+    if (servidor.alertas_criticos > 0) {
+      criticos++;
+      console.log(`  → Status: CRÍTICO`);
+    } else if (servidor.alertas_atencao > 0) {
+      atencao++;
+      console.log(`  → Status: ATENÇÃO`);
+    } else {
+      estaveis++;
+      console.log(`  → Status: ESTÁVEL`);
+    }
+  });
+  
+  console.log(`Resumo: Críticos=${criticos}, Atenção=${atencao}, Estáveis=${estaveis}`);
+  console.log("=== FIM DEBUG ===");
+  
+  return {
+    critico: ((criticos / totalServidores) * 100).toFixed(2),
+    atencao: ((atencao / totalServidores) * 100).toFixed(2),
+    estavel: ((estaveis / totalServidores) * 100).toFixed(2)
+  };
+}
+
 function buscarDadosStatusServidor() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
   return fetch(`/alertas/getStatusServidores/${idDataCenter}`, {
@@ -74,13 +122,25 @@ function buscarDadosStatusServidor() {
       }
     })
     .then((registros) => {
-      console.log("Dados do calendário recebidos:", registros);
-      dadosStatus = renderizarDadosStatusServidor(registros);
+      console.log("Dados brutos dos servidores:", registros);
+      
+      const statusCalculado = calcularStatusServidores(registros);
+      
+      console.log("Status calculado:", statusCalculado);
+      dadosStatus = statusCalculado;
+      
+      renderizarDadosStatusServidor([statusCalculado]);
     })
     .catch((erro) => {
-      console.error("Erro ao buscar dados do calendário:", erro);
+      console.error("Erro ao buscar dados de status:", erro);
       throw erro;
     });
+}
+
+function renderizarDadosStatusServidor(dadosDB) {
+  document.getElementById("td_status_critico").innerHTML = dadosDB[0].critico + "%";
+  document.getElementById("td_status_atencao").innerHTML = dadosDB[0].atencao + "%";
+  document.getElementById("td_status_estavel").innerHTML = dadosDB[0].estavel + "%";
 }
 function buscarDadosCalendario() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
@@ -256,6 +316,19 @@ function obterCorAlertaCritico(valor) {
   if (valor <= 5) return "#ff6e40";
   return "#ff3d00";
 }
+function obterCorAlertaAtencaoTXT(valor) {
+  if (valor === 0) return "#000";
+  if (valor <= 2) return "#000";
+  if (valor <= 5) return "#000";
+  return "#000";
+}
+
+function obterCorAlertaCriticoTXT(valor) {
+  if (valor === 0) return "#000";
+  if (valor <= 2) return "#000";
+  if (valor <= 5) return "#FFF";
+  return "#FFF";
+}
 
 function definirAbaAtiva(botaoAba) {
   document.querySelectorAll(".botaoTipoAlerta").forEach(function (botao) {
@@ -315,17 +388,21 @@ function renderizarCalendario() {
           tipoAlertaAtual === "atencao"
             ? obterCorAlertaAtencao(valorAlerta)
             : obterCorAlertaCritico(valorAlerta);
+        const corAlertaTXT =
+          tipoAlertaAtual === "atencao"
+            ? obterCorAlertaAtencaoTXT(valorAlerta)
+            : obterCorAlertaCriticoTXT(valorAlerta);
 
         htmlCalendario += `
                     <div class="celulaCalendario" 
-                        style="background-color: ${corAlerta};" 
+                        style="background-color: ${corAlerta}; color: ${corAlertaTXT}" 
                         data-data="${dia.displayData}"
                         data-atencao="${dia.alertasAtencao}"
                         data-critico="${dia.alertasCriticos}"
                         data-total="${dia.total}"
                         onmouseover="mostrarBalaoInfo(event, this.dataset)"
                         onmouseout="ocultarBalaoInfo()">
-                        <div class="numeroDiaCelula">${dia.displayData}</div>
+                        <div class="numeroDiaCelula" style="color: ${corAlertaTXT};">${dia.displayData}</div>
                         ${valorAlerta}
                     </div>
                 `;
@@ -370,6 +447,7 @@ function renderizarGraficoComponentes(dadosDB) {
   if (dadosComponentes.length === 0) return;
 
   const categorias = dadosComponentes.map((item) => item.componente);
+  var categorias_refinadas = ["CPU (%)", "RAM (%)", "DISCO (%)"]
   const alertasAtencao = dadosComponentes.map(
     (item) => parseInt(item.alertas_atencao) || 0
   );
@@ -397,7 +475,7 @@ function renderizarGraficoComponentes(dadosDB) {
       align: "center",
       style: {
         color: "#2b2b2b",
-        fontSize: "16px",
+        fontSize: "20px",
       },
     },
     series: [
@@ -405,14 +483,22 @@ function renderizarGraficoComponentes(dadosDB) {
       { name: "Alertas Críticos", data: alertasCriticos },
     ],
     xaxis: {
-      categories: categorias,
+      categories: categorias_refinadas,
       labels: {
-        style: { colors: "#2b2b2b" },
+        style: { 
+          colors: "#000000",
+          fontWeight: "700", 
+          fontSize: "16px",
+        },
       },
     },
     yaxis: {
       labels: {
-        style: { colors: "#2b2b2b" },
+        style: { 
+          colors: "#000000",
+          fontWeight: "700",
+          fontSize: "16px", 
+        },
       },
     },
     grid: {
@@ -480,19 +566,27 @@ function renderizarGraficoServidores() {
       align: "center",
       style: {
         color: "#2b2b2b",
-        fontSize: "16px",
+        fontSize: "20px",
       },
     },
     series: [{ name: nomeSerie, data: quantidades }],
     xaxis: {
       categories: nomes,
       labels: {
-        style: { colors: "#2b2b2b" },
+        style: { 
+          colors: "#000",
+          fontWeight: "700",
+          fontSize: '16px'
+        },
       },
     },
     yaxis: {
       labels: {
-        style: { colors: "#2b2b2b" },
+        style: { 
+          colors: "#000000",
+          fontWeight: "700", 
+          fontSize: "16px",
+        },
       },
     },
     grid: {
@@ -503,6 +597,7 @@ function renderizarGraficoServidores() {
         colors: ["#ffffff"],
       },
     },
+    
   };
   if (grafico_servidores) {
     grafico_servidores.destroy();
@@ -523,16 +618,11 @@ function renderizarKPIsTotais() {
   kpi_alerta_critico.innerHTML = dadosTotaisAlertas[0].alertas_criticos;
 }
 
-function renderizarDadosStatusServidor(dadosDB) {
-  td_status_critico.innerHTML = dadosDB[0].critico;
-  td_status_atencao.innerHTML = dadosDB[0].atencao;
-  td_status_estavel.innerHTML = dadosDB[0].estavel;
-}
-
 async function atualizarKpiCorrelacao() {
   var idDataCenter = sessionStorage.getItem("DataCenter");
   try {
     const crawlerRes = await fetch(`/alertas/attCrawler/${idDataCenter}`);
+    console.log("Crawler foi atualizado: ", crawlerRes.ok)
     if (!crawlerRes.ok) throw new Error("Erro ao acionar o crawler.");
 
     await new Promise((resolve) => setTimeout(resolve, 0));
@@ -545,7 +635,7 @@ async function atualizarKpiCorrelacao() {
     if (dados && dados.variavel && dados.correlacao !== undefined) {
       document.getElementById(
         "tituloCorrelacao"
-      ).innerHTML = `A maior correlação com números de negociações foi com os dados de ${dados.variavel}`;
+      ).innerHTML = `A maior correlação com números de negociações na bolsa de valores foi com os dados capturados de ${dados.variavel} `;
       document.getElementById("kpi_valor_correlacao").innerHTML =
         dados.correlacao;
       const valorCorrelacao = parseFloat(dados.correlacao);
@@ -558,7 +648,7 @@ async function atualizarKpiCorrelacao() {
         (valorCorrelacao < 0 && valorCorrelacao > -0.5)
       ) {
         tipoCorrelacao = "Pouca correlação";
-        corBackground = "red";
+        corBackground = "#830000";
       } else if (valorCorrelacao >= 0.5 && valorCorrelacao <= 1) {
         tipoCorrelacao = "Correlação forte";
         corBackground = "green";

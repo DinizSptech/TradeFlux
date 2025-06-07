@@ -2,7 +2,7 @@ main{
     color: #2b2b2b;
     display: flex;
     gap: 1vw;
-    background-color: #ebedf5;
+    background-color: #f2f3f7;
 }
 
 .div_kpis{
@@ -199,7 +199,6 @@ main{
     display: flex;
     justify-content: center;
     gap: 1vw;
-    margin-top: 2vh;
     margin-bottom: 2vh;
 }
 
@@ -299,6 +298,7 @@ main{
     align-items: center;
     margin-bottom: 0.8vh;
     color: #666666;
+    font-weight: bold;
 }
 
 .corLegenda {
@@ -330,7 +330,7 @@ main{
 }
 
 .conteudoBalaoInfo {
-    font-size: 1.5vh;
+    font-size: 2vh;
     line-height: 1.4;
     color: #ffffff;
 }
@@ -370,9 +370,12 @@ h2 {
     margin-bottom: 2vh;
     padding: 1vh;
 }
+.graph_servidores{
+    flex-direction: column;
+}
 
 .graph_componentes{
-    height: 50vh;
+    height: 48vh;
 }
 
 #grafico_alertas {
@@ -409,4 +412,27 @@ h2 {
 }
 .kpi_valor_correlacao{
     font-size: 4vh;
+}
+.menuAbasTipo.servidores {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    margin-bottom: 1vh;
+}
+
+.menuAbasTipo.servidores .botaoTipoAlerta {
+    padding: 1vh 2vw;
+    background-color: #bfcbf4;
+    color: #2b2b2b;
+    font-size: 1.8vh;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.4vh;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.menuAbasTipo.servidores .botaoTipoAlerta.ativo {
+    background-color: #7286d5;
+    color: #ffffff;
 }

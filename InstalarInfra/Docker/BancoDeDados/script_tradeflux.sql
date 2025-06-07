@@ -113,12 +113,12 @@ insert into servidor_cliente (uuidservidor, sistemaoperacional, discototal, ramt
 ('uuid-dc1-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
-('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
-('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
-('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 2),
-('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
-('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
-('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 3);
+('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
+('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
+('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
+('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
+('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
+('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1);
 
 create table if not exists parametro_servidor (
     idparametros_servidor int auto_increment primary key,
@@ -126,6 +126,7 @@ create table if not exists parametro_servidor (
     limiar_alerta_critico double,
     fk_servidor int,
     fk_componente int,
+    foreign key (fk_servidor) references servidor_cliente(idservidor),
     foreign key (fk_componente) references componente(idcomponente)
 );
 
