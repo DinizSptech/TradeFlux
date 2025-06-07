@@ -1,26 +1,27 @@
 body {
-  min-width: 100vw;
-  min-height: 100vh;
-  background-color: #1b1f2b;
-  color: #f0f0f0;
+  color: #ffffff;
 }
 
 .container-main {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .mainContent {
   display: flex;
-  height: 100vh;
   flex-direction: column;
-  width: 79vw;
-  margin: 0 0 0 21vw;
+  
+
 }
 
 .container-title p {
   font-size: 2.4vw;
   font-weight: 800;
-  color: #f0f0f0;
+  color: #262b3c;
+  margin: 0;
   /* margin: 0 0 20px 0; */
 }
 
@@ -42,7 +43,7 @@ body {
   border-radius: 10px;
   border: none;
   font-size: 1.4vw;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+ 
 }
 
 .btn-cadastro:hover {
@@ -70,13 +71,13 @@ body {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  border: 0.25vh solid #3a3f58;
+  border: 0.25vh solid #cccccc;
   border-radius: 1vw;
   overflow-y: auto;
-  background-color: #262b3c;
+  background-color: #f2f3f7;
   scrollbar-color: grey transparent;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-  color: #cccccc;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  color: #333c5c;
 }
 
 .containerEsteiras h6 {
@@ -96,7 +97,7 @@ ul {
 
 hr {
   border: none;
-  border-top: 2px solid #2c2c2cc0;
+  border-top: 2px solid #cccccc;
   width: 95%;
 }
 
@@ -124,18 +125,20 @@ hr {
   border-collapse: collapse;
 }
 #tabelaFuncionarios thead tr th td {
-  color: #ffffff;
+  color:#000000;
 }
 
 th,
 td {
-  border: solid #3a3f58;
+  border: solid rgb(201, 201, 201);
   border-top-width: 0.3vh;
   border-bottom-width: 0.3vh;
   border-left-width: 0;
   border-right-width: 0;
   padding: 2vh 1vw;
   text-align: left;
+  color: #000000;
+  font-weight: bold;
 }
 
 .tableIcons {
@@ -146,24 +149,31 @@ td {
 
 th {
   background-color: #262b3c;
+  color: #ffffff;
 }
+ 
+thead th {
+  position: sticky;
+   top: 0;
+}
+
 #tabelaFuncionarios tbody tr:nth-child(odd) {
-  background-color: #2d3348;
+  background-color: #f4f6fa;
 }
 
 #tabelaFuncionarios tbody tr:nth-child(even) {
-  background-color: #262b3c;
+  background-color: #e9edf5;
 }
 .tableIcons i {
-  color: #00c2a8;
+  color: #333c5c;
 }
 .tableIcons i:hover {
   transition: 0.2s;
-  color: #a1fff2;
+  color: #6d7eba;
 }
 
 .status-ok {
-  color: #2ecc71;
+  color: #479f6b;
 }
 
 .status-alerta {

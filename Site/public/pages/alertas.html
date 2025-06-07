@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TradeFlux - Alertas</title>
-  <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
   <link rel="stylesheet" href="../css/dash_gerente_funcionarios_alt.css" />
   <link rel="stylesheet" href="../css/cadastroUsuario.css">
   <link rel="stylesheet" href="../css/modalPerfil.css" />
@@ -25,10 +24,13 @@
   <script src="../js/criacaoMenuLateral.js"></script>
   <script src="../js/mobileGerente.js"></script>
   <script src="../js/alertas.js"></script>
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/barra_lateral.css">
+    <script src="../js/barra_lateral.js" defer></script>
   <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
 </head>
 
-<body onload="carregarMenuLateral('alertas'); renderizarModalUsuario(); exibirAlertas()">
+<body onload="carregarMenuLateral(); renderizarModalUsuario(); exibirAlertas()">
   <div id="sistema_modais">
   </div>
   <div class="navbar">
@@ -51,8 +53,8 @@
   <main class="container-main" id="main_page">
     <div class="mainContent">
         <div>
-          <h3>Ordenação Atual:</h3>
-          <p id="ordenacaoAtual">Mais recentes</p>
+          <h3 style="color: #262b3c;">Ordenação Atual:</h3>
+          <p style="color: #262b3c;" id="ordenacaoAtual">Mais recentes</p>
         </div>
       <div class="container-title">
         <p>Histórico de Alertas</p>
@@ -68,7 +70,7 @@
               <th onclick="ordenarAlertasPorNivel()">Nível</th>
               <th onclick="ordenarAlertasPorServidor()">Servidor</th>
               <th onclick="ordenarAlertasPorData()">Data e Hora</th>
-              <th>Visto</th>
+              <th>Data Center</th>
             </tr>
           </thead>
           <tbody id="bodyTabela">

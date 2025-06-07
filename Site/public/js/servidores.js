@@ -15,10 +15,11 @@ function exibirServidores() {
 
           servidores = json.map(item => ({
 
-            idServidor: item.idServidor,
+            idservidor: item.idservidor,
             totalComponentes: item.totalComponentes,
             status: item.statusServidor,
-            alertas: item.alertas_hoje
+            alertas: item.alertas_hoje,
+            datacenter: item.fk_data_center
           }));
 
 
@@ -28,12 +29,13 @@ function exibirServidores() {
           servidores.forEach(servidor => {
             bodyTabela.innerHTML += `
         <tr>
-        <td> Servidor ${servidor.idServidor}</td>
+        <td> Servidor ${servidor.idservidor}</td>
         <td>${servidor.totalComponentes}</td>
-        <td style="color: ${servidor.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${servidor.status}</td>
-        <td style="color: ${servidor.alertas == 0 ? '#2ecc71' : '#e74c3c'};">${servidor.alertas}</td>
+        <td style="color: ${servidor.status == 'Estável' ? '#479f6b' : '#e74c3c'};">${servidor.status}</td>
+        <td style="color: ${servidor.alertas == 0 ? '#479f6b' : '#e74c3c'};">${servidor.alertas}</td>
+        <td>${servidor.datacenter}</td>
         <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao');" ></i></td>
-        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="setServidorExcluir(${servidor.idServidor})"></i></td>
+        <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="setServidorExcluir(${servidor.idservidor})"></i></td>
         </tr>    
       `;
           });

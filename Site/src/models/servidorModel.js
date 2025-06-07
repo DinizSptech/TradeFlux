@@ -31,7 +31,7 @@ function exibirServidores(dataCenter) {
   );
 
   let instrucaoSql = `
-  select sc.idservidor,
+  select sc.idservidor, sc.fk_data_center,
     count(ps.idparametros_servidor) as totalComponentes,
     case 
         when count(a.idAlerta) > 0 then 'Crítico'
@@ -40,14 +40,13 @@ function exibirServidores(dataCenter) {
   count(a2.idalerta) as alertas_hoje
   from servidor_cliente as sc
   left join parametro_servidor ps 
-  on ps.fkservidor = sc.idservidor
+  on ps.fk_servidor = sc.idservidor
   left join alerta a 
-    on a.fkparametro = ps.idparametros_servidor 
-    and a.data >= NOW() - interval 2 hour
-  left join Alerta a2 
-    on a2.fkParametro = ps.idParametros_Servidor 
-    and date(a2.data) = CURDATE()
-  where sc.fkDataCenter = ${dataCenter}
+    on a.fk_parametro = ps.idparametros_servidor 
+    and a.data_gerado >= NOW() - interval 2 hour
+  left join alerta a2 
+    on a2.fk_parametro = ps.idParametros_Servidor 
+    and date(a2.data_gerado) = CURDATE()
   group by sc.idServidor;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -60,7 +59,7 @@ function editarServidor(servidor, componente, valor) {
   );
 
   let instrucaoSql = `
-        UPDATE Servidor_Cliente SET ${componente} = "${valor}" WHERE idServidor = ${servidor};
+        UPDATE servidor_cliente SET ${componente} = "${valor}" WHERE idservidor = ${servidor};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -74,11 +73,11 @@ function excluir(servidorSelecionadoParaExcluir) {
   let instrucaoSql = `
 
      DELETE A
-    FROM Alerta A
-    JOIN Parametro_Servidor P ON A.fkParametro = P.idParametros_Servidor
-    WHERE P.fkServidor = ${servidorSelecionadoParaExcluir};
-    DELETE from Parametro_Servidor where fkServidor = ${servidorSelecionadoParaExcluir};
-    DELETE FROM Servidor_Cliente where idServidor = ${servidorSelecionadoParaExcluir}
+    FROM alerta A
+    JOIN parametro_servidor P ON A.fk_parametro = P.idparametros_servidor
+    WHERE P.fk_servidor = ${servidorSelecionadoParaExcluir};
+    DELETE from parametro_servidor where fk_servidor = ${servidorSelecionadoParaExcluir};
+    DELETE FROM servidor_cliente where idservidor = ${servidorSelecionadoParaExcluir}
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

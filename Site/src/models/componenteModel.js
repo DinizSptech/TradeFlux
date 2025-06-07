@@ -10,7 +10,7 @@ function cadastrar(componente, limiar, servidor) {
 
   let instrucaoSql = `
         INSERT INTO parametro_servidor 
-        (limiar_alerta, fkServidor, fkComponente) VALUES
+        (limiar_alerta_critico, fk_servidor, fk_componente) VALUES
         ('${limiar}', '${servidor}', ${componente});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -39,7 +39,7 @@ function listarComponentes(servidor) {
         SELECT * FROM componente;
 
         
-        SELECT * FROM parametro_servidor where fkServidor = ${servidor};
+        SELECT * FROM parametro_servidor where fk_servidor = ${servidor};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -51,22 +51,26 @@ function exibirComponentes(dataCenter) {
   );
 
   let instrucaoSql = `
-          select idParametros_Servidor, nomeComponente, c.medida, limiar_alerta, fkServidor, fkDatacenter,
+          select idparametros_servidor, nomecomponente, c.medida, limiar_alerta_critico, limiar_alerta_atencao, fk_servidor,
           case 
-                when count(a.idAlerta) > 0 then 'Crítico'
+                when count(a.idalerta) > 0 then 'Crítico'
                 else 'Estável'
           end as statusComponente
-        from Componente as c left join Parametro_Servidor as ps
-        on c.idComponente = ps.fkComponente
-        left join Alerta a 
-        on a.fkParametro = ps.idParametros_Servidor 
-        and a.data >= NOW() - interval 2 hour
-        left join Servidor_Cliente as sc
-        on ps.fkServidor = sc.idServidor
-        where sc.fkDataCenter = ${dataCenter}
+        from componente as c left join parametro_servidor as ps
+        on c.idcomponente = ps.fk_componente
+        left join alerta a 
+        on a.fk_parametro = ps.idparametros_servidor 
+        and a.data_gerado >= NOW() - interval 2 hour
+        left join servidor_cliente as sc
+        on ps.fk_servidor = sc.idservidor
         GROUP BY 
-        ps.idParametros_Servidor
-        order by ps.fkServidor;
+          ps.idparametros_servidor,
+          c.nomecomponente,
+          c.medida,
+          ps.limiar_alerta_critico,
+          ps.limiar_alerta_atencao,
+          ps.fk_servidor
+        order by ps.fk_servidor;
 `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -79,10 +83,10 @@ function excluir(componenteSelecionadoParaExcluir) {
 
   let instrucaoSql = `
     DELETE A
-    FROM Alerta A
-    JOIN Parametro_Servidor P ON A.fkParametro = P.idParametros_Servidor
-    WHERE A.fkParametro = ${componenteSelecionadoParaExcluir};
-    DELETE from Parametro_Servidor where idParametros_Servidor = ${componenteSelecionadoParaExcluir};
+    FROM alerta A
+    JOIN parametro_servidor P ON A.fk_parametro = P.idparametros_servidor
+    WHERE A.fk_parametro = ${componenteSelecionadoParaExcluir};
+    DELETE from parametro_servidor where idparametros_servidor = ${componenteSelecionadoParaExcluir};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -94,7 +98,7 @@ function editarComponente(parametroComponente, valor) {
   );
 
   let instrucaoSql = `
-        UPDATE Parametro_Servidor SET limiar_alerta = ${valor} WHERE idParametros_Servidor = ${parametroComponente};
+        UPDATE parametro_servidor SET limiar_alerta_critico = ${valor} WHERE idparametros_servidor = ${parametroComponente};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

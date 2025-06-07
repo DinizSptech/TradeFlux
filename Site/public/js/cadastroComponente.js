@@ -28,14 +28,14 @@ function exibirServidorNoSelect() {
       resposta.json().then((json) => {
         json.forEach((servidor) => {
           var option = document.createElement("option");
-          option.value = servidor.idServidor;
-          option.text = `Servidor ${servidor.idServidor}`;
+          option.value = servidor.idservidor;
+          option.text = `Servidor ${servidor.idservidor}`;
           selectServidor.add(option);
-          id.push(servidor.idServidor);
-          ram.push(servidor.ramTotal);
-          disco.push(servidor.discoTotal);
-          cpu.push(servidor.processadorInfo)
-          so.push(servidor.sistemaOperacional)
+          id.push(servidor.idservidor);
+          ram.push(servidor.ramtotal);
+          disco.push(servidor.discototal);
+          cpu.push(servidor.processadorinfo)
+          so.push(servidor.sistemaoperacional)
           console.log(ram)
           console.log(disco)
           console.log(id)
@@ -221,23 +221,27 @@ function exibirComponentes() {
           console.log(json);
 
           componentes = json.map(item => {
-            let nomeFormatado = item.nomeComponente;
+            let nomeFormatado = item.nomecomponente;
 
-            if (nomeFormatado === "Ram_Usada" || nomeFormatado === "Ram_Percentual") {
+            if (nomeFormatado === "ram_usada" || nomeFormatado === "ram_percentual") {
               nomeFormatado = "RAM";
-            } else if (nomeFormatado === "Disco_Usado" || nomeFormatado === "Disco_Percentual") {
+            } else if (nomeFormatado === "disco_usado" || nomeFormatado === "disco_percentual") {
               nomeFormatado = "Disco";
-            } else if (nomeFormatado === "Cpu_Percentual" || nomeFormatado === "Cpu_Frequencia") {
+            } else if (nomeFormatado === "cpu_percentual" || nomeFormatado === "cpu_frequencia") {
               nomeFormatado = "CPU";
+            } else if (nomeFormatado === "velocidade download") {
+              nomeFormatado = "Download"
+            } else {
+              nomeFormatado = "Upload"
             }
 
             return {
               nome: nomeFormatado,
               medida: item.medida,
-              limiar: item.limiar_alerta,
+              limiar: item.limiar_alerta_critico,
               status: item.statusComponente,
-              servidor: item.fkServidor,
-              parametroID: item.idParametros_Servidor
+              servidor: item.fk_servidor,
+              parametroID: item.idparametros_servidor
             };
           });
 

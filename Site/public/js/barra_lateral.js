@@ -75,8 +75,6 @@ function carregarMenuLateral() {
                 <span>Histórico de Alertas</span>
             </div>
             </a>
-
-            ${opcaoDatacenters}
             
             <a href="./dash_gerente_servidores.html">
             <div class="option" data-tooltip="Servidores">

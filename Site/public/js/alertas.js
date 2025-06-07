@@ -12,13 +12,13 @@ function exibirAlertas() {
         console.log(json);
 
         alertas = json.map(item => {
-        let nomeFormatado = item.nomeComponente;
+        let nomeFormatado = item.nomecomponente;
 
-        if (nomeFormatado === "Ram_Usada" || nomeFormatado === "Ram_Percentual") {
+        if (nomeFormatado === "ram_usada" || nomeFormatado === "ram_percentual") {
           nomeFormatado = "RAM";
-        } else if (nomeFormatado === "Disco_Usado" || nomeFormatado === "Disco_Percentual") {
+        } else if (nomeFormatado === "disco_usado" || nomeFormatado === "disco_percentual") {
           nomeFormatado = "Disco";
-        } else if (nomeFormatado === "Cpu_Percentual" || nomeFormatado === "Cpu_Frequencia") {
+        } else if (nomeFormatado === "cpu_percentual" || nomeFormatado === "cpu_frequencia") {
           nomeFormatado = "CPU";
         }
 
@@ -27,8 +27,9 @@ function exibirAlertas() {
           valor: item.valor,
           medida: item.medida,
           nivel: item.criticidade === 1 ? "Atenção" : "Crítico",
-          servidor: item.idServidor,
-          dataHora: item.data
+          servidor: item.idservidor,
+          dataHora: item.data_gerado,
+          datacenter: item.fk_data_center
         };
       });
 
@@ -48,7 +49,7 @@ function exibirAlertas() {
               <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
               <td>${alerta.servidor}</td>
               <td>${dataFormatada}</td>
-              <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+              <td>${alerta.datacenter}</td>
             </tr>
           `;
 
@@ -88,7 +89,7 @@ function ordenarAlertasPorNivel() {
         <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
         <td>${alerta.servidor}</td>
         <td>${dataFormatada}</td>
-        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+        <td>${alerta.datacenter}</td>
       </tr>
     `;
   });
@@ -115,7 +116,7 @@ function ordenarAlertasPorData() {
         <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
         <td>${alerta.servidor}</td>
         <td>${dataFormatada}</td>
-        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+        <td>${alerta.datacenter}</td>
       </tr>
     `;
   });
@@ -141,7 +142,7 @@ function ordenarAlertasPorComponente() {
         <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
         <td>${alerta.servidor}</td>
         <td>${dataFormatada}</td>
-        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+        <td>${alerta.datacenter}</td>
       </tr>
     `;
   });
@@ -168,7 +169,7 @@ function ordenarAlertasPorServidor() {
         <td style="font-weight: bold; color: ${alerta.nivel === "Crítico" ? '#e74c3c' : '#F29D12'};">${alerta.nivel}</td>
         <td>${alerta.servidor}</td>
         <td>${dataFormatada}</td>
-        <td><input type="checkbox" onclick="confirmarVisto()" /></td>
+        <td>${alerta.datacenter}</td>
       </tr>
     `;
   });

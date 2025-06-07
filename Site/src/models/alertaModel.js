@@ -6,16 +6,15 @@ function exibirAlertas(dataCenter) {
   );
 
   let instrucaoSql = `
-      select idAlerta, valor, a.medida, data, criticidade, nomeComponente, idServidor, fkDataCenter
-      from Alerta as a
-      join Parametro_Servidor as ps
-      on a.fkParametro = ps.idParametros_Servidor
-      join Servidor_Cliente as sc
-      on ps.fkServidor = sc.idServidor
-      join Componente as c
-      on ps.fkComponente = c.idComponente
-      where sc.fkDataCenter = ${dataCenter}
-      order by data desc;
+      select idalerta, valor, a.medida, data_gerado, criticidade, nomecomponente, idservidor, fk_data_center
+      from alerta as a
+      join parametro_servidor as ps
+      on a.fk_parametro = ps.idparametros_servidor
+      join servidor_cliente as sc
+      on ps.fk_servidor = sc.idservidor
+      join componente as c
+      on ps.fk_componente = c.idcomponente
+      order by data_gerado desc;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
