@@ -266,7 +266,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
+    fetch("http://3.230.80.85:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
