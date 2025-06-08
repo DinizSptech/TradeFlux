@@ -62,7 +62,7 @@ function getAlertasCalendario(req, res) {
         console.log(erro);
         res.status(500).json(erro.sqlMessage);
     })
-}
+} 
 function getStatusServidores(req, res) {
   idDataCenter = req.params.dataCenter
     alertaModel.getStatusServidores(idDataCenter).then((resultado) => {

@@ -187,6 +187,7 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 create table if not exists alerta (
     idalerta int auto_increment primary key,
     idjira varchar(20),
+    possui_idjira TINYINT DEFAULT 0,
     valor double,
     medida varchar(45),
     data_gerado datetime,
@@ -195,7 +196,7 @@ create table if not exists alerta (
     fk_parametro int,
     foreign key (fk_parametro) references parametro_servidor(idparametros_servidor)
 );
-
+SELECT * FROM alerta;
 -- testes de alertas
 
 INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, criticidade, fk_parametro) VALUES

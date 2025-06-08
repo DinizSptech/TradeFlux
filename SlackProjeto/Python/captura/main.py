@@ -46,13 +46,12 @@ def main():
                 # Aguardar um momento e buscar novamente o ID do servidor após cadastro
                 time.sleep(2)
                 idServidor = comunicacao.buscar_servidor(uuidServidor)
-                resultado_cadastro_parametros = comunicacao.cadastrar_parametros(limiar_atencao, limiar_critico, idServidor)
 
-                
                 if idServidor is None:
                     print("Erro: Não foi possível obter o ID do servidor após cadastro.")
                     return
                 else:
+                    resultado_cadastro_parametros = comunicacao.cadastrar_parametros(limiar_atencao, limiar_critico, idServidor)
                     print(f"Servidor cadastrado obteve o ID: {idServidor}")
             else:
                 print(f"Erro ao cadastrar servidor: {resultado_cadastro}")

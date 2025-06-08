@@ -32,40 +32,19 @@ async function criarAlertaNoJira({ summary, description }) {
         issuetype: { 
           name: "Task" 
         }
-        // Removido o campo priority que estava causando o erro
       }
     };
 
-    console.log("Enviando payload para Jira:", JSON.stringify(payload, null, 2));
-
     const resposta = await jira.post("/rest/api/3/issue", payload);
-    
-    console.log("Resposta do Jira:", resposta.data);
     return resposta.data.key;
 
   } catch (error) {
-    console.error("Erro detalhado ao criar issue no Jira:");
+    console.error("Erro ao criar issue no Jira:");
     
     if (error.response) {
-      // Erro de resposta HTTP
       console.error("Status:", error.response.status);
-      console.error("Headers:", error.response.headers);
-      console.error("Data:", JSON.stringify(error.response.data, null, 2));
-      
-      // Verificar se há erros específicos do Jira
-      if (error.response.data && error.response.data.errors) {
-        console.error("Erros específicos do Jira:", error.response.data.errors);
-      }
-      
-      if (error.response.data && error.response.data.errorMessages) {
-        console.error("Mensagens de erro do Jira:", error.response.data.errorMessages);
-      }
-      
-    } else if (error.request) {
-      // Erro de requisição
-      console.error("Erro na requisição:", error.request);
+      console.error("Detalhes:", JSON.stringify(error.response.data, null, 2));
     } else {
-      // Outro tipo de erro
       console.error("Erro:", error.message);
     }
     

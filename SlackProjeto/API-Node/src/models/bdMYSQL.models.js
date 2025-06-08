@@ -1,27 +1,22 @@
 const bd = require("../connections/bd");
 
 function insert_alerta(valor, medida, data, criticidade, fkparametro) {
-    console.log("Acessando model para inserir alerta");
     let instrucaosql = `
         INSERT INTO alerta (valor, medida, data_gerado, criticidade, fk_parametro)
         VALUES ('${valor}', '${medida}', '${data}', '${criticidade}', '${fkparametro}');
     `;
-    console.log("Executando a instrução:" + instrucaosql);
     return bd.executarInsert(instrucaosql);
 }
 
 function insert_servidor(id_datacenter, uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo) {
-    console.log("Acessando model para inserir servidor");
     let instrucaosql = `
         INSERT INTO servidor_cliente (uuidservidor, sistemaoperacional, discototal, ramtotal, processadorinfo, fk_data_center)
         VALUES ('${uuidservidor}', '${sistemaoperacional}', '${discototal}', '${ramtotal}', '${processadorinfo}', ${id_datacenter});
     `;
-    console.log("Executando a instrução:" + instrucaosql);
     return bd.executarInsert(instrucaosql);
 }
+
 function insert_parametros(id_servidor, limiar_atencao, limiar_critico) {
-    console.log("Acessando model para inserir os parametros do servidor ");
-    console.log("id do servidor na model: ", id_servidor);
     let instrucaosql = `
         INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
         VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 1);
@@ -30,62 +25,57 @@ function insert_parametros(id_servidor, limiar_atencao, limiar_critico) {
         INSERT INTO parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente)
         VALUES ('${limiar_atencao}', '${limiar_critico}', '${id_servidor}', 5);
     `;
-    console.log("Executando a instrução:" + instrucaosql);
     return bd.executarInsert(instrucaosql);
 }
 
 function select_servidor(uuid) {
-    console.log("Acessando model para buscar servidor");
     let instrucaosql = `
         SELECT * FROM servidor_cliente WHERE uuidservidor = '${uuid}';
     `;
-    console.log("Executando a instrução:" + instrucaosql);
     return bd.executarSelect(instrucaosql);
 }
 
 function select_parametro(id) {
-    console.log("Acessando model para buscar parâmetros");
     let instrucaosql = `
-        SELECT * FROM parametro_servidor WHERE fk_servidor = '${id}' OR fk_servidor IS NULL;
+        SELECT * FROM parametro_servidor WHERE fk_servidor = '${id}';
     `;
-    console.log("Executando a instrução:" + instrucaosql);
     return bd.executarSelect(instrucaosql);
 }
 
-function insert_alerta_com_issueKey(valor, medida, data, criticidade, fkparametro, servidor, componente, issueKey) {
-    console.log("Acessando model para inserir alerta com issueKey");
-    const instrucao = `
-        INSERT INTO alerta (idjira, valor, medida, data_gerado, criticidade, fk_parametro)
-        VALUES ('${issueKey}', '${valor}', '${medida}', '${data}', '${criticidade}', '${fkparametro}');
-    `;
-    console.log("Executando a instrução:" + instrucao);
-    return bd.executarInsert(instrucao);
-}
-
 function update_alerta_com_jira(fkparametro, data, issueKey) {
-    console.log("Acessando model para atualizar alerta com issueKey do Jira");
     const instrucao = `
         UPDATE alerta 
-        SET idjira = '${issueKey}' 
+        SET idjira = '${issueKey}', possui_idjira = 1
         WHERE fk_parametro = '${fkparametro}' 
         AND data_gerado = '${data}' 
         AND idjira IS NULL 
         ORDER BY idalerta DESC 
         LIMIT 1;
     `;
-    console.log("Executando a instrução:" + instrucao);
     return bd.executarInsert(instrucao);
 }
 
 function update_alerta_concluido(issueKey, dataConclusao) {
-    console.log("Acessando model para marcar alerta como concluído");
-    const instrucao = `
-        UPDATE alerta 
-        SET data_resolvido = '${dataConclusao}' 
-        WHERE idjira = '${issueKey}';
+    // Primeiro, obter o fk_parametro da issue que está sendo resolvida
+    const selectInstrucao = `
+        SELECT fk_parametro FROM alerta WHERE idjira = '${issueKey}' LIMIT 1;
     `;
-    console.log("Executando a instrução:" + instrucao);
-    return bd.executarInsert(instrucao);
+    
+    return bd.executarSelect(selectInstrucao).then(resultado => {
+        if (resultado && resultado.length > 0) {
+            const fkParametro = resultado[0].fk_parametro;
+            
+            // Atualizar todos os alertas não resolvidos para este parâmetro (servidor + componente)
+            const updateInstrucao = `
+                UPDATE alerta 
+                SET data_resolvido = '${dataConclusao}' 
+                WHERE fk_parametro = '${fkParametro}' 
+                AND data_resolvido IS NULL;
+            `;
+            return bd.executarInsert(updateInstrucao);
+        }
+        throw new Error(`Issue ${issueKey} não encontrada no banco de dados`);
+    });
 }
 
 module.exports = {
@@ -94,7 +84,6 @@ module.exports = {
     insert_parametros,
     select_servidor,
     select_parametro,
-    insert_alerta_com_issueKey,
     update_alerta_com_jira,
     update_alerta_concluido
 };
