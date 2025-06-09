@@ -504,10 +504,10 @@ function atualizarProcessos(servidor){
    listacpu.innerHTML = topcpu
    listaram.innerHTML = topram
 }
-
+ let oldAlertas
 async function pegarAlertas() {
   try {
-    const response = await fetch("http://127.0.0.1:8080/alertas/getAlertasUnsolved/1");
+    const response = await fetch("/alertas/getAlertasUnsolved/1");
     
     if (!response.ok) {
       throw new Error(`Erro no fetch! status: ${response.status}`);
@@ -515,9 +515,30 @@ async function pegarAlertas() {
 
     const alertas = await response.json();
     atualizarListaAlertas(alertas);
+    notificarAlerta(alertas)
+    oldAlertas = [...alertas]
   } catch (erro) {
     console.error("Erro ao pegar os alertas:", erro);
   }
+}
+
+function notificarAlerta(alertas){
+   if(oldAlertas === undefined){
+    console.log("Inicializando variável de alertas.")
+   } else {
+    for(alerta in alertas){
+      console.log("Não existe")
+      if(!oldAlertas.includes(alerta)){
+        enviarNotificacao(alerta)
+      } else {
+        console.log("Já existe")
+      }
+    }
+   }
+}
+
+function enviarNotificacao(Texto){
+  
 }
 
 function atualizarListaAlertas(alertas) {

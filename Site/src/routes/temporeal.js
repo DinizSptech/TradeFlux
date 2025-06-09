@@ -31,6 +31,7 @@ router.post("/monitoria", (req, res) => {
 
 
 router.get("/monitoria", (req, res) => {
+  console.log("\n Lendo buffer! \n")
   res.status(200).json(buffer);
 });
 

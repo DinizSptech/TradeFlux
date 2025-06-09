@@ -12,16 +12,10 @@ async function fetch_captura_wdv(captura){
     })
 
     console.log("Dados enviados para wdv com sucesso!\n Status" + response.status)
-  } 
-  
-  catch {
+  } catch (error){
+    console.log("Não enviado")
     throw error
   }
-    
-
-
-   
-
     };
 
 

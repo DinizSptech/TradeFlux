@@ -273,7 +273,7 @@ tr:hover{
   padding: 0;
   margin: 1vh 0 0 0;
   font-size: 14px;
-  max-height: 460px;
+  max-height: 100%;
   overflow-y: scroll;
 }
 
@@ -293,7 +293,7 @@ tr:hover{
 }
 
 .lista.processos{ 
-  max-height: 240px;
+  max-height: 100%;
 }
 
 
