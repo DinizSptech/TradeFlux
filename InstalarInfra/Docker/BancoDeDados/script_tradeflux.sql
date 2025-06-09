@@ -421,26 +421,7 @@ AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
-select idparametros_servidor, nomecomponente, c.medida, limiar_alerta_critico, limiar_alerta_atencao, fk_servidor,
-          case 
-                when count(a.idalerta) > 0 then 'Crítico'
-                else 'Estável'
-          end as statusComponente
-        from componente as c left join parametro_servidor as ps
-        on c.idcomponente = ps.fk_componente
-        left join alerta a 
-        on a.fk_parametro = ps.idparametros_servidor 
-        and a.data_gerado >= NOW() - interval 2 hour
-        left join servidor_cliente as sc
-        on ps.fk_servidor = sc.idservidor where ps.fk_servidor IS NOT NULL
-        GROUP BY 
-          ps.idparametros_servidor,
-          c.nomecomponente,
-          c.medida,
-          ps.limiar_alerta_critico,
-          ps.limiar_alerta_atencao,
-          ps.fk_servidor
-        order by ps.fk_servidor;
+
 
 -- -- -- 1. Rotas - Alertas KPI
 -- SELECT * FROM vw_qtd_alertas_24h;
