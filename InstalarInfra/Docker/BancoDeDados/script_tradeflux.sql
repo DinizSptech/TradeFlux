@@ -439,7 +439,7 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
@@ -453,7 +453,7 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
@@ -467,7 +467,7 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
