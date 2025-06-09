@@ -463,12 +463,18 @@ function renderizarGraficoComponentes(dadosDB) {
       width: "100%",
     },
     legend: {
-      position: "bottom",
-      offsetY: 0,
-      labels: {
-        colors: "#2b2b2b",
-      },
+  position: "bottom",
+  offsetY: 0,
+  labels: {
+    colors: "#2b2b2b",
+    style: {
+      fontSize: "18px",
+      fontWeight: 700,
     },
+  },
+},
+
+
     colors: ["#ffe066", "#ff7373"],
     title: {
       text: ["Proporção dos componentes nos", "alertas dos últimos 30 dias"],

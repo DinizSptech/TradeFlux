@@ -436,3 +436,9 @@ h2 {
     background-color: #7286d5;
     color: #ffffff;
 }
+
+.apexcharts-legend-text {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #2b2b2b !important;
+}
