@@ -42,8 +42,6 @@ create table if not exists empresa_cliente (
 insert into empresa_cliente (razao_social, cnpj, telefone, fk_endereco) values
 ('b3 bolsa, brasil, balcão s.a.', '03365836000124', '1132121234', 1);
 
-select * from empresa_cliente;
-
 create table if not exists data_center (
     iddata_center int auto_increment primary key,
     nome varchar(45),
@@ -113,12 +111,12 @@ insert into servidor_cliente (uuidservidor, sistemaoperacional, discototal, ramt
 ('uuid-dc1-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
-('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
-('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1);
+('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
+('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
+('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 2),
+('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
+('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
+('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 3);
 
 create table if not exists parametro_servidor (
     idparametros_servidor int auto_increment primary key,
@@ -157,19 +155,19 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 (70.0, 80.0, 8, 5),
 (70.0, 80.0, 9, 1),
 (70.0, 80.0, 9, 3),
-(70.0, 80.0, 9, 5)
+(70.0, 80.0, 9, 5);
 
 create table if not exists alerta (
-    idalerta int auto_increment primary key,
-    idjira varchar(20),
+    idalerta INT AUTO_INCREMENT PRIMARY KEY,
+    idjira varchar(30),
     possui_idjira TINYINT DEFAULT 0,
-    valor double,
-    medida varchar(45),
-    data_gerado datetime,
-    data_resolvido datetime,
-    criticidade int,
-    fk_parametro int,
-    foreign key (fk_parametro) references parametro_servidor(idparametros_servidor)
+    valor DOUBLE,
+    medida VARCHAR(45),
+    data_gerado DATETIME,
+    data_resolvido DATETIME,
+    criticidade INT,
+    fk_parametro INT,
+    FOREIGN KEY (fk_parametro) REFERENCES parametro_servidor(idparametros_servidor)
 );
 
 -- testes de alertas
@@ -468,7 +466,65 @@ AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_24h_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
 
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_7d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_30d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
 
 -- -- -- 1. Rotas - Alertas KPI
 -- SELECT * FROM vw_qtd_alertas_24h;
