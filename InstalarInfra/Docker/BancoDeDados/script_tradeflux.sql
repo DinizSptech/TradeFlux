@@ -256,20 +256,25 @@ join data_center dc on u.fk_data_center = dc.iddata_center;
 CREATE OR REPLACE VIEW vw_qtd_alertas_24h AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 24 HOUR;
+WHERE data_gerado >= NOW() - INTERVAL 24 HOUR
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 5;
 
 -- View para alertas nos últimos 7 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_7d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 7 DAY;
-
+WHERE data_gerado >= NOW() - INTERVAL 7 DAY
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 5;
 
 -- View para alertas nos últimos 30 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_30d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 30 DAY;
+WHERE data_gerado >= NOW() - INTERVAL 30 DAY
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 5;
 
 -- 2. Rotas - Tempo médio geral
 -- View para tempo médio nas últimas 24 horas
