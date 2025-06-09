@@ -1,6 +1,6 @@
 let database = require("../database/config");
 
-function cadastrar(componente, limiar, servidor) {
+function cadastrar(componente, limiarAtencao, limiarCritico, servidor) {
   console.log(
     "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     limiar,
@@ -10,8 +10,8 @@ function cadastrar(componente, limiar, servidor) {
 
   let instrucaoSql = `
         INSERT INTO parametro_servidor 
-        (limiar_alerta_critico, fk_servidor, fk_componente) VALUES
-        ('${limiar}', '${servidor}', ${componente});
+        (limiar_alerta_atencao, limiar_alerta_critico, fk_servidor, fk_componente) VALUES
+        ('${limiarAtencao}','${limiarCritico}', '${servidor}', ${componente});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -63,6 +63,7 @@ function exibirComponentes(dataCenter) {
         and a.data_gerado >= NOW() - interval 2 hour
         left join servidor_cliente as sc
         on ps.fk_servidor = sc.idservidor
+        where ps.fk_servidor IS NOT NULL
         GROUP BY 
           ps.idparametros_servidor,
           c.nomecomponente,
@@ -92,13 +93,13 @@ function excluir(componenteSelecionadoParaExcluir) {
   return database.executar(instrucaoSql);
 }
 
-function editarComponente(parametroComponente, valor) {
+function editarComponente(parametroComponente, limiarAtencao, limiarCritico) {
   console.log(
     "ACESSEI O COMPONENTE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarComponente():",
   );
-
+ 
   let instrucaoSql = `
-        UPDATE parametro_servidor SET limiar_alerta_critico = ${valor} WHERE idparametros_servidor = ${parametroComponente};
+        UPDATE parametro_servidor SET limiar_alerta_critico = ${limiarCritico}, limiar_alerta_atencao = ${limiarAtencao} WHERE idparametros_servidor = ${parametroComponente};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

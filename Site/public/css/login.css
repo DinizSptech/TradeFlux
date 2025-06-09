@@ -14,11 +14,11 @@ html {
 /* #23283ad4 */
 
 body {
-  background-color: #0a0e27;
+  background-color: #f2f3f7;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: white;
+  color: #000;
   font-family: "Ubuntu", serif;
   margin: 0px;
   padding: 0px;
@@ -27,14 +27,14 @@ body {
 
 a {
   text-decoration: none;
-  color: white;
+  color: #23283a;
 }
 
 .header {
   display: flex;
   justify-content: center;
   justify-content: space-between;
-  color: white;
+  color: #23283a;
   margin-left: 5%;
   height: 10%;
 }
@@ -45,12 +45,12 @@ a {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border-bottom: medium solid white;
+  border-bottom: medium solid #23283a;
 }
 
 .lista-nav {
   list-style-type: none;
-  color: white;
+  color: #23283a;
   font-weight: 800;
   font-family: inherit;
   display: flex;
@@ -85,13 +85,15 @@ a {
 }
 
 .menu {
-  color: white;
+  color: #000;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border-radius: 20px;
-  background-color: #23283a;
+  background-color: white;
+  border: 1px solid #cfd4e0;
+  box-shadow: 0 4px 8px #00000033;
   width: 30%;
   height: 80%;
 }
@@ -124,6 +126,8 @@ a {
 .menu input {
   border: none;
   border-radius: 15px;
+  border: 1px solid #cfd4e0;
+  box-shadow: 0 4px 8px #00000033;
   width: 100%;
   height: 100%;
 }
@@ -133,10 +137,11 @@ a {
   color: white;
   width: 50%;
   border-radius: 30px;
-  border: none;
   font-size: 20px;
+  border: 2px solid #cfd4e0;
+  box-shadow: 0 4px 8px #00000033;
   font-weight: 1000;
-  background-color: #00c2a8;
+  background-color: #23283a;
 }
 
 .menu button:hover {
@@ -151,10 +156,11 @@ a {
 .inputs {
   width: 70%;
   height: 10%;
+  /* font-size: 30px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 50%;
+  gap: 100%;
 }
 
 .footer {

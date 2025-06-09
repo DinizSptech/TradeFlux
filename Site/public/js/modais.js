@@ -18,7 +18,7 @@ function abrirModal(tipo) {
     perfil_opcoes.style.display = "none";
   } else if (tipo == "perfil_completo") {
     status_perfil = "fechado";
-    perfil_opcoes.style.display = "none";
+    // perfil_opcoes.style.display = "none";
     bg_modal_perfil_completo.style.display = "flex";
   } else if (tipo == "notificacoes" && status_alerta == "fechado") {
     status_alerta = "aberto";
@@ -156,3 +156,4 @@ function escolherDatacenter(data_center){
   console.log("Datacenter alterado para:", sessionStorage.getItem('Datacenter'));
   window.location.reload()
 }
+

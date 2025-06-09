@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="../css/cadastroComponente.css" />
     <link rel="stylesheet" href="../css/dash_gerente_funcionarios.css" />
     <link rel="stylesheet" href="../css/modalPerfil.css" />
+    <link rel="stylesheet" href="../css/mobileModais.css" />
     <link rel="stylesheet" href="../css/mobileGerente.css" />
     <link rel="stylesheet" href="../css/mobileComponenteServidor.css" />
-    <link rel="stylesheet" href="../css/mobileModais.css" />
-    <!-- <script src="../script/sessao.js"></script> -->
     <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet"
@@ -34,26 +33,48 @@
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../css/barra_lateral.css">
     <script src="../js/barra_lateral.js" defer></script>
-    <!-- <script src="../script/cadastroFuncionario.js" defer></script> -->
+    <style>
+      .input-group {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .input-group .input {
+        flex: 1;
+      }
+      
+      .limiar-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 5px;
+      }
+      
+      .limiar-atencao {
+        color: #f39c12;
+      }
+      
+      .limiar-critico {
+        color: #e74c3c;
+      }
+      
+      .erros {
+        margin-top: 10px;
+        min-height: 20px;
+      }
+    </style>
   </head>
 
-  <body onload="carregarMenuLateral(); exibirComponentes(); renderizarModalUsuario()">
+  <body onload="carregarMenuLateral(); exibirComponentes(); renderizarPerfilUsuario()">
     <div id="sistema_modais">
     </div>
     <div class="navbar" id="div_navbar">
       <i onclick="mudarIcone()" id="menu-bar">&#9776;</i> 
-      <div class="container_perfil_menu" id="modal_perfil">
-        <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
-        <span class="barraVertical"></span>
-        <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
-        <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
-        <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
-        <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-      </div>
   </div>
     <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
+      <!-- Modal de Cadastro -->
       <div class="bgForm" id="bg_formulario">
         <div class="formUsuario">
           <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
@@ -78,31 +99,59 @@
                 <option selected disabled value="#">Selecione um componente</option>
               </select>
             </div>
-            <div class="input">
-              <span>Limiar de alerta:</span>
-              <input id="ipt_limiar" type="number" />
+            
+            <!-- Campos de Limiar Atualizado -->
+            <!-- <div class="limiar-labels">
+              <span class="limiar-atencao">Limiar de Atenção</span>
+              <span class="limiar-critico">Limiar Crítico</span>
+            </div> -->
+            <div class="input-group">
+              <div class="input">
+                <span>Limiar de atenção:</span>
+                <input id="ipt_limiar_atencao" type="number" placeholder="Ex: 70" />
+              </div>
+              <div class="input">
+                <span>Limiar crítico:</span>
+                <input id="ipt_limiar_critico" type="number" placeholder="Ex: 85" />
+              </div>
             </div>
+            <div class="erros" id="erros_cadastro_servidor"></div>
+          <div class="erros" id="erros_cadastro_componente"></div>
+          <div class="erros" id="erros_cadastro_limiar"></div>
             <div class="buttonCadastrar">
-              <button onclick="cadastrar();  validarServidor(); validarLimiar(); validarComponente();">
+              <button onclick="cadastrar();">
                 Cadastrar
               </button>
             </div>
           </div>
-          <div class="erros" id="erros_cadastro_servidor"></div>
-          <div class="erros" id="erros_cadastro_componente"></div>
-          <div class="erros" id="erros_cadastro_limiar"></div>
+          
         </div>
       </div>
-      <!-- Modal de edição -->
+      
+      <!-- Modal de Edição -->
       <div class="bgForm" id="bg_formulario_edicao">
         <div class="formUsuario">
           <i onclick="fecharModal('edicao')" class="fechar fa-solid fa-xmark"></i>
           <div class="tituloForm">Editar Componente</div>
           <span class="componenteEdicao" id="componenteEdicao"></span>
-          <div class="input">
-            <span>Novo limiar de alerta:</span>
-            <input id="ipt_limiarEdicao" type="number"/>
+<!--           
+          <div class="limiar-labels">
+            <span class="limiar-atencao">Limiar de Atenção</span>
+            <span class="limiar-critico">Limiar Crítico</span>
+          </div> -->
+          <div class="input-group">
+            <div class="input">
+              <span>Novo limiar de atenção:</span>
+              <input id="ipt_limiarAtencaoEdicao" type="number"/>
+            </div>
+            <div class="input">
+              <span>Novo limiar crítico:</span>
+              <input id="ipt_limiarCriticoEdicao" type="number"/>
+            </div>
           </div>
+          
+          <div class="erros" id="erros_edicao_limiar"></div>
+          
           <div class="botoesModalExcluir">
             <div class="buttonCadastrar">
               <button onclick="fecharModal('edicao')">Cancelar</button>
@@ -113,7 +162,7 @@
           </div>
         </div>
       </div>
-          <!-- Modal de exclusão -->
+      
       <div class="bgForm" id="bg_formulario_exclusao" >
         <div class="formUsuario">
           <i onclick="fecharModal('exclusao')" class="fechar fa-solid fa-xmark"></i>
@@ -151,8 +200,8 @@
               <tr>
                 <th>Componente</th>
                 <th>Unidade de medida</th>
-                <th>Limiar de Alerta</th>
-                <th>Status</th>
+                <th>Limiar de Atenção</th>
+                <th>Limiar Crítico</th>
                 <th>Servidor</th>
                 <th class="tableIcons">Editar</th>
                 <th class="tableIcons">Excluir</th>
@@ -165,134 +214,3 @@
     </main>
   </body>
 </html>
-<script>
-//   var componentes = [
-//     {
-//       idComponente: 1,
-//       nome: "CPU",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 1,
-//     },
-//     {
-//       idComponente: 2,
-//       nome: "RAM",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 1,
-//     },
-//     {
-//       idComponente: 3,
-//       nome: "DISCO",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Crítico",
-//       servidor: 1,
-//     },
-//     {
-//       idComponente: 1,
-//       nome: "CPU",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 2,
-//     },
-//     {
-//       idComponente: 2,
-//       nome: "RAM",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 2,
-//     },
-//     {
-//       idComponente: 3,
-//       nome: "DISCO",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Crítico",
-//       servidor: 2,
-//     },
-//     {
-//       idComponente: 1,
-//       nome: "CPU",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 3,
-//     },
-//     {
-//       idComponente: 2,
-//       nome: "RAM",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 3,
-//     },
-//     {
-//       idComponente: 3,
-//       nome: "DISCO",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Crítico",
-//       servidor: 3,
-//     },
-//     {
-//       idComponente: 1,
-//       nome: "CPU",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 4,
-//     },
-//     {
-//       idComponente: 2,
-//       nome: "RAM",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Estável",
-//       servidor: 4,
-//     },
-//     {
-//       idComponente: 3,
-//       nome: "DISCO",
-//       medida: "%",
-//       limiar: 65,
-//       status: "Crítico",
-//       servidor: 4,
-//     },
-//   ];
-
-//   function carregarComponentes() {
-//     for (var i = 0; i < componentes.length; i++) {
-//       let status = componentes[i].status;
-
-//       let classeStatus = "";
-//       if (status === "Estável") {
-//         classeStatus = "status-ok";
-//       } else if (status === "Em risco") {
-//         classeStatus = "status-alerta";
-//       } else if (status === "Crítico") {
-//         classeStatus = "status-critico";
-//       }
-
-//       bodyTabela.innerHTML += `
-//             <tr>
-//             <td>${componentes[i].nome}</td>
-//             <td>${componentes[i].medida}</td>
-//             <td>${componentes[i].limiar}</td>
-//             <td class="${classeStatus}">${status}</td>
-//             <td>${componentes[i].servidor}</td>
-
-//             <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="abrirModal('edicao'); editarFuncionario(${componentes[i].idComponente}, '${componentes[i].nome}', '${componentes[i].medida}', '${componentes[i].limiar}', '${componentes[i].status}', '${componentes[i].alertas}')" ></i></td>
-//             <td class='tableIcons deletarUser'><i class="fa-solid fa-trash"  onclick="abrirModal('exclusao')"; deletar(${componentes[i].idComponente})'></i></td>
-//             </tr>
-//             `;
-//     }
-    
-//     // Adicionar chamada para tornar a tabela responsiva após carregar os componentes
-//     setTimeout(tornarTabelaResponsiva, 100);
-//   }
-

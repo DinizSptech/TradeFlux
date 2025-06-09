@@ -17,10 +17,17 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <link rel="stylesheet" href="../css/barra_lateral.css">
+    <link rel="stylesheet" href="../css/modalPerfil.css">
     <script src="../js/barra_lateral.js" defer></script>
     
 </head>
-<body onload="carregarMenuLateral()">
+<body onload="carregarMenuLateral(); renderizarPerfilUsuario()">
+    <div id="sistema_modais">
+      <div class="navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        
+      </div>
+    </div>
     <div class="navbar">
     <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
     <div class="container_perfil_menu" id="modal_perfil">

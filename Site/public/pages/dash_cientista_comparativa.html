@@ -18,16 +18,25 @@
 
     <link rel="stylesheet" href="../css/barra_lateral.css" />
     <link rel="stylesheet" href="../css/dashComparativa.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../js/barra_lateral.js" defer></script>
+    <!-- <script src="../js/modais.js" defer></script> -->
     <script src="../js/dashComparativa.js" defer></script>
 
     <title>Dashboard comparativa</title>
   </head>
-  <body onload="carregarMenuLateral(); geradorGraficos('Barra'); gerarBotao(); inicializarDashboard(); gerarBotao();">
-    <main>
+  <body onload="carregarMenuLateral(); renderizarPerfilUsuario(); geradorGraficos('Barra'); gerarBotao(); inicializarDashboard(); gerarBotao();">
+    <div id="sistema_modais">
       <div class="navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        
+      </div>
+    </div>
+    <main>
+      
+      <!-- <div class="navbar">
         <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
         <div class="container_perfil_menu" id="modal_perfil">
           <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
@@ -60,7 +69,7 @@
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </div>
-      </div>
+      </div> -->
       <div id="barralateral" class="barra-lateral"></div>
 
       <div class="grafico_comparacao">

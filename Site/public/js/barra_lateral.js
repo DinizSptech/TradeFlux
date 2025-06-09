@@ -99,6 +99,11 @@ function carregarMenuLateral() {
 
             <span class="barraHorizontal"></span>
 
+            <div class="option" data-tooltip="Perfil de Usuário">
+                <i class="fa-solid fa-address-card"></i>
+                <span onclick="abrirModal('perfil_completo')"><a>Perfil</a></span>
+            </div>
+
             <div onclick="sairParaLogin()" class="option" data-tooltip="Sair">
                 <i class="fa-solid fa-door-open"></i>
                 <span ><a>Sair</a></span>
@@ -133,7 +138,13 @@ function carregarMenuLateral() {
                 <span><a href="./alertas.html">Histórico de Alertas</a></span>
             </div>
 
+            
             <span class="barraHorizontal"></span>
+            
+            <div class="option" data-tooltip="Perfil de Usuário">
+                <i class="fa-solid fa-address-card"></i>
+                <span onclick="abrirModal('perfil_completo')"><a>Perfil</a></span>
+            </div>
 
             <div class="option" data-tooltip="Sair">
                 <i class="fa-solid fa-door-open"></i>
@@ -161,23 +172,57 @@ function carregarMenuLateral() {
 
             <span class="barraHorizontal"></span>
 
+            <div class="option" data-tooltip="Perfil de Usuário">
+                <i class="fa-solid fa-address-card"></i>
+                <span onclick="abrirModal('perfil_completo')"><a>Perfil</a></span>
+            </div>
+
             <div class="option" data-tooltip="Sair">
                 <i class="fa-solid fa-door-open"></i>
                 <span onclick="sairParaLogin()"><a>Sair</a></span>
             </div>
         `;
   }
-
-  if (cargo == "cientista") {
-    document.getElementById("rogerioCientista2").style.display = "block";
-  } else if (cargo == "analista") {
-    document.getElementById("juliaAnalista2").style.display = "block";
-  } else if (cargo == "administrador") {
-    document.getElementById("jenniferADM2").style.display = "block";
-  }
 }
 
 function sairParaLogin() {
   sessionStorage.clear();
   window.location.href = "/pages/login.html";
+}
+
+function renderizarPerfilUsuario(){
+  var nome = sessionStorage.getItem('NOME_USUARIO')
+  var nomeUpper = nome[0].toUpperCase() + nome.substring(1)
+  var cargo = sessionStorage.getItem('Cargo')
+  var cargoUpper = cargo[0].toUpperCase() + cargo.substring(1)
+  console.log("Perfil renderizado")
+  sistema_modais.innerHTML = `
+  <div class="bg_modal_perfil_completo" id="bg_modal_perfil_completo">
+      <div class="container_perfil_completo" id="div_perfil_completo">
+        <div class="perfil_conteudo">
+          <i class="fa-solid fa-circle-user" id="circulo_usuario"></i>
+          <div class="div_informacoes" id="seta_usuario">
+            <span id="nome_usuario" class="spn_perfil spn_perfil_nome">${nomeUpper}</span>
+            <span id="cargo_usuario"class="spn_perfil">${cargoUpper}</span>
+            <span class="spn_perfil">B3</span>
+          </div>
+        </div>
+        <span class="btn_fechar_perfil" onclick="fecharModal('perfil_completo')">Fechar</span>
+      </div>
+    </div>
+  `
+}
+
+function abrirModal(tipo) {
+  if (tipo == "perfil_completo") {
+    // perfil_opcoes.style.display = "none";
+    bg_modal_perfil_completo.style.display = "flex";
+  }
+}
+
+function fecharModal(tipo) {
+  if (tipo == "perfil_completo") {
+    // perfil_opcoes.style.display = "none";
+    bg_modal_perfil_completo.style.display = "none";
+  }
 }

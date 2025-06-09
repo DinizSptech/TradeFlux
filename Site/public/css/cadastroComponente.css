@@ -49,7 +49,7 @@
 }
 .formUsuario {
   display: flex;
-  width: 30vw;
+  width: auto;
   height: auto;
   background-color: #262B3C;
   justify-content: center;

@@ -1,5 +1,3 @@
-
-
 var id = [];
 var ram = [];
 var disco = [];
@@ -16,7 +14,6 @@ function exibirServidorNoSelect() {
   jaCarregouServidores = true;
 
   var selectServidor = document.getElementById("select_servidor");
-
 
   fetch("/componentes/listarServidores", {
     method: "GET",
@@ -48,17 +45,11 @@ function exibirServidorNoSelect() {
       console.log("NÃO deu certo a resposta");
     }
   })
-
-
-
 }
-
 
 let jaCarregouComponentes = false;
 
 function exibirComponentesNoSelect() {
-
-
   var servidor = document.getElementById("select_servidor").value
   var selectComponente = document.getElementById("select_componente");
   var componentesNomes = ['CPU Percentual (%)', 'CPU Frequência (GHz)', 'RAM Percentual (%)', 'RAM Usada (GB)', 'Disco Percentual (%)', 'Disco Usado (GB)']
@@ -83,7 +74,6 @@ function exibirComponentesNoSelect() {
 
         selectComponente.add(optionPadrao);
 
-
         componentes.forEach((componente, index) => {
           const option = document.createElement("option");
           option.value = componente.idComponente;
@@ -107,7 +97,6 @@ function exibirComponentesNoSelect() {
   });
 }
 
-
 function exibirCaracteristicas() {
   var selectServidor = document.getElementById("select_servidor");
   var servidorSelecionado = selectServidor.value
@@ -120,21 +109,17 @@ function exibirCaracteristicas() {
       document.getElementById("so").innerHTML = `Sistema Operacional: ${so[i]}`
       break;
     }
-
   }
 }
 
-
-
-
-let servidorValidado, componenteValidado, limiarValidado;
-
+let servidorValidado, componenteValidado, limiarAtencaoValidado, limiarCriticoValidado;
 
 function validarServidor(servidor) {
+  document.getElementById("erros_cadastro_servidor").innerHTML = '';
   servidorValidado = true;
 
   if (servidor == "#") {
-    erros_cadastro_servidor.innerHTML += `<span style="color:red">Selecione um servidor</span><br>`;
+    document.getElementById("erros_cadastro_servidor").innerHTML += `<span style="color:red">Selecione um servidor</span><br>`;
     servidorValidado = false;
   }
 
@@ -142,49 +127,65 @@ function validarServidor(servidor) {
 }
 
 function validarComponente(componente) {
+  document.getElementById("erros_cadastro_componente").innerHTML = '';
   componenteValidado = true;
 
   if (componente == "#") {
-    erros_cadastro_componente.innerHTML += `<span style="color:red">Selecione um componente</span><br>`;
+    document.getElementById("erros_cadastro_componente").innerHTML += `<span style="color:red">Selecione um componente</span><br>`;
     componenteValidado = false;
   }
-
 
   return componenteValidado;
 }
 
+function validarLimiares(limiarAtencao, limiarCritico) {
+  document.getElementById("erros_cadastro_limiar").innerHTML = '';
+  limiarAtencaoValidado = true;
+  limiarCriticoValidado = true;
 
-function validarLimiar(limiar) {
-  erros_cadastro_limiar.innerHTML = ``;
-  limiarValidado = true;
-  if (limiar == "") {
-    erros_cadastro_limiar.innerHTML += `<span style="color:red">Defina um limiar de alerta para o componente</span><br>`;
-    limiarValidado = false;
+  if (limiarAtencao == "") {
+    document.getElementById("erros_cadastro_limiar").innerHTML += `<span style="color:red">Defina um limiar de atenção para o componente</span><br>`;
+    limiarAtencaoValidado = false;
   }
 
-  return limiarValidado;
+  if (limiarCritico == "") {
+    document.getElementById("erros_cadastro_limiar").innerHTML += `<span style="color:red">Defina um limiar crítico para o componente</span><br>`;
+    limiarCriticoValidado = false;
+  }
+
+  if (limiarAtencao != "" && limiarCritico != "") {
+    const atencao = parseFloat(limiarAtencao);
+    const critico = parseFloat(limiarCritico);
+
+    if (critico <= atencao) {
+      document.getElementById("erros_cadastro_limiar").innerHTML += `<span style="color:red">O limiar crítico deve ser maior que o limiar de atenção</span><br>`;
+      limiarCriticoValidado = false;
+    }
+  }
+
+  return limiarAtencaoValidado && limiarCriticoValidado;
 }
 
 function cadastrar() {
-  let limiar = ipt_limiar.value;
-  let servidor = Number(select_servidor.value);
-  let componente = Number(select_componente.value)
+  let limiarAtencao = document.getElementById("ipt_limiar_atencao").value;
+  let limiarCritico = document.getElementById("ipt_limiar_critico").value;
+  let servidor = Number(document.getElementById("select_servidor").value);
+  let componente = Number(document.getElementById("select_componente").value);
 
   // Validações
   let servidorValidado = validarServidor(servidor);
-  let limiarValidado = validarLimiar(limiar);
-  let componenteValidado = validarComponente(componente)
+  let componenteValidado = validarComponente(componente);
+  let limiaresValidados = validarLimiares(limiarAtencao, limiarCritico);
 
-
-  if (servidorValidado && limiarValidado && componenteValidado) {
-
+  if (servidorValidado && componenteValidado && limiaresValidados) {
     fetch("/componentes/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        limiarServer: limiar,
+        limiarAtencaoServer: limiarAtencao,
+        limiarCriticoServer: limiarCritico,
         servidorServer: servidor,
         componenteServer: componente
       }),
@@ -195,6 +196,13 @@ function cadastrar() {
         exibirComponentes()
         alert("Cadastro realizado com sucesso!");
         console.log("Cadastrado no BD com sucesso.");
+        
+        // Limpar campos após cadastro
+        document.getElementById("ipt_limiar_atencao").value = '';
+        document.getElementById("ipt_limiar_critico").value = '';
+        document.getElementById("select_servidor").selectedIndex = 0;
+        document.getElementById("select_componente").selectedIndex = 0;
+        
         resposta.json().then((json) => {
           console.log(json);
         });
@@ -204,9 +212,6 @@ function cadastrar() {
       }
     });
   }
-
-
-
 }
 
 limiarCritico = []
@@ -217,34 +222,34 @@ servidorModal = []
 function servidorModalEficiencia(servidor){
   console.log(limiarAtencao)
   console.log(disco)
-    for (let i = 0; i < id.length; i++) {
-    if (id[i - 1] == servidor) {
-      document.getElementById("ram_totalModal").innerHTML = `RAM total: ${ram[i - 1]}GB <br>`
-      document.getElementById("disco_totalModal").innerHTML = `Disco total: ${disco[i - 1]}GB <br>`
-      document.getElementById("cpuModal").innerHTML = `CPU: ${cpu[i - 1]} <br>`
-      document.getElementById("soModal").innerHTML = `Sistema Operacional: ${so[i - 1]}`
+  
+  for (let i = 0; i < id.length; i++) {
+    if (id[i] == servidor) {
+      document.getElementById("ram_totalModal").innerHTML = `RAM total: ${ram[i]}GB <br>`
+      document.getElementById("disco_totalModal").innerHTML = `Disco total: ${disco[i]}GB <br>`
+      document.getElementById("cpuModal").innerHTML = `CPU: ${cpu[i]} <br>`
+      document.getElementById("soModal").innerHTML = `Sistema Operacional: ${so[i]}`
       break;
-      
     }
   }
-    for (let i = 0; i < servidorModal.length; i++) {
-      if (servidor == servidorModal[i - 1 ]){
-        if(nomeComponenteModal[i - 1] == "cpu_percentual"){
-      document.getElementById("limiarAtencaoCPUModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i - 1]}%`
-      document.getElementById("limiarCriticoCPUModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i - 1]}%`
-      } if(nomeComponenteModal[i - 1] == "ram_percentual"){
-      document.getElementById("limiarAtencaoRAMModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i - 1]}%`
-      document.getElementById("limiarCriticoRAMModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i - 1]}%`
-      } if(nomeComponenteModal[i - 1] == "disco_percentual"){
-      document.getElementById("limiarAtencaoDiscoModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i - 1]}%`
-      document.getElementById("limiarCriticoDiscoModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i - 1]}%`
-      } 
-     
-     }
-    }
-    }
-
   
+  for (let i = 0; i < servidorModal.length; i++) {
+    if (servidor == servidorModal[i]){
+      if(nomeComponenteModal[i] == "cpu_percentual"){
+        document.getElementById("limiarAtencaoCPUModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoCPUModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+      } 
+      if(nomeComponenteModal[i] == "ram_percentual"){
+        document.getElementById("limiarAtencaoRAMModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoRAMModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+      } 
+      if(nomeComponenteModal[i] == "disco_percentual"){
+        document.getElementById("limiarAtencaoDiscoModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoDiscoModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+      } 
+    }
+  }
+}
 
 // função de exibir os componentes na tabela
 function exibirComponentes() {
@@ -263,6 +268,7 @@ function exibirComponentes() {
             nomeComponenteModal.push(item.nomecomponente)
             limiarAtencao.push(item.limiar_alerta_atencao)
             limiarCritico.push(item.limiar_alerta_critico)
+            
             let nomeFormatado = item.nomecomponente;
 
             if (nomeFormatado === "ram_usada" || nomeFormatado === "ram_percentual") {
@@ -280,13 +286,12 @@ function exibirComponentes() {
             return {
               nome: nomeFormatado,
               medida: item.medida,
-              limiar: item.limiar_alerta_critico,
-              status: item.statusComponente,
+              limiarAtencao: item.limiar_alerta_atencao,
+              limiarCritico: item.limiar_alerta_critico,
               servidor: item.fk_servidor,
               parametroID: item.idparametros_servidor
             };
           });
-
 
           const bodyTabela = document.getElementById("bodyTabela");
           bodyTabela.innerHTML = "";
@@ -294,17 +299,16 @@ function exibirComponentes() {
           componentes.forEach(componente => {
             bodyTabela.innerHTML += `
         <tr>
-        <td> ${componente.nome}</td>
+        <td>${componente.nome}</td>
         <td>${componente.medida}</td>
-        <td>${componente.limiar}</td>
-        <td style="color: ${componente.status == 'Estável' ? '#2ecc71' : '#e74c3c'};">${componente.status}</td>
+        <td>${componente.limiarAtencao}</td>
+        <td>${componente.limiarCritico}</td>
         <td>${componente.servidor}</td>
-        <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="pegarParametrosEdicao(${componente.servidor}, '${componente.nome}', ${componente.parametroID}, '${componente.medida}');" ></i></td>
+        <td class='tableIcons'> <i class="fa-solid fa-pencil" onclick="pegarParametrosEdicao(${componente.servidor}, '${componente.nome}', ${componente.parametroID}, '${componente.medida}', ${componente.limiarAtencao}, ${componente.limiarCritico});" ></i></td>
         <td class='tableIcons deletarUser'><i class="fa-solid fa-trash" onclick="pegarParametros(${componente.servidor}, '${componente.nome}', ${componente.parametroID}, '${componente.medida}')"></i></td>
         </tr>    
       `;
           });
-
         });
       } else {
         console.error('Erro ao obter servidores');
@@ -314,8 +318,6 @@ function exibirComponentes() {
       console.error("Erro na requisição:", error);
     });
 }
-
-
 
 function pegarParametros(servidor, nome, parametroID, medida) {
   document.getElementById("componenteE").textContent = `${nome} ${medida} - Servidor ${servidor}`
@@ -338,42 +340,73 @@ function excluirComponente() {
         }
       });
   }
-
-
 }
 
-
-function pegarParametrosEdicao(servidor, nome, parametroID, medida) {
+function pegarParametrosEdicao(servidor, nome, parametroID, medida, limiarAtencaoAtual, limiarCriticoAtual) {
   document.getElementById("componenteEdicao").textContent = `Componente: ${nome} ${medida} - Servidor ${servidor}`
+  document.getElementById("ipt_limiarAtencaoEdicao").value = limiarAtencaoAtual;
+  document.getElementById("ipt_limiarCriticoEdicao").value = limiarCriticoAtual;
   componenteSelecionadoParaEditar = parametroID
   abrirModal('edicao')
 }
 
-function editarComponente() {
-  let parametroComponente = componenteSelecionadoParaEditar
-  let valor = ipt_limiarEdicao.value
+function validarLimiaresEdicao(limiarAtencao, limiarCritico) {
+  document.getElementById("erros_edicao_limiar").innerHTML = '';
+  let limiarAtencaoValidado = true;
+  let limiarCriticoValidado = true;
 
-  fetch("/componentes/editarComponente", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      parametroComponenteServer: parametroComponente,
-      valorServer: valor
-    }),
-  }).then(function (resposta) {
-    if (resposta.ok) {
-      console.log("foi");
-      fecharModal('edicao')
-      exibirComponentes()
-      alert("Componente editado com sucesso!");
-      resposta.json().then((json) => {
-        console.log(json);
-      });
-    } else {
-      console.log("Erro ao editar no BD.");
-      alert("Erro ao editar!");
+  if (limiarAtencao == "") {
+    document.getElementById("erros_edicao_limiar").innerHTML += `<span style="color:red">Defina um limiar de atenção para o componente</span><br>`;
+    limiarAtencaoValidado = false;
+  }
+
+  if (limiarCritico == "") {
+    document.getElementById("erros_edicao_limiar").innerHTML += `<span style="color:red">Defina um limiar crítico para o componente</span><br>`;
+    limiarCriticoValidado = false;
+  }
+
+  if (limiarAtencao != "" && limiarCritico != "") {
+    const atencao = parseFloat(limiarAtencao);
+    const critico = parseFloat(limiarCritico);
+
+    if (critico <= atencao) {
+      document.getElementById("erros_edicao_limiar").innerHTML += `<span style="color:red">O limiar crítico deve ser maior que o limiar de atenção</span><br>`;
+      limiarCriticoValidado = false;
     }
-  });
+  }
+
+  return limiarAtencaoValidado && limiarCriticoValidado;
+}
+
+function editarComponente() {
+  let parametroComponente = componenteSelecionadoParaEditar;
+  let limiarAtencao = document.getElementById("ipt_limiarAtencaoEdicao").value;
+  let limiarCritico = document.getElementById("ipt_limiarCriticoEdicao").value;
+
+  if (validarLimiaresEdicao(limiarAtencao, limiarCritico)) {
+    fetch("/componentes/editarComponente", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        parametroComponenteServer: parametroComponente,
+        limiarAtencaoServer: limiarAtencao,
+        limiarCriticoServer: limiarCritico
+      }),
+    }).then(function (resposta) {
+      if (resposta.ok) {
+        console.log("foi");
+        fecharModal('edicao')
+        exibirComponentes()
+        alert("Componente editado com sucesso!");
+        resposta.json().then((json) => {
+          console.log(json);
+        });
+      } else {
+        console.log("Erro ao editar no BD.");
+        alert("Erro ao editar!");
+      }
+    });
+  }
 }

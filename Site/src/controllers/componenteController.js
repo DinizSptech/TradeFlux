@@ -3,9 +3,10 @@ var componenteModel = require("../models/componenteModel");
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     let componente = req.body.componenteServer;
-    let limiar = req.body.limiarServer;
+    let limiarAtencao = req.body.limiarAtencaoServer;
+    let limiarCritico = req.body.limiarCriticoServer;
     let servidor = req.body.servidorServer;
-
+ 
      if (componente == undefined) {
       res.status(400).send("Seu componente está undefined!");
     } else if (limiar == undefined) {
@@ -16,7 +17,7 @@ function cadastrar(req, res) {
 
     else {
       componenteModel
-        .cadastrar(componente, limiar, servidor)
+        .cadastrar(componente, limiarAtencao, limiarCritico, servidor)
         .then(() => {
             res.status(200).send("Componente cadastrado com sucesso");
           })
@@ -69,8 +70,9 @@ function excluir(req, res) {
 
   function editarComponente(req, res) {
     var parametroComponente = req.body.parametroComponenteServer;
-    var valor = req.body.valorServer;
-        componenteModel.editarComponente(parametroComponente, valor).then((resultado) => {
+    var limiarAtencaoServer = req.body.limiarAtencaoServer;
+    var limiarCriticoServer = req.body.limiarCriticoServer;
+        componenteModel.editarComponente(parametroComponente, limiarAtencaoServer, limiarCriticoServer).then((resultado) => {
             res.status(200).json(resultado);
         }).catch(function(erro){
             console.log(erro);

@@ -7,16 +7,23 @@
     <link rel="stylesheet" href="../css/barra_lateral.css" />
     <link rel="stylesheet" href="../css/dashAdmCusto.css" />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </head>
 
-  <body onload="carregar(); carregarMenuLateral();">
+  <body onload="carregar(); carregarMenuLateral(); renderizarPerfilUsuario()">
+    <div id="sistema_modais">
+      <div class="navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        
+      </div>
+    </div>
     <div id="barralateral" class="barra-lateral"></div>
     <main class="dashboard-container">
       <div class="kpis">
@@ -70,7 +77,7 @@
         </div>
       </div>
     </main>
-    <script src="../js/barra_lateral.js"></script>
+    <script src="../js/barra_lateral.js" defer></script>
     <script src="../js/dashAdmCusto.js"></script>
   </body>
 </html>

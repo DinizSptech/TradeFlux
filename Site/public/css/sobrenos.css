@@ -15,7 +15,7 @@ body {
 .banner {
   height: 100%;
   width: 100%;
-  background-color: #23283a;
+  background-color: #f2f3f7;
   background-size: cover;
   background-position: center;
   justify-content: center;
@@ -29,7 +29,7 @@ body {
   height: 100%;
   width: 50px;
   z-index: 10;
-  background-color: #00c2a8;
+  background-color: #23283A;
 }
 
 .logo img {
@@ -46,10 +46,10 @@ body {
   display: flex;
   z-index: 10;
   font-size: smaller;
-  color: white;
+  color: #000;
   background-color: transparent;
   align-items: center;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #23283A;
 }
 
 .header {
@@ -89,7 +89,7 @@ body {
 }
 
 .contato {
-  background-color: #00c2a8;
+  background-color: #000957;
   border-radius: 15px;
   text-align: center;
   align-items: center;
@@ -98,19 +98,25 @@ body {
   align-self: center;
   padding: 0px 10px 0px 10px;
   color: white;
+  font-weight: bold;
   font-size: 12px;
   height: 50%;
 }
 
+.contato a {
+  text-decoration: none;
+  color: #FFF;
+}
 a {
   text-decoration: none;
-  color: white;
+  color: #23283A;
 }
 
 .container {
   width: 80%;
   max-width: 1000px;
   background-color: white;
+  border: 1px solid #cfd4e0;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -123,6 +129,7 @@ a {
   width: 80%;
   max-width: 1000px;
   background-color: white;
+  border: 1px solid #cfd4e0;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -147,6 +154,7 @@ a {
   width: 80%;
   max-width: 1000px;
   background-color: white;
+  border: 1px solid #cfd4e0;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -188,11 +196,11 @@ ul {
 }
 
 ul li {
-  background: #00c2a8;
+  background: #000957;
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
-  color: #000;
+  color: #FFF;
   font-weight: bold;
 }
 
