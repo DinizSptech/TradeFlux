@@ -36,7 +36,7 @@
      <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
         <span class="titulo" id="servidorModalSelecionado" style="color: #2b2b2b;"></span>
-        <i onclick="fecharModal()" class="fa-solid fa-xmark"></i>
+        <i onclick="fecharModalServidor()" class="fa-solid fa-xmark"></i>
       </div>
       <div class="contentModal">
         <div class="caracteristicas_servidorModal">
@@ -431,12 +431,12 @@
 
   }
 
-  function fecharModal() {
+  function fecharModalServidor() {
     document.getElementById('modalServidor').style.display = 'none';
     document.getElementById('backdrop').style.display = 'none';
   }
 
-  document.getElementById('backdrop').addEventListener('click', fecharModal);
+  document.getElementById('backdrop').addEventListener('click', fecharModalServidor);
 
 
   function graficoLinha() {
