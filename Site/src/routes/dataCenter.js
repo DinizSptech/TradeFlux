@@ -16,56 +16,79 @@ router.delete("/deletar/:idDataCenter", function (req, res) {
 });
 
 router.post("/pegarServidores", async function (req, res) {
+  // Link da Lambda feita na AWS:
   const lambdaUrl = "https://cmu7qp7lb5exg53gb5umhnhuwy0eikhq.lambda-url.us-east-1.on.aws/";
 
   try {
+    // Chama a lambda (Passa o datacenter 1 como parâmetro ou o que tiver dentro do corpo)
     const lambdaResponse = await fetch(lambdaUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        qtdDias: req.body.qtdDias,
-        dtInicial: req.body.dtInicial,
         datacenter: req.body.datacenter || "1",
       }),
     });
 
     if (!lambdaResponse.ok) {
-      throw new Error(`Lambda request failed with status ${lambdaResponse.status}`);
+      throw new Error(`Lambda deu erro com o seguinte status ${lambdaResponse.status}`);
+      // Vê se deu algum erro e "lança" pro catch
     }
 
     const data = await lambdaResponse.json();
+    console.log(data)
+    // Console log nos dados para ver como estão e se estão chegando
 
-    if (Array.isArray(data)) {
-      // Formata os dados dos servidores
-      const servidoresFormatados = data.map(servidor => ({
-        servidor: servidor.servidor,
-        media_CPU: servidor.CPU,
-        media_RAM: servidor.RAM,
-        media_Disco: servidor.Disco
-      }));
-
-      // Calcula média total para o gráfico
-      const mediaTotal = {
-        CPU: data.reduce((sum, s) => sum + s.CPU, 0) / data.length,
-        RAM: data.reduce((sum, s) => sum + s.RAM, 0) / data.length,
-        Disco: data.reduce((sum, s) => sum + s.Disco, 0) / data.length
-      };
-
-      // Envia resposta de sucesso com os dados e a média
-      res.status(200).json({
-        success: true,
-        data: servidoresFormatados,
-        mediaTotal: mediaTotal
-      });
-    } else {
-      throw new Error("Resposta da Lambda não é um array");
-    }
+    res.status(200).send({
+      deuCerto: true,
+      dados: data
+    });
+    
   } catch (error) {
     console.error("Erro ao buscar dados:", error.message);
     res.status(500).json({
-      success: false,
+      deuCerto: false,
+      erro: "Erro ao buscar dados da Lambda",
+      details: error.message
+    });
+  }
+});
+
+router.post("/pegarProcessos", async function (req, res) {
+  // Link da Lambda feita na AWS:
+  const lambdaUrl = "https://v4ppbaib3kj5skfs4u6wrpvsku0qiwpx.lambda-url.us-east-1.on.aws/";
+
+  try {
+    // Chama a lambda (Passa o datacenter 1 como parâmetro ou o que tiver dentro do corpo)
+    const lambdaResponse = await fetch(lambdaUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        datacenter: req.body.datacenter || "1",
+      }),
+    });
+
+    if (!lambdaResponse.ok) {
+      throw new Error(`Lambda deu erro com o seguinte status ${lambdaResponse.status}`);
+      // Vê se deu algum erro e "lança" pro catch
+    }
+
+    const data = await lambdaResponse.json();
+    console.log(data)
+    // Console log nos dados para ver como estão e se estão chegando
+
+    res.status(200).send({
+      deuCerto: true,
+      dados: data
+    });
+    
+  } catch (error) {
+    console.error("Erro ao buscar dados:", error.message);
+    res.status(500).json({
+      deuCerto: false,
       erro: "Erro ao buscar dados da Lambda",
       details: error.message
     });

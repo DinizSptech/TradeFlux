@@ -1,25 +1,23 @@
-function pegarData() {
+// Lambda e inicalização da dash
 
-  // Pega a data de hj pra não ficar o código em toda parte
+let periodoAtual = "30dias";
+let organizacaoDoSortAtual = { column: null, direction: null };
+let processData = []
 
-  const agr = new Date();
-  const ano = agr.getFullYear();
-  const mes = String(agr.getMonth() + 1).padStart(2, '0');
-  const dia = String(agr.getDate()).padStart(2, '0');
-  const hora = String(agr.getHours()).padStart(2, '0');
-  const minuto = String(agr.getMinutes()).padStart(2, '0');
-  const segundos = String(agr.getSeconds()).padStart(2, '0');
+// Dados dos processos
 
-  const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundos}`;
-  console.log(dataFormatada);
+function inicializarDashboard() {
+  chamandoLambdaServidores()
+  chamandoLambdaProcessos()
+  filtrar()
+  carregarMenuLateral()
+  gerarBotao()
 
-    return dataFormatada
-  
+  // gerarTable(processData)
 }
 
 function gerarBotao() {
   // Cria o botão de baixar
-  // Funcionando
   const BOTAO = document.getElementById("botaoBaixar");
 
   BOTAO.innerHTML = `Baixar CSV do Datacenter ${sessionStorage.getItem(
@@ -27,150 +25,140 @@ function gerarBotao() {
   )}`;
 }
 
-// chamandoLambda function
-function chamandoLambda(qtdDias, dataInicial) {
+function alterarPeriodo(novoPeriodo) {
+  periodoAtual = novoPeriodo;
+  filtrar()
+}
+
+async function chamandoLambdaServidores() {
   const datacenter = sessionStorage.getItem("DataCenter") || "1";
   const requestBody = {
-    qtdDias: qtdDias,
-    dtInicial: dataInicial,
     datacenter: datacenter,
   };
 
-  return fetch('/dataCenter/pegarServidores', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestBody),
-  })
-  .then(response => {
+  // Monta o corpo da requisição para ser chamado no /dataCenter posteriormente
+
+  try {
+    console.log("Montando o corpo da requisição:", requestBody);
+    const response = await fetch("/dataCenter/pegarServidores", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log("Erro na response de chamandoLambdaServidores");
     }
-    return response.json();
-  })
-  .then(data => {
-    if (data.success) {
-      // Limpa dados antigos
-      for (let i = 1; i <= 10; i++) {
-        sessionStorage.removeItem(`servidor${i}`);
-      }
 
-      // Processa os dados dos servidores
-      data.data.forEach(servidor => {
-        const qualServidor = `servidor${servidor.servidor}`;
-        const servidorFormatado = {
-          media_CPU: servidor.media_CPU,
-          media_RAM: servidor.media_RAM,
-          media_Disco: servidor.media_Disco
-        };
-        sessionStorage.setItem(qualServidor, JSON.stringify(servidorFormatado));
-      });
+    const { dados } = await response.json();
 
-      // Salva a média total
-      sessionStorage.setItem("mediaTotal", JSON.stringify(data.mediaTotal));
+    console.log("Response: ", dados);
 
-      return data;
-    } else {
-      throw new Error(data.erro || "Erro ao carregar dados");
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    throw error;
-  });
+    Object.entries(dados).forEach(([periodo, lista]) => {
+      sessionStorage.setItem(`${periodo}`, JSON.stringify(lista));
+    });
+
+  } catch (error) {
+    console.error("Erro ao montar o corpo da requisição:", error);
+    return;
+  }
 }
 
-function inicializarDashboard() {
-  const periodo = document.getElementById('sltPeriodo').value;
-  let qtdDias;
+async function chamandoLambdaProcessos() {
+  const datacenter = sessionStorage.getItem("DataCenter") || "1";
+  const requestBody = {
+    datacenter: datacenter,
+  };
 
-  if (periodo === "optPeriodo7Dias") {
-    qtdDias = 7;
-  } else if (periodo === "optPeriodo30Dias") {
-    qtdDias = 30;
-  } else if (periodo === "optPeriodo3Meses") {
-    qtdDias = 90;
-  } else {
-    qtdDias = 7;
-  }
+  // Monta o corpo da requisição para ser chamado no /dataCenter posteriormente
 
-  const dataInicial = pegarData();
-
-  chamandoLambda(qtdDias, dataInicial)
-    .then(response => {
-      if (response.success) {
-        setTimeout(() => {
-          const servidores = [];
-          for (let i = 1; i <= 10; i++) {
-            const qualServidor = `servidor${i}`;
-            const servidorJSON = sessionStorage.getItem(qualServidor);
-            if (servidorJSON) {
-              const servidor = JSON.parse(servidorJSON);
-              servidores.push({
-                nome: qualServidor,
-                numeroServidor: i,
-                ...servidor
-              });
-            }
-          }
-
-          if (servidores.length > 0) {
-            servidores.sort((a, b) => b.media_CPU - a.media_CPU);
-            const primeiroServidor = servidores[0];
-            geradorGraficos('Barra', primeiroServidor);
-          } else {
-            console.error("Nenhum dado de servidor encontrado.");
-          }
-        }, 1000);
-      } else {
-        console.error("Erro ao carregar dados iniciais:", response.erro);
-      }
-    })
-    .catch(error => {
-      console.error("Erro ao inicializar dashboard:", error);
+  try {
+    console.log("Montando o corpo da requisição:", requestBody);
+    const response = await fetch("/dataCenter/pegarProcessos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
     });
+
+    if (!response.ok) {
+      console.log("Erro na response de chamandoLambdaServidores");
+    }
+
+    const { dados } = await response.json();
+
+    console.log("Response: ", dados);
+
+    Object.entries(dados).forEach(([periodo, lista]) => {
+      sessionStorage.setItem(`${periodo}Processos`, JSON.stringify(lista));
+    });
+
+  } catch (error) {
+    console.error("Erro ao montar o corpo da requisição:", error);
+    return;
+  }
+  
+}
+
+function obterDadosPeriodo(periodo) {
+
+  // Sempre vai ser 7dias || 30dias || 90dias (serve para acessar as chaves do Session Storage)
+  const dados = sessionStorage.getItem(periodo);
+  return dados ? JSON.parse(dados) : null;
+
+}
+
+function obterDadosPeriodoProcessos(periodo) {
+
+  // Sempre vai ser 7dias || 30dias || 90dias (serve para acessar as chaves do Session Storage)
+  const dados = sessionStorage.getItem(`${periodo}Processos`);
+  return dados ? JSON.parse(dados) : null;
+
 }
 
 async function baixarCSV() {
-    let arquivo = 'client_datacenter1.csv';
-    let caminho = 'dadosRobertClient';
+  let arquivo = "client_datacenter1.csv";
+  let caminho = "dadosRobertClient";
 
-    try {                                                  
-        
-        const resposta = await fetch(`http://localhost:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`);
-        
-        if (!resposta.ok) {
-            throw new Error(`Erro ao buscar arquivo: ${resposta.status} - ${resposta.statusText}`);
-        }
+  try {
+    const resposta = await fetch(
+      `http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`
+    );
 
-        const blob = await resposta.blob();
-        // Blob (Binary Large Object) é o que gera o arquivo, ou seja, ele armazena tudo como um sistema binário e dps envia para outro lugar, aqui estamos recebendo o blob do arquivo que tá lá no S3, para ele transformar no arquivo do usuário
-        console.log('Blob recebido:', blob);
-
-        // Aqui ele cria o link do download
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = arquivo;
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        // Limpa recursos urilizados para não ficar gastando memória atoa
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        console.log('Download iniciado com sucesso!');
-        
-    } catch (error) {
-        // Aqui é só a validação de erro que eu tava fazendo 
-        console.error('Erro no download:', error);
-        // alert('Erro ao baixar arquivo: ' + error.message);
+    if (!resposta.ok) {
+      throw new Error(
+        `Erro ao buscar arquivo: ${resposta.status} - ${resposta.statusText}`
+      );
     }
-}
 
+    const blob = await resposta.blob();
+    // Blob (Binary Large Object) é o que gera o arquivo, ou seja, ele armazena tudo como um sistema binário e dps envia para outro lugar, aqui estamos recebendo o blob do arquivo que tá lá no S3, para ele transformar no arquivo do usuário
+    console.log("Blob recebido:", blob);
+
+    // Aqui ele cria o link do download
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = arquivo;
+
+    document.body.appendChild(a);
+    a.click();
+
+    // Limpa recursos urilizados para não ficar gastando memória atoa
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
+    console.log("Download iniciado com sucesso!");
+  } catch (error) {
+    // Aqui é só a validação de erro que eu tava fazendo
+    console.error("Erro no download:", error);
+    // alert('Erro ao baixar arquivo: ' + error.message);
+  }
+}
 
 function trocarVisibilidade(e) {
   // Muda a visibilidade da div que contém o Input de data
@@ -188,117 +176,135 @@ function trocarVisibilidade(e) {
 }
 
 function filtrar() {
-  const PERIODO = document.getElementById('sltPeriodo').value
+  
+  let dadosServidor = obterDadosPeriodo(periodoAtual)
+  // console.log(dadosServidor)
 
-  if(PERIODO == "optPeriodo7Dias") {
-    const qtdDias = 7;
-    const data = pegarData()
-    chamandoLambda(qtdDias, data)
-  } else if(PERIODO == "optPeriodo30Dias") {
-    const qtdDias = 30;
-    const data = pegarData()
-    chamandoLambda(qtdDias, data)
-  } else if(PERIODO == "optPeriodo3Meses") {
-    const qtdDias = 90;
-    const data = pegarData()
-    chamandoLambda(qtdDias, data)
-  }
+  let dadosMedia = dadosServidor.pop()
+  // console.log(dadosMedia)
+  // Aqui separa o último valor, nesse caso, a média
 
-  // Aguarda um pouco para os dados serem processados
-  setTimeout(() => {
+  const dadosServidorProcessos = obterDadosPeriodoProcessos(periodoAtual)
+  // Aqui pega os dados dos processos
+
   const SERVIDOR = mainSelect.value;
-  const SERVIDORESPECIFICO = hiddenSelect.classList.contains("show")
-    ? hiddenSelect.value
-    : "";
+  const ServidorEspecifico = hiddenSelect.value;
+  // mainSelect é o nome do select que pega qual é para plotar no gráfico e o Hidden é o que fica escondido para ser selecionado dps 
+  // console.log(SERVIDOR)
+  // console.log(ServidorEspecifico)
 
-  let servidores = [];
-
-  for (let i = 1; i <= 10; i++) {
-    const qualServidor = `servidor${i}`;
-    const servidorJSON = sessionStorage.getItem(qualServidor);
-
-    if (servidorJSON) {
-      const servidor = JSON.parse(servidorJSON);
-      servidores.push({
-        nome: qualServidor,
-        numeroServidor: i,
-        ...servidor
-      });
-    }
-  }
-
-  if (SERVIDOR === 'CPU') {
-    servidores.sort((a, b) => b.media_CPU - a.media_CPU);
-    const primeiroServidor = servidores[0];
-    geradorGraficos('Barra', primeiroServidor);
-  } else if (SERVIDOR === 'RAM') {
-    servidores.sort((a, b) => b.media_RAM - a.media_RAM);
-    const primeiroServidor = servidores[0];
-    geradorGraficos('Barra', primeiroServidor);
-  } else if (SERVIDOR === 'Disco') {
-    servidores.sort((a, b) => b.media_Disco - a.media_Disco);
-    const primeiroServidor = servidores[0];
-    geradorGraficos('Barra', primeiroServidor);
-  } else if (SERVIDOR === 'Personalizado') {
-    servidores.sort((a, b) => a.numeroServidor - b.numeroServidor);
-    const servidorSelecionado = parseInt(document.getElementById("hiddenSelect").value);
-    const servidorDados = servidores.find(s => s.numeroServidor === servidorSelecionado);
+  if (SERVIDOR === "CPU") {
     
-    if (servidorDados) {
-      geradorGraficos('Barra', servidorDados);
+    dadosServidor.sort((a, b) => b.CPU - a.CPU);
+    const primeiroServidor = dadosServidor[0];
+    const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+
+    const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
+    // console.log(processosFiltrados)
+
+    // let processos = []
+
+    for (let i = 0; i < processosFiltrados.length; i++) {
+
+      const nome = processosFiltrados[i].name;
+      const cpu = processosFiltrados[i].cpuPercent;
+      const ram = processosFiltrados[i].ramPercent;
+      
+      const novoArray = {process : nome, cpu : cpu, ram : ram}
+
+      processData.push(novoArray);
+
     }
+
+    // Dá pra otimizar dps só mudando o nome dentro de processos para o padrão que já é esperado aqui para não precisar fazer esse for a mais
+
+    geradorGraficos("Barra", primeiroServidor, dadosMedia);
+    gerarTable(processData)
+    // gerarTable(sortedData.slice(0, 4))
+
+  } else if (SERVIDOR === "RAM") {
+    dadosServidor.sort((a, b) => b.RAM - a.RAM);
+    const primeiroServidor = dadosServidor[0];
+    const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+
+    const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
+
+    for (let i = 0; i < processosFiltrados.length; i++) {
+
+      const nome = processosFiltrados[i].name;
+      const cpu = processosFiltrados[i].cpuPercent;
+      const ram = processosFiltrados[i].ramPercent;
+      
+      const novoArray = {process : nome, cpu : cpu, ram : ram}
+
+      processData.push(novoArray);
+
+    }
+
+    geradorGraficos("Barra", primeiroServidor, dadosMedia);
+    gerarTable(processData)
+
+  } else if (SERVIDOR === "Disco") {
+    dadosServidor.sort((a, b) => b.Disco - a.Disco);
+    const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+
+    const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
+
+    for (let i = 0; i < processosFiltrados.length; i++) {
+
+      const nome = processosFiltrados[i].name;
+      const cpu = processosFiltrados[i].cpuPercent;
+      const ram = processosFiltrados[i].ramPercent;
+      
+      const novoArray = {process : nome, cpu : cpu, ram : ram}
+
+      processData.push(novoArray);
+
+    }
+
+    geradorGraficos("Barra", primeiroServidor, dadosMedia);
+    gerarTable(processData)
+  
+  } else if(SERVIDOR === "Personalizado" && ServidorEspecifico != "#") {
+    console.log("Entrou no personalizado")
+    const servidorDesejado = dadosServidor[ServidorEspecifico]
+
+    const processosFiltrados = dadosServidorProcessos[ServidorEspecifico].processos;
+
+    for (let i = 0; i < processosFiltrados.length; i++) {
+
+      const nome = processosFiltrados[i].name;
+      const cpu = processosFiltrados[i].cpuPercent;
+      const ram = processosFiltrados[i].ramPercent;
+      
+      const novoArray = {process : nome, cpu : cpu, ram : ram}
+
+      processData.push(novoArray);
+
+    }
+
+    geradorGraficos("Barra", servidorDesejado, dadosMedia);
+    gerarTable(processData)
   }
 
-  console.log("Filtros aplicados:", {
-    categoria: SERVIDOR,
-    subcategoria: SERVIDORESPECIFICO,
-  });
-}, 10000);
 }
 
-function limparFiltro() {
-  mainSelect.value = "";
-  hiddenSelect.value = "";
-  hiddenSelect.classList.remove("show");
-  console.log("lalalalalalalal")
-}
-
-function obterMediaTotal() {
-  const mediaTotalJSON = sessionStorage.getItem("mediaTotal");
-  if (mediaTotalJSON) {
-    const mediaTotal = JSON.parse(mediaTotalJSON);
-    console.log("Média Total:", mediaTotal);
-    return mediaTotal;
-  } else {
-    console.error("Nenhuma média total encontrada no sessionStorage.");
-    return null;
-  }
-}
-
-function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
+function geradorGraficos(tipo, servidor, media) {
   if (tipo === "Barra") {
-    const servidorSelecionado = servidor || {
-      media_CPU: 0,
-      media_RAM: 0,
-      Disco: 0
-    };
-
-    const MEDIA = obterMediaTotal()
-    let media = {
-      CPU: 37.59,
-      RAM: 40.1,
-      Disco: 30.21
-    };
 
     let dados = [
-      servidorSelecionado.media_CPU, 
-      servidorSelecionado.media_RAM, 
-      servidorSelecionado.media_Disco
+      servidor.CPU,
+      servidor.RAM,
+      servidor.Disco,
     ];
 
     var options = {
       title: {
-        text: "Comparação média com servidor escolhido",
+        style: {
+          fontSize: "20px",
+          colors: "#000000",
+        },
+        text: `Comparação média com servidor ${servidor.servidor}`,
         align: "center",
       },
       chart: {
@@ -323,7 +329,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
         enabled: true,
         offsetX: 20,
         style: {
-          fontSize: "12px",
+          fontSize: "14px",
           colors: ["#000"],
         },
       },
@@ -333,7 +339,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
           data: [media.CPU, media.RAM, media.Disco],
         },
         {
-          name: "Servidor Selecionado",
+          name: `Servidor ${servidor.servidor}`,
           data: dados,
         },
       ],
@@ -342,6 +348,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
         max: 100,
         labels: {
           style: {
+            fontSize: "16px",
             colors: "#000000",
           },
         },
@@ -349,6 +356,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
       yaxis: {
         labels: {
           style: {
+            fontSize: "16px",
             colors: "#000000",
           },
         },
@@ -358,6 +366,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
         labels: {
           colors: "#000000",
         },
+        fontSize: "16px",
       },
       grid: {
         borderColor: "#555",
@@ -387,28 +396,36 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
     // Limpa gráfico anterior se existir
     const chartContainer = document.querySelector("#myBarChart");
     if (chartContainer) {
-      chartContainer.innerHTML = '';
+      chartContainer.innerHTML = "";
     }
 
     var chart = new ApexCharts(chartContainer, options);
     chart.render();
 
   } else if (tipo == "Linha") {
-    
     // Pega dados históricos do sessionStorage ou usa dados padrão
     let dadosCPU, dadosRAM, dadosDisco, categorias;
-    
+
     if (dadosHistoricos && dadosHistoricos.length > 0) {
       // Usa dados reais se disponíveis
-      dadosCPU = dadosHistoricos.map(d => parseFloat(d.CPU || d.media_CPU || 0));
-      dadosRAM = dadosHistoricos.map(d => parseFloat(d.RAM || d.media_RAM || 0));
-      dadosDisco = dadosHistoricos.map(d => parseFloat(d.Disco || d.media_Disco || 0));
-      
+      dadosCPU = dadosHistoricos.map((d) =>
+        parseFloat(d.CPU || d.media_CPU || 0)
+      );
+      dadosRAM = dadosHistoricos.map((d) =>
+        parseFloat(d.RAM || d.media_RAM || 0)
+      );
+      dadosDisco = dadosHistoricos.map((d) =>
+        parseFloat(d.Disco || d.media_Disco || 0)
+      );
+
       // Gera categorias baseadas no período
       categorias = dadosHistoricos.map((_, index) => {
         const data = new Date();
         data.setDate(data.getDate() - (dadosHistoricos.length - 1 - index));
-        return data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+        return data.toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+        });
       });
     } else {
       // Dados padrão caso não tenha histórico
@@ -416,20 +433,26 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
       dadosRAM = [50, 80, 30, 58, 26, 54, 15];
       dadosDisco = [60, 58, 62, 65, 63, 60, 65];
       categorias = [
-        "01/04", "02/04", "03/04", "04/04", "05/04", "06/04", "07/04"
+        "01/04",
+        "02/04",
+        "03/04",
+        "04/04",
+        "05/04",
+        "06/04",
+        "07/04",
       ];
     }
 
     // Determina o número do servidor para o título
     let numeroServidor = servidor?.numeroServidor || servidor?.servidor || 1;
-    
+
     var options = {
       chart: {
         type: "line",
         height: 350,
         toolbar: {
-          show: false
-        }
+          show: false,
+        },
       },
 
       series: [
@@ -472,7 +495,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
 
       stroke: {
         curve: "straight",
-        width: 2
+        width: 2,
       },
 
       markers: {
@@ -481,7 +504,7 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
 
       colors: [
         "#E74C3C", // Vermelho para CPU
-        "#3498DB", // Azul para RAM  
+        "#3498DB", // Azul para RAM
         "#27AE60", // Verde para Disco
       ],
 
@@ -500,57 +523,44 @@ function geradorGraficos(tipo, servidor, dadosHistoricos = null) {
         y: {
           formatter: function (val) {
             return val.toFixed(1) + "%";
-          }
-        }
-      }
+          },
+        },
+      },
     };
 
     // Limpa gráficos anteriores se existirem
     const chartContainer1 = document.querySelector("#myLineChart");
     const chartContainer2 = document.querySelector("#myLineChart2");
-    
+
     if (chartContainer1) {
-      chartContainer1.innerHTML = '';
+      chartContainer1.innerHTML = "";
       var chart1 = new ApexCharts(chartContainer1, options);
       chart1.render();
     }
-    
+
     if (chartContainer2) {
-      chartContainer2.innerHTML = '';
+      chartContainer2.innerHTML = "";
       var chart2 = new ApexCharts(chartContainer2, options);
       chart2.render();
     }
   }
 }
 
-// // Talvez aumentar gráficos
-
-// Dados dos processos
-const processData = [
-  { process: "Processo 1", cpu: 17, ram: 35 },
-  { process: "Processo 2", cpu: 9, ram: 28 },
-  { process: "Processo 3", cpu: 5, ram: 18 },
-  { process: "Processo 4", cpu: 4, ram: 12 },
-  { process: "Processo 5", cpu: 3, ram: 8 },
-];
-
-let currentSort = { column: null, direction: null };
-
 // Função para gerar a tabela
-function generateTable(data) {
+function gerarTable(data) {
   const tbody = document.getElementById("tableBody");
   tbody.innerHTML = "";
 
-  data.forEach((row) => {
+  data.slice(0, 5).forEach((row) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-                <td class="process-name">${row.process}</td>
-                <td class="cpu-usage">${row.cpu}%</td>
-                <td class="ram-usage">${row.ram}%</td>
-
-            `;
+        <td class="process-name">${row.process}</td>
+        <td class="cpu-usage">${row.cpu}%</td>
+        <td class="ram-usage">${row.ram}%</td>
+    `;
     tbody.appendChild(tr);
-  });
+    processData = [];
+});
 }
 
 // Função para ordenar a tabela
@@ -562,7 +572,7 @@ function sortTable(column) {
 
   // Determinar direção da ordenação
   let direction = "desc"; // Sempre do maior ao menor
-  if (currentSort.column === column && currentSort.direction === "desc") {
+  if (organizacaoDoSortAtual.column === column && organizacaoDoSortAtual.direction === "desc") {
     direction = "asc"; // Se já está ordenado desc, muda para asc
   }
 
@@ -601,23 +611,19 @@ function sortTable(column) {
   });
 
   // Atualizar estado atual da ordenação
-  currentSort = { column, direction };
+  organizacaoDoSortAtual = { column, direction };
 
   // Adicionar classe visual ao cabeçalho
   const header = document.getElementById(column + "Header");
   header.classList.add(direction === "desc" ? "sorted-desc" : "sorted-asc");
 
-  // Regenerar tabela com dados ordenados
-  generateTable(sortedData);
+  gerarTable(sortedData)
 }
-
-// Inicializar tabela quando a página carregar
-document.addEventListener("DOMContentLoaded", function () {
-  generateTable(processData);
-});
 
 const modal = document.getElementById("modal");
 const modalContent = modal.querySelector(".modal-content");
+
+// Abrir e fechar modal:
 
 function openModal() {
   modal.classList.add("show");
@@ -638,44 +644,64 @@ function closeModal() {
   }, 300);
 }
 
+// Fecha o modal quando clicado fora dele
 function closeModalOnBackdrop(event) {
   if (event.target === modal) {
     closeModal();
   }
 }
 
-function handleAction() {
-  alert("Ação confirmada! 🎊");
-  closeModal();
-}
-
-// Fechar modal com a tecla ESC
+// Fecha o modal com a tecla ESC
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && modal.classList.contains("show")) {
     closeModal();
   }
 });
 
-const mainSelect = document.getElementById("mainSelect");
-const hiddenSelect = document.getElementById("hiddenSelect");
-
-mainSelect.addEventListener("change", function () {
-  if (this.value === "especial") {
-    // Mostra a combobox oculta com animação
-    setTimeout(() => {
-      hiddenSelect.classList.add("show");
-    }, 50);
-  } else {
-    // Esconde a combobox oculta
-    hiddenSelect.classList.remove("show");
-  }
-});
-
-// Pega o elemento, ao pegar ele, verifica se houve mudança, por isso ele está em change e se tiver mudança, ele roda a função dps da virgula (Não precisa de parenteses dps do nome da função)
+// Event Listeners:
 
 document.getElementsByName("server").forEach(function (item) {
   item.addEventListener("change", selecionandoServidor);
 });
+
+if (mainSelect && hiddenSelect) {
+// Pega o elemento, ao pegar ele, verifica se houve mudança, por isso ele está em change e se tiver mudança, ele roda a função dps da virgula (Não precisa de parenteses dps do nome da função)
+  mainSelect.addEventListener("change", function () {
+    if (this.value === "Personalizado") {
+      // Mostra a combobox oculta com animação
+      setTimeout(() => {
+        hiddenSelect.classList.add("show");
+      }, 50);
+    } else {
+      // Esconde a combobox oculta
+      hiddenSelect.classList.remove("show");
+    }
+    filtrar()
+  });
+
+  hiddenSelect.addEventListener("change", function() {
+    filtrar()
+  })
+
+}
+
+const serverInputs = document.getElementsByName("server");
+if (serverInputs.length > 0) {
+  serverInputs.forEach(function (item) {
+    item.addEventListener("change", selecionandoServidor);
+  });
+}
+
+// Muda a cor dos botões
+[...document.getElementsByClassName("botao-filtro")].forEach(
+  (item, index, self) => {
+    // getElementsByClassName mão retorna um array, então o colchetes + os 3 pontinhos ele pega cada elemento do getElements e vai botando como um objeto do array
+    item.addEventListener("click", function (event) {
+      self.forEach((item) => (item.style.background = "#bfcbf4"));
+      event.currentTarget.style.background = "#7286d5";
+    });
+  }
+);
 
 // Tipos de gráficos que vão ser usados:
 
@@ -694,35 +720,8 @@ document.getElementsByName("server").forEach(function (item) {
 // Maior CPU primeiro
 // servidores.sort((a, b) => b.media_CPU - a.media_CPU);
 
-// Menor CPU primeiro  
+// Menor CPU primeiro
 // servidores.sort((a, b) => a.media_CPU - b.media_CPU);
 
 // Por nome (alfabética)
 // servidores.sort((a, b) => a.nome.localeCompare(b.nome));
-
-if (mainSelect && hiddenSelect) {
-  mainSelect.addEventListener("change", function () {
-    if (this.value === "Personalizado") {
-      // Mostra a combobox oculta com animação
-      setTimeout(() => {
-        hiddenSelect.classList.add("show");
-      }, 50);
-    } else {
-      // Esconde a combobox oculta
-      hiddenSelect.classList.remove("show");
-    }
-  });
-}
-
-// Event listeners
-const sltPeriodo = document.getElementById("sltPeriodo");
-if (sltPeriodo) {
-  sltPeriodo.addEventListener("change", trocarVisibilidade);
-}
-
-const serverInputs = document.getElementsByName("server");
-if (serverInputs.length > 0) {
-  serverInputs.forEach(function (item) {
-    item.addEventListener("change", selecionandoServidor);
-  });
-}

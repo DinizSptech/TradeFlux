@@ -36,7 +36,7 @@
      <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
         <span class="titulo" id="servidorModalSelecionado" style="color: #2b2b2b;"></span>
-        <i onclick="fecharModal()" class="fa-solid fa-xmark"></i>
+        <i onclick="fecharModalServidor()" class="fa-solid fa-xmark"></i>
       </div>
       <div class="contentModal">
         <div class="caracteristicas_servidorModal">
@@ -213,11 +213,11 @@
       if (kpi1 < idealKpi1) {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi1 - kpi1) / kpi1) * 100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 168) * 100)).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi1) {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi1) / idealKpi1) * 100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 168) * 100)- 10).toFixed(1)}% a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -231,11 +231,11 @@
       if (kpi1 < idealKpi2) {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi2 - kpi1) / kpi1) * 100).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 720) * 100)).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi2) {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi2) / idealKpi2) * 100).toFixed(1)}%  acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 720) * 100) - 10).toFixed(1)}%  a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -251,11 +251,11 @@
       if (kpi1 < idealKpi3) {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((idealKpi3 - kpi1) / kpi1) * 100).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
+        indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 2160) * 100)).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi3) {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 - idealKpi3) / idealKpi3) * 100).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 2160) * 100) - 10).toFixed(1)}% a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
         mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
         indicador1.classList.add("indicador-ideal")
@@ -301,36 +301,45 @@
     if (sessionStorage.botaoTempo == '7dias') {
       componenteOciosidade.innerHTML = componentes[0]
       if (componentes[0] == 'CPU') {
+        componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][0] /600).toFixed(2)}h`
         percentual = ((media[0][0] - idealCPU7dias) / idealCPU7dias) * 100
       } else if (componentes[0] == 'RAM') {
-        percentual = ((media[0][1] - idealRAM7dias) / idealRAM7dias) * 100
+         componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][1] /600).toFixed(2)}h` 
+        percentual = ((media[0][1] - idealRAM7dias) / idealRAM7dias) * 100  
       } else {
+        componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][2] /600).toFixed(2)}h` 
         percentual = ((media[0][2] - idealDisco7dias) / idealDisco7dias) * 100
       }
       indicador2.classList.add('indicador-ruim')
-      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
     } else if (sessionStorage.botaoTempo == '30dias') {
-      componenteOciosidade.innerHTML = componentes[1]
+    
       if (componentes[1] == 'CPU') {
+        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][0] /600).toFixed(2)}h` 
         percentual = ((media[1][0] - idealCPU30dias) / idealCPU30dias) * 100
       } else if (componentes[1] == 'RAM') {
+        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][1] /600).toFixed(2)}h` 
         percentual = ((media[1][1] - idealRAM30dias) / idealRAM30dias) * 100
       } else {
+        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][2] /600).toFixed(2)}h` 
         percentual = ((media[1][2] - idealDisco30dias) / idealDisco30dias) * 100
       }
       indicador2.classList.add('indicador-ruim')
-      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
     } else {
-      componenteOciosidade.innerHTML = componentes[2]
+    
       if (componentes[2] == 'CPU') {
+        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][0] /600).toFixed(2)}h` 
         percentual = ((media[2][0] - idealCPU3meses) / idealCPU3meses) * 100
       } else if (componentes[2] == 'RAM') {
+        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][1] /600).toFixed(2)}h` 
         percentual = ((media[2][1] - idealRAM3meses) / idealRAM3meses) * 100
       } else {
+        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][2] /600).toFixed(2)}h` 
         percentual = ((media[2][2] - idealDisco3meses) / idealDisco3meses) * 100
       }
       indicador2.classList.add('indicador-ruim')
-      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% a mais que o ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+      indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
 
 
     }
@@ -422,12 +431,12 @@
 
   }
 
-  function fecharModal() {
+  function fecharModalServidor() {
     document.getElementById('modalServidor').style.display = 'none';
     document.getElementById('backdrop').style.display = 'none';
   }
 
-  document.getElementById('backdrop').addEventListener('click', fecharModal);
+  document.getElementById('backdrop').addEventListener('click', fecharModalServidor);
 
 
   function graficoLinha() {
