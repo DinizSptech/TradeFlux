@@ -18,25 +18,16 @@
 
     <link rel="stylesheet" href="../css/barra_lateral.css" />
     <link rel="stylesheet" href="../css/dashComparativa.css" />
-    <link rel="stylesheet" href="../css/modalPerfil.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../js/barra_lateral.js" defer></script>
-    <!-- <script src="../js/modais.js" defer></script> -->
     <script src="../js/dashComparativa.js" defer></script>
 
     <title>Dashboard comparativa</title>
   </head>
-  <body onload="carregarMenuLateral(); renderizarPerfilUsuario(); geradorGraficos('Barra'); gerarBotao(); inicializarDashboard(); gerarBotao();">
-    <div id="sistema_modais">
-      <div class="navbar">
-        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
-        
-      </div>
-    </div>
+  <body onload="inicializarDashboard();">
     <main>
-      
-      <!-- <div class="navbar">
+      <div class="navbar">
         <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
         <div class="container_perfil_menu" id="modal_perfil">
           <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
@@ -69,7 +60,7 @@
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </div>
-      </div> -->
+      </div>
       <div id="barralateral" class="barra-lateral"></div>
 
       <div class="grafico_comparacao">
@@ -89,27 +80,27 @@
   
               <select class="hidden-select" id="hiddenSelect">
                 <option value="#" selected disabled>Selecione um:</option>
-                <option value="1">Servidor 1</option>
-                <option value="2">Servidor 2</option>
-                <option value="3">Servidor 3</option>
-                <option value="4">Servidor 4</option>
-                <option value="5">Servidor 5</option>
-                <option value="6">Servidor 6</option>
-                <option value="7">Servidor 7</option>
-                <option value="8">Servidor 8</option>
-                <option value="9">Servidor 9</option>
-                <option value="10">Servidor 10</option>
+                <option value="0">Servidor 1</option>
+                <option value="1">Servidor 2</option>
+                <option value="2">Servidor 3</option>
+                <option value="3">Servidor 4</option>
+                <option value="4">Servidor 5</option>
+                <option value="5">Servidor 6</option>
+                <option value="6">Servidor 7</option>
+                <option value="7">Servidor 8</option>
+                <option value="8">Servidor 9</option>
+                <option value="9">Servidor 10</option>
               </select>
   
               <div class="botoes-filtro">
-                <button class="botao-filtro" onclick="">
-                  Últimas 24h
-                </button>
-                <button class="botao-filtro" onclick="">
+                <button class="botao-filtro" onclick="alterarPeriodo('7dias')">
                   Últimos 7 dias
                 </button>
-                <button class="botao-filtro" onclick="">
+                <button class="botao-filtro" onclick="alterarPeriodo('30dias')" style=" background-color:#7286d5;">
                   Últimos 30 dias
+                </button>
+                <button class="botao-filtro" onclick="alterarPeriodo('90dias')">
+                  Últimos 3 meses
                 </button>
               </div>
   
@@ -167,10 +158,6 @@
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="modal-title">Gráfico de linha comparativo</h2>
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div id="myLineChart"></div>
             <select name="serverSlt" id="sltServidor2">
               <option value="#" selected disabled>Selecione um:</option>
               <option value="optServidor1">Servidor 1</option>
@@ -184,14 +171,15 @@
               <option value="optServidor9">Servidor 9</option>
               <option value="optServidor10">Servidor 10</option>
             </select>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="myLineChart"></div>
             <div id="myLineChart2"></div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" onclick="closeModal()">
               Fechar
-            </button>
-            <button class="btn btn-primary" onclick="handleAction()">
-              Confirmar
             </button>
           </div>
         </div>

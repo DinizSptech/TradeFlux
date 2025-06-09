@@ -153,9 +153,8 @@ select {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(0.625rem);
   border-radius: 0.9375rem;
-  padding: 0.875rem; /* Reduzido de 1.25rem */
-  /* border: 0.0625rem solid rgba(255, 255, 255, 0.9); */
-  width: 35rem; /* Reduzido de 50rem */
+  padding: 0.875rem; 
+  width: 40%;
   border: 4px solid #d3d7e3;
 }
 
@@ -171,7 +170,7 @@ select {
   color: #2d3748;
   text-align: center;
   padding: 0.625rem; /* Reduzido de 1rem */
-  font-size: 1rem; /* Reduzido de 1.25rem */
+  font-size: 2rem; /* Reduzido de 1.25rem */
   font-weight: bold;
   margin: 0;
   text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
@@ -189,7 +188,7 @@ th {
   padding: 0.5rem 0.75rem; /* Reduzido de 0.75rem 1rem */
   text-align: center;
   font-weight: bold;
-  font-size: 0.75rem; /* Reduzido de 0.875rem */
+  font-size: 1rem; /* Reduzido de 0.875rem */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -227,11 +226,11 @@ th.sorted-desc::after {
 }
 
 td {
-  padding: 0.5rem 0.75rem; /* Reduzido de 0.75rem 1rem */
+  padding: 0.5rem 0.75rem;
   text-align: center;
   border-bottom: 0.0625rem solid #e2e8f0;
   transition: background-color 0.3s ease;
-  font-size: 0.8125rem; /* Adicionado - fonte menor */
+  font-size: 1rem;
 }
 
 tr:nth-child(even) {
@@ -245,7 +244,7 @@ tr:hover {
 }
 
 .process-name {
-  font-weight: 600;
+  font-weight: 800;
   text-align: left;
 }
 
@@ -345,7 +344,7 @@ tr:hover {
 }
 
 .action-buttons p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 20px 0;
 }
@@ -358,7 +357,7 @@ tr:hover {
 }
 
 .funcoes {
-  font-size: xx-large;
+  font-size: 1rem;
 }
 
 /* Modal */
@@ -454,6 +453,7 @@ tr:hover {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .modal-footer {
