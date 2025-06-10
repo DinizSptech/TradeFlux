@@ -14,6 +14,8 @@ moderados = 0
 let metricaOrder = 'criticidade'
 let booleanOrder = false
 
+
+// ponto inicial de todas as outras funções
 async function atualizarDadosEmTempoReal() {
   try {
     const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
@@ -24,9 +26,7 @@ async function atualizarDadosEmTempoReal() {
       dados: jsonServer.dados
     }));
     let ordenado = ordenar();
-    let maisCritico = ordenado[0]
-    destacarServidor(maisCritico)
-    carregarServidoresTabela(ordenado)
+    destacarServidor(ordenado)
   } catch (erro) {
     console.error("Erro ao buscar dados em tempo real:", erro);
   }
@@ -142,15 +142,16 @@ dadosSelecionado = []
 
 var jaGerado = false 
 var selecionado
+let destacadoGlobal
 
-
-function carregarServidoresTabela(copiaDados){
+function carregarServidoresTabela(copiaDados, destacado){
 
   const tabela = document.getElementById('spawnpointTabela')
 if(jaGerado){
   const selected = tabela.querySelector('.selected')
-if (selected) {
-  if(!selecionado == undefined){
+
+if (selected != null && selected != undefined) {
+  if(selecionado == undefined || selecionado == null){
     selecionado = selected.querySelector('td').innerText
   }
 }
@@ -174,14 +175,25 @@ if (selected) {
       }
 
     var classe = ''
-if(selecionado == undefined){
-} else if ( selecionado == (`${servidorAtual.servidor}`)) {
-  classe = 'selected'
-} else {
+if(selecionado != undefined)
+ if ( selecionado == (`${servidorAtual.servidor}`)) {
+  classe += 'selected'
 }
+
+let corDestaque
+if(servidorAtual.servidor == destacado){
+corDestaque = servidorAtual.dados[ultimo].criticidade >= 3
+  ? cores.critico
+  : servidorAtual.dados[ultimo].criticidade >= 1
+    ? cores.alerta
+    : cores.estavel;
+} else {
+ corDestaque = 'black'
+}
+
     addHTML += `
     <tr class="row ${classe}">
-    <td class='col-server' style='border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
+    <td class='col-server' style='color: ${corDestaque};border-left: 3px ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']} solid';>${servidorAtual.servidor}</td>
     <td style='color: ${servidorAtual.dados[ultimo].criticidade >= 3 ? cores['critico'] : servidorAtual.dados[ultimo].criticidade >= 1 ? cores['alerta'] : cores['estavel']}'>${servidorAtual.dados[ultimo].criticidade}</td>
     <td style='color: ${compararData(servidorAtual.dados[ultimo].tempo_ativo, '24:00:00') >= 1 ? cores['critico'] : (compararData(servidorAtual.dados[ultimo].tempo_ativo, '120:00:00')) >= 1 ? cores['alerta'] : cores['estavel'] }'> ${servidorAtual.dados[ultimo].tempo_ativo}</td>
             <td style='color: ${servidorAtual.dados[ultimo].cpu >= 80 ? cores['critico'] : servidorAtual.dados[ultimo].cpu >=70 ? cores['alerta'] : cores['estavel']} '>${servidorAtual.dados[ultimo].cpu}</td>
@@ -279,23 +291,19 @@ function ordenar(){
   titulo.forEach((title) => {
     title.addEventListener('click', () => {
       const existingSvg = title.querySelector('svg');
-  document.querySelector('table').querySelectorAll('svg').forEach(svg => { if (svg == existingSvg){ return } else { svg.remove()}})
+  document.querySelectorAll('.titleTable svg').forEach(svg => { if (svg == existingSvg){ return } else { svg.remove()}})
   
       if(existingSvg){
         if(booleanOrder){
           booleanOrder = false
           let ordenado = ordenar();
-          let maisCritico = ordenado[0]
-          destacarServidor(maisCritico)
-          carregarServidoresTabela(ordenado)
+          destacarServidor(ordenado)
           
           existingSvg.style.transform = 'rotate(180deg)'
         } else {
           booleanOrder = true
           let ordenado = ordenar();
-          let maisCritico = ordenado[0]
-          destacarServidor(maisCritico)
-          carregarServidoresTabela(ordenado)
+          destacarServidor(ordenado)
           existingSvg.style.transform = 'rotate(0deg)'
         }
       } else {
@@ -320,9 +328,7 @@ function ordenar(){
         
         booleanOrder = false
         let ordenado = ordenar();
-        let maisCritico = ordenado[0]
-        destacarServidor(maisCritico)
-        carregarServidoresTabela(ordenado)
+        destacarServidor(ordenado)
         title.innerHTML += `<svg width="12" style='margin-left: 4px; height: 8px; transform: rotate(180deg)' viewBox="0 0 22 13" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
@@ -352,44 +358,51 @@ function fechar(real) {
     modal.style.display= 'none'
 }
 let expandidoGlobal
-function expandirServidor(){
-      const tabela = document.getElementById('spawnpointTabela')
-      const sel = tabela.querySelector('.selected')
 
-      if(sel){
-        let cols = sel.querySelectorAll('td')
-        let criticidade = cols[1].innerText
-        let selecionado = cols[0].innerText
-       for(let i = 0; i < dadosServidores.length; i ++){
-        if (dadosServidores[i].servidor == selecionado){
-          const servidor = dadosServidores[i];
-          let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta : cores.estavel
-          let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
+function expandirServidor() {
+  const tabela = document.getElementById('spawnpointTabela')
+  const sel = tabela.querySelector('.selected')
 
-          document.getElementById('nome-servidor-expandido').innerHTML = addHtml
-          document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`
-          expandidoGlobal = servidor
-          atualizarGraficosComDados(servidor)
-        }
-       }
+  if (sel) {
+    let cols = sel.querySelectorAll('td')
+    let criticidade = cols[1].innerText
+    let nomeSelecionado = cols[0].innerText
+
+    selecionado = undefined;
+
     const linhas = tabela.querySelectorAll('tr');
-    linhas.forEach((linha) => {
-      linhas.forEach(l => l.classList.remove('selected'));
-    })
-    console.log(selecionado)
-    selecionado = undefined
-    console.log(selecionado)
-      } else {
-        carregarModal("É necessário selecionar um servidor antes expandir.")
-      }
+    linhas.forEach(l => l.classList.remove('selected'));
 
+    for (let i = 0; i < dadosServidores.length; i++) {
+      if (dadosServidores[i].servidor == nomeSelecionado) {
+        const servidor = dadosServidores[i];
+        let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta : cores.estavel;
+        let addHtml = `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
+
+        document.getElementById('nome-servidor-expandido').innerHTML = addHtml;
+        document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
+        expandidoGlobal = servidor;
+
+        atualizarGraficosComDados(servidor);
+        carregarServidoresTabela(ordenar(), servidor.servidor)
+        return
+      }
+    }
+  } else {
+    carregarModal("É necessário selecionar um servidor antes expandir.");
+  }
 }
 
-function destacarServidor(destacado) {
+function destacarServidor(ordenado) {
+  let destacado = ordenado[0]
   if (travado) {
     if (expandidoGlobal) {
-      expandidoAtualizado = dadosServidores.find(servidor => servidor.servidor == expandidoGlobal.servidor)
+      expandidoAtualizado = ordenado.find(servidor => servidor.servidor == expandidoGlobal.servidor)
+      let criticidade = expandidoAtualizado.dados[0].criticidade;
+      let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta :cores.estavel;
+      document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
       atualizarGraficosComDados(expandidoAtualizado);
+      carregarServidoresTabela(ordenado,expandidoAtualizado.servidor)
     } else {
       console.warn("expandidoGlobal está undefined.");
     }
@@ -400,10 +413,7 @@ function destacarServidor(destacado) {
   let criticidade = ultimoDado.criticidade;
   let servidor = destacado.servidor;
 
-  let corDestaque =
-    criticidade >= 3 ? cores.critico :
-    criticidade >= 1 ? cores.alerta :
-    cores.estavel;
+  let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta :cores.estavel;
 
   let addHtml = `<span style='color:${corDestaque}'>${servidor}</span>`;
 
@@ -411,6 +421,9 @@ function destacarServidor(destacado) {
   document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
 
   atualizarGraficosComDados(destacado);
+  carregarServidoresTabela(ordenado, destacado.servidor)
+  expandidoGlobal = servidor;
+
 }
 
 
@@ -419,8 +432,6 @@ function travar(){
   if(!travado){
     travado = true
 var nomeServidorHTML = document.querySelector('#nome-servidor-expandido').innerText.trim().toLowerCase();
-console.log("nomeServidorHTML")
-console.log(nomeServidorHTML)
 for(let i = 0; i < dadosServidores.length; i++){
   if(nomeServidorHTML == dadosServidores[i].servidor.toLowerCase())
     expandidoGlobal = dadosServidores[i]
@@ -594,7 +605,7 @@ function atualizarListaAlertas(alertas) {
 setInterval(() => {
   atualizarDadosEmTempoReal()
   pegarAlertas()
-}, 12000);
+}, 2000);
 
 // variaveis estéticas
  var stroke =  {

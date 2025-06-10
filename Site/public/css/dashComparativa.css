@@ -249,12 +249,10 @@ tr:hover {
 }
 
 .cpu-usage {
-  color: #e53e3e;
   font-weight: bold;
 }
 
 .ram-usage {
-  color: #38a169;
   font-weight: bold;
 }
 
@@ -483,7 +481,7 @@ tr:hover {
 
 .btn-secondary {
   background: #f8f9fa;
-  color: #6c757d;
+  color: #000000;
   border: 2px solid #dee2e6;
 }
 

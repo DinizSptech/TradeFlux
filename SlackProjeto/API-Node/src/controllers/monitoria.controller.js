@@ -25,9 +25,9 @@ function enviar_captura_front(req,res){
 
     validar = ['ram', 'cpu', 'disco']
     for(let i  = 0; i < validar.length; i++){
-            if(captura.dados[validar[i]] > 80){
+            if(captura.dados[validar[i]] >= 80){
                 captura.dados.criticidade += 3
-            } else if (captura.dados[validar[i]] > 70){
+            } else if (captura.dados[validar[i]] >= 70){
                 captura.dados.criticidade += 1
             }
     }
