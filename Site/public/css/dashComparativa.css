@@ -454,6 +454,10 @@ tr:hover {
   justify-content: space-between;
 }
 
+#myBarChartComparativa {
+  width: 100%;
+}
+
 .modal-footer {
   display: flex;
   gap: 1rem;
