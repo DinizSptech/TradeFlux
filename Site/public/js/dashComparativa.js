@@ -1,28 +1,38 @@
-// Lambda e inicalização da dash
+const DATACENTER = sessionStorage.getItem("DataCenter") || "1";
 
 let periodoAtual = "30dias";
 let organizacaoDoSortAtual = { column: null, direction: null };
-let processData = []
+let dadosProcessos = []
 
-// Dados dos processos
+async function inicializarDashboard() {
+    
+    try {
+    // Isso é feito para esperar as lambdas rodarem antes de rodar o gráfico
+      await Promise.all([
+        // Promisse é basicamente uma promessa, então ele espera que funcione, ela representa o resultado de uma operação que ainda não terminou.
+        chamandoLambdaServidores(),
+        chamandoLambdaProcessos()
+        // No final do código tem uma pequena explicação dos estados da promisse 
 
-function inicializarDashboard() {
-  chamandoLambdaServidores()
-  chamandoLambdaProcessos()
-  filtrar()
-  carregarMenuLateral()
-  gerarBotao()
+      ]);
+    
+      filtrar();
+      carregarMenuLateral();
+      gerarBotao();
+    
+      console.log("Dashboard inicializada");
+    
+    } catch (error) {
+      console.error("Erro ao inicializar dashboard:", error);
+    }
 
-  // gerarTable(processData)
 }
 
 function gerarBotao() {
   // Cria o botão de baixar
   const BOTAO = document.getElementById("botaoBaixar");
 
-  BOTAO.innerHTML = `Baixar CSV do Datacenter ${sessionStorage.getItem(
-    "DataCenter"
-  )}`;
+  BOTAO.innerHTML = `Baixar CSV do Datacenter ${DATACENTER}`;
 }
 
 function alterarPeriodo(novoPeriodo) {
@@ -31,9 +41,8 @@ function alterarPeriodo(novoPeriodo) {
 }
 
 async function chamandoLambdaServidores() {
-  const datacenter = sessionStorage.getItem("DataCenter") || "1";
   const requestBody = {
-    datacenter: datacenter,
+    datacenter: DATACENTER,
   };
 
   // Monta o corpo da requisição para ser chamado no /dataCenter posteriormente
@@ -67,9 +76,9 @@ async function chamandoLambdaServidores() {
 }
 
 async function chamandoLambdaProcessos() {
-  const datacenter = sessionStorage.getItem("DataCenter") || "1";
+  
   const requestBody = {
-    datacenter: datacenter,
+    datacenter: DATACENTER,
   };
 
   // Monta o corpo da requisição para ser chamado no /dataCenter posteriormente
@@ -119,9 +128,22 @@ function obterDadosPeriodoProcessos(periodo) {
 
 }
 
-async function baixarCSV() {
-  let arquivo = "client_datacenter1.csv";
-  let caminho = "dadosRobertClient";
+async function baixarCSV(qualArquivo) {
+
+  let arquivo;
+  let caminho;
+
+  if(qualArquivo == "processos") {
+
+    arquivo = `client_datacenter${DATACENTER}Processos.csv`;
+    caminho = "dadosRobertClient";
+
+  } else if(qualArquivo == "servidores") {
+    
+    arquivo = `client_datacenter${DATACENTER}.csv`;
+    caminho = "dadosRobertClient";
+
+  }
 
   try {
     const resposta = await fetch(
@@ -202,8 +224,6 @@ function filtrar() {
     const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
     // console.log(processosFiltrados)
 
-    // let processos = []
-
     for (let i = 0; i < processosFiltrados.length; i++) {
 
       const nome = processosFiltrados[i].name;
@@ -212,14 +232,14 @@ function filtrar() {
       
       const novoArray = {process : nome, cpu : cpu, ram : ram}
 
-      processData.push(novoArray);
+      dadosProcessos.push(novoArray);
 
     }
 
     // Dá pra otimizar dps só mudando o nome dentro de processos para o padrão que já é esperado aqui para não precisar fazer esse for a mais
 
     geradorGraficos("Barra", primeiroServidor, dadosMedia);
-    gerarTable(processData)
+    gerarTable(dadosProcessos)
     // gerarTable(sortedData.slice(0, 4))
 
   } else if (SERVIDOR === "RAM") {
@@ -237,12 +257,12 @@ function filtrar() {
       
       const novoArray = {process : nome, cpu : cpu, ram : ram}
 
-      processData.push(novoArray);
+      dadosProcessos.push(novoArray);
 
     }
 
     geradorGraficos("Barra", primeiroServidor, dadosMedia);
-    gerarTable(processData)
+    gerarTable(dadosProcessos)
 
   } else if (SERVIDOR === "Disco") {
     dadosServidor.sort((a, b) => b.Disco - a.Disco);
@@ -258,12 +278,12 @@ function filtrar() {
       
       const novoArray = {process : nome, cpu : cpu, ram : ram}
 
-      processData.push(novoArray);
+      dadosProcessos.push(novoArray);
 
     }
 
     geradorGraficos("Barra", primeiroServidor, dadosMedia);
-    gerarTable(processData)
+    gerarTable(dadosProcessos)
   
   } else if(SERVIDOR === "Personalizado" && ServidorEspecifico != "#") {
     console.log("Entrou no personalizado")
@@ -279,12 +299,12 @@ function filtrar() {
       
       const novoArray = {process : nome, cpu : cpu, ram : ram}
 
-      processData.push(novoArray);
+      dadosProcessos.push(novoArray);
 
     }
 
     geradorGraficos("Barra", servidorDesejado, dadosMedia);
-    gerarTable(processData)
+    gerarTable(dadosProcessos)
   }
 
 }
@@ -559,7 +579,7 @@ function gerarTable(data) {
         <td class="ram-usage">${row.ram}%</td>
     `;
     tbody.appendChild(tr);
-    processData = [];
+    dadosProcessos = [];
 });
 }
 
@@ -577,7 +597,7 @@ function sortTable(column) {
   }
 
   // Ordenar os dados
-  const sortedData = [...processData].sort((a, b) => {
+  const sortedData = [...dadosProcessos].sort((a, b) => {
     let valueA, valueB;
 
     switch (column) {
@@ -725,3 +745,9 @@ if (serverInputs.length > 0) {
 
 // Por nome (alfabética)
 // servidores.sort((a, b) => a.nome.localeCompare(b.nome));
+
+// Estados do promisse:
+
+// Pending (Pendente): A operação ainda está rodando
+// Fulfilled (Resolvida): A operação terminou com sucesso
+// Rejected (Rejeitada): A operação falhou
