@@ -15,7 +15,7 @@ router.post("/monitoria", (req, res) => {
       servidor: servidorRecebido,
       dados: [novoDado],
       countdown: 15,
-      function: ''
+      ativo: true
     });
     return res.status(200).send("Novo servidor adicionado na monitoria.");
   }
@@ -31,15 +31,16 @@ router.post("/monitoria", (req, res) => {
 
 
 router.get("/monitoria", (req, res) => {
-  console.log("\n Lendo buffer! \n")
+  console.log("\n Lendo buffer lista! \n")
   res.status(200).json(buffer);
 });
 
 (async function () {
     let clearBuffer = function() { 
         for(let i = 0; i < buffer.length; i++){
+          console.log(buffer[i].servidor + " - Cronometro: " + buffer[i].countdown)
           if(buffer[i].countdown <= 5 && buffer[i].countdown > 0){
-            buffer[i].function = `enviarNotif("${buffer[i].servidor}")`
+            buffer[i].ativo = false
           } else if (buffer[i].countdown < 0){
             console.log(`"SERVIDOR ${buffer[i].servidor} REMOVIDO!"`)
            buffer.splice(i,1)
@@ -49,7 +50,7 @@ router.get("/monitoria", (req, res) => {
         }
     };
 
-    setInterval(clearBuffer, 6300);
+    setInterval(clearBuffer, 6000);
 })();
 
 module.exports = router;

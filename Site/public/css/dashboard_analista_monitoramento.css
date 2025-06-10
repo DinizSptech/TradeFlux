@@ -191,9 +191,9 @@ td.col-server{
   font-weight: 600;
 }
 
-.tabelaMonitoramento tbody tr.selected:hover{
+/* .tabelaMonitoramento tbody tr.selected:hover{
   transition: all 0.4s;
-}
+} */
 
 .titleTable{
   cursor: pointer;
@@ -204,13 +204,10 @@ td.col-server{
   }
 }
 
-tr.selected {
-  color: #ffffff;
+tr.selected td{
+  background-color: #c1fcf9;
 }
 
-tr.selected td.col-server{
-   color: #3046b6;
-}
 
 .titleTable tr:hover{
   cursor: pointer;
