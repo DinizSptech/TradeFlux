@@ -91,6 +91,12 @@
                 <option value="7">Servidor 8</option>
                 <option value="8">Servidor 9</option>
                 <option value="9">Servidor 10</option>
+                <option value="10">Servidor 11</option>
+                <option value="11">Servidor 12</option>
+                <option value="12">Servidor 13</option>
+                <option value="13">Servidor 14</option>
+                <option value="14">Servidor 15</option>
+
               </select>
   
               <div class="botoes-filtro">
@@ -144,9 +150,9 @@
 
         <div class="action-buttons">
           <p class="funcoes"> Outras funções </p>
-          <button class="open-modal-btn" onclick="openModal()">
+          <!-- <button class="open-modal-btn" onclick="openModal()">
             Comparar com outro servidor
-          </button>
+          </button> -->
           <button
             class="open-modal-btn"
             id="botaoBaixar"
@@ -158,25 +164,31 @@
       <div id="modal" class="modal" onclick="closeModalOnBackdrop(event)">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="modal-title">Gráfico de linha comparativo</h2>
+            <h2 class="modal-title">Gráfico de barra comparativo</h2>
             <select name="serverSlt" id="sltServidor2">
               <option value="#" selected disabled>Selecione um:</option>
-              <option value="optServidor1">Servidor 1</option>
-              <option value="optServidor2">Servidor 2</option>
-              <option value="optServidor3">Servidor 3</option>
-              <option value="optServidor4">Servidor 4</option>
-              <option value="optServidor5">Servidor 5</option>
-              <option value="optServidor6">Servidor 6</option>
-              <option value="optServidor7">Servidor 7</option>
-              <option value="optServidor8">Servidor 8</option>
-              <option value="optServidor9">Servidor 9</option>
-              <option value="optServidor10">Servidor 10</option>
+              <option value="0">Servidor 1</option>
+              <option value="1">Servidor 2</option>
+              <option value="2">Servidor 3</option>
+              <option value="3">Servidor 4</option>
+              <option value="4">Servidor 5</option>
+              <option value="5">Servidor 6</option>
+              <option value="6">Servidor 7</option>
+              <option value="7">Servidor 8</option>
+              <option value="8">Servidor 9</option>
+              <option value="9">Servidor 10</option>
+              <option value="10">Servidor 11</option>
+              <option value="11">Servidor 12</option>
+              <option value="12">Servidor 13</option>
+              <option value="13">Servidor 14</option>
+              <option value="14">Servidor 15</option>
             </select>
             <button class="close-btn" onclick="closeModal()">&times;</button>
           </div>
           <div class="modal-body">
-            <div id="myLineChart"></div>
-            <div id="myLineChart2"></div>
+            <div id="myBarChartComparativa"></div>
+            <!-- <div id="myLineChart"></div> -->
+            <!-- <div id="myLineChart2"></div> -->
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" onclick="closeModal()">

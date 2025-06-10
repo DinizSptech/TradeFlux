@@ -3,6 +3,7 @@ const DATACENTER = sessionStorage.getItem("DataCenter") || "1";
 let periodoAtual = "30dias";
 let organizacaoDoSortAtual = { column: null, direction: null };
 let dadosProcessos = []
+let posicaoServidorAtual = 0;
 
 async function inicializarDashboard() {
     
@@ -220,6 +221,7 @@ function filtrar() {
     dadosServidor.sort((a, b) => b.CPU - a.CPU);
     const primeiroServidor = dadosServidor[0];
     const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+    posicaoServidorAtual = (dadosServidor[0].servidor) - 1
 
     const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
     // console.log(processosFiltrados)
@@ -246,6 +248,7 @@ function filtrar() {
     dadosServidor.sort((a, b) => b.RAM - a.RAM);
     const primeiroServidor = dadosServidor[0];
     const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+    posicaoServidorAtual = (dadosServidor[0].servidor) - 1
 
     const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
 
@@ -266,7 +269,9 @@ function filtrar() {
 
   } else if (SERVIDOR === "Disco") {
     dadosServidor.sort((a, b) => b.Disco - a.Disco);
+    const primeiroServidor = dadosServidor[0];
     const indiceServidorProcessos = (dadosServidor[0].servidor) - 1
+    posicaoServidorAtual = (dadosServidor[0].servidor) - 1
 
     const processosFiltrados = dadosServidorProcessos[indiceServidorProcessos].processos;
 
@@ -286,7 +291,9 @@ function filtrar() {
     gerarTable(dadosProcessos)
   
   } else if(SERVIDOR === "Personalizado" && ServidorEspecifico != "#") {
-    console.log("Entrou no personalizado")
+    // console.log("Entrou no personalizado")
+
+    posicaoServidorAtual = ServidorEspecifico
     const servidorDesejado = dadosServidor[ServidorEspecifico]
 
     const processosFiltrados = dadosServidorProcessos[ServidorEspecifico].processos;
@@ -309,7 +316,32 @@ function filtrar() {
 
 }
 
-function geradorGraficos(tipo, servidor, media) {
+function comparacaoServidores() {
+  // console.log("Entrou na comparação")
+
+  let dadosServidor = obterDadosPeriodo(periodoAtual)
+  // console.log(dadosServidor)
+
+  const servidorEscolhido1 = dadosServidor[posicaoServidorAtual];
+  // console.log(servidorEscolhido1)
+
+  let selecionado = document.getElementById('sltServidor2').value
+  // console.log("Selecionado:", selecionado)
+
+  if(selecionado == '#') {
+    // console.log('Caiu no if')
+    const servidorEscolhido2 = dadosServidor[1]
+    geradorGraficos('Barra', servidorEscolhido1, servidorEscolhido2)
+
+  } else {
+    const servidorEscolhido2 = dadosServidor[selecionado]
+    geradorGraficos('Barra', servidorEscolhido1, servidorEscolhido2)
+
+  }
+
+}
+
+function geradorGraficos(tipo, servidor, segundoValor) {
   if (tipo === "Barra") {
 
     let dados = [
@@ -318,13 +350,28 @@ function geradorGraficos(tipo, servidor, media) {
       servidor.Disco,
     ];
 
+    let media = false;
+
+    if(segundoValor.servidor == "mediaTotal") {
+      media = true
+      // console.log("Entrou na médiaTotal")
+    }
+
+    // console.log(segundoValor)
+
+    let dados2 = [
+      segundoValor.CPU,
+      segundoValor.RAM,
+      segundoValor.Disco,
+    ]
+
     var options = {
       title: {
         style: {
           fontSize: "20px",
           colors: "#000000",
         },
-        text: `Comparação média com servidor ${servidor.servidor}`,
+        text: media ? `Comparação média do servidor escolhido (${servidor.servidor}) com Datacenter ${DATACENTER}` : `Comparação média do servidor ${servidor.servidor} com servidor ${servidor.servidor}`,
         align: "center",
       },
       chart: {
@@ -355,11 +402,11 @@ function geradorGraficos(tipo, servidor, media) {
       },
       series: [
         {
-          name: "Média",
-          data: [media.CPU, media.RAM, media.Disco],
+          name : media ? "Média" : `Servidor ${servidor.servidor}`,
+          data: dados2,
         },
         {
-          name: `Servidor ${servidor.servidor}`,
+          name: `Servidor ${segundoValor.servidor}`,
           data: dados,
         },
       ],
@@ -391,30 +438,32 @@ function geradorGraficos(tipo, servidor, media) {
       grid: {
         borderColor: "#555",
       },
-      colors: [
+      colors: media ? [
         "#5A8DEE", // Cor fixa para "Média" (Azul)
-        function ({ dataPointIndex }) {
-          let valorServidor = dados[dataPointIndex];
-          let valorMedia = [media.CPU, media.RAM, media.Disco][dataPointIndex];
+          function ({ dataPointIndex }) {
+            let valorServidor = dados[dataPointIndex];
+            let valorMedia = [segundoValor.CPU, segundoValor.RAM, segundoValor.Disco][dataPointIndex];
 
-          if (valorServidor > valorMedia) {
-            return "#E74C3C"; // Vermelho
-          }
+            if (valorServidor > valorMedia) {
+              return "#E74C3C"; // Vermelho
+            }
 
-          let diferencaPercentual =
-            ((valorMedia - valorServidor) / valorMedia) * 100;
+            let diferencaPercentual = ((valorMedia - valorServidor) / valorMedia) * 100;
 
-          if (diferencaPercentual <= 10) {
-            return "#F39C12"; // Laranja
-          } else {
-            return "#27AE60"; // Verde
-          }
-        },
+            if (diferencaPercentual <= 10) {
+              return "#F39C12"; // Laranja
+            } else {
+              return "#27AE60"; // Verde
+            }
+          },
+      ] : [
+      "#5A8DEE", // Azul para os primeiros dados
+      "#E91E63", // Rosa para os segundos dados
       ],
     };
 
     // Limpa gráfico anterior se existir
-    const chartContainer = document.querySelector("#myBarChart");
+    const chartContainer = media ? document.querySelector("#myBarChart") : document.querySelector("#myBarChartComparativa");
     if (chartContainer) {
       chartContainer.innerHTML = "";
     }
@@ -579,7 +628,7 @@ function gerarTable(data) {
         <td class="ram-usage">${row.ram}%</td>
     `;
     tbody.appendChild(tr);
-    dadosProcessos = [];
+    // dadosProcessos = [];
 });
 }
 
@@ -650,8 +699,8 @@ function openModal() {
   modalContent.classList.remove("closing");
   document.body.style.overflow = "hidden"; // Previne scroll do body
   setTimeout(() => {
-    geradorGraficos("Linha");
-    // geradorGraficos('Barra');
+    // geradorGraficos("Linha");
+    comparacaoServidores();
   }, 200); // Espera o modal abrir
 }
 
@@ -710,6 +759,12 @@ if (serverInputs.length > 0) {
   serverInputs.forEach(function (item) {
     item.addEventListener("change", selecionandoServidor);
   });
+
+document.getElementsByName("serverSlt").forEach(function (item) {
+  item.addEventListener("change", comparacaoServidores());
+  console.log("Evento change disparado!");
+});
+
 }
 
 // Muda a cor dos botões
