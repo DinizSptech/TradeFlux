@@ -16,14 +16,13 @@ let booleanOrder = false
 
 async function atualizarDadosEmTempoReal() {
   try {
-    const resposta = await fetch('/tempo_real/monitoria');
+    const resposta = await fetch('http://127.0.0.1:8080/tempo_real/monitoria');
     const dados = await resposta.json();
     
     dadosServidores = dados.map(jsonServer => ({
       servidor: jsonServer.servidor,
       dados: jsonServer.dados
     }));
-    console.log(dadosServidores)
     let ordenado = ordenar();
     let maisCritico = ordenado[0]
     destacarServidor(maisCritico)
@@ -151,8 +150,9 @@ function carregarServidoresTabela(copiaDados){
 if(jaGerado){
   const selected = tabela.querySelector('.selected')
 if (selected) {
-  selecionado = selected.querySelector('td').innerText
-  console.log(selecionado)
+  if(!selecionado == undefined){
+    selecionado = selected.querySelector('td').innerText
+  }
 }
 }
   let limite = copiaDados.length
@@ -195,7 +195,9 @@ if(selecionado == undefined){
   
 
       kpiCritico.innerHTML = criticos
+      kpiCritico.style.color = criticos >= 1 ? `${cores.critico}` : 'black'
 kpiModerado.innerHTML = moderados
+kpiModerado.style.color = moderados >= 1 ? `${cores.alerta}` : 'black' 
   tabela.innerHTML = addHTML
   document.querySelectorAll('tr').forEach((linha)=> {
     const linhas = tabela.querySelectorAll('tr');
@@ -365,12 +367,18 @@ function expandirServidor(){
           let addHtml =  `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
 
           document.getElementById('nome-servidor-expandido').innerHTML = addHtml
-          document.getElementById('nome-servidor-expandido').style.border = `4px solid ${corDestaque}`
-          
+          document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`
           expandidoGlobal = servidor
           atualizarGraficosComDados(servidor)
         }
        }
+    const linhas = tabela.querySelectorAll('tr');
+    linhas.forEach((linha) => {
+      linhas.forEach(l => l.classList.remove('selected'));
+    })
+    console.log(selecionado)
+    selecionado = undefined
+    console.log(selecionado)
       } else {
         carregarModal("É necessário selecionar um servidor antes expandir.")
       }
@@ -480,34 +488,47 @@ function atualizarGraficosComDados(servidorEscolhido) {
   atualizarProcessos(servidorEscolhido)
 }
 
-const listacpu = document.querySelector("#lista-processos-cpu")
-const listaram = document.querySelector("#lista-processos-ram")
+
 function atualizarProcessos(servidor){
   let topcpu = ''
   let topram = ``
-  console.log(servidor)
+  let listaram = []
+  let listacpu = []
   servidor.dados[servidor.dados.length - 1].processos.forEach(processo => {
     if(processo.grupo == 'top_cpu'){
-      topcpu += `<li>
-      <strong>${processo.name}</strong> | <span>Uso CPU: ${processo.cpu_percent}%</span> |
-      <small>Id do processo:${processo.pid}</small>
-      </li>
-      `
+   listacpu.push(processo)
     } else {
-      topram +=  `<li>
-      <strong>${processo.name}</strong> | <span>Uso RAM: ${processo.ram_percent}%</span> |
-      <small>Id do processo:${processo.pid}</small>
-      </li>
-      `
+   listaram.push(processo)
     }
   })
-   listacpu.innerHTML = topcpu
-   listaram.innerHTML = topram
+    listacpu.forEach(processo => {
+      topcpu += `<tr>
+      <td>${processo.name}</td>
+      <td>${processo.cpu_percent}% </td>
+      <td>${processo.pid}</td>
+      </tr>
+      `
+      })
+        listaram.sort((a,b) => {
+        return b.ram_percent - a.ram_percent  
+      })
+      listaram.forEach(processo => {
+        topram +=  `<tr>
+        <td>${processo.name}</td>
+        <td>${processo.ram_percent}% </td>
+        <td>${processo.pid}</td>
+        </tr>
+        `
+        })
+    
+   document.getElementById("lista-processos-ram").innerHTML = topram
+   document.getElementById("lista-processos-cpu").innerHTML = topcpu
 }
+
  let oldAlertas
 async function pegarAlertas() {
   try {
-    const response = await fetch("/alertas/getAlertasUnsolved/1");
+    const response = await fetch("http://127.0.0.1:8080/alertas/getAlertasUnsolved/1");
     
     if (!response.ok) {
       throw new Error(`Erro no fetch! status: ${response.status}`);
@@ -515,27 +536,27 @@ async function pegarAlertas() {
 
     const alertas = await response.json();
     atualizarListaAlertas(alertas);
-    notificarAlerta(alertas)
+    // notificarAlerta(alertas)
     oldAlertas = [...alertas]
   } catch (erro) {
     console.error("Erro ao pegar os alertas:", erro);
   }
 }
 
-function notificarAlerta(alertas){
-   if(oldAlertas === undefined){
-    console.log("Inicializando variável de alertas.")
-   } else {
-    for(alerta in alertas){
-      console.log("Não existe")
-      if(!oldAlertas.includes(alerta)){
-        enviarNotificacao(alerta)
-      } else {
-        console.log("Já existe")
-      }
-    }
-   }
-}
+// function notificarAlerta(alertas){
+//    if(oldAlertas === undefined){
+//     console.log("Inicializando variável de alertas.")
+//    } else {
+//     for(alerta in alertas){
+//       console.log("Não existe")
+//       if(!oldAlertas.includes(alerta)){
+//         enviarNotificacao(alerta)
+//       } else {
+//         console.log("Já existe")
+//       }
+//     }
+//    }
+// }
 
 function enviarNotificacao(Texto){
   
@@ -544,35 +565,36 @@ function enviarNotificacao(Texto){
 function atualizarListaAlertas(alertas) {
   const lista = document.getElementById('lista-alertas');
   lista.innerHTML = '';
+  let limite = alertas.length
+  if (limite > 10){
+    limite = 10
+  }
+    for(let i = 0; i < limite; i++ ){
+    const alerta = alertas[i]
+    const servidorNome = alerta.fk_servidor ? `Servidor ${alerta.fk_servidor}`: 'Servidor desconhecido';
 
-  alertas.forEach((alerta) => {
-
-    let servidorNome = alerta.fk_servidor ? `Servidor ${alerta.fk_servidor}`: 'Servidor desconhecido';
-
-    let componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
+    const componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
 
     const data = new Date(alerta.data_gerado);
     const dataFormatada = data.toLocaleString('pt-BR', {
-      day: '2-digit', month: '2-digit',
       hour: '2-digit', minute: '2-digit'
     });
-      
-      const idjira = alerta.idjira ? `ID Jira: ${alerta.idjira}` : '';
-      
-      lista.innerHTML += `<li>
-      <strong>${servidorNome}</strong> | <span>${componente} em ${alerta.valor}%</span> |
-      <small>${dataFormatada}</small> |<small>${idjira}</small>
-      </li>
+      lista.innerHTML += `<tr> 
+      <td>${servidorNome}</td>
+      <td>${componente} ${alerta.valor}</td>
+      <td>${dataFormatada}</td>
+      <td>${alerta.idjira}</td>
+      </tr>
       `;
       
     // Cores de acordo com valor
-  });
+  };
 }
 
 setInterval(() => {
   atualizarDadosEmTempoReal()
   pegarAlertas()
-}, 6000);
+}, 12000);
 
 // variaveis estéticas
  var stroke =  {

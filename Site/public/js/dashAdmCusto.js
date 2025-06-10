@@ -240,34 +240,15 @@ function carregar() {
   valor30_dc2 = 0;
   valor30_dc3 = 0;
 
-  quocientemaiorCusto24 = 0;
-  restomaiorCusto24 = 0;
-
-  quocientemaiorCustoTotal24_dc1 = 0;
-  restomaiorCustoTotal24_dc1 = 0;
-
-  quocientemaiorCustoTotal24_dc2 = 0;
-  restomaiorCustoTotal24_dc2 = 0;
-
-  quocientemaiorCustoTotal24_dc3 = 0;
-  restomaiorCustoTotal24_dc3 = 0;
-
-  quocientemaiorCustoMedio24_dc1 = 0;
-  restomaiorCustoMedio24_dc1 = 0;
-
-  quocientemaiorCustoMedio24_dc2 = 0;
-  restomaiorCustoMedio24_dc2 = 0;
-
-  quocientemaiorCustoMedio24_dc3 = 0;
-  restomaiorCustoMedio24_dc3 = 0;
-
   tempoSelecionado = 24;
 
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://3.230.80.85:3000/pix/pegarPix").then((res) => {
+    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
+        console.log("Estou dentro de fetch pix" + resjson);
+
         for (let i = 0; i < resjson.length; i++) {
           const valor_atual = resjson[i].valor;
           const dataCenter_atual = resjson[i].dataCenter;
@@ -281,18 +262,42 @@ function carregar() {
           }
         }
 
+        console.log("Array 1:" + array_transacao_dc1);
+        console.log("Array 2:" + array_transacao_dc2);
+        console.log("Array 3:" + array_transacao_dc3);
+
         for (let i = 0; i < array_transacao_dc1.length; i++) {
           if (i == 0) {
             valor24_dc1 += array_transacao_dc1[i];
-            valor24_dc2 += array_transacao_dc2[i];
-            valor24_dc3 += array_transacao_dc3[i];
-          } else if (i < 7) {
+          }
+          if (i < 7) {
             valor7_dc1 += array_transacao_dc1[i];
-            valor7_dc2 += array_transacao_dc2[i];
-            valor7_dc3 += array_transacao_dc3[i];
-          } else if (i < 30) {
+          }
+          if (i < 30) {
             valor30_dc1 += array_transacao_dc1[i];
+          }
+        }
+
+        for (let i = 0; i < array_transacao_dc2.length; i++) {
+          if (i == 0) {
+            valor24_dc2 += array_transacao_dc2[i];
+          }
+          if (i < 7) {
+            valor7_dc2 += array_transacao_dc2[i];
+          }
+          if (i < 30) {
             valor30_dc2 += array_transacao_dc2[i];
+          }
+        }
+
+        for (let i = 0; i < array_transacao_dc3.length; i++) {
+          if (i == 0) {
+            valor24_dc3 += array_transacao_dc3[i];
+          }
+          if (i < 7) {
+            valor7_dc3 += array_transacao_dc3[i];
+          }
+          if (i < 30) {
             valor30_dc3 += array_transacao_dc3[i];
           }
         }
@@ -319,12 +324,14 @@ function carregar() {
           res.json().then((resjson) => {
             for (let i = 0; i < resjson.length; i++) {
               const dataCenter_atual = resjson[i].data_center;
-              const hora_atual = Number(resjson[i].tempo_medio_horas);
               const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
-              if (dataCenter_atual == "Data Center 1") {
+              console.log("Estou no fetch victao 24H:" + resjson);
+              console.log(resjson[0]);
+
+              if (dataCenter_atual == "data center 1") {
                 minutos24_dc1 = minuto_atual;
-              } else if (dataCenter_atual == "Data Center 2") {
+              } else if (dataCenter_atual == "data center 2") {
                 minutos24_dc2 = minuto_atual;
               } else {
                 minutos24_dc3 = minuto_atual;
@@ -474,12 +481,11 @@ function filtrar(tempo) {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
-          const hora_atual = Number(resjson[i].tempo_medio_horas);
           const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
-          if (dataCenter_atual == "Data Center 1") {
+          if (dataCenter_atual == "data center 1") {
             minutos7_dc1 = minuto_atual;
-          } else if (dataCenter_atual == "Data Center 2") {
+          } else if (dataCenter_atual == "data center 2") {
             minutos7_dc2 = minuto_atual;
           } else {
             minutos7_dc3 = minuto_atual;
@@ -601,12 +607,11 @@ function filtrar(tempo) {
       res.json().then((resjson) => {
         for (let i = 0; i < resjson.length; i++) {
           const dataCenter_atual = resjson[i].data_center;
-          const hora_atual = Number(resjson[i].tempo_medio_horas);
           const minuto_atual = Number(resjson[i].tempo_medio_minutos);
 
-          if (dataCenter_atual == "Data Center 1") {
+          if (dataCenter_atual == "data center 1") {
             minutos30_dc1 = minuto_atual;
-          } else if (dataCenter_atual == "Data Center 2") {
+          } else if (dataCenter_atual == "data center 2") {
             minutos30_dc2 = minuto_atual;
           } else {
             minutos30_dc3 = minuto_atual;
