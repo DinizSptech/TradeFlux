@@ -330,7 +330,7 @@ function comparacaoServidores() {
 
   if(selecionado == '#') {
     // console.log('Caiu no if')
-    const servidorEscolhido2 = dadosServidor[1]
+    const servidorEscolhido2 = dadosServidor[0]
     geradorGraficos('Barra', servidorEscolhido1, servidorEscolhido2)
 
   } else {
@@ -406,7 +406,7 @@ function geradorGraficos(tipo, servidor, segundoValor) {
           data: dados2,
         },
         {
-          name: `Servidor ${segundoValor.servidor}`,
+          name: `Servidor ${servidor.servidor}`,
           data: dados,
         },
       ],
@@ -759,13 +759,12 @@ if (serverInputs.length > 0) {
   serverInputs.forEach(function (item) {
     item.addEventListener("change", selecionandoServidor);
   });
+  
+}
 
 document.getElementsByName("serverSlt").forEach(function (item) {
-  item.addEventListener("change", comparacaoServidores());
-  console.log("Evento change disparado!");
+  item.addEventListener("change", () => comparacaoServidores());
 });
-
-}
 
 // Muda a cor dos botões
 [...document.getElementsByClassName("botao-filtro")].forEach(
