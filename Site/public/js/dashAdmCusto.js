@@ -121,49 +121,6 @@ let custoTotal30_dc3 = 0;
 
 //
 
-let quocientemaiorCusto24 = 0;
-let restomaiorCusto24 = 0;
-
-let quocientemaiorCusto7 = 0;
-let restomaiorCusto7 = 0;
-
-let quocientemaiorCustoTotal7 = 0;
-let restomaiorCustoTotal7 = 0;
-
-let quocientemaiorCustoMedio7 = 0;
-let restomaiorCustoMedio7 = 0;
-
-let quocientemaiorCusto30 = 0;
-let restomaiorCusto30 = 0;
-
-let quocientemaiorCustoTotal30 = 0;
-let restomaiorCustoTotal30 = 0;
-
-let quocientemaiorCustoMedio30 = 0;
-let restomaiorCustoMedio30 = 0;
-
-//
-
-let quocientemaiorCustoTotal24_dc1 = 0;
-let restomaiorCustoTotal24_dc1 = 0;
-
-let quocientemaiorCustoTotal24_dc2 = 0;
-let restomaiorCustoTotal24_dc2 = 0;
-
-let quocientemaiorCustoTotal24_dc3 = 0;
-let restomaiorCustoTotal24_dc3 = 0;
-
-//
-
-let quocientemaiorCustoMedio24_dc1 = 0;
-let restomaiorCustoMedio24_dc1 = 0;
-
-let quocientemaiorCustoMedio24_dc2 = 0;
-let restomaiorCustoMedio24_dc2 = 0;
-
-let quocientemaiorCustoMedio24_dc3 = 0;
-let restomaiorCustoMedio24_dc3 = 0;
-
 var options = {
   chart: {
     animations: {
@@ -245,7 +202,7 @@ function carregar() {
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
 
-    fetch("http://localhost:3000/pix/pegarPix").then((res) => {
+    fetch("http://3.280.80.85:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
         console.log("Estou dentro de fetch pix" + resjson);
 
@@ -444,15 +401,6 @@ function carregar() {
                 console.log("Custo medio 24h dc3: " + custoMedio24_dc3);
 
                 data_center_medio.innerHTML = maiorCusto24_dc;
-
-                // quocientemaiorCustoMedio24_dc1 = custoMedio24_dc1;
-                // restomaiorCustoMedio24_dc1 = custoMedio24_dc1;
-
-                // quocientemaiorCustoMedio24_dc2 = custoMedio24_dc2;
-                // restomaiorCustoMedio24_dc2 = custoMedio24_dc2;
-
-                // quocientemaiorCustoMedio24_dc3 = custoMedio24_dc3;
-                // restomaiorCustoMedio24_dc3 = custoMedio24_dc3;
 
                 if (maiorCusto24_dc == 1) {
                   custo_medio.innerHTML = custoMedio24_dc1;
