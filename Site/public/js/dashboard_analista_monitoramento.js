@@ -397,7 +397,10 @@ function destacarServidor(ordenado) {
   let destacado = ordenado[0]
   if (travado) {
     if (expandidoGlobal) {
-      expandidoAtualizado = dadosServidores.find(servidor => servidor.servidor == expandidoGlobal.servidor)
+      expandidoAtualizado = ordenado.find(servidor => servidor.servidor == expandidoGlobal.servidor)
+      let criticidade = expandidoAtualizado.dados[0].criticidade;
+      let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta :cores.estavel;
+      document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
       atualizarGraficosComDados(expandidoAtualizado);
       carregarServidoresTabela(ordenado,expandidoAtualizado.servidor)
     } else {
@@ -406,8 +409,6 @@ function destacarServidor(ordenado) {
     return;
   }
 
-
-  console.log(destacado)
   let ultimoDado = destacado.dados[destacado.dados.length - 1];
   let criticidade = ultimoDado.criticidade;
   let servidor = destacado.servidor;
@@ -421,6 +422,8 @@ function destacarServidor(ordenado) {
 
   atualizarGraficosComDados(destacado);
   carregarServidoresTabela(ordenado, destacado.servidor)
+  expandidoGlobal = servidor;
+
 }
 
 
@@ -429,8 +432,6 @@ function travar(){
   if(!travado){
     travado = true
 var nomeServidorHTML = document.querySelector('#nome-servidor-expandido').innerText.trim().toLowerCase();
-console.log("nomeServidorHTML")
-console.log(nomeServidorHTML)
 for(let i = 0; i < dadosServidores.length; i++){
   if(nomeServidorHTML == dadosServidores[i].servidor.toLowerCase())
     expandidoGlobal = dadosServidores[i]
