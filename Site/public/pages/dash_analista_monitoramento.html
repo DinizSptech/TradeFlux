@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../css/modalPerfil.css">
     <link rel="stylesheet" href="../css/mobileModais.css">
     <link rel="stylesheet" href="../css/dashboard_analista_monitoramento.css"> <!-- LINK CSS -->
-    <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../css/barra_lateral.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="../js/dashboard_analista_monitoramento.js" defer></script> <!-- LINK CODIGO, TEM DEFER PQ USA QUERY SELECTOR -->
@@ -73,31 +72,42 @@ style="fill:#FA5252;">
     <div class="side-gestao">
 
       <div class="faixa-gestao kpis">
-        <div class="box sec1"> <h1 style="color: #ff1900">Servidores em perigo:<span id="kpi-critico"></span></h1></div>
-        <div class="box sec1"> <h1 style="color: #ffa617">Servidores em alerta:<span id="kpi-moderado"></span></h1></div>
-        <div class="box sec1" id="box-destaque">
-        <h1>Servidor em destaque
-          <!-- <div id="destaque-lock"> -->
-            <span id="nome-servidor-expandido"></span>
-          <!-- </div> -->
-            
-        </h1>
-        </div>
-      </div>
-      <div class="faixa-gestao">
-    <div class="box sec1 alertas">  
-      <div>
-        <h1>Últimos alertas não resolvidos hoje</h1>
-        <ul id="lista-alertas" class="lista"></ul>
-      </div>
-    </div>
+        <div class="box sec1" > <h2>Servidores em alerta</h2><h1><span id="kpi-critico"></span></h1></div>
+        <div class="box sec1"> <h2>Servidores em atenção</h2><h1><span id="kpi-moderado" style="color: #ffa617"></span></h1></div>
+
     <div class="box sec1">
       
       <div class="lock">
-         <h2>Travar atualização automática do servidor destacado </h2>
+         <h2>Impedir troca automática do servidor destacado</h2> 
         <div onclick="travar()" id="lock"> <img src="../assets/unlock.png"></div>
       </div>
     </div>
+
+
+      </div>
+
+      <div class="faixa-gestao">
+
+    <div class="box sec1 alertas listagem">  
+      
+      <div>
+        <h2>Úiltimos 10 alertas de hoje </h1>
+        <table>
+          <thead>
+            <tr>
+             <th> Nome servidor </th>
+              <th>Uso de componente </th>
+              <th>Data Gerado</th>
+              <th>ID Jira</th>
+            </tr>
+          </thead>
+          <tbody id = "lista-alertas">
+          </tbody>
+    </table>
+      </div>
+
+    </div>
+
 
 </div>
   
@@ -107,7 +117,7 @@ style="fill:#FA5252;">
     <div class="cardHeader">
       <h2>Monitoramento em tempo real dos servidores mais críticos (Limite 10)</h2>
 
-      <button class="botao-filtro" onclick="expandirServidor()">Expandir servidor</button>
+      <button class="botao-filtro" onclick="expandirServidor()">Destacar servidor</button>
 
     </div>
     
@@ -138,15 +148,44 @@ style="fill:#FA5252;">
   </div>
 
 </div>
-
+<div>
+<div>
+  <div>
+    <h1>
+      Servidor destacado -
+      <span id="nome-servidor-expandido"></span>
+    </div>
+  </h1>
+</div>
 <div class="section linhas">
-  <div class="box">
+  <div class="box listagem ">
     <h2>Top 5 Processos por CPU</h2>
-    <ul id="lista-processos-cpu" class="lista processos"></ul>
+        <table>
+          <thead>
+            <tr>
+             <th> Nome servidor </th>
+              <th>Uso de CPU </th>
+              <th>ID do processo</th>
+            </tr>
+          </thead>
+          <tbody id = "lista-processos-cpu">
+          </tbody>
+    </table>
   </div>
-  <div class="box">
+
+  <div class="box listagem ">
     <h2>Top 5 Processos por RAM</h2>
-    <ul id="lista-processos-ram" class="lista processos"></ul>
+        <table>
+          <thead>
+            <tr>
+             <th> Nome servidor </th>
+              <th>Uso de RAM </th>
+              <th>ID do processo</th>
+            </tr>
+          </thead>
+          <tbody id = "lista-processos-ram">
+          </tbody>
+    </table>
   </div>
   
   <div class="box mt-4">
@@ -157,6 +196,7 @@ style="fill:#FA5252;">
 </div>
 
 </div>
+
 </div>
           
         </div>

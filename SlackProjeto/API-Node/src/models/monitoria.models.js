@@ -3,7 +3,7 @@ const { response } = require("express")
 async function fetch_captura_wdv(captura){
   try{
 
-    const response = await fetch("http://site:8080/tempo_real/monitoria", {
+    const response = await fetch("http://127.0.0.1:8080/tempo_real/monitoria", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -14,6 +14,7 @@
   h2{
     font-weight: bolder;
     font-size: 25px;
+    text-align: center;
   }
 
   h1{
@@ -92,21 +93,6 @@ overflow-y: hidden;
   margin: 0;
 }
 
-.expandButton {
-  height: 4vh;
-  background-color: #ffffff;
-  color: #2b2b2b;
-  padding: 0.26vw 1.04vh;
-  cursor: pointer;
-  font-size: 12px bolder;
-  transition: 0.4s all
-}
-
-.expandButton:hover {
-  background-color: #cdecea;
-  color: #0d1117;
-}
-
 .tabelaMonitoramento {
   width: 100%;
   border-collapse: collapse;
@@ -148,25 +134,54 @@ overflow-y: hidden;
                 0px 3px 0 #000; */
 }
 
-.tabelaMonitoramento tr:nth-child(even) {
+table tr:nth-child(even) {
     background-color: #f4f6fa;
 }
 
-.tabelaMonitoramento tr:nth-child(odd) {
+table tr:nth-child(odd) {
     background-color: #e9edf5;
 }
 
-
-tr:hover td.col-server{
-  background-color: #cde1ec;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  border-right: 0;
 }
 
-tr:hover td{
+table thead {
+  background-color: #21262d;
+}
+
+table th{
+  /* border: 1px solid #706f6f; */
+  background-color: #b8b8b8;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+table td {
+  /* border: 1px solid #706f6f; */
+  text-wrap: nowrap;
+  padding: 6px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+tr:hover td.col-server{
+    background-color: #cde1ec;
+
+}
+
+.tabelaMonitoramento:tr:hover td{
   background-color: #f4fafa;
 }
 
 td.col-server{
-  background-color: #b8b8b8;
   transition: none all;
               /* text-shadow: 0; */
 }
@@ -194,17 +209,21 @@ tr.selected {
 }
 
 tr.selected td.col-server{
-  background-color: #2b2b2b;
+   color: #3046b6;
 }
 
-tr:hover{
+.titleTable tr:hover{
   cursor: pointer;
 }
+
+/* .titleTable th:hover{
+  cursor: pointer;
+} */
 
 .linhas{
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   /* background-color: #f1efef; */
@@ -285,18 +304,21 @@ tr:hover{
   border-radius: 0.4vw;
   display: flex;
   justify-content: space-evenly;
-
+  text-wrap: nowrap;
 }
 
 .lista li span {
   font-weight: bold;
 }
 
-.lista.processos{ 
-  max-height: 100%;
+.sec1 span{
+  font-size: 40px;
 }
 
+.lista.processos{ 
+  max-height: 100%;
 
+}
 
 .side-gestao{
   display: flex;
@@ -320,6 +342,8 @@ tr:hover{
   height: 150px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 
@@ -336,7 +360,7 @@ tr:hover{
   justify-content: space-between;
   flex-direction: column;
   width: 70%;
- height: 340px;
+ height: 100%;
 }
 
 .lock{
@@ -351,7 +375,7 @@ tr:hover{
 }
 
 #lock img{
-  width: 3vw;
+  width: 2vw;
 }
 
 
@@ -375,4 +399,24 @@ tr:hover{
 
 .botao-filtro:active {
     transform: scale(0.98);
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.listagem{
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+.listagem h2{
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+tbody{
+  max-height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
