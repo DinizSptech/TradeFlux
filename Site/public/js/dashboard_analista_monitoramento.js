@@ -182,7 +182,11 @@ if(selecionado != undefined)
 
 let corDestaque
 if(servidorAtual.servidor == destacado){
- corDestaque = servidorAtual.criticidade >= 3 ? `${cores.critico}` : servidorAtual.criticidade >= 1  ? `${cores.estavel}` :`${cores.alerta}`  
+corDestaque = servidorAtual.dados[ultimo].criticidade >= 3
+  ? cores.critico
+  : servidorAtual.dados[ultimo].criticidade >= 1
+    ? cores.alerta
+    : cores.estavel;
 } else {
  corDestaque = 'black'
 }
@@ -380,6 +384,8 @@ function expandirServidor() {
         expandidoGlobal = servidor;
 
         atualizarGraficosComDados(servidor);
+        carregarServidoresTabela(ordenar(), servidor.servidor)
+        return
       }
     }
   } else {
@@ -406,10 +412,7 @@ function destacarServidor(ordenado) {
   let criticidade = ultimoDado.criticidade;
   let servidor = destacado.servidor;
 
-  let corDestaque =
-    criticidade >= 3 ? cores.critico :
-    criticidade >= 1 ? cores.alerta :
-    cores.estavel;
+  let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta :cores.estavel;
 
   let addHtml = `<span style='color:${corDestaque}'>${servidor}</span>`;
 
