@@ -18,7 +18,7 @@ let booleanOrder = false
 // ponto inicial de todas as outras funções
 async function atualizarDadosEmTempoReal() {
   try {
-    const resposta = await fetch('/tempo_real/monitoria');
+    const resposta = await fetch('http://node_api:3000/tempo_real/monitoria');
     const dados = await resposta.json();
     
     dadosServidores = dados.map(jsonServer => ({
@@ -380,7 +380,6 @@ function expandirServidor() {
         let addHtml = `<span style='color:${corDestaque}'>${servidor.servidor}</span>`;
 
         document.getElementById('nome-servidor-expandido').innerHTML = addHtml;
-        document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
         expandidoGlobal = servidor;
 
         atualizarGraficosComDados(servidor);
@@ -398,9 +397,11 @@ function destacarServidor(ordenado) {
   if (travado) {
     if (expandidoGlobal) {
       expandidoAtualizado = ordenado.find(servidor => servidor.servidor == expandidoGlobal.servidor)
-      let criticidade = expandidoAtualizado.dados[0].criticidade;
+      let criticidade = expandidoAtualizado.dados[expandidoAtualizado.dados.length - 1].criticidade;
+      let servidor = expandidoAtualizado.servidor
       let corDestaque = criticidade >= 3 ? cores.critico : criticidade >= 1 ? cores.alerta :cores.estavel;
-      document.getElementById('nome-servidor-expandido').style.color = `${corDestaque}`;
+      let addHtml = `<span style='color:${corDestaque}'>${servidor}</span>`;
+      document.getElementById('nome-servidor-expandido').innerHTML = addHtml;
       atualizarGraficosComDados(expandidoAtualizado);
       carregarServidoresTabela(ordenado,expandidoAtualizado.servidor)
     } else {
