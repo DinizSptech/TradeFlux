@@ -447,7 +447,7 @@ function renderizarGraficoComponentes(dadosDB) {
   if (dadosComponentes.length === 0) return;
 
   const categorias = dadosComponentes.map((item) => item.componente);
-  var categorias_refinadas = ["CPU (%)", "RAM (%)", "DISCO (%)"]
+  var categorias_refinadas = ["RAM (%)", "CPU (%)", "DISCO (%)"]
   const alertasAtencao = dadosComponentes.map(
     (item) => parseInt(item.alertas_atencao) || 0
   );

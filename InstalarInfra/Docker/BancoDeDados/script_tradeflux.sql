@@ -42,8 +42,6 @@ create table if not exists empresa_cliente (
 insert into empresa_cliente (razao_social, cnpj, telefone, fk_endereco) values
 ('b3 bolsa, brasil, balcão s.a.', '03365836000124', '1132121234', 1);
 
-select * from empresa_cliente;
-
 create table if not exists data_center (
     iddata_center int auto_increment primary key,
     nome varchar(45),
@@ -113,12 +111,12 @@ insert into servidor_cliente (uuidservidor, sistemaoperacional, discototal, ramt
 ('uuid-dc1-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
 ('uuid-dc1-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
-('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1),
-('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 1),
-('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 1);
+('uuid-dc2-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
+('uuid-dc2-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 2),
+('uuid-dc2-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 2),
+('uuid-dc3-srv1', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
+('uuid-dc3-srv2', 'linux', '1000.0', '32.0', 'intel xeon e5', 3),
+('uuid-dc3-srv3', 'linux', '2000.0', '64.0', 'amd epyc', 3);
 
 create table if not exists parametro_servidor (
     idparametros_servidor int auto_increment primary key,
@@ -157,48 +155,95 @@ insert into parametro_servidor (limiar_alerta_atencao, limiar_alerta_critico, fk
 (70.0, 80.0, 8, 5),
 (70.0, 80.0, 9, 1),
 (70.0, 80.0, 9, 3),
-(70.0, 80.0, 9, 5)
+(70.0, 80.0, 9, 5);
 
 create table if not exists alerta (
-    idalerta int auto_increment primary key,
-    idjira varchar(20),
+    idalerta INT AUTO_INCREMENT PRIMARY KEY,
+    idjira varchar(30),
     possui_idjira TINYINT DEFAULT 0,
-    valor double,
-    medida varchar(45),
-    data_gerado datetime,
-    data_resolvido datetime,
-    criticidade int,
-    fk_parametro int,
-    foreign key (fk_parametro) references parametro_servidor(idparametros_servidor)
+    valor DOUBLE,
+    medida VARCHAR(45),
+    data_gerado DATETIME,
+    data_resolvido DATETIME,
+    criticidade INT,
+    fk_parametro INT,
+    FOREIGN KEY (fk_parametro) REFERENCES parametro_servidor(idparametros_servidor)
 );
 
 -- testes de alertas
 
+-- Alertas das últimas 24 horas (09/06/2025)
 INSERT INTO alerta (valor, medida, data_gerado, data_resolvido, criticidade, fk_parametro) VALUES
-(75.2, '%', '2025-05-31 08:15:23', '2025-05-31 08:25:23', 1, 1),  
-(76.8, '%', '2025-05-28 10:22:12', '2025-05-28 10:32:12', 1, 2),  
-(77.5, '%', '2025-05-10 14:38:47', '2025-05-10 14:50:47', 1, 3),  
-(78.1, '%', '2025-05-31 09:12:34', '2025-05-31 09:14:56', 1, 4),
-(79.3, '%', '2025-05-30 13:45:21', '2025-05-30 13:47:42', 1, 5),
-(80.5, '%', '2025-05-31 16:23:45', '2025-05-31 16:35:45', 3, 10),  
-(81.7, '%', '2025-05-29 11:34:12', '2025-05-29 11:44:12', 3, 11),  
-(82.3, '%', '2025-05-15 08:45:23', '2025-05-15 08:55:23', 3, 12),  
-(83.6, '%', '2025-05-31 12:12:34', '2025-05-31 12:14:56', 3, 13),
-(84.2, '%', '2025-05-30 15:23:45', '2025-05-30 15:25:57', 3, 14),
-(85.4, '%', '2025-05-31 09:34:56', '2025-05-31 09:45:56', 3, 19), 
-(86.7, '%', '2025-05-28 14:45:12', '2025-05-28 14:55:12', 3, 20), 
-(87.2, '%', '2025-05-12 10:12:34', '2025-05-12 10:22:34', 3, 21),  
-(88.5, '%', '2025-05-31 13:23:45', '2025-05-31 13:25:57', 3, 22),
-(89.1, '%', '2025-05-30 16:34:56', '2025-05-30 16:37:18', 3, 23),
-(90.3, '%', '2025-05-29 11:45:12', '2025-05-29 11:55:34', 3, 1),
-(91.6, '%', '2025-05-28 14:56:23', '2025-05-28 14:58:45', 3, 4),
-(92.1, '%', '2025-05-27 09:15:34', '2025-05-27 09:25:45', 3, 7),
-(93.4, '%', '2025-05-26 11:22:53', '2025-05-26 11:25:12', 3, 10),
-(94.7, '%', '2025-05-25 14:38:29', '2025-05-25 14:48:47', 3, 13),
-(95.2, '%', '2025-05-24 16:45:18', '2025-05-24 16:55:28', 3, 16),
-(96.5, '%', '2025-05-23 08:12:37', '2025-05-23 08:22:49', 3, 19),
-(97.8, '%', '2025-05-22 10:23:45', '2025-05-22 10:33:57', 3, 22),
-(98.1, '%', '2025-05-21 13:34:56', '2025-05-21 13:44:08', 3, 25);
+(76.4, '%', '2025-06-09 02:15:32', '2025-06-09 02:21:48', 1, 2),
+(78.9, '%', '2025-06-09 05:42:18', '2025-06-09 05:47:33', 1, 5),
+(82.1, '%', '2025-06-09 08:23:45', '2025-06-09 08:29:12', 3, 8),
+(85.7, '%', '2025-06-09 11:56:29', '2025-06-09 12:02:41', 3, 12),
+(88.3, '%', '2025-06-09 14:18:57', '2025-06-09 14:24:23', 3, 15),
+(91.2, '%', '2025-06-09 17:35:14', '2025-06-09 17:40:58', 3, 18),
+(93.8, '%', '2025-06-09 20:47:36', '2025-06-09 20:53:19', 3, 21),
+(96.1, '%', '2025-06-09 23:12:08', '2025-06-09 23:17:44', 3, 24),
+(74.8, '%', '2025-06-08 09:33:27', '2025-06-08 09:39:15', 1, 1),
+(77.6, '%', '2025-06-08 13:28:49', '2025-06-08 13:34:22', 1, 4),
+(80.3, '%', '2025-06-08 16:45:13', '2025-06-08 16:50:37', 3, 7),
+(83.9, '%', '2025-06-07 07:22:54', '2025-06-07 07:28:18', 3, 10),
+(86.4, '%', '2025-06-07 12:17:36', '2025-06-07 12:23:02', 3, 13),
+(89.7, '%', '2025-06-07 18:54:21', '2025-06-07 19:00:15', 3, 16),
+(92.5, '%', '2025-06-06 10:41:58', '2025-06-06 10:47:33', 3, 19),
+(95.1, '%', '2025-06-06 15:23:47', '2025-06-06 15:29:21', 3, 22),
+(75.9, '%', '2025-06-05 08:56:12', '2025-06-05 09:01:48', 1, 3),
+(79.2, '%', '2025-06-05 14:18:35', '2025-06-05 14:24:07', 1, 6),
+(82.7, '%', '2025-06-04 11:42:29', '2025-06-04 11:48:15', 3, 9),
+(85.3, '%', '2025-06-04 17:29:43', '2025-06-04 17:35:28', 3, 11),
+(88.8, '%', '2025-06-03 09:15:56', '2025-06-03 09:21:42', 3, 14),
+(91.4, '%', '2025-06-03 13:47:18', '2025-06-03 13:52:54', 3, 17),
+(94.6, '%', '2025-06-02 16:34:27', '2025-06-02 16:40:13', 3, 20),
+(97.2, '%', '2025-06-02 19:58:41', '2025-06-02 20:04:29', 3, 23),
+(76.1, '%', '2025-06-01 08:27:19', '2025-06-01 08:32:45', 1, 2),
+(78.5, '%', '2025-06-01 14:53:36', '2025-06-01 14:59:12', 1, 5),
+(81.8, '%', '2025-05-31 10:19:47', '2025-05-31 10:25:23', 3, 8),
+(84.2, '%', '2025-05-31 16:42:58', '2025-05-31 16:48:34', 3, 11),
+(87.6, '%', '2025-05-30 09:36:21', '2025-05-30 09:42:07', 3, 14),
+(90.3, '%', '2025-05-30 15:18:44', '2025-05-30 15:24:30', 3, 17),
+(93.1, '%', '2025-05-29 11:25:37', '2025-05-29 11:31:23', 3, 20),
+(95.7, '%', '2025-05-29 17:49:12', '2025-05-29 17:54:58', 3, 23),
+(74.3, '%', '2025-05-28 07:34:55', '2025-05-28 07:40:41', 1, 1),
+(77.8, '%', '2025-05-28 13:27:28', '2025-05-28 13:33:14', 1, 4),
+(80.9, '%', '2025-05-27 09:52:43', '2025-05-27 09:58:29', 3, 7),
+(83.4, '%', '2025-05-27 15:16:19', '2025-05-27 15:22:05', 3, 10),
+(86.8, '%', '2025-05-26 11:43:52', '2025-05-26 11:49:38', 3, 13),
+(89.5, '%', '2025-05-26 18:28:17', '2025-05-26 18:34:03', 3, 16),
+(92.7, '%', '2025-05-25 08:15:46', '2025-05-25 08:21:32', 3, 19),
+(94.9, '%', '2025-05-25 14:59:31', '2025-05-25 15:05:17', 3, 22),
+(75.6, '%', '2025-05-24 10:37:24', '2025-05-24 10:43:10', 1, 3),
+(78.2, '%', '2025-05-24 16:21:58', '2025-05-24 16:27:44', 1, 6),
+(81.5, '%', '2025-05-23 12:48:13', '2025-05-23 12:53:59', 3, 9),
+(84.7, '%', '2025-05-23 19:14:37', '2025-05-23 19:20:23', 3, 12),
+(87.9, '%', '2025-05-22 09:56:42', '2025-05-22 10:02:28', 3, 15),
+(90.6, '%', '2025-05-22 15:33:25', '2025-05-22 15:39:11', 3, 18),
+(93.3, '%', '2025-05-21 11:18:56', '2025-05-21 11:24:42', 3, 21),
+(96.4, '%', '2025-05-21 17:45:29', '2025-05-21 17:51:15', 3, 24),
+(76.7, '%', '2025-05-20 08:22:14', '2025-05-20 08:28:00', 1, 1),
+(79.4, '%', '2025-05-20 14:07:38', '2025-05-20 14:13:24', 1, 4),
+(82.8, '%', '2025-05-19 10:54:27', '2025-05-19 11:00:13', 3, 7),
+(85.1, '%', '2025-05-19 16:41:52', '2025-05-19 16:47:38', 3, 10),
+(88.6, '%', '2025-05-18 12:29:15', '2025-05-18 12:35:01', 3, 13),
+(91.8, '%', '2025-05-18 18:52:49', '2025-05-18 18:58:35', 3, 16),
+(94.4, '%', '2025-05-17 09:17:33', '2025-05-17 09:23:19', 3, 19),
+(97.1, '%', '2025-05-17 15:43:26', '2025-05-17 15:49:12', 3, 22),
+(75.2, '%', '2025-05-16 11:38:57', '2025-05-16 11:44:43', 1, 2),
+(78.9, '%', '2025-05-16 17:26:41', '2025-05-16 17:32:27', 1, 5),
+(81.3, '%', '2025-05-15 08:14:22', '2025-05-15 08:20:08', 3, 8),
+(84.6, '%', '2025-05-15 14:59:35', '2025-05-15 15:05:21', 3, 11),
+(87.2, '%', '2025-05-14 10:47:18', '2025-05-14 10:53:04', 3, 14),
+(90.7, '%', '2025-05-14 16:33:49', '2025-05-14 16:39:35', 3, 17),
+(93.5, '%', '2025-05-13 12:21:56', '2025-05-13 12:27:42', 3, 20),
+(96.8, '%', '2025-05-13 18:48:17', '2025-05-13 18:54:03', 3, 23),
+(77.1, '%', '2025-05-12 09:36:28', '2025-05-12 09:42:14', 1, 3),
+(79.8, '%', '2025-05-12 15:23:54', '2025-05-12 15:29:40', 1, 6),
+(82.4, '%', '2025-05-11 11:11:37', '2025-05-11 11:17:23', 3, 9),
+(85.9, '%', '2025-05-11 17:58:21', '2025-05-11 18:04:07', 3, 12),
+(88.1, '%', '2025-05-10 08:45:43', '2025-05-10 08:51:29', 3, 15),
+(91.3, '%', '2025-05-10 14:32:56', '2025-05-10 14:38:42', 3, 18);
 -- views --
 
 create or replace view vw_dashusuarios as
@@ -211,20 +256,25 @@ join data_center dc on u.fk_data_center = dc.iddata_center;
 CREATE OR REPLACE VIEW vw_qtd_alertas_24h AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 24 HOUR;
+WHERE data_gerado >= NOW() - INTERVAL 24 HOUR
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 4;
 
 -- View para alertas nos últimos 7 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_7d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 7 DAY;
-
+WHERE data_gerado >= NOW() - INTERVAL 7 DAY
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 4;
 
 -- View para alertas nos últimos 30 dias
 CREATE OR REPLACE VIEW vw_qtd_alertas_30d AS
 SELECT COUNT(*) AS total_alertas
 FROM alerta
-WHERE data_gerado >= NOW() - INTERVAL 30 DAY;
+WHERE data_gerado >= NOW() - INTERVAL 30 DAY
+AND data_resolvido IS NOT NULL
+AND TIMESTAMPDIFF(MINUTE, data_gerado, data_resolvido) > 4;
 
 -- 2. Rotas - Tempo médio geral
 -- View para tempo médio nas últimas 24 horas
@@ -389,7 +439,7 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
@@ -403,7 +453,7 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
@@ -417,11 +467,69 @@ JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
 JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
 JOIN data_center dc ON s.fk_data_center = dc.iddata_center
 WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
-AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 5
+AND TIMESTAMPDIFF(MINUTE, a.data_gerado, a.data_resolvido) > 4
 GROUP BY dc.nome
 ORDER BY alertas_atrasados DESC;
 
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_24h_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
 
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 24 HOUR
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_7d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 7 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
+
+CREATE OR REPLACE VIEW vw_datacenter_media_resolucao_30d_numerica AS
+SELECT
+    dc.nome AS data_center,
+    
+    TIME_FORMAT(SEC_TO_TIME(AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido))), '%H:%i:%s') AS tempo_medio_formatado,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) AS tempo_medio_segundos,
+
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 60 AS tempo_medio_minutos,
+    
+    AVG(TIMESTAMPDIFF(SECOND, a.data_gerado, a.data_resolvido)) / 3600 AS tempo_medio_horas
+
+FROM alerta a
+JOIN parametro_servidor p ON a.fk_parametro = p.idparametros_servidor
+JOIN servidor_cliente s ON p.fk_servidor = s.idservidor
+JOIN data_center dc ON s.fk_data_center = dc.iddata_center
+WHERE a.data_gerado >= NOW() - INTERVAL 30 DAY
+GROUP BY dc.nome
+ORDER BY tempo_medio_segundos DESC;
 
 -- -- -- 1. Rotas - Alertas KPI
 -- SELECT * FROM vw_qtd_alertas_24h;
