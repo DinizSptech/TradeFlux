@@ -1,6 +1,6 @@
 const DATACENTER = sessionStorage.getItem("DataCenter") || "1";
 
-let periodoAtual = "30dias";
+let periodoAtual = "7dias";
 let organizacaoDoSortAtual = { column: null, direction: null };
 let dadosProcessos = []
 let posicaoServidorAtual = 0;
@@ -136,7 +136,7 @@ async function baixarCSV(qualArquivo) {
 
   if(qualArquivo == "processos") {
 
-    arquivo = `client_datacenter${DATACENTER}Processos.csv`;
+    arquivo = `client_processos${DATACENTER}.csv`;
     caminho = "dadosRobertClient";
 
   } else if(qualArquivo == "servidores") {
@@ -406,7 +406,7 @@ function geradorGraficos(tipo, servidor, segundoValor) {
           data: dados2,
         },
         {
-          name: `Servidor ${segundoValor.servidor}`,
+          name: media ? `Servidor ${servidor.servidor}` : `Servidor ${segundoValor.servidor}`,
           data: dados,
         },
       ],
