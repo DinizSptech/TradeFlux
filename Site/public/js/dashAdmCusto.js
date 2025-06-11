@@ -201,6 +201,7 @@ function carregar() {
 
   if (tempoSelecionado === 24) {
     // Coletar os dados de transação:
+    //
 
     fetch("http://44.197.125.73:3000/pix/pegarPix").then((res) => {
       res.json().then((resjson) => {
