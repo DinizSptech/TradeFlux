@@ -582,7 +582,7 @@ function renderizarGraficoServidores() {
         style: { 
           colors: "#000",
           fontWeight: "700",
-          fontSize: '16px'
+          fontSize: '15px'
         },
       },
     },
@@ -591,7 +591,7 @@ function renderizarGraficoServidores() {
         style: { 
           colors: "#000000",
           fontWeight: "700", 
-          fontSize: "16px",
+          fontSize: "15px",
         },
       },
     },
