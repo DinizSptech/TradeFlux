@@ -11,14 +11,14 @@ def lambda_handler(event, context):
   
         s3 = boto3.client('s3')
 
-        bucket_name = 'bucket-trusted-tradeflux-123'
+        bucket_name = 'tradeflux-trusted'
         prefix = 'DataCenter1Amanda/' 
 
         response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
 
 
         dfs = []
-
+        servidores = 8
 
         # Percorre todos os arquivos encontrados
         if 'Contents' in response:
@@ -51,7 +51,7 @@ def lambda_handler(event, context):
         df_30_dias = df_final[(df_final['Data Hora'] >= trinta_dias_atras) & (df_final['Data Hora'] <= hoje)]
         df_7_dias = df_final[(df_final["Data Hora"] >= sete_dias_atras) & (df_final['Data Hora'] <= hoje)]
 
-        servidores = len(dfs)
+       
 
         # priemria kpi 
         ociosidade_6meses = df_6_meses[(df_6_meses['CPU Percentual'] <= 5) & (df_6_meses['RAM Percentual'] <= 25 ) & (df_6_meses['Disco Percentual'] <= 25)]
@@ -82,7 +82,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial + timedelta(days=5 * i)
             data3meses.append(data_alvo)
 
-            cpu = df_6_meses[(df_6_meses['CPU Percentual'] <= 20) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
+            cpu = df_6_meses[(df_6_meses['CPU Percentual'] <= 5) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
             ram = df_6_meses[(df_6_meses['RAM Percentual'] <= 25) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
             disco = df_6_meses[(df_6_meses['Disco Percentual'] <= 25) & (df_6_meses['Data Hora'].dt.date == data_alvo.date())]
 
@@ -104,7 +104,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial2 + timedelta(days=2 * i)
             data30dias.append(data_alvo)
 
-            cpu = df_30_dias[(df_30_dias['CPU Percentual'] <= 20) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
+            cpu = df_30_dias[(df_30_dias['CPU Percentual'] <= 5) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
             ram = df_30_dias[(df_30_dias['RAM Percentual'] <= 25) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
             disco = df_30_dias[(df_30_dias['Disco Percentual'] <= 25) & (df_30_dias['Data Hora'].dt.date == data_alvo.date())]
 
@@ -126,7 +126,7 @@ def lambda_handler(event, context):
             data_alvo = data_inicial3 + timedelta(days=i)
             data7dias.append(data_alvo)
 
-            cpu = df_7_dias[(df_7_dias['CPU Percentual'] <= 20) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
+            cpu = df_7_dias[(df_7_dias['CPU Percentual'] <= 5) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
             ram = df_7_dias[(df_7_dias['RAM Percentual'] <= 25) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
             disco = df_7_dias[(df_7_dias['Disco Percentual'] <= 25) & (df_7_dias['Data Hora'].dt.date == data_alvo.date())]
 
@@ -137,7 +137,7 @@ def lambda_handler(event, context):
           
 
 
-        for servidor_id in range(1, 11):
+        for servidor_id in range(1, servidores):
             for nome_periodo, df in periodos:
                 filtro = (
                     (df['CPU Percentual'] <= 5) &
@@ -357,7 +357,7 @@ def lambda_handler(event, context):
         for i in range(len(disco_ociosa_7dias))
         }
 
-
+    
 
         dados = [mediaOciosidade, componenteMaisOciosioso, tabela6meses, tabela30dias, tabela7dias, estabilidadeComponentes, ociosidadeCPU3mesesTemporal, ociosidadeRAM3mesesTemporal, ociosidadeDISCO3mesesTemporal, ociosidadeCPU30diasTemporal, ociosidadeRAM30diasTemporal, ociosidadeDISCO30diasTemporal, ociosidadeCPU7diasTemporal, ociosidadeRAM7diasTemporal, ociosidadeDISCO7diasTemporal]
 
@@ -372,7 +372,7 @@ def lambda_handler(event, context):
         nome_arquivo = f'dados_eficiencia_{data_hoje}.json'
 
         s3.put_object(
-        Bucket='bucket-client-tradeflux-123',
+        Bucket='tradeflux-client',
         Key=f'dataCenter1Amanda/{nome_arquivo}',
         Body=json_final,
         ContentType='application/json'

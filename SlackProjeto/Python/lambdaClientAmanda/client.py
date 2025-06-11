@@ -3,7 +3,7 @@ import json
 
 s3 = boto3.client('s3')
 
-BUCKET_NAME = 'bucket-client-test-125'
+BUCKET_NAME = 'tradeflux-client'
 PREFIX = 'dataCenter1/'  
 
 def lambda_handler(event, context):
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
         'headers': {
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*",  
-            "Access-Control-Allow-Methods": "GET",
+            "Access-Control-Allow-Methods": "*",
             "Access-Control-Allow-Headers": "*"
         }
     }
