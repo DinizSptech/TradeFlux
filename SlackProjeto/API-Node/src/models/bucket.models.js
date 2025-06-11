@@ -34,7 +34,7 @@ async function salvarJSON(nomeArquivo, dadosJson, diretorio) {
         }
 
         const comando = new PutObjectCommand({
-            Bucket: "bucket-raw-tradeflux-123",
+            Bucket: "tradeflux-raw",
             Key: `${diretorio}/${nomeArquivo}`,
             Body: dadosJson,
             ContentType: 'application/json'
