@@ -18,7 +18,7 @@ let booleanOrder = false
 // ponto inicial de todas as outras funções
 async function atualizarDadosEmTempoReal() {
   try {
-    const resposta = await fetch('http://node_api:3000/tempo_real/monitoria');
+    const resposta = await fetch('/tempo_real/monitoria');
     const dados = await resposta.json();
     
     dadosServidores = dados.map(jsonServer => ({
