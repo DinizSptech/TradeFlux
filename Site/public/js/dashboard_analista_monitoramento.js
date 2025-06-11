@@ -596,7 +596,7 @@ const dataTeste = dataCopia.toLocaleString('pt-BR', {
 });
 
       lista.innerHTML += `<tr> 
-      <td>${servidorNome}</td>
+      <td style='border-left: 3px solid ${alerta.valor >= 80 ? cores.critico : cores.alerta}'>${servidorNome}</td>
       <td>${componente} ${alerta.valor}%</td>
       <td>${dataTeste}</td>
       <td>${alerta.idjira}</td>
@@ -649,10 +649,9 @@ setInterval(() => {
       }
   }
 
-    var altura = '260'
-    var largura = '412'
+    var altura = '100%'
+    var largura = '100%'
     var velocidade = 200
-    var locura = 3000
     
 // CONFIGURA O GRÁFICO DE LINHAS DE COMPONENTES
 window.Apex = {
@@ -747,7 +746,8 @@ var optionsLineFisico = {
     text: "Percentual",
     floating: true,
     align: "right",
-    offsetY: 3,
+    offsetY: 30,
+    offsetX: 10,
     style: {
       fontSize: "18px"
     }
@@ -762,7 +762,7 @@ var optionsLineFisico = {
     position: "top",
     offsetY: -38,
     offsetX: -5,
-    fontSize: '20px'
+    fontSize: '22px'
   }
 };
 
@@ -863,7 +863,8 @@ var optionsLineRede = {
     text: "KB/s",
     floating: true,
     align: "right",
-    offsetY: 0,
+    offsetY: 30,
+    offsetX: 10,
     style: {
       fontSize: "22px"
     }

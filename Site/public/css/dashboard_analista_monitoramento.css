@@ -60,7 +60,7 @@ overflow-y: hidden;
   align-items: center;
   flex-direction: row;
   width: 100%;
-  padding: 1vw 1vh;
+  padding: 1vh 1vw;
 }
 
 .card {
@@ -243,7 +243,7 @@ tr.selected td{
   /* background-color: #161b22;
   border-radius: 8px;  */
   padding: 1.25vw; 
-  width: fit-content;
+  width: 30%;
   padding: 1vw;
   height: fit-content;
 }
@@ -412,10 +412,14 @@ tbody{
 
 .corpoAlerta{
   font-size: 20px;
+  border-right: 0;
+  border: 0;
 }
 
 .divisao{
   background-color: #f1efef; 
   border-top: 4px solid #d3d7e3;
   padding-top: 0.5%;
+  height: 100%;
+  width: 100%;
 }
