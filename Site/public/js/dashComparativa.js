@@ -1,6 +1,6 @@
 const DATACENTER = sessionStorage.getItem("DataCenter") || "1";
 
-let periodoAtual = "30dias";
+let periodoAtual = "7dias";
 let organizacaoDoSortAtual = { column: null, direction: null };
 let dadosProcessos = []
 let posicaoServidorAtual = 0;
@@ -136,7 +136,7 @@ async function baixarCSV(qualArquivo) {
 
   if(qualArquivo == "processos") {
 
-    arquivo = `client_datacenter${DATACENTER}Processos.csv`;
+    arquivo = `client_processos${DATACENTER}.csv`;
     caminho = "dadosRobertClient";
 
   } else if(qualArquivo == "servidores") {
@@ -200,6 +200,8 @@ function trocarVisibilidade(e) {
 
 function filtrar() {
   
+  dadosProcessos = [];
+
   let dadosServidor = obterDadosPeriodo(periodoAtual)
   // console.log(dadosServidor)
 
@@ -371,7 +373,7 @@ function geradorGraficos(tipo, servidor, segundoValor) {
           fontSize: "20px",
           colors: "#000000",
         },
-        text: media ? `Comparação média do servidor escolhido (${servidor.servidor}) com Datacenter ${DATACENTER}` : `Comparação média do servidor ${servidor.servidor} com servidor ${servidor.servidor}`,
+        text: media ? `Comparação média do servidor escolhido (${servidor.servidor}) com Datacenter ${DATACENTER}` : `Comparação média do servidor ${servidor.servidor} com servidor ${segundoValor.servidor}`,
         align: "center",
       },
       chart: {
@@ -388,10 +390,6 @@ function geradorGraficos(tipo, servidor, segundoValor) {
           barHeight: "50%",
         },
       },
-      colors: [
-        "#5A8DEE", // Azul claro
-        "#FF7F7F", // Vermelho claro
-      ],
       dataLabels: {
         enabled: true,
         offsetX: 20,
@@ -406,7 +404,7 @@ function geradorGraficos(tipo, servidor, segundoValor) {
           data: dados2,
         },
         {
-          name: `Servidor ${segundoValor.servidor}`,
+          name: media ? `Servidor ${servidor.servidor}` : `Servidor ${segundoValor.servidor}`,
           data: dados,
         },
       ],
@@ -619,6 +617,7 @@ function geradorGraficos(tipo, servidor, segundoValor) {
 function gerarTable(data) {
   const tbody = document.getElementById("tableBody");
   tbody.innerHTML = "";
+  console.log(data)
 
   data.slice(0, 5).forEach((row) => {
     const tr = document.createElement("tr");
@@ -760,12 +759,13 @@ if (serverInputs.length > 0) {
     item.addEventListener("change", selecionandoServidor);
   });
 
+  
+}
+
 document.getElementsByName("serverSlt").forEach(function (item) {
-  item.addEventListener("change", comparacaoServidores());
+  item.addEventListener("change", comparacaoServidores);
   console.log("Evento change disparado!");
 });
-
-}
 
 // Muda a cor dos botões
 [...document.getElementsByClassName("botao-filtro")].forEach(
