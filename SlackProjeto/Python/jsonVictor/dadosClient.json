@@ -1,0 +1,597 @@
+[
+  {
+    "valor": 2064.9,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1961.4,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2717.2,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2147.8,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 1986.1,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 1999.1,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2004.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2090.9,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 2211.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2366.1,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2455.9,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2630.5,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2897.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 3098.5,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 3369.8,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 3810.3,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 3968.3,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 4451.6,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 4783.1,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5129.1,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5620.1,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6529.6,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6530.8,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6849.8,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7937.8,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7207.3,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 8095.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 7954.3,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 8289.8,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6010.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 7047.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 3074.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5436.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 564.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6021.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 7140.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6854.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 1646.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 4966.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1844.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 442.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 4754.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6895.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2628.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 1759.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2794.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 5237.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5968.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 3140.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 5750.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5087.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 551.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2572.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2015.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6397.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 7990.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1213.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 7346.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 3740.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5725.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6157.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 1761.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 4849.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2127.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6873.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 1241.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 4070.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 3589.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7697.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5926.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6959.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 7273.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7037.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5581.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 4674.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 7420.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 4467.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6389.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 1400.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5554.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 1632.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 2754.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 4982.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5609.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5878.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 1561.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 4025.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1963.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6829.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6454.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6130.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7539.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7576.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 5982.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1563.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 4609.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 5957.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2061.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 4534.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 4590.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 1379.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 3988.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6396.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 7115.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 905.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2357.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 7454.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 810.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6836.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 2487.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 4721.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 690.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 6777.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 6616.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 5818.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 5768.0,
+    "ano": 2025,
+    "dataCenter": 2
+  },
+  {
+    "valor": 174.0,
+    "ano": 2025,
+    "dataCenter": 3
+  },
+  {
+    "valor": 3866.0,
+    "ano": 2025,
+    "dataCenter": 1
+  },
+  {
+    "valor": 6368.0,
+    "ano": 2025,
+    "dataCenter": 1
+  }
+]
