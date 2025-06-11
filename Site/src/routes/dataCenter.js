@@ -17,7 +17,7 @@ router.delete("/deletar/:idDataCenter", function (req, res) {
 
 router.post("/pegarServidores", async function (req, res) {
   // Link da Lambda feita na AWS:
-  const lambdaUrl = "https://cmu7qp7lb5exg53gb5umhnhuwy0eikhq.lambda-url.us-east-1.on.aws/";
+  const lambdaUrl = "https://orxjfwgfo4b4cl5gavd7ne5p5m0gtuxx.lambda-url.us-east-1.on.aws/";
 
   try {
     // Chama a lambda (Passa o datacenter 1 como parâmetro ou o que tiver dentro do corpo)
@@ -57,7 +57,7 @@ router.post("/pegarServidores", async function (req, res) {
 
 router.post("/pegarProcessos", async function (req, res) {
   // Link da Lambda feita na AWS:
-  const lambdaUrl = "https://v4ppbaib3kj5skfs4u6wrpvsku0qiwpx.lambda-url.us-east-1.on.aws/";
+  const lambdaUrl = "https://dc6djea6zumywibfwj4z7wlale0sbvhi.lambda-url.us-east-1.on.aws/";
 
   try {
     // Chama a lambda (Passa o datacenter 1 como parâmetro ou o que tiver dentro do corpo)

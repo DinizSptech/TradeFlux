@@ -32,7 +32,7 @@ router.get("/getStatusServidores/:dataCenter", function (req, res) {
     alertaController.getStatusServidores(req, res);
 })
 router.get("/getCorrelacao/:dataCenter", async function (req, res) {
-    const lambdaURL = 'https://cwemkvs63ctowalcyeshj7x2si0rnjxq.lambda-url.us-east-1.on.aws/';
+    const lambdaURL = 'https://phgutsegthbkimhzdg23xgqsga0tijgr.lambda-url.us-east-1.on.aws/';
     try {
         const response = await fetch(lambdaURL);
         const data = await response.json();
@@ -43,7 +43,7 @@ router.get("/getCorrelacao/:dataCenter", async function (req, res) {
     }
 });
 router.get("/attCrawler/:dataCenter", async function (req, res) {
-    const lambdaURL = 'https://6pa5v6fprgm4qcunkdolzipdzi0rkyzl.lambda-url.us-east-1.on.aws/';
+    const lambdaURL = 'https://7ha7gyxmloqncjfa43ozdn4oli0urnsv.lambda-url.us-east-1.on.aws/';
     try {
         const response = await fetch(lambdaURL);
         const data = await response.json();
