@@ -7,7 +7,7 @@ async function pegarPix(req, res) {
   const s3 = new AWS.S3();
 
   const params = {
-    Bucket: `client-pix`,
+    Bucket: `tradeflux-client`,
     Key: `dadosVictorClient/dadosClient.json`,
   };
 
