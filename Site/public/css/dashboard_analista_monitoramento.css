@@ -49,17 +49,18 @@ overflow-y: hidden;
   width: 100%;
 }
 
+
+.section{
+  padding: 0 1.04vw;
+}
+
 .head{
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
   width: 100%;
-}
-
-.section{
-  padding: 0 1.04vw;
-
+  padding: 1vw 1vh;
 }
 
 .card {
@@ -223,11 +224,11 @@ tr.selected td{
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  /* background-color: #f1efef; */
 }
 
 .linhas .box{
   margin: 10px;
+  height: 80%;
 }
 
 .content-area {
@@ -244,7 +245,6 @@ tr.selected td{
   padding: 1.25vw; 
   width: fit-content;
   padding: 1vw;
-  margin: 1vw;
   height: fit-content;
 }
 
@@ -314,7 +314,6 @@ tr.selected td{
 
 .lista.processos{ 
   max-height: 100%;
-
 }
 
 .side-gestao{
@@ -322,10 +321,12 @@ tr.selected td{
   flex-direction: row;
   justify-content: space-evenly;
   width: 48vw;
+  height: 100%;
 }
 
 .faixa-gestao{
   width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -333,10 +334,9 @@ tr.selected td{
 }
 
 .sec1{
-  margin: 20px;
   min-width: 100%;
   width: fit-content;
-  height: 150px;
+  height: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,9 +354,8 @@ tr.selected td{
 
 .alertas {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
-  width: 70%;
  height: 100%;
 }
 
@@ -403,6 +402,7 @@ tr.selected td{
 }
 
 .listagem{
+  overflow-x: hidden;
   padding: 0;
   padding-bottom: 10px;
 }
@@ -416,4 +416,14 @@ tbody{
   max-height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.corpoAlerta{
+  font-size: 20px;
+}
+
+.divisao{
+  background-color: #f1efef; 
+  border-top: 4px solid #d3d7e3;
+  padding-top: 0.5%;
 }

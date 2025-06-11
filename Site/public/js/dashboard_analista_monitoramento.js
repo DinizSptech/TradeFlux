@@ -588,13 +588,17 @@ function atualizarListaAlertas(alertas) {
     const componente = alerta.nomecomponente.includes('ram') ? 'RAM' : alerta.nomecomponente.includes('disco') ? 'DISCO' : 'CPU';
 
     const data = new Date(alerta.data_gerado);
-    const dataFormatada = data.toLocaleString('pt-BR', {
-      hour: '2-digit', minute: '2-digit'
-    });
+const dataCopia = new Date(data);
+dataCopia.setHours(dataCopia.getHours() + 3);
+const dataTeste = dataCopia.toLocaleString('pt-BR', {
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
       lista.innerHTML += `<tr> 
       <td>${servidorNome}</td>
-      <td>${componente} ${alerta.valor}</td>
-      <td>${dataFormatada}</td>
+      <td>${componente} ${alerta.valor}%</td>
+      <td>${dataTeste}</td>
       <td>${alerta.idjira}</td>
       </tr>
       `;
@@ -682,7 +686,8 @@ window.Apex = {
     opposite: true,
     labels: {
       offsetX: -10
-    }
+    },
+    max: 100
   }
 };
 
@@ -755,8 +760,9 @@ var optionsLineFisico = {
       toggleDataSeries: false
     },
     position: "top",
-    offsetY: -35,
-    offsetX: 0
+    offsetY: -38,
+    offsetX: -5,
+    fontSize: '20px'
   }
 };
 
@@ -870,8 +876,9 @@ var optionsLineRede = {
       toggleDataSeries: false
     },
     position: "top",
-    offsetY: -35,
-    offsetX: 0
+    offsetY: -45,
+    offsetX: -5,
+    fontSize: '20px'
   }
 };
 
