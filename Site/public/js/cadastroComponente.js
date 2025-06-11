@@ -236,16 +236,16 @@ function servidorModalEficiencia(servidor){
   for (let i = 0; i < servidorModal.length; i++) {
     if (servidor == servidorModal[i]){
       if(nomeComponenteModal[i] == "cpu_percentual"){
-        document.getElementById("limiarAtencaoCPUModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
-        document.getElementById("limiarCriticoCPUModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+        document.getElementById("limiarAtencaoCPUModal").innerHTML = `⚠️ Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoCPUModal").innerHTML = `🚨 Limiar Alerta Crítico: ${limiarCritico[i]}%`
       } 
       if(nomeComponenteModal[i] == "ram_percentual"){
-        document.getElementById("limiarAtencaoRAMModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
-        document.getElementById("limiarCriticoRAMModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+        document.getElementById("limiarAtencaoRAMModal").innerHTML = `⚠️ Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoRAMModal").innerHTML = `🚨 Limiar Alerta Crítico: ${limiarCritico[i]}%`
       } 
       if(nomeComponenteModal[i] == "disco_percentual"){
-        document.getElementById("limiarAtencaoDiscoModal").innerHTML = `🟡 Limiar Alerta Atenção: ${limiarAtencao[i]}%`
-        document.getElementById("limiarCriticoDiscoModal").innerHTML = `🔴 Limiar Alerta Crítico: ${limiarCritico[i]}%`
+        document.getElementById("limiarAtencaoDiscoModal").innerHTML = `⚠️ Limiar Alerta Atenção: ${limiarAtencao[i]}%`
+        document.getElementById("limiarCriticoDiscoModal").innerHTML = `🚨 Limiar Alerta Crítico: ${limiarCritico[i]}%`
       } 
     }
   }

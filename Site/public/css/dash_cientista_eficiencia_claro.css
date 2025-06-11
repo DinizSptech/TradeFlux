@@ -180,17 +180,38 @@ th{
 
 .modal {
     flex-direction: column;
-    height: 28vw;
+    height: 30vw;
     width: 32vw;
     background-color: #ffffff;
     z-index: 100;
     border-radius: 1vw;
-    border: solid 3px #525252;
+    border: solid 5px #23283a;
     position: absolute;
     left: 35vw;
     top: 10vw;
     animation: fadeIn 0.5s both;
 }
+
+.modalkpi {
+    display: flex;
+    flex-direction: column;
+    height: 13vw;
+    width: 32vw;
+    background-color: #ffffff;
+    z-index: 100;
+    padding: 1vw;
+    border-radius: 1vw;
+    border: solid 5px #23283a;
+    position: absolute;
+    left: 35vw;
+    top: 10vw;
+    animation: fadeIn 0.5s both;
+}
+
+.modal2 {
+    height: 20vw;
+}
+
 
 .linha1Modal {
     display: flex;

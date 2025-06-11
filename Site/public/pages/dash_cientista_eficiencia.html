@@ -20,7 +20,8 @@
   <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
 </head>
 
-<body onload=" chamarDadosAWS(); carregarMenuLateral(); exibirServidorNoSelect(); exibirComponentes(); renderizarPerfilUsuario()">
+<body
+  onload=" chamarDadosAWS(); carregarMenuLateral(); exibirServidorNoSelect(); exibirComponentes(); renderizarPerfilUsuario()">
   <div id="sistema_modais">
   </div>
   <div class="navbar" id="div_navbar">
@@ -31,25 +32,59 @@
 
     <!-- Modal de servidor -->
 
-     <div id="backdrop" class="backdrop"></div>
+    <div id="backdrop" class="backdrop"></div>
 
-     <div class="modal" id="modalServidor" style="display: none;">
+    <div class="modal" id="modalServidor" style="display: none;">
       <div class="linha1Modal">
         <span class="titulo" id="servidorModalSelecionado" style="color: #2b2b2b;"></span>
         <i onclick="fecharModalServidor()" class="fa-solid fa-xmark"></i>
       </div>
       <div class="contentModal">
         <div class="caracteristicas_servidorModal">
-            <span id="ram_totalModal"></span>
-            <span id="disco_totalModal"></span>
-            <span id="cpuModal"></span>
-            <span id="soModal"></span> <br>
-           <span class="componente">CPU <br> <span class="infoComponente" id="limiarCriticoCPUModal"></span> <br> <span class="infoComponente" id="limiarAtencaoCPUModal"></span> </span> <br>
-           <span class="componente">RAM <br> <span class="infoComponente" id="limiarCriticoRAMModal"></span> <br> <span class="infoComponente"  id="limiarAtencaoRAMModal"></span> </span> <br>
-           <span class="componente">Disco <br><span class="infoComponente" id="limiarCriticoDiscoModal"></span> <br> <span class="infoComponente"   id="limiarAtencaoDiscoModal"></span> </span>
-          </div>
+          <span id="ram_totalModal"></span>
+          <span id="disco_totalModal"></span>
+          <span id="cpuModal"></span>
+          <span id="soModal"></span> <br> ------------------------------------------
+          <span class="componente">CPU <br> <span class="infoComponente" id="limiarCriticoCPUModal"></span> <br> <span
+              class="infoComponente" id="limiarAtencaoCPUModal"></span> </span> <br>
+          ------------------------------------------
+          <span class="componente">RAM <br> <span class="infoComponente" id="limiarCriticoRAMModal"></span> <br> <span
+              class="infoComponente" id="limiarAtencaoRAMModal"></span> </span> <br>
+          ------------------------------------------
+          <span class="componente">Disco <br><span class="infoComponente" id="limiarCriticoDiscoModal"></span> <br>
+            <span class="infoComponente" id="limiarAtencaoDiscoModal"></span> </span>
+        </div>
       </div>
-    </div> 
+    </div>
+
+    <div class="modalkpi" id="modalInfo1" style="display: none;">
+      <div class="linha1Modal">
+        <span class="titulo" style="color: #2b2b2b;">🛈 Sobre a ociosidade do servidor</span>
+        <i onclick="fecharModalKpi1()" class="fa-solid fa-xmark"></i>
+      </div>
+      <span class="info">
+        O ideal é que o tempo médio de ociosidade por servidor fique em <strong>10%</strong>.
+        Ociosidade alta pode indicar <strong>subutilização de recursos</strong>, <strong>gastos desnecessários</strong>
+        e <strong>baixa eficiência operacional</strong>.
+      </span>
+    </div>
+
+    <div class="modalkpi modal2" id="modalInfo2" style="display: none;">
+      <div class="linha1Modal">
+        <span class="titulo" style="color: #2b2b2b;">🛈 Sobre a ociosidade dos componentes</span>
+        <i onclick="fecharModalKpi2()" class="fa-solid fa-xmark"></i>
+      </div>
+      <span class="info">
+        <strong>RAM e Disco</strong>: o ideal é manter a ociosidade em até<strong> 25%</strong>,
+        valores muito altos indicam <strong>recursos subutilizados</strong>, gerando <strong>desperdício de
+          capacidade</strong> e <strong>custo desnecessário</strong>.<br><br>
+        <strong>CPU</strong>: deve apresentar até <strong>5% de ociosidade</strong>,
+        ociosidade muito alta pode significar <strong>processamento ocioso</strong> e <strong>baixa eficiência da
+          aplicação</strong>.
+      </span>
+
+
+    </div>
 
     <div class="main">
       <div class="kpis">
@@ -62,7 +97,7 @@
             </button>
             <button
               onclick="ativarBotao(this, '30dias'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
-              id="30dias" class="botaoTempo">  Últimos <br> 30
+              id="30dias" class="botaoTempo"> Últimos <br> 30
               dias </button>
             <button
               onclick="ativarBotao(this, '3meses'); kpi1_geral(); kpi2_geral(); carregarServidores(); graficoLinha(); graficoBarra(); desempenhoComponentes(); graficoPie()"
@@ -166,7 +201,7 @@
         graficoTempo7diasCPU.push(data[12])
         graficoTempo7diasRAM.push(data[13])
         graficoTempo7diasDisco.push(data[14])
-        
+
         sessionStorage.setItem("botaoTempo", '7dias');
         kpi1_geral();
         kpi2_geral();
@@ -211,15 +246,15 @@
       kpi1 = mediaOciosidadeServidor[0]
 
       if (kpi1 < idealKpi1) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ruim")
         indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 168) * 100)).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi1) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 / 168) * 100)- 10).toFixed(1)}% a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 168) * 100) - 10).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
-        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 168) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ideal")
         indicador1.classList.replace("indicador-ruim", "indicador-ideal")
         indicadorKpi1.innerHTML = `Ideal`
@@ -229,15 +264,15 @@
       kpi1 = mediaOciosidadeServidor[1]
 
       if (kpi1 < idealKpi2) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ruim")
         indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 720) * 100)).toFixed(1)}% abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi2) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 / 720) * 100) - 10).toFixed(1)}%  a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 720) * 100) - 10).toFixed(1)}%  acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
-        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 720) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ideal")
         indicador1.classList.replace("indicador-ruim", "indicador-ideal")
         indicadorKpi1.innerHTML = `Ideal`
@@ -249,15 +284,15 @@
       kpi1 = mediaOciosidadeServidor[2]
 
       if (kpi1 < idealKpi3) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%  <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i> `;
         indicador1.classList.add("indicador-ruim")
         indicadorKpi1.innerHTML = `${(10 - ((kpi1 / 2160) * 100)).toFixed(1)}%  abaixo do ideal <i class="fa-solid fa-arrow-trend-down"></i>`
       } else if (kpi1 > idealKpi3) {
-        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ruim")
-        indicadorKpi1.innerHTML = `${(((kpi1 / 2160) * 100) - 10).toFixed(1)}% a mais do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
+        indicadorKpi1.innerHTML = `${(((kpi1 / 2160) * 100) - 10).toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
       } else {
-        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}%`;
+        mediaOciosidade.innerHTML = `${((kpi1 / 2160) * 100).toFixed(1)}% <i onclick="abrirModalKpi1()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`;
         indicador1.classList.add("indicador-ideal")
         indicador1.classList.replace("indicador-ruim", "indicador-ideal")
         indicadorKpi1.innerHTML = `Ideal`
@@ -282,61 +317,45 @@
     console.log(componentes)
 
 
-    var idealCPU3meses = 90 * 1440 * 0.1 * 10
-    var idealCPU30dias = 30 * 1440 * 0.1 * 10
-    var idealCPU7dias = 7 * 1440 * 0.1 * 10
-
-
-    var idealRAM3meses = 90 * 1440 * 0.35 * 10
-    var idealRAM30dias = 30 * 1440 * 0.35 * 10
-    var idealRAM7dias = 7 * 1440 * 0.35 * 10
-
-    var idealDisco3meses = 90 * 1440 * 0.35 * 10
-    var idealDisco30dias = 30 * 1440 * 0.35 * 10
-    var idealDisco7dias = 7 * 1440 * 0.35 * 10
-
-
-
-
     if (sessionStorage.botaoTempo == '7dias') {
       componenteOciosidade.innerHTML = componentes[0]
       if (componentes[0] == 'CPU') {
-        componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][0] /600).toFixed(2)}h`
-        percentual = ((media[0][0] - idealCPU7dias) / idealCPU7dias) * 100
+        componenteOciosidade.innerHTML = `${componentes[0]} | ${componentes[0]} | ${(((media[0][0] / 420) / 168) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[0][0] / 420) / 168) * 100).toFixed(1) - 5
       } else if (componentes[0] == 'RAM') {
-         componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][1] /600).toFixed(2)}h` 
-        percentual = ((media[0][1] - idealRAM7dias) / idealRAM7dias) * 100  
+        componenteOciosidade.innerHTML = `${componentes[0]} | ${componentes[0]} | ${(((media[0][1] / 420) / 168) * 100).toFixed(1)}% <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[0][1] / 420) / 168) * 100).toFixed(1) - 25
       } else {
-        componenteOciosidade.innerHTML = `${componentes[0]} | ${(media[0][2] /600).toFixed(2)}h` 
-        percentual = ((media[0][2] - idealDisco7dias) / idealDisco7dias) * 100
+        componenteOciosidade.innerHTML = `${componentes[0]} | ${(((media[0][2] / 420) / 168) * 100).toFixed(1)}% <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[0][2] / 420) / 168) * 100).toFixed(1) - 25
       }
       indicador2.classList.add('indicador-ruim')
       indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
     } else if (sessionStorage.botaoTempo == '30dias') {
-    
+
       if (componentes[1] == 'CPU') {
-        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][0] /600).toFixed(2)}h` 
-        percentual = ((media[1][0] - idealCPU30dias) / idealCPU30dias) * 100
+        componenteOciosidade.innerHTML = `${componentes[1]} |${(((media[1][0] / 420) / 720) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual =  (((media[1][0] / 420) / 720) * 100).toFixed(1) - 5
       } else if (componentes[1] == 'RAM') {
-        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][1] /600).toFixed(2)}h` 
-        percentual = ((media[1][1] - idealRAM30dias) / idealRAM30dias) * 100
+        componenteOciosidade.innerHTML = `${componentes[1]} | ${(((media[1][1] / 420) / 720) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[1][1] / 420) / 720) * 100).toFixed(1) - 25
       } else {
-        componenteOciosidade.innerHTML = `${componentes[1]} | ${(media[1][2] /600).toFixed(2)}h` 
-        percentual = ((media[1][2] - idealDisco30dias) / idealDisco30dias) * 100
+        componenteOciosidade.innerHTML = `${componentes[1]} | ${(((media[1][2] / 420) / 720) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[1][2] / 420) / 720) * 100).toFixed(1) - 25
       }
       indicador2.classList.add('indicador-ruim')
       indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
     } else {
-    
+
       if (componentes[2] == 'CPU') {
-        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][0] /600).toFixed(2)}h` 
-        percentual = ((media[2][0] - idealCPU3meses) / idealCPU3meses) * 100
+        componenteOciosidade.innerHTML = `${componentes[2]} | ${(((media[2][0] / 420) / 2190) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[2][0] / 420) / 2190) * 100).toFixed(1) - 5
       } else if (componentes[2] == 'RAM') {
-        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][1] /600).toFixed(2)}h` 
-        percentual = ((media[2][1] - idealRAM3meses) / idealRAM3meses) * 100
+        componenteOciosidade.innerHTML = `${componentes[2]} |  ${(((media[2][1] / 420) / 2190) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[2][1] / 420) / 2190) * 100).toFixed(1) - 25
       } else {
-        componenteOciosidade.innerHTML = `${componentes[2]} | ${(media[2][2] /600).toFixed(2)}h` 
-        percentual = ((media[2][2] - idealDisco3meses) / idealDisco3meses) * 100
+        componenteOciosidade.innerHTML = `${componentes[2]} | ${(((media[2][2] / 420) / 2190) * 100).toFixed(1)}%  <i onclick= "abrirModalKpi2()" style = "font-size: 20px" class="fa-solid fa-circle-info"></i>`
+        percentual = (((media[2][2] / 420) / 2190) * 100).toFixed(1) - 25
       }
       indicador2.classList.add('indicador-ruim')
       indicadorKpi2.innerHTML = `${percentual.toFixed(1)}% acima do ideal <i class="fa-solid fa-arrow-trend-up"></i>`
@@ -379,25 +398,25 @@
     tabela30dias.sort((a, b) => b.valor - a.valor);
     tabela3meses.sort((a, b) => b.valor - a.valor);
 
-    var valorIdeal = 0
+    var valorTotal = 0
 
     if (sessionStorage.botaoTempo == '7dias') {
       tabela = tabela7dias
-      valorIdeal = 16.8
+      valorTotal = 168
     } else if (sessionStorage.botaoTempo == '30dias') {
       tabela = tabela30dias
-      valorIdeal = 72
+      valorTotal = 720
     } else {
       tabela = tabela3meses
-      valorIdeal = 216
+      valorTotal = 2190
     }
 
     for (var i = 0; i < Math.min(5, tabela.length); i++) {
 
-     let dias = Math.floor(tabela[i].valor / 24)
-     let horas = tabela[i].valor % 24
+      let dias = Math.floor(tabela[i].valor / 24)
+      let horas = tabela[i].valor % 24
 
-      let diferenca = ((tabela[i].valor - valorIdeal) / valorIdeal) * 100
+      let diferenca = ((tabela[i].valor / valorTotal) * 100)
 
       if (diferenca > 0) {
         status = 'fa-arrow-up'
@@ -411,7 +430,7 @@
             <td>Servidor ${tabela[i].servidor}</td>
             <td style >${dias}d e ${horas.toFixed(0)}h </td>
             <td style="color: crimson;">
-            ${diferenca.toFixed(0)}% 
+            ${diferenca.toFixed(1)}% 
             <i class="fa-solid ${status}"> </i>&nbsp;
             <i onclick="abrirModalServidor('${tabela[i].servidor}'); servidorModalEficiencia('${tabela[i].servidor}')" class="fa-solid fa-circle-info"></i> 
           </td>
@@ -423,12 +442,22 @@
 
   function abrirModalServidor(servidor) {
     servidorModalSelecionado.innerHTML = `Servidor ${servidor}`
-    const modalServidor = document.getElementById('modalServidor'); 
+    const modalServidor = document.getElementById('modalServidor');
     modalServidor.style.display = "flex";
     document.getElementById('backdrop').style.display = 'block';
-    
+  }
 
+  function abrirModalKpi1() {
+    const modalServidor = document.getElementById('modalInfo1');
+    modalServidor.style.display = "flex";
+    document.getElementById('backdrop').style.display = 'block';
+  }
 
+  
+  function abrirModalKpi2() {
+    const modalServidor = document.getElementById('modalInfo2');
+    modalServidor.style.display = "flex";
+    document.getElementById('backdrop').style.display = 'block';
   }
 
   function fecharModalServidor() {
@@ -436,7 +465,19 @@
     document.getElementById('backdrop').style.display = 'none';
   }
 
+  function fecharModalKpi1() {
+    document.getElementById('modalInfo1').style.display = 'none';
+    document.getElementById('backdrop').style.display = 'none';
+  }
+
+    function fecharModalKpi2() {
+    document.getElementById('modalInfo2').style.display = 'none';
+    document.getElementById('backdrop').style.display = 'none';
+  }
+
   document.getElementById('backdrop').addEventListener('click', fecharModalServidor);
+  document.getElementById('backdrop').addEventListener('click', fecharModalKpi1);
+  document.getElementById('backdrop').addEventListener('click', fecharModalKpi2);
 
 
   function graficoLinha() {
@@ -483,7 +524,7 @@
     });
 
     Object.entries(graficoSelecionadoDisco[0]).forEach(([data, valor]) => {
-    valoresDisco.push(Number(valor));
+      valoresDisco.push(Number(valor));
     });
 
     console.log(valoresCPU)
@@ -594,13 +635,13 @@
       kpi2AWS[0].ociosidade6meses
     ];
 
-    const converterParaHoras = array => array.map(e => Math.floor(e / 600));
+    const converterParaHoras = array => array.map(e => Math.floor(e / 420));
 
     const estabilidadeHoras = estabilidadeRaw.map(converterParaHoras);
     const ociosidadeHoras = ociosidadeRaw.map(converterParaHoras);
 
     const calcularAlerta = (total, estavel, ocioso) =>
-    estavel.map((e, i) => Math.max(0, Math.floor(total / 60) - e - ocioso[i]));
+      estavel.map((e, i) => Math.max(0, Math.floor(total / 60) - e - ocioso[i]));
 
 
     let estavelComponentes, ociosoComponentes, alertaComponentes;
@@ -753,120 +794,120 @@
   }
 
 
-    // Graficos modal
+  // Graficos modal
 
-    // var options4 = {
-    //   chart: {
-    //     type: "line",
-    //     width: '100%',   // 100% da div grafico1
-    //     height: '100%',
-    //     foreColor: '#ffffff',  // cor do texto clara
-    //     toolbar: {
-    //       show: true,
-    //       tools: {
-    //         download: true,
-    //         selection: false,
-    //         zoom: false,
-    //         zoomin: false,
-    //         zoomout: false,
-    //         pan: false,
-    //         reset: false
-    //       }
-    //     }
-    //   },
-    //   colors: ['#FFB133'], // cor da linha (e do preenchimento também)
-    //   dataLabels: {
-    //     enabled: false
-    //   },
-    //   series: [
-    //     {
-    //       name: "Series 1",
-    //       data: ociosidadeTempoValores
-    //     }
-    //   ],
-    //   fill: {
-    //     type: "solid",
+  // var options4 = {
+  //   chart: {
+  //     type: "line",
+  //     width: '100%',   // 100% da div grafico1
+  //     height: '100%',
+  //     foreColor: '#ffffff',  // cor do texto clara
+  //     toolbar: {
+  //       show: true,
+  //       tools: {
+  //         download: true,
+  //         selection: false,
+  //         zoom: false,
+  //         zoomin: false,
+  //         zoomout: false,
+  //         pan: false,
+  //         reset: false
+  //       }
+  //     }
+  //   },
+  //   colors: ['#FFB133'], // cor da linha (e do preenchimento também)
+  //   dataLabels: {
+  //     enabled: false
+  //   },
+  //   series: [
+  //     {
+  //       name: "Series 1",
+  //       data: ociosidadeTempoValores
+  //     }
+  //   ],
+  //   fill: {
+  //     type: "solid",
 
-    //   },
-    //   xaxis: {
-    //     categories: ociosidadeTempo,
-    //     labels: {
-    //       style: {
-    //         colors: '#ffffff' // texto dos rótulos do eixo x
-    //       }
-    //     }
-    //   },
-    //   yaxis: {
-    //     labels: {
-    //       style: {
-    //         colors: '#ffffff' // texto dos rótulos do eixo y
-    //       }
-    //     }
-    //   },
-    //   grid: {
-    //     borderColor: '#cccccc' // cor discreta para a grade
-    //   },
-    //   tooltip: {
-    //     enabled: true,
-    //     theme: 'dark' // tooltip escura
-    //   }
-    // };
+  //   },
+  //   xaxis: {
+  //     categories: ociosidadeTempo,
+  //     labels: {
+  //       style: {
+  //         colors: '#ffffff' // texto dos rótulos do eixo x
+  //       }
+  //     }
+  //   },
+  //   yaxis: {
+  //     labels: {
+  //       style: {
+  //         colors: '#ffffff' // texto dos rótulos do eixo y
+  //       }
+  //     }
+  //   },
+  //   grid: {
+  //     borderColor: '#cccccc' // cor discreta para a grade
+  //   },
+  //   tooltip: {
+  //     enabled: true,
+  //     theme: 'dark' // tooltip escura
+  //   }
+  // };
 
-    // var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
-    // chart4.render();
+  // var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+  // chart4.render();
 
 
-    // var options5 = {
-    //   series: [{
-    //     name: 'Estável',
-    //     data: estavelComponentes
-    //   }, {
-    //     name: 'Ocioso',
-    //     data: ociosoComponentes
-    //   }, {
-    //     name: 'Alerta',
-    //     data: alertaComponentes
-    //   }],
-    //   colors: ['#00B276', '#FFB133', '#FF4A4D'],
-    //   chart: {
-    //     type: 'bar',
-    //     height: 350,
-    //     foreColor: '#fff',
-    //     width: '100%',
-    //     height: '100%'
-    //   },
-    //   plotOptions: {
-    //     bar: {
-    //       horizontal: false,
-    //       columnWidth: '55%',
-    //       borderRadius: 0,
-    //       borderRadiusApplication: 'end'
-    //     },
-    //   },
+  // var options5 = {
+  //   series: [{
+  //     name: 'Estável',
+  //     data: estavelComponentes
+  //   }, {
+  //     name: 'Ocioso',
+  //     data: ociosoComponentes
+  //   }, {
+  //     name: 'Alerta',
+  //     data: alertaComponentes
+  //   }],
+  //   colors: ['#00B276', '#FFB133', '#FF4A4D'],
+  //   chart: {
+  //     type: 'bar',
+  //     height: 350,
+  //     foreColor: '#fff',
+  //     width: '100%',
+  //     height: '100%'
+  //   },
+  //   plotOptions: {
+  //     bar: {
+  //       horizontal: false,
+  //       columnWidth: '55%',
+  //       borderRadius: 0,
+  //       borderRadiusApplication: 'end'
+  //     },
+  //   },
 
-    //   stroke: {
-    //     show: true,
-    //     width: 2,
-    //     colors: ['transparent']
-    //   },
-    //   xaxis: {
-    //     categories: ['CPU', 'RAM', 'DISCO'],
-    //   },
-    //   yaxis: {
-    //     title: {
-    //       text: 'Horas'
-    //     }
-    //   },
-    //   fill: {
-    //     opacity: 1
-    //   },
-    //   tooltip: {
-    //     theme: 'dark'
-    //   }
-    // };
+  //   stroke: {
+  //     show: true,
+  //     width: 2,
+  //     colors: ['transparent']
+  //   },
+  //   xaxis: {
+  //     categories: ['CPU', 'RAM', 'DISCO'],
+  //   },
+  //   yaxis: {
+  //     title: {
+  //       text: 'Horas'
+  //     }
+  //   },
+  //   fill: {
+  //     opacity: 1
+  //   },
+  //   tooltip: {
+  //     theme: 'dark'
+  //   }
+  // };
 
-    // var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
-    // chart5.render();
+  // var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+  // chart5.render();
 
 
 
