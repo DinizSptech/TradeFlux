@@ -148,7 +148,7 @@ async function baixarCSV(qualArquivo) {
 
   try {
     const resposta = await fetch(
-      `http://3.230.80.85:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`
+      `http://44.197.125.73:3000/CSVs/csvTodosServidores/${arquivo}/${caminho}`
     );
 
     if (!resposta.ok) {
