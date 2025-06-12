@@ -55,7 +55,7 @@ function salvarCaptura(request, response) {
         console.log(`Buffer capturas: ${bufferCapturas.length}/240`);
         
         // Verificar se chegou a 240 registros
-        if (bufferCapturas.length >= 4) {
+        if (bufferCapturas.length >= 60) {
             const dadosParaEnviar = [...bufferCapturas];
             bufferCapturas = []; // Limpar buffer
             
@@ -87,7 +87,7 @@ function salvarAlerta(request, response) {
         console.log(`Buffer alertas: ${bufferAlertas.length}/100`);
         
         // Verificar se chegou a 100 registros
-        if (bufferAlertas.length >= 4) {
+        if (bufferAlertas.length >= 25) {
             const dadosParaEnviar = [...bufferAlertas];
             bufferAlertas = []; // Limpar buffer
             
